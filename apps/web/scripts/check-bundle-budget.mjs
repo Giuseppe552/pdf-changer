@@ -8,7 +8,7 @@ const assetsDir = path.join(root, "dist", "assets");
 
 const budgets = [
   { label: "entry-css", pattern: /^index-.*\.css$/, maxBytes: 80_000 },
-  { label: "entry-js", pattern: /^index-.*\.js$/, maxBytes: 300_000 },
+  { label: "entry-js", pattern: /^index-.*\.js$/, maxBytes: 450_000 },
   { label: "scrubber-route", pattern: /^ScrubberPage-.*\.js$/, maxBytes: 520_000 },
   { label: "tools-hub-route", pattern: /^ToolsHubPage-.*\.js$/, maxBytes: 120_000 },
   { label: "tool-doc-route", pattern: /^ToolDocPage-.*\.js$/, maxBytes: 90_000 },

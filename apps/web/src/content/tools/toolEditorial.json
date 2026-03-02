@@ -661,5 +661,38 @@
       "If the wrong language is detected, explicitly select the correct language from the dropdown.",
       "If processing stalls on large documents, reduce the max pages setting and process in batches."
     ]
+  },
+  "analyze": {
+    "howToSteps": [
+      "Drop a PDF into the analyzer and wait for the on-device scan to complete.",
+      "Read the risk badge at the top — it tells you the overall exposure level.",
+      "Review each finding for specific threats: GPS leaks, author identity, tracking beacons.",
+      "Check the metadata table and embedded image EXIF cards for raw field values.",
+      "Use the scrubber or privacy pipeline links at the bottom to neutralize what was found."
+    ],
+    "tips": [
+      "Run the analyzer before sharing any document externally to catch surprises.",
+      "Pay attention to critical findings first — GPS and JavaScript are the most dangerous.",
+      "Compare findings before and after scrubbing to verify cleanup worked."
+    ],
+    "limitations": [
+      "Analysis is read-only and does not modify the PDF in any way.",
+      "Encrypted or malformed PDFs fall back to byte-level scanning with reduced coverage."
+    ],
+    "useCases": {
+      "office-daily": "Check outbound reports for author names, edit timestamps, and software fingerprints before sending to clients.",
+      "secure-sharing": "Scan documents for GPS coordinates, tracking URLs, and embedded JavaScript before publishing or whistleblower submission.",
+      "high-volume": "Audit batches of received PDFs for hidden beacons, revision history, and embedded file attachments."
+    },
+    "faq": {
+      "what-it-does": "It scans the PDF structure, embedded images, and raw bytes for metadata, EXIF, tracking vectors, and security risks.",
+      "data-safety": "Everything runs locally in your browser. No PDF bytes are uploaded or transmitted.",
+      "limitations": "It detects and reports threats but does not remove them. Use the scrubber for cleanup."
+    },
+    "troubleshooting": [
+      "If the analyzer reports zero findings on a suspicious file, the PDF may be encrypted — try unlocking it first.",
+      "If EXIF markers are detected but not parsed, the image format may be unsupported — the warning still flags the risk.",
+      "If analysis takes long on large files, this is normal — byte-level scanning scales with file size."
+    ]
   }
 }

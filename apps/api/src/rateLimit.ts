@@ -6,6 +6,7 @@ export async function rateLimit(
   key: string,
   opts: { limit: number; windowSeconds: number },
 ): Promise<RateLimitResult> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- CF Workers caches.default isn't typed
   const cache = (caches as any).default as Cache;
   const cacheKey = new Request(`https://rate-limit.invalid/${encodeURIComponent(key)}`);
   const cached = await cache.match(cacheKey);
