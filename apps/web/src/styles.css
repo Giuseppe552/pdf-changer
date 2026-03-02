@@ -99,4 +99,37 @@ a {
   .ui-subtitle {
     @apply text-base text-neutral-700;
   }
+
+  .term {
+    position: relative;
+    cursor: help;
+    border-bottom: 1px dotted var(--ui-border-strong);
+  }
+
+  .term-tip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 240px;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    padding: 6px 10px;
+    border-radius: var(--ui-radius);
+    background: #1e293b;
+    color: #f8fafc;
+    pointer-events: none;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    z-index: 50;
+    text-align: left;
+    font-weight: normal;
+  }
+
+  .term:hover .term-tip,
+  .term:focus-within .term-tip {
+    visibility: visible;
+    opacity: 1;
+  }
 }
