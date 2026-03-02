@@ -1,0 +1,10 @@
+PDF Changer Donation Addresses
+Generated: 2026-02-20
+
+BTC: bc1qpdfchangerexample8h4x4n7qk0r6xw2f6f0p7m3q9a
+ETH: 0x7E57f6BfA3f8e7864A6f5F0469C88b3d4A58cB2E
+XMR: 89aJ9N9dYcXPPDFChangerExampleYwR9FoJ8jCQ4fVQk3v7eML6zvQxR1VdAayhE2qkGgKV9Yv7QzYt8fYXs5U7nYmxnq6Gr3m
+
+Policy:
+- Addresses rotate only with a new signed proof file.
+- Verify signature and fingerprint before sending.

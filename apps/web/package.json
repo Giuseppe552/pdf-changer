@@ -1,0 +1,53 @@
+{
+  "name": "@pdf-changer/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "audit:copy-quality": "node ./scripts/audit-copy-quality.mjs",
+    "validate:copy-quality": "node ./scripts/validate-copy-quality.mjs",
+    "rewrite-queue:copy-quality": "node ./scripts/copy-quality/rewrite-queue.mjs",
+    "validate:security-content": "node ./scripts/validate-security-content.mjs",
+    "validate:tools-content": "node ./scripts/validate-tools-content.mjs",
+    "validate:tool-doc-quality": "node ./scripts/validate-tool-doc-quality.mjs",
+    "validate:donate-proof": "node ./scripts/validate-donate-proof.mjs",
+    "check:bundle-budget": "node ./scripts/check-bundle-budget.mjs",
+    "build": "npm run validate:security-content && npm run validate:tools-content && npm run validate:tool-doc-quality && npm run validate:copy-quality && npm run validate:donate-proof && tsc -p tsconfig.json --noEmit && vite build && npm run check:bundle-budget",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@pdf-changer/shared": "0.1.0",
+    "@simplewebauthn/browser": "^10.0.0",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^4.10.38",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.1",
+    "react-router-dom": "^6.26.2",
+    "remark-gfm": "^4.0.0",
+    "tesseract.js": "^5.1.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@tailwindcss/typography": "^0.5.13",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.12",
+    "globals": "^15.9.0",
+    "postcss": "^8.4.41",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.4.0",
+    "vite": "^5.4.2",
+    "vite-plugin-pwa": "^0.20.5",
+    "vitest": "^2.0.5"
+  }
+}

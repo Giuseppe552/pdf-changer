@@ -1,0 +1,19 @@
+{
+  "unsupportedTrustClaim": [
+    "no tool guarantees legal anonymity or endpoint safety",
+    "it does not guarantee legal anonymity",
+    "what this does not protect",
+    "defensive security guidance",
+    "privacy and safety only",
+    "use this hub to understand limits before action"
+  ],
+  "futurePromiseWithoutContract": [
+    "max scrub / rasterize mode is planned"
+  ],
+  "weakCta": [
+    "open tool",
+    "view collection",
+    "open account setup",
+    "open scrubber"
+  ]
+}

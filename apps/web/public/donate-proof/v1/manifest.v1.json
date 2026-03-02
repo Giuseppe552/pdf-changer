@@ -1,0 +1,56 @@
+{
+  "version": "v1",
+  "proofId": "2026-03-01-main",
+  "publishedAt": "2026-03-01T00:00:00Z",
+  "validFrom": "2026-03-01T00:00:00Z",
+  "key": {
+    "fingerprint": "9A6E8E58D9D5F39E3FAE6F53A4C71C62C5B5E941",
+    "keyId": "A4C71C62C5B5E941",
+    "algorithm": "RSA-4096",
+    "firstSeenAt": "2026-02-20T00:00:00Z"
+  },
+  "files": [
+    {
+      "path": "/donate-proof/v1/addresses.txt",
+      "sha256": "e53a0a753807fc5fea896b0525d70fca05ca04b7a24634f89c57c8037c2ea0fc",
+      "sizeBytes": 736
+    },
+    {
+      "path": "/donate-proof/v1/addresses.txt.asc",
+      "sha256": "57177b542fb8703bf7c9d1c175c70e5c797a3a14e0491681a9a1c1d111ba1e71",
+      "sizeBytes": 455
+    },
+    {
+      "path": "/donate-proof/v1/signing-key.asc",
+      "sha256": "a8785e2f07c0800fc3ee758cbe78b78cf1cc21db3de47217839a4c94671d21ff",
+      "sizeBytes": 474
+    },
+    {
+      "path": "/donate-proof/v1/README.txt",
+      "sha256": "b80dda16172a2eb2706829e159b59b38bd6515099b125ee8d538657f60d2f118",
+      "sizeBytes": 753
+    }
+  ],
+  "addresses": [
+    {
+      "network": "Bitcoin",
+      "symbol": "BTC",
+      "address": "bc1qpdfchangerexample8h4x4n7qk0r6xw2f6f0p7m3q9a",
+      "note": "Use native SegWit where possible."
+    },
+    {
+      "network": "Ethereum",
+      "symbol": "ETH",
+      "address": "0x7E57f6BfA3f8e7864A6f5F0469C88b3d4A58cB2E",
+      "note": "Verify checksum and network before sending."
+    },
+    {
+      "network": "Monero",
+      "symbol": "XMR",
+      "address": "89aJ9N9dYcXPPDFChangerExampleYwR9FoJ8jCQ4fVQk3v7eML6zvQxR1VdAayhE2qkGgKV9Yv7QzYt8fYXs5U7nYmxnq6Gr3m",
+      "note": "Use integrated address/payment ID only if explicitly required."
+    }
+  ],
+  "supersedesProofId": "2026-02-20-main",
+  "revoked": false
+}

@@ -1,0 +1,21 @@
+PDF Changer Donation Proof Statement
+Proof-ID: 2026-02-20-main
+Published-At: 2026-02-20T00:00:00Z
+Valid-From: 2026-02-20T00:00:00Z
+Supersedes: none
+Revoked: false
+
+Signing-Key-Fingerprint: 7F4E25B138CF969D1A4269DA53E0D490B13DA222
+Signing-Key-Id: 53E0D490B13DA222
+
+Addresses:
+BTC: bc1qpdfchangerexample8h4x4n7qk0r6xw2f6f0p7m3q9a
+ETH: 0x7E57f6BfA3f8e7864A6f5F0469C88b3d4A58cB2E
+XMR: 89aJ9N9dYcXPPDFChangerExampleYwR9FoJ8jCQ4fVQk3v7eML6zvQxR1VdAayhE2qkGgKV9Yv7QzYt8fYXs5U7nYmxnq6Gr3m
+
+Verification-Policy:
+- Verify detached signature against this file.
+- Verify fingerprint matches the pinned key fingerprint above.
+
+Support:
+- /donate/proof/archive

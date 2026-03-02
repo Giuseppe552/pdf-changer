@@ -1,0 +1,2173 @@
+{
+  "generatedAt": "2026-02-21T00:03:25.896Z",
+  "scannedFiles": 119,
+  "unitCount": 1945,
+  "summary": {
+    "findingCount": 40,
+    "pageCount": 86,
+    "severityCounts": {
+      "critical": 0,
+      "bullshit": 20,
+      "shit": 4,
+      "fuck-off": 16
+    },
+    "issueCounts": {
+      "unsupported-trust-claim": 12,
+      "future-promise-without-contract": 8,
+      "placeholder-scaffold-copy": 4,
+      "jargon-without-definition": 16
+    }
+  },
+  "pages": [
+    {
+      "route": "/",
+      "routeType": "hub",
+      "cluster": "core",
+      "unitCount": 45,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.6666666666666666,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/__shared__/tool-runner",
+      "routeType": "shared",
+      "cluster": "shared",
+      "unitCount": 14,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/__shared__/tools-doc-page",
+      "routeType": "shared",
+      "cluster": "shared",
+      "unitCount": 10,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/__shared__/tools-docs-content",
+      "routeType": "shared",
+      "cluster": "shared",
+      "unitCount": 294,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.7060931899641577,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 2,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 84
+    },
+    {
+      "route": "/__shared__/ui",
+      "routeType": "shared",
+      "cluster": "shared",
+      "unitCount": 16,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/__system__/not-found",
+      "routeType": "shared",
+      "cluster": "shared",
+      "unitCount": 4,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/__system__/route-error",
+      "routeType": "shared",
+      "cluster": "shared",
+      "unitCount": 13,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.75,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/account",
+      "routeType": "transactional",
+      "cluster": "core",
+      "unitCount": 24,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/blog",
+      "routeType": "hub",
+      "cluster": "blog",
+      "unitCount": 34,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5384615384615384,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/blog/:category/:slug",
+      "routeType": "article",
+      "cluster": "blog",
+      "unitCount": 16,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/blog/basics/anonymity-101",
+      "routeType": "article",
+      "cluster": "blog",
+      "unitCount": 30,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.4857142857142857,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 1,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 92
+    },
+    {
+      "route": "/blog/basics/pgp-in-plain-english",
+      "routeType": "article",
+      "cluster": "blog",
+      "unitCount": 16,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 1,
+      "actionableSentenceRatio": 0.3125,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/blog/basics/using-pdf-changer-offline",
+      "routeType": "article",
+      "cluster": "blog",
+      "unitCount": 13,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 1,
+      "actionableSentenceRatio": 0.8125,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/blog/documents/what-metadata-is-and-why-it-matters",
+      "routeType": "article",
+      "cluster": "blog",
+      "unitCount": 26,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/blog/documents/why-links-and-forms-are-removed",
+      "routeType": "article",
+      "cluster": "blog",
+      "unitCount": 17,
+      "claimCount": 2,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 2,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 84
+    },
+    {
+      "route": "/blog/opsec/device-and-network-basics",
+      "routeType": "article",
+      "cluster": "blog",
+      "unitCount": 28,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5555555555555556,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/blog/opsec/printer-tracking-dots",
+      "routeType": "article",
+      "cluster": "blog",
+      "unitCount": 10,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.45454545454545453,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/blog/submissions/sharing-documents-to-journalists",
+      "routeType": "article",
+      "cluster": "blog",
+      "unitCount": 16,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.42857142857142855,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/contact",
+      "routeType": "support",
+      "cluster": "support",
+      "unitCount": 7,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/content/:section/:slug",
+      "routeType": "support",
+      "cluster": "support",
+      "unitCount": 3,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/donate",
+      "routeType": "transactional",
+      "cluster": "donate",
+      "unitCount": 30,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.8,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/donate/proof",
+      "routeType": "support",
+      "cluster": "donate",
+      "unitCount": 95,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.625,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/donate/proof/archive",
+      "routeType": "support",
+      "cluster": "donate",
+      "unitCount": 25,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.3333333333333333,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/donate/transparency",
+      "routeType": "support",
+      "cluster": "donate",
+      "unitCount": 22,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.9,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 4,
+        "fuck-off": 0
+      },
+      "score": 84
+    },
+    {
+      "route": "/faq",
+      "routeType": "hub",
+      "cluster": "faq",
+      "unitCount": 22,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.4444444444444444,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/faq/:topic",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 18,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.45454545454545453,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/faq/:topic/:slug",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 11,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/faq/account-and-privacy/how-do-recovery-codes-work",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 15,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.4,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/faq/account-and-privacy/what-data-do-you-store-for-accounts",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 16,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.42857142857142855,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/faq/anonymity-basics/can-any-tool-guarantee-anonymity",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 16,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5625,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 1
+      },
+      "score": 99
+    },
+    {
+      "route": "/faq/anonymity-basics/what-is-a-threat-model",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 15,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.35294117647058826,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 1,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 92
+    },
+    {
+      "route": "/faq/anonymity-basics/what-is-anonymous-document-sharing",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 16,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.3333333333333333,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 1,
+        "shit": 0,
+        "fuck-off": 1
+      },
+      "score": 91
+    },
+    {
+      "route": "/faq/device-opsec/should-i-use-a-work-device",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 15,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.4666666666666667,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 1,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 92
+    },
+    {
+      "route": "/faq/legal-and-risk/is-this-legal-advice",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 16,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.16666666666666666,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/faq/legal-and-risk/what-if-im-under-immediate-risk",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 16,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.1875,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/faq/metadata/can-you-remove-names-inside-the-document",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 16,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.6666666666666666,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/faq/metadata/does-scrubbing-remove-exif-from-images",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 16,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 1,
+        "shit": 0,
+        "fuck-off": 7
+      },
+      "score": 85
+    },
+    {
+      "route": "/faq/metadata/what-does-pdf-changer-remove",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 16,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.6875,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 2
+      },
+      "score": 98
+    },
+    {
+      "route": "/faq/metadata/what-metadata-does-a-pdf-carry",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 16,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.75,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 3
+      },
+      "score": 97
+    },
+    {
+      "route": "/faq/network-opsec/does-a-vpn-make-me-anonymous",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 15,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.25,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/faq/network-opsec/should-i-use-tor-for-submissions",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 15,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.4375,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 1,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 92
+    },
+    {
+      "route": "/faq/submission-safety/how-do-i-share-documents-with-journalists",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 15,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/faq/tool-usage/can-i-use-pdf-changer-offline",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 15,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.6666666666666666,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/faq/tool-usage/how-do-i-scrub-a-pdf-safely",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 15,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.7058823529411765,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/faq/tool-usage/why-are-links-forms-and-comments-removed",
+      "routeType": "article",
+      "cluster": "faq",
+      "unitCount": 15,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.2857142857142857,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 2,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 84
+    },
+    {
+      "route": "/guides",
+      "routeType": "hub",
+      "cluster": "guides",
+      "unitCount": 5,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/guides/anonymization-checklist",
+      "routeType": "article",
+      "cluster": "guides",
+      "unitCount": 14,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5555555555555556,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/guides/pdf-metadata-explained",
+      "routeType": "article",
+      "cluster": "guides",
+      "unitCount": 5,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/guides/safely-sharing-pdfs",
+      "routeType": "article",
+      "cluster": "guides",
+      "unitCount": 9,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.6666666666666666,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/newsletter",
+      "routeType": "support",
+      "cluster": "support",
+      "unitCount": 7,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/pricing",
+      "routeType": "transactional",
+      "cluster": "core",
+      "unitCount": 28,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.6,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 2,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 84
+    },
+    {
+      "route": "/privacy",
+      "routeType": "policy",
+      "cluster": "core",
+      "unitCount": 14,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.6666666666666666,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/privacy-policy",
+      "routeType": "policy",
+      "cluster": "core",
+      "unitCount": 23,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.42857142857142855,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/refund-policy",
+      "routeType": "policy",
+      "cluster": "core",
+      "unitCount": 9,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/scrub",
+      "routeType": "transactional",
+      "cluster": "core",
+      "unitCount": 40,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 1,
+      "actionableSentenceRatio": 0.7333333333333333,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 1,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 92
+    },
+    {
+      "route": "/security",
+      "routeType": "hub",
+      "cluster": "security",
+      "unitCount": 58,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.3125,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/:track",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 10,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.6,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/:track/:slug",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 15,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/non-technical/emergency-risk-steps",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 13,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.15384615384615385,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/non-technical/journalist-submission-hygiene",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 12,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.4166666666666667,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/non-technical/office-worker-secure-sharing",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 13,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.46153846153846156,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/non-technical/redaction-pitfalls",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 12,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.38461538461538464,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/non-technical/safe-pdf-handling-basics",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 13,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.5384615384615384,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/non-technical/whistleblower-quickstart",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 14,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.2857142857142857,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 1,
+        "shit": 0,
+        "fuck-off": 2
+      },
+      "score": 90
+    },
+    {
+      "route": "/security/policy",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 13,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.42857142857142855,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 1,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 92
+    },
+    {
+      "route": "/security/technical/endpoint-and-browser-leakage-model",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 14,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.2,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/technical/evidence-handling-chain",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 13,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.38461538461538464,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/technical/metadata-forensic-traces",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 14,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.46153846153846156,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/technical/network-model-limits",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 13,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.3076923076923077,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/technical/reproducible-build-verification-basics",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 13,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.46153846153846156,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/security/technical/threat-modeling-workflow",
+      "routeType": "article",
+      "cluster": "security",
+      "unitCount": 14,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.2727272727272727,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/sitemap",
+      "routeType": "support",
+      "cluster": "support",
+      "unitCount": 50,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/status",
+      "routeType": "support",
+      "cluster": "support",
+      "unitCount": 8,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.75,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/terms",
+      "routeType": "policy",
+      "cluster": "core",
+      "unitCount": 15,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.4444444444444444,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/tools",
+      "routeType": "transactional",
+      "cluster": "tools-app",
+      "unitCount": 149,
+      "claimCount": 2,
+      "evidenceBackedClaimCount": 1,
+      "actionableSentenceRatio": 0.8723404255319149,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 2,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 84
+    },
+    {
+      "route": "/tools/compress",
+      "routeType": "transactional",
+      "cluster": "tools-app",
+      "unitCount": 14,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/tools/editor",
+      "routeType": "transactional",
+      "cluster": "tools-app",
+      "unitCount": 17,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/tools/image-to-pdf",
+      "routeType": "transactional",
+      "cluster": "tools-app",
+      "unitCount": 16,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.75,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/tools/merge",
+      "routeType": "transactional",
+      "cluster": "tools-app",
+      "unitCount": 14,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.6666666666666666,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/tools/page-numbers",
+      "routeType": "transactional",
+      "cluster": "tools-app",
+      "unitCount": 15,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/tools/pdf-to-image",
+      "routeType": "transactional",
+      "cluster": "tools-app",
+      "unitCount": 21,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 1,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 92
+    },
+    {
+      "route": "/tools/protect",
+      "routeType": "transactional",
+      "cluster": "tools-app",
+      "unitCount": 10,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.8571428571428571,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/tools/remove-pages",
+      "routeType": "transactional",
+      "cluster": "tools-app",
+      "unitCount": 13,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/tools/split",
+      "routeType": "transactional",
+      "cluster": "tools-app",
+      "unitCount": 27,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/tools/unlock",
+      "routeType": "transactional",
+      "cluster": "tools-app",
+      "unitCount": 17,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 0.8888888888888888,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    },
+    {
+      "route": "/tools/watermark",
+      "routeType": "transactional",
+      "cluster": "tools-app",
+      "unitCount": 13,
+      "claimCount": 0,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 0,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 100
+    }
+  ],
+  "findings": [
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "bullshit",
+      "message": "Trust/safety claim appears without mechanism or explicit limitation in the same paragraph.",
+      "route": "/__shared__/tools-docs-content",
+      "routeType": "shared",
+      "file": "src/content/tools/toolDocs.ts",
+      "line": 72,
+      "column": 23,
+      "unitId": "u768",
+      "text": "Use this route as part of secure sharing prep with clear review steps.",
+      "details": {
+        "matchedTrustWord": "secure"
+      }
+    },
+    {
+      "issueType": "future-promise-without-contract",
+      "severity": "bullshit",
+      "message": "Future-looking claim appears without concrete contract details (date/status/milestone).",
+      "route": "/__shared__/tools-docs-content",
+      "routeType": "shared",
+      "file": "src/content/tools/toolEditorial.json",
+      "line": 1,
+      "column": 1,
+      "unitId": "u1009",
+      "text": "Track roadmap impact before committing process changes.",
+      "details": {
+        "matchedFutureWord": "roadmap"
+      }
+    },
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "bullshit",
+      "message": "Trust/safety claim appears without mechanism or explicit limitation in the same paragraph.",
+      "route": "/blog/basics/anonymity-101",
+      "routeType": "article",
+      "file": "src/content/blog/2026-02-20-basics-anonymity-101.md",
+      "line": 27,
+      "column": 1,
+      "unitId": "u27",
+      "text": "1) Read device and network basics (it’s short, and it prevents the biggest mistakes). 2) If it fits your threat model: load the site once, then go offline while processing (offline mode walkthrough). 3) Use the scrubber. 4) Open the output PDF and sanity‑check it (content + behavior). 5) Share using a channel that matches your situation (official newsroom tip channels, a trusted journalist org, or a lawyer).",
+      "details": {
+        "matchedTrustWord": "trusted"
+      }
+    },
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "bullshit",
+      "message": "Trust/safety claim appears without mechanism or explicit limitation in the same paragraph.",
+      "route": "/blog/documents/why-links-and-forms-are-removed",
+      "routeType": "article",
+      "file": "src/content/blog/2026-02-20-documents-why-links-and-forms-are-removed.md",
+      "line": 5,
+      "column": 1,
+      "unitId": "u90",
+      "text": "It’s not because links are “bad”. It’s because v1 is built around a strict, high‑risk default: **safe and boring beats feature‑complete**.",
+      "details": {
+        "matchedTrustWord": "safe"
+      }
+    },
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "bullshit",
+      "message": "Trust/safety claim appears without mechanism or explicit limitation in the same paragraph.",
+      "route": "/blog/documents/why-links-and-forms-are-removed",
+      "routeType": "article",
+      "file": "src/content/blog/2026-02-20-documents-why-links-and-forms-are-removed.md",
+      "line": 16,
+      "column": 1,
+      "unitId": "u101",
+      "text": "If you need a “keep links” mode later, we can add it as an explicit toggle with warnings — but v1 defaults to maximum safety.",
+      "details": {
+        "matchedTrustWord": "safe"
+      }
+    },
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "bullshit",
+      "message": "Trust/safety claim appears without mechanism or explicit limitation in the same paragraph.",
+      "route": "/faq/anonymity-basics/what-is-a-threat-model",
+      "routeType": "article",
+      "file": "src/content/faq/anonymity-basics/what-is-a-threat-model.md",
+      "line": 6,
+      "column": 1,
+      "unitId": "u250",
+      "text": "Write down who you are worried about. List what they can realistically access (device logs, network logs, account history). Choose the minimum safe workflow that addresses those risks. Practice once with a non-sensitive file.",
+      "details": {
+        "matchedTrustWord": "safe"
+      }
+    },
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "bullshit",
+      "message": "Trust/safety claim appears without mechanism or explicit limitation in the same paragraph.",
+      "route": "/faq/anonymity-basics/what-is-anonymous-document-sharing",
+      "routeType": "article",
+      "file": "src/content/faq/anonymity-basics/what-is-anonymous-document-sharing.md",
+      "line": 6,
+      "column": 1,
+      "unitId": "u266",
+      "text": "Treat anonymity as a full workflow, not a single tool. Clean document metadata before sharing. Avoid work devices and work networks when risk is high. Use official secure channels from trusted newsrooms or legal organizations.",
+      "details": {
+        "matchedTrustWord": "secure"
+      }
+    },
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "bullshit",
+      "message": "Trust/safety claim appears without mechanism or explicit limitation in the same paragraph.",
+      "route": "/faq/device-opsec/should-i-use-a-work-device",
+      "routeType": "article",
+      "file": "src/content/faq/device-opsec/should-i-use-a-work-device.md",
+      "line": 10,
+      "column": 1,
+      "unitId": "u285",
+      "text": "No single device setup is universally safe. Choose a workflow based on your actual risk and legal context.",
+      "details": {
+        "matchedTrustWord": "safe"
+      }
+    },
+    {
+      "issueType": "future-promise-without-contract",
+      "severity": "bullshit",
+      "message": "Future-looking claim appears without concrete contract details (date/status/milestone).",
+      "route": "/faq/metadata/does-scrubbing-remove-exif-from-images",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/does-scrubbing-remove-exif-from-images.md",
+      "line": 10,
+      "column": 1,
+      "unitId": "u352",
+      "text": "v1 prioritizes preserving selectable text and core document structure. Full rasterization or advanced image cleaning is a future mode.",
+      "details": {
+        "matchedFutureWord": "future"
+      }
+    },
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "bullshit",
+      "message": "Trust/safety claim appears without mechanism or explicit limitation in the same paragraph.",
+      "route": "/faq/network-opsec/should-i-use-tor-for-submissions",
+      "routeType": "article",
+      "file": "src/content/faq/network-opsec/should-i-use-tor-for-submissions.md",
+      "line": 6,
+      "column": 1,
+      "unitId": "u410",
+      "text": "Start with official secure submission instructions from the destination organization. If Tor is recommended, follow that organization's exact process. Test your workflow with non-sensitive files first.",
+      "details": {
+        "matchedTrustWord": "secure"
+      }
+    },
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "bullshit",
+      "message": "Trust/safety claim appears without mechanism or explicit limitation in the same paragraph.",
+      "route": "/faq/tool-usage/why-are-links-forms-and-comments-removed",
+      "routeType": "article",
+      "file": "src/content/faq/tool-usage/why-are-links-forms-and-comments-removed.md",
+      "line": 10,
+      "column": 1,
+      "unitId": "u474",
+      "text": "This default prioritizes safety over feature retention. Future modes may allow controlled toggles with warnings.",
+      "details": {
+        "matchedTrustWord": "safe"
+      }
+    },
+    {
+      "issueType": "future-promise-without-contract",
+      "severity": "bullshit",
+      "message": "Future-looking claim appears without concrete contract details (date/status/milestone).",
+      "route": "/faq/tool-usage/why-are-links-forms-and-comments-removed",
+      "routeType": "article",
+      "file": "src/content/faq/tool-usage/why-are-links-forms-and-comments-removed.md",
+      "line": 10,
+      "column": 1,
+      "unitId": "u474",
+      "text": "This default prioritizes safety over feature retention. Future modes may allow controlled toggles with warnings.",
+      "details": {
+        "matchedFutureWord": "future"
+      }
+    },
+    {
+      "issueType": "future-promise-without-contract",
+      "severity": "bullshit",
+      "message": "Future-looking claim appears without concrete contract details (date/status/milestone).",
+      "route": "/pricing",
+      "routeType": "transactional",
+      "file": "src/ui/pages/PricingPage.tsx",
+      "line": 125,
+      "column": 74,
+      "unitId": "u1357",
+      "text": "Planned",
+      "details": {
+        "matchedFutureWord": "planned"
+      }
+    },
+    {
+      "issueType": "future-promise-without-contract",
+      "severity": "bullshit",
+      "message": "Future-looking claim appears without concrete contract details (date/status/milestone).",
+      "route": "/pricing",
+      "routeType": "transactional",
+      "file": "src/ui/pages/PricingPage.tsx",
+      "line": 129,
+      "column": 74,
+      "unitId": "u1359",
+      "text": "Planned",
+      "details": {
+        "matchedFutureWord": "planned"
+      }
+    },
+    {
+      "issueType": "future-promise-without-contract",
+      "severity": "bullshit",
+      "message": "Future-looking claim appears without concrete contract details (date/status/milestone).",
+      "route": "/scrub",
+      "routeType": "transactional",
+      "file": "src/ui/pages/ScrubberPage.tsx",
+      "line": 155,
+      "column": 11,
+      "unitId": "u1414",
+      "text": "EXIF likely detected inside embedded JPEGs. v1 does not guarantee EXIF removal. “Max scrub / rasterize” mode is planned.",
+      "details": {
+        "matchedFutureWord": "planned"
+      }
+    },
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "bullshit",
+      "message": "Trust/safety claim appears without mechanism or explicit limitation in the same paragraph.",
+      "route": "/security/non-technical/whistleblower-quickstart",
+      "routeType": "article",
+      "file": "src/content/security/non-technical/whistleblower-quickstart.md",
+      "line": 1,
+      "column": 1,
+      "unitId": "u650",
+      "text": "A beginner-safe, defensive workflow for people sharing documents under pressure.",
+      "details": {
+        "matchedTrustWord": "safe"
+      }
+    },
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "bullshit",
+      "message": "Trust/safety claim appears without mechanism or explicit limitation in the same paragraph.",
+      "route": "/security/policy",
+      "routeType": "article",
+      "file": "src/content/security/policy/defensive-only-policy.md",
+      "line": 2,
+      "column": 1,
+      "unitId": "u667",
+      "text": "PDF Changer security content is for **privacy protection, risk reduction, and safer document handling**.",
+      "details": {
+        "matchedTrustWord": "safe"
+      }
+    },
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "bullshit",
+      "message": "Trust/safety claim appears without mechanism or explicit limitation in the same paragraph.",
+      "route": "/tools",
+      "routeType": "transactional",
+      "file": "src/ui/pages/tools/ToolsHubPage.tsx",
+      "line": 33,
+      "column": 12,
+      "unitId": "u1865",
+      "text": "Safer sharing workflow with scrub-first defaults.",
+      "details": {
+        "matchedTrustWord": "safe"
+      }
+    },
+    {
+      "issueType": "future-promise-without-contract",
+      "severity": "bullshit",
+      "message": "Future-looking claim appears without concrete contract details (date/status/milestone).",
+      "route": "/tools",
+      "routeType": "transactional",
+      "file": "src/ui/pages/tools/ToolsHubPage.tsx",
+      "line": 115,
+      "column": 15,
+      "unitId": "u1879",
+      "text": "Paid plan: unlimited workflows and future batch features.",
+      "details": {
+        "matchedFutureWord": "future"
+      }
+    },
+    {
+      "issueType": "future-promise-without-contract",
+      "severity": "bullshit",
+      "message": "Future-looking claim appears without concrete contract details (date/status/milestone).",
+      "route": "/tools/pdf-to-image",
+      "routeType": "transactional",
+      "file": "src/ui/pages/tools/PdfToImageToolPage.tsx",
+      "line": 182,
+      "column": 17,
+      "unitId": "u1778",
+      "text": "Planned export:",
+      "details": {
+        "matchedFutureWord": "planned"
+      }
+    },
+    {
+      "issueType": "placeholder-scaffold-copy",
+      "severity": "shit",
+      "message": "Placeholder or scaffold language appears in user-facing copy.",
+      "route": "/donate/transparency",
+      "routeType": "support",
+      "file": "src/ui/pages/DonateTransparencyPage.tsx",
+      "line": 37,
+      "column": 19,
+      "unitId": "u1292",
+      "text": "Latest sample report (placeholder)",
+      "details": {
+        "matchedPattern": "placeholder"
+      }
+    },
+    {
+      "issueType": "placeholder-scaffold-copy",
+      "severity": "shit",
+      "message": "Placeholder or scaffold language appears in user-facing copy.",
+      "route": "/donate/transparency",
+      "routeType": "support",
+      "file": "src/ui/pages/DonateTransparencyPage.tsx",
+      "line": 40,
+      "column": 16,
+      "unitId": "u1294",
+      "text": "Donations received: £0.00 (publishes after launch).",
+      "details": {
+        "matchedPattern": "publishes after launch"
+      }
+    },
+    {
+      "issueType": "placeholder-scaffold-copy",
+      "severity": "shit",
+      "message": "Placeholder or scaffold language appears in user-facing copy.",
+      "route": "/donate/transparency",
+      "routeType": "support",
+      "file": "src/ui/pages/DonateTransparencyPage.tsx",
+      "line": 41,
+      "column": 16,
+      "unitId": "u1295",
+      "text": "Operational spend: £0.00 (publishes after launch).",
+      "details": {
+        "matchedPattern": "publishes after launch"
+      }
+    },
+    {
+      "issueType": "placeholder-scaffold-copy",
+      "severity": "shit",
+      "message": "Placeholder or scaffold language appears in user-facing copy.",
+      "route": "/donate/transparency",
+      "routeType": "support",
+      "file": "src/ui/pages/DonateTransparencyPage.tsx",
+      "line": 42,
+      "column": 16,
+      "unitId": "u1296",
+      "text": "Reserve balance: £0.00 (publishes after launch).",
+      "details": {
+        "matchedPattern": "publishes after launch"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/anonymity-basics/can-any-tool-guarantee-anonymity",
+      "routeType": "article",
+      "file": "src/content/faq/anonymity-basics/can-any-tool-guarantee-anonymity.md",
+      "line": 1,
+      "column": 1,
+      "unitId": "u229",
+      "text": "[anonymity, risk, opsec]",
+      "details": {
+        "term": "opsec"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/anonymity-basics/what-is-anonymous-document-sharing",
+      "routeType": "article",
+      "file": "src/content/faq/anonymity-basics/what-is-anonymous-document-sharing.md",
+      "line": 1,
+      "column": 1,
+      "unitId": "u260",
+      "text": "[anonymity, basics, opsec, whistleblowing]",
+      "details": {
+        "term": "opsec"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/metadata/does-scrubbing-remove-exif-from-images",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/does-scrubbing-remove-exif-from-images.md",
+      "line": 1,
+      "column": 1,
+      "unitId": "u339",
+      "text": "Does scrubbing remove EXIF from images?",
+      "details": {
+        "term": "exif"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/metadata/does-scrubbing-remove-exif-from-images",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/does-scrubbing-remove-exif-from-images.md",
+      "line": 1,
+      "column": 1,
+      "unitId": "u340",
+      "text": "Does scrubbing remove EXIF from images?",
+      "details": {
+        "term": "exif"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/metadata/does-scrubbing-remove-exif-from-images",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/does-scrubbing-remove-exif-from-images.md",
+      "line": 1,
+      "column": 1,
+      "unitId": "u341",
+      "text": "Not guaranteed in v1. EXIF may remain in embedded images, so high-risk cases should treat image metadata as potentially present.",
+      "details": {
+        "term": "exif"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/metadata/does-scrubbing-remove-exif-from-images",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/does-scrubbing-remove-exif-from-images.md",
+      "line": 1,
+      "column": 1,
+      "unitId": "u342",
+      "text": "[metadata, exif, images]",
+      "details": {
+        "term": "exif"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/metadata/does-scrubbing-remove-exif-from-images",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/does-scrubbing-remove-exif-from-images.md",
+      "line": 1,
+      "column": 1,
+      "unitId": "u343",
+      "text": "Does scrubbing remove EXIF from images?",
+      "details": {
+        "term": "exif"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/metadata/does-scrubbing-remove-exif-from-images",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/does-scrubbing-remove-exif-from-images.md",
+      "line": 2,
+      "column": 1,
+      "unitId": "u344",
+      "text": "Not guaranteed in v1. EXIF may remain in embedded images, so high-risk cases should treat image metadata as potentially present.",
+      "details": {
+        "term": "exif"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/metadata/does-scrubbing-remove-exif-from-images",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/does-scrubbing-remove-exif-from-images.md",
+      "line": 6,
+      "column": 1,
+      "unitId": "u348",
+      "text": "Watch for EXIF warnings in the scrub report. Prefer documents that do not depend on embedded photos when possible. If risk is serious, get legal or professional guidance before sharing. Keep your workflow simple so review steps are not skipped.",
+      "details": {
+        "term": "exif"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/metadata/what-does-pdf-changer-remove",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/what-does-pdf-changer-remove.md",
+      "line": 1,
+      "column": 1,
+      "unitId": "u357",
+      "text": "PDF Changer removes common document metadata, XMP, actions, forms, annotations, and attachments, then rebuilds the output PDF.",
+      "details": {
+        "term": "xmp"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/metadata/what-does-pdf-changer-remove",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/what-does-pdf-changer-remove.md",
+      "line": 2,
+      "column": 1,
+      "unitId": "u360",
+      "text": "PDF Changer removes common document metadata, XMP, actions, forms, annotations, and attachments, then rebuilds the output PDF.",
+      "details": {
+        "term": "xmp"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/metadata/what-metadata-does-a-pdf-carry",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/what-metadata-does-a-pdf-carry.md",
+      "line": 1,
+      "column": 1,
+      "unitId": "u373",
+      "text": "PDFs can include document properties, XMP blocks, timestamps, form data, annotations, and embedded attachments.",
+      "details": {
+        "term": "xmp"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/metadata/what-metadata-does-a-pdf-carry",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/what-metadata-does-a-pdf-carry.md",
+      "line": 1,
+      "column": 1,
+      "unitId": "u374",
+      "text": "[metadata, pdf, xmp]",
+      "details": {
+        "term": "xmp"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/faq/metadata/what-metadata-does-a-pdf-carry",
+      "routeType": "article",
+      "file": "src/content/faq/metadata/what-metadata-does-a-pdf-carry.md",
+      "line": 2,
+      "column": 1,
+      "unitId": "u376",
+      "text": "PDFs can include document properties, XMP blocks, timestamps, form data, annotations, and embedded attachments.",
+      "details": {
+        "term": "xmp"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/security/non-technical/whistleblower-quickstart",
+      "routeType": "article",
+      "file": "src/content/security/non-technical/whistleblower-quickstart.md",
+      "line": 1,
+      "column": 1,
+      "unitId": "u652",
+      "text": "[whistleblowing, opsec, submissions, anonymity]",
+      "details": {
+        "term": "opsec"
+      }
+    },
+    {
+      "issueType": "jargon-without-definition",
+      "severity": "fuck-off",
+      "message": "Jargon appears in non-technical context without a quick plain-language definition.",
+      "route": "/security/non-technical/whistleblower-quickstart",
+      "routeType": "article",
+      "file": "src/content/security/non-technical/whistleblower-quickstart.md",
+      "line": 6,
+      "column": 1,
+      "unitId": "u658",
+      "text": "Never reuse personal accounts for sensitive submissions. Separate daily life devices from sensitive workflows when possible. Prefer short factual messages. Extra detail can create unique fingerprints.",
+      "details": {
+        "term": "fingerprint"
+      }
+    }
+  ]
+}

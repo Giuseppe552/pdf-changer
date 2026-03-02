@@ -1,0 +1,270 @@
+import React from "react";
+import { useAuth } from "../../auth/AuthContext";
+import { Card } from "../../components/Card";
+import { Button } from "../../components/Button";
+import { PdfDropZone } from "../../components/PdfDropZone";
+import {
+  executePipeline,
+  PIPELINE_PRESETS,
+  stepLabel,
+  type PipelineStep,
+  type PipelineStepType,
+  type PipelineStepResult,
+} from "../../../utils/pdf/pipeline";
+import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
+import { toArrayBuffer } from "../../../utils/toArrayBuffer";
+import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+
+const AVAILABLE_STEPS: PipelineStepType[] = [
+  "scrub",
+  "paranoid-scrub",
+  "exif-strip",
+  "flatten",
+  "compress",
+];
+
+function formatBytes(bytes: number): string {
+  if (bytes <= 0) return "0 B";
+  const units = ["B", "KB", "MB"];
+  let value = bytes;
+  let index = 0;
+  while (value >= 1024 && index < units.length - 1) {
+    value /= 1024;
+    index += 1;
+  }
+  return `${value.toFixed(index === 0 ? 0 : 1)} ${units[index]}`;
+}
+
+export function PipelineToolPage() {
+  const { me } = useAuth();
+  const [file, setFile] = React.useState<File | null>(null);
+  const [steps, setSteps] = React.useState<PipelineStep[]>([]);
+  const [busy, setBusy] = React.useState(false);
+  const [currentStep, setCurrentStep] = React.useState<number>(-1);
+  const [error, setError] = React.useState<string | null>(null);
+  const [result, setResult] = React.useState<{
+    url: string;
+    name: string;
+    stepResults: PipelineStepResult[];
+    totalDurationMs: number;
+  } | null>(null);
+
+  React.useEffect(
+    () => () => {
+      if (result?.url) URL.revokeObjectURL(result.url);
+    },
+    [result],
+  );
+
+  function applyPreset(presetSteps: PipelineStep[]) {
+    setSteps([...presetSteps]);
+  }
+
+  function addStep(type: PipelineStepType) {
+    setSteps((prev) => [...prev, { type }]);
+  }
+
+  function removeStep(index: number) {
+    setSteps((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  function moveStep(index: number, direction: -1 | 1) {
+    setSteps((prev) => {
+      const next = [...prev];
+      const target = index + direction;
+      if (target < 0 || target >= next.length) return prev;
+      [next[index], next[target]] = [next[target], next[index]];
+      return next;
+    });
+  }
+
+  async function run() {
+    if (!file || steps.length === 0) return;
+    if (!canUseTool(me, "pipeline")) {
+      setError("Monthly heavy quota reached for this device.");
+      return;
+    }
+    setBusy(true);
+    setError(null);
+    setResult(null);
+    setCurrentStep(0);
+    try {
+      const inputBytes = new Uint8Array(await file.arrayBuffer());
+      const pipelineResult = await executePipeline(inputBytes, steps, (idx) => {
+        setCurrentStep(idx);
+      });
+      const blob = new Blob([toArrayBuffer(pipelineResult.outputBytes)], {
+        type: "application/pdf",
+      });
+      const url = URL.createObjectURL(blob);
+      incrementToolUse(me, "pipeline");
+      setResult({
+        url,
+        name: `${baseName(file.name)}.pipeline.pdf`,
+        stepResults: pipelineResult.steps,
+        totalDurationMs: pipelineResult.totalDurationMs,
+      });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Pipeline failed");
+    } finally {
+      setBusy(false);
+      setCurrentStep(-1);
+    }
+  }
+
+  return (
+    <div className="space-y-4">
+      <Card title="Privacy Pipeline">
+        <div className="space-y-4">
+          <PdfDropZone
+            label="Choose a PDF"
+            help="Chain multiple privacy operations in sequence."
+            files={file ? [file] : []}
+            onFiles={(files) => setFile(files[0] ?? null)}
+            disabled={busy}
+          />
+
+          <div className="space-y-2">
+            <div className="text-sm font-semibold text-neutral-900">Presets</div>
+            <div className="flex flex-wrap gap-2">
+              {PIPELINE_PRESETS.map((preset) => (
+                <button
+                  key={preset.name}
+                  className="rounded border border-neutral-300 px-3 py-1.5 text-sm text-neutral-800 hover:bg-neutral-100"
+                  onClick={() => applyPreset(preset.steps)}
+                  disabled={busy}
+                  title={preset.description}
+                >
+                  {preset.name}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="text-sm font-semibold text-neutral-900">
+              Steps ({steps.length})
+            </div>
+            {steps.length === 0 ? (
+              <div className="text-sm text-neutral-500">
+                Choose a preset or add steps manually.
+              </div>
+            ) : (
+              <div className="space-y-1">
+                {steps.map((step, i) => (
+                  <div
+                    key={i}
+                    className={[
+                      "flex items-center gap-2 rounded border px-3 py-2 text-sm",
+                      busy && currentStep === i
+                        ? "border-blue-400 bg-blue-50"
+                        : "border-neutral-200 bg-white",
+                    ].join(" ")}
+                  >
+                    <span className="font-mono text-neutral-400">{i + 1}.</span>
+                    <span className="flex-1 font-semibold text-neutral-800">
+                      {stepLabel(step.type)}
+                    </span>
+                    {busy && currentStep === i ? (
+                      <span className="text-xs text-blue-600">Running...</span>
+                    ) : null}
+                    {!busy ? (
+                      <>
+                        <button
+                          className="text-neutral-400 hover:text-neutral-700"
+                          onClick={() => moveStep(i, -1)}
+                          disabled={i === 0}
+                        >
+                          Up
+                        </button>
+                        <button
+                          className="text-neutral-400 hover:text-neutral-700"
+                          onClick={() => moveStep(i, 1)}
+                          disabled={i === steps.length - 1}
+                        >
+                          Dn
+                        </button>
+                        <button
+                          className="text-red-400 hover:text-red-600"
+                          onClick={() => removeStep(i)}
+                        >
+                          X
+                        </button>
+                      </>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {!busy ? (
+            <div className="space-y-2">
+              <div className="text-sm font-semibold text-neutral-900">Add step</div>
+              <div className="flex flex-wrap gap-2">
+                {AVAILABLE_STEPS.map((type) => (
+                  <button
+                    key={type}
+                    className="rounded border border-neutral-300 px-3 py-1.5 text-sm text-neutral-800 hover:bg-neutral-100"
+                    onClick={() => addStep(type)}
+                  >
+                    + {stepLabel(type)}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          <Button onClick={run} disabled={!file || steps.length === 0 || busy}>
+            {busy ? `Running step ${currentStep + 1} of ${steps.length}…` : "Run pipeline"}
+          </Button>
+        </div>
+      </Card>
+
+      {result ? (
+        <Card title="Pipeline report">
+          <div className="space-y-3">
+            <div className="text-sm text-neutral-600">
+              Total: {(result.totalDurationMs / 1000).toFixed(1)}s
+            </div>
+            <div className="space-y-1">
+              {result.stepResults.map((sr, i) => (
+                <div
+                  key={i}
+                  className="grid grid-cols-4 gap-2 border-b border-neutral-100 py-1 text-sm"
+                >
+                  <div className="font-semibold text-neutral-800">
+                    {i + 1}. {stepLabel(sr.type)}
+                  </div>
+                  <div className="text-neutral-600">
+                    In: {formatBytes(sr.inputSize)}
+                  </div>
+                  <div className="text-neutral-600">
+                    Out: {formatBytes(sr.outputSize)}
+                  </div>
+                  <div className="text-neutral-500">
+                    {(sr.durationMs / 1000).toFixed(1)}s
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Card>
+      ) : null}
+
+      {result ? (
+        <ResultDownloadPanel files={[{ url: result.url, name: result.name }]} />
+      ) : null}
+
+      {error ? (
+        <Card title="Error" variant="danger">
+          <div className="text-[15px] text-red-800">{error}</div>
+        </Card>
+      ) : null}
+    </div>
+  );
+}
+
+function baseName(name: string): string {
+  return name.toLowerCase().endsWith(".pdf") ? name.slice(0, -4) : name;
+}

@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ui-radius: 2px;
+  --ui-border: #d4d4d8;
+  --ui-border-strong: #a1a1aa;
+  --ui-bg: #f8f8f8;
+  --ui-text: #0f172a;
+  --ui-muted: #334155;
+  --ui-focus: rgba(37, 99, 235, 0.24);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--ui-bg);
+  color: var(--ui-text);
+  font-family:
+    "Segoe UI",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  line-height: 1.55;
+}
+
+a {
+  text-underline-offset: 0.18em;
+}
+
+@layer base {
+  .text-xs {
+    font-size: 0.94rem;
+    line-height: 1.45;
+  }
+
+  .text-sm {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  button,
+  select,
+  textarea,
+  input:not([type="checkbox"]):not([type="radio"]) {
+    font-size: 1rem;
+    min-height: 44px;
+  }
+}
+
+* {
+  scrollbar-color: #a3a3a3 transparent;
+}
+
+@layer components {
+  .ui-surface {
+    @apply rounded-sm border border-neutral-300 bg-white shadow-[0_1px_0_0_rgba(15,23,42,0.06)];
+  }
+
+  .ui-surface-emphasis {
+    @apply rounded-sm border border-neutral-400 bg-white shadow-[0_1px_0_0_rgba(15,23,42,0.08)];
+  }
+
+  .ui-surface-warning {
+    @apply rounded-sm border border-amber-400 bg-amber-50;
+  }
+
+  .ui-surface-danger {
+    @apply rounded-sm border border-red-400 bg-red-50;
+  }
+
+  .ui-input {
+    @apply h-11 w-full rounded-sm border border-neutral-400 bg-white px-3 text-[15px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-600/20;
+  }
+
+  .ui-select {
+    @apply h-11 w-full rounded-sm border border-neutral-400 bg-white px-3 text-[15px] text-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-600/20;
+  }
+
+  .ui-tag {
+    @apply inline-flex items-center rounded-sm border border-neutral-400 bg-white px-2 py-0.5 text-[13px] font-medium text-neutral-800;
+  }
+
+  .ui-title {
+    @apply text-3xl font-semibold tracking-tight text-neutral-950;
+  }
+
+  .ui-subtitle {
+    @apply text-base text-neutral-700;
+  }
+}

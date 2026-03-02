@@ -1,0 +1,140 @@
+import React from "react";
+import { useAuth } from "../../auth/AuthContext";
+import { Button } from "../../components/Button";
+import { Card } from "../../components/Card";
+import { PdfDropZone } from "../../components/PdfDropZone";
+import { watermarkPdf } from "../../../utils/pdf/operations/watermarkPdf";
+import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
+import { toArrayBuffer } from "../../../utils/toArrayBuffer";
+import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+
+export function WatermarkToolPage() {
+  const { me } = useAuth();
+  const [file, setFile] = React.useState<File | null>(null);
+  const [text, setText] = React.useState("CONFIDENTIAL");
+  const [opacity, setOpacity] = React.useState(0.2);
+  const [fontSize, setFontSize] = React.useState(48);
+  const [angleDegrees, setAngleDegrees] = React.useState(-35);
+  const [busy, setBusy] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+  const [out, setOut] = React.useState<{ url: string; name: string } | null>(null);
+
+  React.useEffect(
+    () => () => {
+      if (out?.url) URL.revokeObjectURL(out.url);
+    },
+    [out],
+  );
+
+  async function run() {
+    if (!file) return;
+    setBusy(true);
+    setError(null);
+    setOut(null);
+    try {
+      if (!canUseTool(me, "watermark")) {
+        throw new Error("Monthly quota reached for this tool.");
+      }
+      const inputBytes = new Uint8Array(await file.arrayBuffer());
+      const output = await watermarkPdf({
+        inputBytes,
+        text,
+        opacity,
+        fontSize,
+        angleDegrees,
+      });
+      const blob = new Blob([toArrayBuffer(output.outputBytes)], {
+        type: "application/pdf",
+      });
+      const url = URL.createObjectURL(blob);
+      incrementToolUse(me, "watermark");
+      setOut({ url, name: `${baseName(file.name)}.watermarked.pdf` });
+    } catch (value) {
+      setError(value instanceof Error ? value.message : "Watermark failed");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="space-y-4">
+      <Card title="Add Watermark">
+        <div className="space-y-4">
+          <PdfDropZone
+            label="Choose a PDF"
+            help="Add text watermark to each page."
+            files={file ? [file] : []}
+            onFiles={(files) => setFile(files[0] ?? null)}
+            disabled={busy}
+          />
+          <div className="grid gap-3 md:grid-cols-2">
+            <label className="space-y-1">
+              <div className="text-sm text-neutral-700">Watermark text</div>
+              <input
+                value={text}
+                onChange={(event) => setText(event.target.value)}
+                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                disabled={busy}
+              />
+            </label>
+            <label className="space-y-1">
+              <div className="text-sm text-neutral-700">Opacity (0.05–0.95)</div>
+              <input
+                type="number"
+                min={0.05}
+                max={0.95}
+                step={0.05}
+                value={opacity}
+                onChange={(event) => setOpacity(Number(event.target.value))}
+                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                disabled={busy}
+              />
+            </label>
+            <label className="space-y-1">
+              <div className="text-sm text-neutral-700">Font size</div>
+              <input
+                type="number"
+                min={10}
+                max={120}
+                step={1}
+                value={fontSize}
+                onChange={(event) => setFontSize(Number(event.target.value))}
+                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                disabled={busy}
+              />
+            </label>
+            <label className="space-y-1">
+              <div className="text-sm text-neutral-700">Angle (degrees)</div>
+              <input
+                type="number"
+                min={-85}
+                max={85}
+                step={1}
+                value={angleDegrees}
+                onChange={(event) => setAngleDegrees(Number(event.target.value))}
+                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                disabled={busy}
+              />
+            </label>
+          </div>
+          <Button onClick={run} disabled={!file || busy}>
+            {busy ? "Applying…" : "Apply watermark"}
+          </Button>
+        </div>
+      </Card>
+
+      {out ? <ResultDownloadPanel files={[out]} /> : null}
+
+      {error ? (
+        <Card title="Error" variant="danger">
+          <div className="text-[15px] text-red-800">{error}</div>
+        </Card>
+      ) : null}
+    </div>
+  );
+}
+
+function baseName(name: string): string {
+  return name.toLowerCase().endsWith(".pdf") ? name.slice(0, -4) : name;
+}
+

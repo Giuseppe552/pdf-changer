@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-02-20T00:00:00Z",
+  "scannedFiles": 1,
+  "unitCount": 1,
+  "summary": {
+    "findingCount": 1,
+    "pageCount": 1,
+    "severityCounts": {
+      "critical": 1,
+      "bullshit": 0,
+      "shit": 0,
+      "fuck-off": 0
+    },
+    "issueCounts": {
+      "unsupported-trust-claim": 1
+    }
+  },
+  "pages": [
+    {
+      "route": "/",
+      "routeType": "hub",
+      "cluster": "core",
+      "unitCount": 1,
+      "claimCount": 1,
+      "evidenceBackedClaimCount": 0,
+      "actionableSentenceRatio": 1,
+      "repetitionSimilarityMax": 0,
+      "repetitionPeerRoute": null,
+      "severityCounts": {
+        "critical": 1,
+        "bullshit": 0,
+        "shit": 0,
+        "fuck-off": 0
+      },
+      "score": 70
+    }
+  ],
+  "findings": [
+    {
+      "issueType": "unsupported-trust-claim",
+      "severity": "critical",
+      "message": "Fixture critical issue",
+      "route": "/",
+      "routeType": "hub",
+      "file": "src/ui/pages/LandingPage.tsx",
+      "line": 1,
+      "column": 1,
+      "unitId": "fixture-1",
+      "text": "This tool is perfectly secure.",
+      "details": {}
+    }
+  ]
+}

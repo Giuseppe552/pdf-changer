@@ -1,0 +1,23 @@
+PDF Changer Donation Proof Statement
+Proof-ID: 2026-03-01-main
+Published-At: 2026-03-01T00:00:00Z
+Valid-From: 2026-03-01T00:00:00Z
+Supersedes: 2026-02-20-main
+Revoked: false
+
+Signing-Key-Fingerprint: 9A6E8E58D9D5F39E3FAE6F53A4C71C62C5B5E941
+Signing-Key-Id: A4C71C62C5B5E941
+
+Addresses:
+BTC: bc1qpdfchangerexample8h4x4n7qk0r6xw2f6f0p7m3q9a
+ETH: 0x7E57f6BfA3f8e7864A6f5F0469C88b3d4A58cB2E
+XMR: 89aJ9N9dYcXPPDFChangerExampleYwR9FoJ8jCQ4fVQk3v7eML6zvQxR1VdAayhE2qkGgKV9Yv7QzYt8fYXs5U7nYmxnq6Gr3m
+
+Verification-Policy:
+- Verify detached signature against this file.
+- Verify fingerprint matches the pinned key fingerprint above.
+- Trust only files hosted on the official PDF Changer domain.
+
+Support:
+- /donate/proof
+- /donate/proof/archive

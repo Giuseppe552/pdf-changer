@@ -1,0 +1,665 @@
+{
+  "scrub": {
+    "howToSteps": [
+      "Choose one PDF and run Deep Metadata Scrubber once without extra edits.",
+      "Check the scrub report for removed metadata fields and fixed dates.",
+      "Compare input and output hashes if your policy requires integrity checks.",
+      "Open the cleaned file and confirm text remains selectable where expected.",
+      "Share only the scrubbed copy, never the original."
+    ],
+    "tips": [
+      "Rename outputs with a clear suffix like .scrubbed.pdf.",
+      "If links disappear, that is expected because annotations are removed.",
+      "For high-risk cases, pair this with the Security Hub checklist."
+    ],
+    "limitations": [
+      "Visible names inside text or images remain unless you edit content manually.",
+      "Embedded image EXIF may still exist in some source PDFs."
+    ],
+    "useCases": {
+      "office-daily": "Before sending quarterly statements externally, scrub metadata so internal usernames and edit traces are removed.",
+      "secure-sharing": "For journalist submission prep, scrub first, then verify output in a fresh viewer before upload.",
+      "high-volume": "For repeat procurement packets, create a routine: scrub, verify report, archive original separately."
+    },
+    "faq": {
+      "what-it-does": "It rebuilds the PDF and removes metadata, forms, annotations, and risky actions by default.",
+      "data-safety": "Processing stays local for this GA tool; no PDF bytes are uploaded in v1.",
+      "limitations": "It reduces technical metadata exposure, not legal or identity risk by itself."
+    },
+    "troubleshooting": [
+      "If output fails to open, retry with a simpler source file to isolate corruption.",
+      "If expected links vanish, confirm you intended full annotation removal.",
+      "If page count changes unexpectedly, inspect the source for hidden attachments/forms."
+    ]
+  },
+  "merge": {
+    "howToSteps": [
+      "Add all PDFs in the exact order required for final delivery.",
+      "Move files up or down until the reading order is correct.",
+      "Run merge and download one combined output.",
+      "Open the merged result and validate section boundaries and bookmarks.",
+      "Store source files in a separate folder for audit traceability."
+    ],
+    "tips": [
+      "Use clear source names like 01-cover, 02-financials, 03-appendix.",
+      "Merge in one pass to avoid repeated re-encoding.",
+      "Check file permissions before distribution."
+    ],
+    "limitations": [
+      "Merge does not normalize legal redactions or review comments automatically.",
+      "Encrypted or malformed inputs may fail and require cleanup first."
+    ],
+    "useCases": {
+      "office-daily": "Assemble monthly close backups into one review packet for CFO signoff.",
+      "secure-sharing": "Combine selected exhibits into a minimal external disclosure bundle.",
+      "high-volume": "Batch similar document groups manually with consistent naming conventions."
+    },
+    "faq": {
+      "what-it-does": "It copies pages from multiple source PDFs into one ordered destination PDF.",
+      "data-safety": "Merging is local for this tool; files stay in your browser session.",
+      "limitations": "It does not rewrite contractual meaning or validate page-level compliance."
+    },
+    "troubleshooting": [
+      "If one file fails, remove it and test others to identify the problematic source.",
+      "If merged output is huge, run Compress PDF as a second step.",
+      "If order is wrong, reorder list before rerunning merge."
+    ]
+  },
+  "split": {
+    "howToSteps": [
+      "Choose split mode: ranges for sections, or one file per page.",
+      "Enter ranges using syntax like 1-5,8,12-.",
+      "Review preflight output estimates and run limits before processing.",
+      "Run split and download parts individually or as ZIP.",
+      "Open a sample output file to validate page boundaries."
+    ],
+    "tips": [
+      "Prefer range mode for large documents to keep file count manageable.",
+      "Use one-per-page only when downstream systems need isolated pages.",
+      "Name archived outputs by project and date."
+    ],
+    "limitations": [
+      "Very large one-per-page runs are capped to prevent browser memory crashes.",
+      "Invalid range syntax blocks execution until corrected."
+    ],
+    "useCases": {
+      "office-daily": "Extract invoice pages from a combined month-end export.",
+      "secure-sharing": "Share only relevant pages from a larger evidence packet.",
+      "high-volume": "Create standard chapter splits for recurring board packs."
+    },
+    "faq": {
+      "what-it-does": "It creates new PDF files from selected page ranges or individual pages.",
+      "data-safety": "Splitting is local and does not require upload APIs.",
+      "limitations": "It does not inspect legal sensitivity of selected pages."
+    },
+    "troubleshooting": [
+      "If range parsing fails, simplify to one range and expand gradually.",
+      "If too many parts are requested, reduce fragmentation and rerun.",
+      "If exports stall, lower page volume per run."
+    ]
+  },
+  "editor": {
+    "howToSteps": [
+      "Load one PDF and wait for thumbnails to appear.",
+      "Reorder pages with Up/Down and rotate pages as needed.",
+      "Mark unwanted pages as deleted before export.",
+      "Optionally select specific pages for extract-only output.",
+      "Download edited output and visually confirm page sequence."
+    ],
+    "tips": [
+      "Use edited output for full replacement and extract output for subsets.",
+      "Rotate pages before final numbering/watermark steps.",
+      "Keep original copy untouched for rollback."
+    ],
+    "limitations": [
+      "Thumbnail loading is capped for performance in very large files.",
+      "It does not edit text content inside pages."
+    ],
+    "useCases": {
+      "office-daily": "Reorder HR onboarding packets so signature pages appear first.",
+      "secure-sharing": "Delete unrelated pages before sharing with external recipients.",
+      "high-volume": "Standardize recurring report layouts using the same edit pattern."
+    },
+    "faq": {
+      "what-it-does": "It reorders, rotates, deletes, and extracts pages from one PDF.",
+      "data-safety": "Page editing runs on-device and does not upload document data.",
+      "limitations": "It cannot redact text or alter paragraph content."
+    },
+    "troubleshooting": [
+      "If thumbnails fail, reload and retry with fewer pages.",
+      "If output order is wrong, review visual sequence before export.",
+      "If rotated pages still look wrong, inspect the source orientation metadata."
+    ]
+  },
+  "compress": {
+    "howToSteps": [
+      "Choose one PDF and run compression once.",
+      "Review size delta in the result report.",
+      "Open output and check chart/text fidelity.",
+      "If still too large, remove unnecessary pages and recompress.",
+      "Retain both original and compressed versions until approved."
+    ],
+    "tips": [
+      "Compression gains vary by source quality and embedded objects.",
+      "For scanned docs, splitting sections can improve practical sharing size.",
+      "Validate legibility before client delivery."
+    ],
+    "limitations": [
+      "Compression may be minimal on already optimized files.",
+      "It is not a substitute for OCR cleanup on image-heavy scans."
+    ],
+    "useCases": {
+      "office-daily": "Shrink financial exhibits to meet email attachment limits.",
+      "secure-sharing": "Reduce transmission footprint before secure transfer.",
+      "high-volume": "Normalize outgoing report sizes for routine archive uploads."
+    },
+    "faq": {
+      "what-it-does": "It rebuilds structure and object streams to reduce file size where possible.",
+      "data-safety": "Compression is handled locally within the browser process.",
+      "limitations": "It does not guarantee a target size or preserve every embedded feature."
+    },
+    "troubleshooting": [
+      "If reduction is tiny, source may already be compressed.",
+      "If quality looks degraded, retain original for high-fidelity workflows.",
+      "If the file is huge, split first then compress sections."
+    ]
+  },
+  "image-to-pdf": {
+    "howToSteps": [
+      "Drag in JPG/PNG images or browse and select multiple files.",
+      "Reorder images to match final reading sequence.",
+      "Run conversion and download one combined PDF.",
+      "Open output to confirm orientation and page order.",
+      "Optionally run page numbers after conversion."
+    ],
+    "tips": [
+      "Use consistent image resolution for cleaner final pagination.",
+      "Rename image files before upload to simplify ordering.",
+      "Avoid screenshots with visible notifications."
+    ],
+    "limitations": [
+      "Image conversion does not remove EXIF from source images automatically.",
+      "It cannot recover detail lost in low-quality originals."
+    ],
+    "useCases": {
+      "office-daily": "Convert signed form photos into a single submission PDF.",
+      "secure-sharing": "Create a flat image-based bundle before controlled external sharing.",
+      "high-volume": "Build recurring receipt packets for monthly reconciliation."
+    },
+    "faq": {
+      "what-it-does": "It embeds selected JPG/PNG files as ordered pages in a new PDF.",
+      "data-safety": "Image conversion runs locally without upload endpoints.",
+      "limitations": "It does not edit source image metadata or orientation anomalies automatically."
+    },
+    "troubleshooting": [
+      "If pages are rotated, fix image orientation before conversion.",
+      "If output is too large, reduce image dimensions first.",
+      "If order is wrong, reorder the list before rerunning."
+    ]
+  },
+  "pdf-to-image": {
+    "howToSteps": [
+      "Select one PDF and choose PNG or JPG output.",
+      "Set render scale and maximum pages based on workload.",
+      "Review preflight estimate before running export.",
+      "Run export and download individual files or ZIP bundle.",
+      "Spot-check first and last pages for rendering accuracy."
+    ],
+    "tips": [
+      "Use PNG for text fidelity and JPG for smaller files.",
+      "Higher render scales increase memory and processing time.",
+      "Export only required page ranges via Split first."
+    ],
+    "limitations": [
+      "Large page counts are capped per run for browser stability.",
+      "Rasterized outputs lose selectable text."
+    ],
+    "useCases": {
+      "office-daily": "Create slide-ready chart images from finance decks.",
+      "secure-sharing": "Produce image snapshots for limited-distribution channels.",
+      "high-volume": "Generate standardized visual excerpts from recurring reports."
+    },
+    "faq": {
+      "what-it-does": "It renders PDF pages to raster images using browser-side rendering.",
+      "data-safety": "Rendering remains local; exported image files are produced in-browser.",
+      "limitations": "It is constrained by browser memory and page rendering limits."
+    },
+    "troubleshooting": [
+      "If run fails, lower scale and retry.",
+      "If outputs are blurry, increase scale carefully.",
+      "If too many pages are needed, split the source and process in batches."
+    ]
+  },
+  "watermark": {
+    "howToSteps": [
+      "Select PDF and enter concise watermark text.",
+      "Adjust size, opacity, and angle for readability.",
+      "Run watermarking and download output.",
+      "Review overlap on dense pages and rerun if needed.",
+      "Use clear labels like DRAFT or INTERNAL when policy requires."
+    ],
+    "tips": [
+      "Short phrases reduce visual clutter.",
+      "Use moderate opacity to preserve readability.",
+      "Apply watermark after major page edits."
+    ],
+    "limitations": [
+      "Watermarks do not provide cryptographic document security.",
+      "Aggressive placement can obscure source content."
+    ],
+    "useCases": {
+      "office-daily": "Mark draft financial statements before internal circulation.",
+      "secure-sharing": "Add recipient-specific trace labels prior to external review.",
+      "high-volume": "Apply consistent confidentiality marks across recurring packs."
+    },
+    "faq": {
+      "what-it-does": "It overlays text watermark marks onto each page of the PDF.",
+      "data-safety": "Watermarking is local and does not require upload processing.",
+      "limitations": "It does not prevent screenshots or unauthorized redistribution."
+    },
+    "troubleshooting": [
+      "If text clips, reduce font size or change angle.",
+      "If visibility is weak, increase opacity slightly.",
+      "If results look crowded, shorten watermark text."
+    ]
+  },
+  "page-numbers": {
+    "howToSteps": [
+      "Load PDF and choose numbering start value.",
+      "Select placement that matches document layout.",
+      "Run numbering and download updated file.",
+      "Review first pages and appendix pages for alignment.",
+      "Use editor first if page order is still changing."
+    ],
+    "tips": [
+      "Keep numbering style consistent across related deliverables.",
+      "Start at custom values for annex-only exports.",
+      "Validate footer overlap in scanned forms."
+    ],
+    "limitations": [
+      "Numbering does not update external references automatically.",
+      "Busy page backgrounds may reduce number readability."
+    ],
+    "useCases": {
+      "office-daily": "Paginate policy documents before leadership review.",
+      "secure-sharing": "Create stable page references for legal or investigative exchanges.",
+      "high-volume": "Standardize numbering for recurring compliance packets."
+    },
+    "faq": {
+      "what-it-does": "It writes page numbers onto each page at selected positions.",
+      "data-safety": "Page numbering runs in-browser on local file bytes.",
+      "limitations": "It does not create clickable internal bookmarks."
+    },
+    "troubleshooting": [
+      "If numbers overlap content, switch position and rerun.",
+      "If numbering seems off, verify page reorder steps were finalized first.",
+      "If style mismatch occurs, use a single numbering workflow per report set."
+    ]
+  },
+  "protect": {
+    "howToSteps": [
+      "Review this route as a status page, not an active processing tool.",
+      "Confirm current production status before planning workflows.",
+      "Use available GA tools for immediate document prep.",
+      "Track release notes for protect support milestones.",
+      "Do not assume this route can generate encrypted PDFs yet."
+    ],
+    "tips": [
+      "Use scrub + watermark for current risk-reduction baseline.",
+      "Keep sensitive originals in controlled storage.",
+      "Follow Security Hub guidance for channel-level controls."
+    ],
+    "limitations": [
+      "Password-protected PDF writing is not active in GA.",
+      "No cloud fallback is triggered silently."
+    ],
+    "useCases": {
+      "office-daily": "Use this page to monitor readiness if your compliance policy requires PDF passwords.",
+      "secure-sharing": "Plan alternate controls until protect reaches stable GA.",
+      "high-volume": "Track roadmap impact before committing process changes."
+    },
+    "faq": {
+      "what-it-does": "Currently it provides explicit status visibility only.",
+      "data-safety": "No document bytes are processed on this route today.",
+      "limitations": "It is not a functional encryption endpoint yet."
+    },
+    "troubleshooting": [
+      "If you expected a run button, this is intentionally disabled for honesty.",
+      "If your policy requires passwords now, use approved external tooling.",
+      "Monitor release notes before onboarding teams."
+    ]
+  },
+  "unlock": {
+    "howToSteps": [
+      "Select a PDF you are authorized to process.",
+      "Run local rebuild and wait for output note.",
+      "Download rebuilt file and test open behavior.",
+      "Verify that required pages remain intact.",
+      "Document this action in your internal audit trail."
+    ],
+    "tips": [
+      "Treat this as a compatibility utility, not a bypass tool.",
+      "Run on copies, never on the only original.",
+      "Pair with scrub only after successful authorized open."
+    ],
+    "limitations": [
+      "Password prompt is not part of current local rebuild mode.",
+      "Some cryptographic protection modes remain unsupported."
+    ],
+    "useCases": {
+      "office-daily": "Rebuild authorized PDFs that fail in older internal viewers.",
+      "secure-sharing": "Prepare compatible copies for approved recipients.",
+      "high-volume": "Standardize document openness checks in controlled operations."
+    },
+    "faq": {
+      "what-it-does": "It attempts an authorized local rebuild for compatible encrypted inputs.",
+      "data-safety": "No upload path is used in current beta mode.",
+      "limitations": "It is not guaranteed for all encryption methods."
+    },
+    "troubleshooting": [
+      "If rebuild fails, validate authorization and source integrity first.",
+      "If file opens but content is wrong, compare against original copy.",
+      "If repeated failures occur, use a dedicated decryption workflow."
+    ]
+  },
+  "remove-pages": {
+    "howToSteps": [
+      "Load PDF and enter removal ranges like 2-5,9.",
+      "Review total pages to avoid accidental deletion.",
+      "Run removal and download reduced output.",
+      "Open result and confirm retained sections.",
+      "Archive both versions with clear labels."
+    ],
+    "tips": [
+      "Use this for fast trimming when full editor is unnecessary.",
+      "Keep a note of removed ranges for auditability.",
+      "Combine with split for complex extraction workflows."
+    ],
+    "limitations": [
+      "Incorrect ranges can remove required evidence pages.",
+      "It does not redact content within kept pages."
+    ],
+    "useCases": {
+      "office-daily": "Trim procurement appendices before internal approvals.",
+      "secure-sharing": "Exclude irrelevant pages prior to external disclosure.",
+      "high-volume": "Apply consistent range removals on recurring templates."
+    },
+    "faq": {
+      "what-it-does": "It deletes selected page ranges and exports a reduced PDF.",
+      "data-safety": "Range removal is performed locally in-browser.",
+      "limitations": "It does not verify legal sufficiency of remaining pages."
+    },
+    "troubleshooting": [
+      "If output is empty, review range expression for over-deletion.",
+      "If wrong pages remain, confirm one-based page numbering assumptions.",
+      "If parsing errors occur, simplify ranges and retry."
+    ]
+  },
+  "flatten": {
+    "howToSteps": [
+      "Choose one PDF to flatten. Every page will be rasterized to an image.",
+      "Select DPI (150 recommended), format (PNG for lossless, JPEG for smaller), and quality.",
+      "Run flatten and wait for all pages to be rasterized.",
+      "Download the output PDF. Text is now non-selectable by design.",
+      "Verify visually that all pages rendered correctly before sharing."
+    ],
+    "tips": [
+      "Use 150 DPI for a good balance of quality and file size.",
+      "JPEG format produces smaller files but introduces compression artifacts.",
+      "This is the nuclear option: all hidden structure is destroyed."
+    ],
+    "limitations": [
+      "Text becomes non-selectable in the output.",
+      "Large documents (200+ pages) are capped for browser memory safety.",
+      "Output file size may be larger than the original due to rasterization."
+    ],
+    "useCases": {
+      "office-daily": "Flatten sensitive internal reports before archiving to remove all hidden metadata and structure.",
+      "secure-sharing": "Before sharing with external parties, flatten to ensure no hidden data (fonts, forms, scripts, EXIF) leaks.",
+      "high-volume": "Create a standard flatten workflow for recurring document sets that require maximum privacy."
+    },
+    "faq": {
+      "what-it-does": "It rasterizes every page to a clean image, destroying all hidden PDF structure including fonts, layers, metadata, EXIF, scripts, and forms.",
+      "data-safety": "Processing is entirely local. No PDF bytes leave your browser.",
+      "limitations": "It removes all hidden structure but does not redact visible content. Text becomes non-selectable."
+    },
+    "troubleshooting": [
+      "If output is blank, try a lower DPI setting.",
+      "If processing stalls, reduce document page count by splitting first.",
+      "If file size is too large, use JPEG format with lower quality."
+    ]
+  },
+  "redact": {
+    "howToSteps": [
+      "Load a PDF and wait for page thumbnails to appear.",
+      "Click a page to open the redaction canvas. Draw rectangles over content to redact.",
+      "Red overlays show marked areas. Click an existing rectangle to delete it.",
+      "When all redactions are marked, click Burn Redactions to permanently rasterize.",
+      "Download the output. Redacted areas are solid black and irrecoverable."
+    ],
+    "tips": [
+      "All pages are rasterized for uniformity, not just redacted ones.",
+      "Preview shows red overlays; burned output shows solid black.",
+      "There is no undo after burning. Review carefully before proceeding."
+    ],
+    "limitations": [
+      "Redaction is irreversible by design. Original content cannot be recovered.",
+      "Text under redacted areas is permanently destroyed in the rasterized output.",
+      "Large documents may take longer to process due to per-page rasterization."
+    ],
+    "useCases": {
+      "office-daily": "Redact personal identifiers from HR documents before internal distribution.",
+      "secure-sharing": "Black out sensitive content before journalist submission or FOIA response.",
+      "high-volume": "Apply consistent redaction patterns across recurring document templates."
+    },
+    "faq": {
+      "what-it-does": "It lets you draw black-out boxes on PDF pages and burns them permanently by rasterizing every page.",
+      "data-safety": "All processing happens locally in your browser. No document data is uploaded.",
+      "limitations": "It destroys text selectability and increases file size due to rasterization."
+    },
+    "troubleshooting": [
+      "If rectangles don't appear, ensure you click and drag on the page canvas.",
+      "If output still shows content under redaction, verify the burn step completed.",
+      "If processing is slow, reduce DPI or process fewer pages at a time."
+    ]
+  },
+  "pipeline": {
+    "howToSteps": [
+      "Load a PDF and choose a preset pipeline or build a custom sequence.",
+      "Review the step order: each step feeds its output to the next.",
+      "Click Run Pipeline to execute all steps sequentially.",
+      "Review the per-step report showing timing and size changes.",
+      "Download the final output after all steps complete."
+    ],
+    "tips": [
+      "Use the Maximum Privacy preset for the strongest protection: paranoid scrub then flatten.",
+      "Use Safe Sharing for everyday external sharing: scrub, EXIF strip, compress.",
+      "Custom pipelines let you chain any combination of available operations."
+    ],
+    "limitations": [
+      "Pipeline execution is sequential. Total time is the sum of all steps.",
+      "Redaction step requires pre-marked redaction rectangles.",
+      "Some step combinations may increase file size (e.g., flatten after compress)."
+    ],
+    "useCases": {
+      "office-daily": "Set up a standard pipeline preset for routine document preparation.",
+      "secure-sharing": "Chain paranoid scrub with flatten for maximum metadata and structure removal.",
+      "high-volume": "Use presets to apply consistent privacy workflows across document batches."
+    },
+    "faq": {
+      "what-it-does": "It chains multiple PDF privacy operations in sequence, piping output from one step to the next.",
+      "data-safety": "All operations run locally in your browser. No data leaves your device.",
+      "limitations": "It cannot undo individual steps once the pipeline has run."
+    },
+    "troubleshooting": [
+      "If a step fails, check the per-step report to identify which operation encountered an error.",
+      "If output is unexpectedly large, review step order (flatten before compress wastes compression).",
+      "If the pipeline stalls, reduce document size or simplify the step sequence."
+    ]
+  },
+  "rotate": {
+    "howToSteps": [
+      "Upload one PDF and select the rotation angle: 90° clockwise, 180°, or 90° counter-clockwise.",
+      "Choose whether to rotate all pages or enter specific page ranges.",
+      "Click Rotate pages and wait for processing to complete.",
+      "Review the result summary showing how many pages were rotated.",
+      "Download the rotated PDF and verify page orientations visually."
+    ],
+    "tips": [
+      "Use 90° clockwise to fix landscape pages that appear sideways in viewers.",
+      "Apply rotation to specific page ranges when only a few scanned pages are upside-down.",
+      "Rotation is cumulative: running 90° twice produces a 180° rotation."
+    ],
+    "limitations": [
+      "Rotation changes the page metadata only; it does not re-render or rasterize content.",
+      "Some older PDF viewers may not respect the rotation flag on certain page structures."
+    ],
+    "useCases": {
+      "office-daily": "Fix orientation of scanned documents before distributing to colleagues or archiving.",
+      "secure-sharing": "Correct page rotation before combining with scrub or watermark workflows for external sharing.",
+      "high-volume": "Batch-correct orientation on recurring scan imports where scanner defaults produce sideways pages."
+    },
+    "faq": {
+      "what-it-does": "It sets the rotation angle on selected PDF pages so they display in the correct orientation.",
+      "data-safety": "Rotation is processed entirely in your browser. No PDF data is uploaded.",
+      "limitations": "It modifies page rotation metadata but does not redact, compress, or alter visible content."
+    },
+    "troubleshooting": [
+      "If pages still appear sideways after rotation, verify the source orientation and apply the opposite direction.",
+      "If specific pages were missed, check that your page range syntax covers them (e.g., 3,7-9).",
+      "If the output file is larger than expected, run Compress PDF as a follow-up step."
+    ]
+  },
+  "crop": {
+    "howToSteps": [
+      "Upload a PDF and select the crop unit: percentage or absolute points.",
+      "Choose uniform margins (same on all sides) or per-side values for precise control.",
+      "Optionally narrow the crop to specific page ranges instead of all pages.",
+      "Click Crop pages and review the result summary for pages affected.",
+      "Download the cropped PDF and check that no important content was trimmed."
+    ],
+    "tips": [
+      "Start with a small uniform percentage like 5-10% to test before aggressive cropping.",
+      "Use per-side mode when documents have uneven margins, such as bound or scanned materials.",
+      "Combine cropping with page numbers afterward to re-add consistent footer numbering."
+    ],
+    "limitations": [
+      "Cropping sets the CropBox but does not permanently remove content outside the visible area.",
+      "Extremely aggressive margins may hide important text or graphics near page edges."
+    ],
+    "useCases": {
+      "office-daily": "Trim excess whitespace from scanned contracts before filing or email attachment.",
+      "secure-sharing": "Remove letterhead margins that contain internal tracking codes before external distribution.",
+      "high-volume": "Standardize page dimensions across document sets for consistent printing or screen display."
+    },
+    "faq": {
+      "what-it-does": "It adjusts the visible crop area of PDF pages by trimming margins from one or more sides.",
+      "data-safety": "All cropping runs locally in your browser with no file uploads.",
+      "limitations": "It adjusts the visible area but underlying content beyond the crop box may still exist in the file."
+    },
+    "troubleshooting": [
+      "If content is cut off, reduce margin values and rerun with smaller percentages.",
+      "If crop appears uneven, switch to per-side mode and set each margin independently.",
+      "If the error says crop area too small, reduce your margin values below 49% per side."
+    ]
+  },
+  "sign": {
+    "howToSteps": [
+      "Upload a PDF and draw your signature on the canvas using your mouse or finger.",
+      "Select the target page number where the signature should appear.",
+      "Adjust horizontal and vertical position sliders to place the signature precisely.",
+      "Choose the signature width as a fraction of the page width (20% to 50%).",
+      "Click Place signature and download the signed PDF."
+    ],
+    "tips": [
+      "Draw slowly for smoother signature strokes; the canvas captures at retina resolution.",
+      "Position the signature near the bottom-right for standard document signing conventions.",
+      "Clear and redraw the signature if the first attempt does not look right."
+    ],
+    "limitations": [
+      "This produces a visual image overlay, not a cryptographic digital signature with legal non-repudiation.",
+      "The signature PNG is embedded in the page and can be visually copied from the output."
+    ],
+    "useCases": {
+      "office-daily": "Quickly sign approval forms, timesheets, or internal memos before returning them.",
+      "secure-sharing": "Add a personal signature to contracts before sending via secure channels.",
+      "high-volume": "Sign recurring standard documents like NDAs or purchase orders efficiently."
+    },
+    "faq": {
+      "what-it-does": "It draws a freehand signature and embeds it as a PNG image on the selected PDF page.",
+      "data-safety": "The signature is drawn and embedded entirely in your browser. Nothing is uploaded.",
+      "limitations": "It is a visual overlay only. It does not provide tamper evidence or cryptographic verification."
+    },
+    "troubleshooting": [
+      "If the signature appears too small, increase the width percentage in the controls.",
+      "If placement is off, adjust the X and Y sliders incrementally and re-run.",
+      "If the canvas does not respond, ensure your browser supports pointer events and try a different input device."
+    ]
+  },
+  "fill-form": {
+    "howToSteps": [
+      "Upload a PDF that contains interactive form fields such as text boxes, checkboxes, or dropdowns.",
+      "Click Load form fields to detect and display all fillable fields in the document.",
+      "Enter values for each detected field using the appropriate input controls.",
+      "Optionally enable Flatten to lock field values permanently and remove editability.",
+      "Click Fill and download to generate the completed PDF."
+    ],
+    "tips": [
+      "Use the flatten option when sharing completed forms to prevent recipients from editing your entries.",
+      "Leave fields blank if you want to preserve their current values from the original PDF.",
+      "Radio and dropdown fields show all available options detected from the form structure."
+    ],
+    "limitations": [
+      "XFA-based forms (common in older government PDFs) may not be detected by the field analyzer.",
+      "Some complex form layouts with nested field groups may display field names that look unfamiliar."
+    ],
+    "useCases": {
+      "office-daily": "Fill out HR onboarding forms, expense reports, or vendor registration documents.",
+      "secure-sharing": "Complete and flatten application forms before submitting to external organizations.",
+      "high-volume": "Process batches of similar forms by filling standard fields across multiple documents."
+    },
+    "faq": {
+      "what-it-does": "It detects interactive PDF form fields and lets you fill them with text, checkbox, dropdown, or radio values.",
+      "data-safety": "Form analysis and filling run entirely in your browser. No form data is transmitted.",
+      "limitations": "It supports standard AcroForm fields. XFA forms and heavily customized field widgets may not be recognized."
+    },
+    "troubleshooting": [
+      "If no fields are detected, the PDF may use XFA forms or flattened visual fields that are not interactive.",
+      "If a dropdown shows no options, the field definition in the source PDF may be incomplete.",
+      "If filled values do not appear in the output, verify the field names match and retry without flattening first."
+    ]
+  },
+  "ocr": {
+    "howToSteps": [
+      "Upload a scanned or image-based PDF and select the primary text language.",
+      "Set the maximum number of pages to process based on your document length.",
+      "Click Extract text and monitor the progress bar as each page is recognized.",
+      "Review the extracted text in the output area and check average confidence scores.",
+      "Download the result as a plain text file for further use."
+    ],
+    "tips": [
+      "Higher-quality scans (300 DPI or above) produce significantly better OCR accuracy.",
+      "Select the correct language to improve recognition of special characters and accents.",
+      "The first run for each language downloads a data file; subsequent runs use the cached version."
+    ],
+    "limitations": [
+      "OCR accuracy depends heavily on scan quality, font clarity, and document layout complexity.",
+      "Handwritten text, decorative fonts, and low-contrast documents may produce poor results."
+    ],
+    "useCases": {
+      "office-daily": "Extract searchable text from scanned contracts, invoices, or receipts for filing.",
+      "secure-sharing": "Convert image-based regulatory documents to text for compliance review before distribution.",
+      "high-volume": "Process stacks of scanned correspondence to create text-searchable archives."
+    },
+    "faq": {
+      "what-it-does": "It renders each PDF page as an image and runs Tesseract OCR to extract text content.",
+      "data-safety": "All OCR processing happens in your browser using Tesseract.js. No page images leave your device.",
+      "limitations": "It extracts text only and does not modify the original PDF. Output quality varies with scan resolution."
+    },
+    "troubleshooting": [
+      "If confidence is low, try scanning the original document at higher resolution before running OCR.",
+      "If the wrong language is detected, explicitly select the correct language from the dropdown.",
+      "If processing stalls on large documents, reduce the max pages setting and process in batches."
+    ]
+  }
+}

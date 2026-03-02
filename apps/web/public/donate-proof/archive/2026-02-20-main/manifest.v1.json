@@ -1,0 +1,52 @@
+{
+  "version": "v1",
+  "proofId": "2026-02-20-main",
+  "publishedAt": "2026-02-20T00:00:00Z",
+  "validFrom": "2026-02-20T00:00:00Z",
+  "key": {
+    "fingerprint": "7F4E25B138CF969D1A4269DA53E0D490B13DA222",
+    "keyId": "53E0D490B13DA222",
+    "algorithm": "RSA-4096",
+    "firstSeenAt": "2025-11-01T00:00:00Z"
+  },
+  "files": [
+    {
+      "path": "/donate-proof/archive/2026-02-20-main/addresses.txt",
+      "sha256": "03d8febbe3a66039a41e5c01e9a6b57a606f139d11fad569b77d3e3c450555f8",
+      "sizeBytes": 647
+    },
+    {
+      "path": "/donate-proof/archive/2026-02-20-main/addresses.txt.asc",
+      "sha256": "3a95ebe01c6f5e363a57253aa25543e858e365637e7cac2efa2eab955fc970fa",
+      "sizeBytes": 325
+    },
+    {
+      "path": "/donate-proof/archive/2026-02-20-main/signing-key.asc",
+      "sha256": "1fc59d1d14aa064d409ae53ee67d70e44cbcce45ee82c1e4c03810a76525eeaa",
+      "sizeBytes": 279
+    },
+    {
+      "path": "/donate-proof/archive/2026-02-20-main/README.txt",
+      "sha256": "d0a0f6af6fd0655cff09cdca9efeee496c581d324169482b2c73b57e55b1f04e",
+      "sizeBytes": 223
+    }
+  ],
+  "addresses": [
+    {
+      "network": "Bitcoin",
+      "symbol": "BTC",
+      "address": "bc1qpdfchangerexample8h4x4n7qk0r6xw2f6f0p7m3q9a"
+    },
+    {
+      "network": "Ethereum",
+      "symbol": "ETH",
+      "address": "0x7E57f6BfA3f8e7864A6f5F0469C88b3d4A58cB2E"
+    },
+    {
+      "network": "Monero",
+      "symbol": "XMR",
+      "address": "89aJ9N9dYcXPPDFChangerExampleYwR9FoJ8jCQ4fVQk3v7eML6zvQxR1VdAayhE2qkGgKV9Yv7QzYt8fYXs5U7nYmxnq6Gr3m"
+    }
+  ],
+  "revoked": false
+}

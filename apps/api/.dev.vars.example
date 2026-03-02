@@ -1,0 +1,25 @@
+# Copy to `.dev.vars` for `wrangler dev`.
+# Never commit real secrets.
+
+APP_ORIGIN=http://localhost:5173
+RP_ID=localhost
+RP_ORIGIN=http://localhost:5173
+RP_NAME=PDF Changer
+
+COOKIE_SECURE=false
+
+# 32+ random bytes, base64url (or any opaque string, but keep high entropy)
+SESSION_SIGNING_KEY=dev-session-signing-key-change-me
+RECOVERY_PEPPER=dev-recovery-pepper-change-me
+
+# Optional: entitlement signing for offline paid gating (P-256 ECDSA JWK private key as JSON string).
+# ENTITLEMENT_PRIVATE_JWK={"kty":"EC","crv":"P-256","x":"...","y":"...","d":"..."}
+
+# Stripe (optional for local dev)
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+STRIPE_PRICE_ID=
+
+# Optional newsletter: 32 random bytes (AES-256-GCM key), base64/base64url.
+# node -e "console.log(Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('base64url'))"
+NEWSLETTER_ENC_KEY=

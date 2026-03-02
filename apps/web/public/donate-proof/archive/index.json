@@ -1,0 +1,35 @@
+{
+  "version": "v1",
+  "updatedAt": "2026-03-01T00:00:00Z",
+  "proofs": [
+    {
+      "proofId": "2026-03-01-main",
+      "manifestPath": "/donate-proof/v1/manifest.v1.json",
+      "publishedAt": "2026-03-01T00:00:00Z",
+      "revoked": false
+    },
+    {
+      "proofId": "2026-02-20-main",
+      "manifestPath": "/donate-proof/archive/2026-02-20-main/manifest.v1.json",
+      "publishedAt": "2026-02-20T00:00:00Z",
+      "revoked": false
+    }
+  ],
+  "keys": [
+    {
+      "fingerprint": "9A6E8E58D9D5F39E3FAE6F53A4C71C62C5B5E941",
+      "keyId": "A4C71C62C5B5E941",
+      "path": "/donate-proof/v1/signing-key.asc",
+      "firstSeenAt": "2026-02-20T00:00:00Z",
+      "status": "active"
+    },
+    {
+      "fingerprint": "7F4E25B138CF969D1A4269DA53E0D490B13DA222",
+      "keyId": "53E0D490B13DA222",
+      "path": "/donate-proof/archive/keys/2025-11-01-legacy-signing-key.asc",
+      "firstSeenAt": "2025-11-01T00:00:00Z",
+      "status": "retired",
+      "retiredAt": "2026-02-20T00:00:00Z"
+    }
+  ]
+}

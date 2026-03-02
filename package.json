@@ -1,0 +1,25 @@
+{
+  "name": "pdf-changer",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "npm run dev:web",
+    "dev:web": "npm run dev -w @pdf-changer/web",
+    "dev:api": "npm run dev -w @pdf-changer/api",
+    "build:web": "npm run build -w @pdf-changer/web",
+    "build:api": "npm run build -w @pdf-changer/api",
+    "build": "npm run build:web && npm run build:api",
+    "test:web": "npm run test -w @pdf-changer/web",
+    "test:api": "npm run test -w @pdf-changer/api",
+    "test": "npm run test:web && npm run test:api",
+    "lint:web": "npm run lint -w @pdf-changer/web",
+    "lint:api": "npm run lint -w @pdf-changer/api",
+    "lint": "npm run lint:web && npm run lint:api"
+  }
+}
