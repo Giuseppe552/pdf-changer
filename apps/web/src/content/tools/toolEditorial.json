@@ -406,7 +406,7 @@
     "tips": [
       "Use 150 DPI for a good balance of quality and file size.",
       "JPEG format produces smaller files but introduces compression artifacts.",
-      "This is the nuclear option: all hidden structure is destroyed."
+      "This removes all hidden structure, leaving only visual content as flat images."
     ],
     "limitations": [
       "Text becomes non-selectable in the output.",
@@ -419,7 +419,7 @@
       "high-volume": "Create a standard flatten workflow for recurring document sets that require maximum privacy."
     },
     "faq": {
-      "what-it-does": "It rasterizes every page to a clean image, destroying all hidden PDF structure including fonts, layers, metadata, EXIF, scripts, and forms.",
+      "what-it-does": "It rasterizes every page to a clean image, removing all hidden PDF structure including fonts, layers, metadata, EXIF, scripts, and forms.",
       "data-safety": "Processing is entirely local. No PDF bytes leave your browser.",
       "limitations": "It removes all hidden structure but does not redact visible content. Text becomes non-selectable."
     },
@@ -444,7 +444,7 @@
     ],
     "limitations": [
       "Redaction is irreversible by design. Original content cannot be recovered.",
-      "Text under redacted areas is permanently destroyed in the rasterized output.",
+      "Text under redacted areas is permanently removed in the rasterized output.",
       "Large documents may take longer to process due to per-page rasterization."
     ],
     "useCases": {
@@ -455,7 +455,7 @@
     "faq": {
       "what-it-does": "It lets you draw black-out boxes on PDF pages and burns them permanently by rasterizing every page.",
       "data-safety": "All processing happens locally in your browser. No document data is uploaded.",
-      "limitations": "It destroys text selectability and increases file size due to rasterization."
+      "limitations": "It removes text selectability and increases file size due to rasterization."
     },
     "troubleshooting": [
       "If rectangles don't appear, ensure you click and drag on the page canvas.",
@@ -549,7 +549,7 @@
     ],
     "useCases": {
       "office-daily": "Trim excess whitespace from scanned contracts before filing or email attachment.",
-      "secure-sharing": "Remove letterhead margins that contain internal tracking codes before external distribution.",
+      "secure-sharing": "Trim excess header and footer margins to standardize page layout before external distribution.",
       "high-volume": "Standardize page dimensions across document sets for consistent printing or screen display."
     },
     "faq": {

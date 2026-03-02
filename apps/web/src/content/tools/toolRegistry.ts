@@ -282,7 +282,7 @@ export const toolRegistry: ToolDefinition[] = [
     seo: {
       title: "Unlock PDF",
       description: "Unlock and rebuild password-protected PDFs you own online for free. Authorized local rebuild for compatible files in your browser.",
-      keywords: ["unlock pdf", "remove password pdf", "pdf access"],
+      keywords: ["unlock pdf", "open protected pdf", "pdf authorized access"],
     },
     related: SHARED_RELATED,
   },
@@ -340,7 +340,7 @@ export const toolRegistry: ToolDefinition[] = [
     seo: {
       title: "Redact PDF Content",
       description: "Redact sensitive content from PDFs online for free. No upload — draw and burn black boxes with irreversible rasterization in your browser.",
-      keywords: ["redact pdf", "black out pdf", "censor pdf", "pdf redaction tool"],
+      keywords: ["redact pdf", "black out pdf", "pdf redaction tool", "pdf privacy redaction"],
     },
     related: SHARED_RELATED,
   },

@@ -164,6 +164,9 @@ export function AnalyzeToolPage() {
           {/* image exif */}
           {report.imageExif.length > 0 ? (
             <Card title="Embedded image EXIF">
+              <p className="mb-3 text-sm text-neutral-500">
+                Shown so you can understand what your document exposes. Use the scrubber to remove it before sharing.
+              </p>
               <div className="space-y-3">
                 {report.imageExif.map((img) => (
                   <Surface key={img.index} compact>
