@@ -18,7 +18,8 @@ export type ToolSlug =
   | "crop"
   | "sign"
   | "fill-form"
-  | "ocr";
+  | "ocr"
+  | "analyze";
 
 export type ToolTier = "guest" | "free" | "paid";
 export type ToolBucket = "core" | "heavy";
@@ -458,6 +459,25 @@ export const toolRegistry: ToolDefinition[] = [
       title: "OCR PDF — Extract Text",
       description: "Extract text from scanned PDF pages online for free. No upload — in-browser Tesseract OCR recognizes text from image-based pages.",
       keywords: ["ocr pdf", "extract text from pdf", "scanned pdf to text"],
+    },
+    related: SHARED_RELATED,
+  },
+  {
+    slug: "analyze",
+    name: "Forensic Analyzer",
+    description: "Scan a PDF for identity leaks, tracking vectors, and security risks.",
+    category: "privacy",
+    minTier: "guest",
+    bucket: "core",
+    processingMode: "local",
+    status: "ga",
+    availability: "fully-functional",
+    featured: true,
+    enabled: true,
+    seo: {
+      title: "PDF Forensic Analyzer",
+      description: "Analyze PDFs for hidden metadata, GPS coordinates, tracking beacons, and identity leaks. No upload — forensic scanning runs in your browser.",
+      keywords: ["pdf analyzer", "pdf forensic", "pdf metadata scanner", "pdf privacy check"],
     },
     related: SHARED_RELATED,
   },

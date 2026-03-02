@@ -171,6 +171,10 @@ const OcrToolPageLazy = lazyNamed(
   () => import("./ui/pages/tools/OcrToolPage"),
   "OcrToolPage",
 );
+const AnalyzeToolPageLazy = lazyNamed(
+  () => import("./ui/pages/tools/AnalyzeToolPage"),
+  "AnalyzeToolPage",
+);
 
 export const router = createBrowserRouter([
   {
@@ -295,6 +299,7 @@ export const router = createBrowserRouter([
             element: withSuspense(<FillFormToolPageLazy />),
           },
           { path: "ocr", element: withSuspense(<OcrToolPageLazy />) },
+          { path: "analyze", element: withSuspense(<AnalyzeToolPageLazy />) },
         ],
       },
       { path: "*", element: <NotFoundPage /> },
