@@ -45,6 +45,7 @@ export async function deepScrubPdf(inputBytes: Uint8Array): Promise<{
   for (const page of copied) {
     // Best-effort removal of page-level annotations/actions.
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- pdf-lib internals
       const node = (page as any).node;
       node?.delete?.(annotsKey);
       node?.delete?.(aaKey);
@@ -56,6 +57,7 @@ export async function deepScrubPdf(inputBytes: Uint8Array): Promise<{
 
   // Best-effort removal of catalog-level action/name trees.
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- pdf-lib internals
     const catalog = (out as any).catalog;
     catalog?.delete?.(PDFName.of("OpenAction"));
     catalog?.delete?.(PDFName.of("AA"));

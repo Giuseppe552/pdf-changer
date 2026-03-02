@@ -1,5 +1,5 @@
+/* global URL */
 import fs from "node:fs";
-import path from "node:path";
 import { isConcreteRoute } from "./route-map.mjs";
 
 export const SEVERITY_WEIGHTS = {

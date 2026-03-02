@@ -88,6 +88,7 @@ export const api = {
   logout: () => fetchJson<{ ok: true }>("/v1/logout", { method: "POST" }),
 
   webauthnRegisterOptions: () =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- webauthn options passed directly to browser API
     fetchJson<any>("/v1/webauthn/register/options", { method: "POST" }),
   webauthnRegisterVerify: (body: unknown) =>
     fetchJson<{ ok: true; recoveryCodes?: string[] }>(
@@ -95,6 +96,7 @@ export const api = {
       { method: "POST", body: JSON.stringify(body) },
     ),
   webauthnLoginOptions: () =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- webauthn options passed directly to browser API
     fetchJson<any>("/v1/webauthn/login/options", { method: "POST" }),
   webauthnLoginVerify: (body: unknown) =>
     fetchJson<{ ok: true }>("/v1/webauthn/login/verify", {

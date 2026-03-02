@@ -412,7 +412,7 @@ function validateArchiveAndChain({
 }
 
 export function validateDonateProofArtifacts({
-  rootDir = process.cwd(),
+  rootDir = globalThis.process.cwd(),
   currentManifestPath = "/donate-proof/v1/manifest.v1.json",
   archivePath = "/donate-proof/archive/index.json",
 } = {}) {

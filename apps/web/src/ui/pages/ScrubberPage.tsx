@@ -21,6 +21,7 @@ export function ScrubberPage() {
   const [result, setResult] = React.useState<{
     url: string;
     filename: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- scrub report shape varies by mode
     report: any;
   } | null>(null);
 
@@ -163,6 +164,7 @@ export function ScrubberPage() {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- scrub report shape varies by mode
 function ScrubReport({ report }: { report: any }) {
   return (
     <div className="space-y-3 text-[15px]">

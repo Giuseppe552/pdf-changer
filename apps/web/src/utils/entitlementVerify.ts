@@ -16,6 +16,7 @@ function bytesToString(bytes: Uint8Array): string {
 }
 
 function getPublicJwk(): JsonWebKey | null {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- vite import.meta.env
   const raw = (import.meta as any).env?.VITE_ENTITLEMENT_PUBLIC_JWK as
     | string
     | undefined;

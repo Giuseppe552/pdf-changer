@@ -10,8 +10,10 @@ export async function loadPdfThumbnails(
   const pdfjsLib = await import("pdfjs-dist");
   const workerUrl = (await import("pdfjs-dist/build/pdf.worker.min.mjs?url"))
     .default;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- pdfjs-dist dynamic import
   (pdfjsLib as any).GlobalWorkerOptions.workerSrc = workerUrl;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- pdfjs-dist dynamic import
   const doc = await (pdfjsLib as any).getDocument({ data: pdfBytes }).promise;
   const count = Math.min(doc.numPages, maxPages);
 

@@ -5,6 +5,8 @@ import { renderToStaticMarkup } from "react-dom/server";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Plugin, ResolvedConfig } from "vite";
+
+const Markdown = ReactMarkdown as unknown as React.FC<{ remarkPlugins: unknown[]; children: string }>;
 import { parseFaqMarkdown } from "./src/content/faq/frontmatter";
 import {
   parseSecurityMarkdown,
@@ -234,7 +236,7 @@ function readBlogPosts(rootDir: string): BlogPost[] {
     const title = h1 ?? `${parsed.slug}`;
     const desc = truncate(firstParagraph(body) || "PDF Changer blog post.", 160);
     const bodyHtml = renderToStaticMarkup(
-      React.createElement(ReactMarkdown as any, { remarkPlugins: [remarkGfm] }, body),
+      React.createElement(Markdown, { remarkPlugins: [remarkGfm] }, body),
     );
     posts.push({
       date: parsed.date,
@@ -297,7 +299,7 @@ function readFaqQuestions(rootDir: string): FaqQuestion[] {
       160,
     );
     const bodyHtml = renderToStaticMarkup(
-      React.createElement(ReactMarkdown as any, { remarkPlugins: [remarkGfm] }, parsed.body),
+      React.createElement(Markdown, { remarkPlugins: [remarkGfm] }, parsed.body),
     );
 
     questions.push({
@@ -355,7 +357,7 @@ function readSecurityArticles(rootDir: string): SecurityArticle[] {
     const route =
       section === "policy" ? "/security/policy" : `/security/${section}/${slug}`;
     const bodyHtml = renderToStaticMarkup(
-      React.createElement(ReactMarkdown as any, { remarkPlugins: [remarkGfm] }, parsed.body),
+      React.createElement(Markdown, { remarkPlugins: [remarkGfm] }, parsed.body),
     );
 
     articles.push({
@@ -1171,7 +1173,7 @@ ${relatedHtml}
 
 function renderMarkdownToHtml(markdown: string): string {
   return renderToStaticMarkup(
-    React.createElement(ReactMarkdown as any, { remarkPlugins: [remarkGfm] }, markdown),
+    React.createElement(Markdown, { remarkPlugins: [remarkGfm] }, markdown),
   );
 }
 

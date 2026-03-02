@@ -9,7 +9,9 @@ describe("detectFontFingerprints", () => {
 
     // Manually inject a font reference with subset prefix
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- pdf-lib internals
       const node = (page as any).node;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- pdf-lib internals
       const context = (doc as any).context;
 
       // Create a font dict with subset prefix
