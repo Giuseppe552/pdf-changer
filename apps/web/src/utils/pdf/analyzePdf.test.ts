@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { PDFDocument } from "pdf-lib";
-import { analyzePdf, type ForensicReport } from "./analyzePdf";
+import { analyzePdf } from "./analyzePdf";
 
 async function makePdf(opts?: {
   title?: string;

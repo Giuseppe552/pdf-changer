@@ -15,9 +15,10 @@ function u32le(v: number): number[] {
 function rationalBe(num: number, den: number): number[] {
   return [...u32be(num), ...u32be(den)];
 }
-function rationalLe(num: number, den: number): number[] {
-  return [...u32le(num), ...u32le(den)];
-}
+// rationalLe available if needed for LE GPS tests
+// function rationalLe(num: number, den: number): number[] {
+//   return [...u32le(num), ...u32le(den)];
+// }
 
 function asciiBytes(s: string): number[] {
   return [...new TextEncoder().encode(s), 0]; // null terminated
@@ -125,7 +126,6 @@ describe("exifParse", () => {
   it("parses GPS coordinates from rational DMS", () => {
     // 37° 46' 12" N, 122° 25' 12" W → 37.77, -122.42
     const be = true;
-    const dataOff = 38;
 
     // GPS IFD will be at offset 100 (from tiffStart)
     const gpsIfdOff = 100;
@@ -162,10 +162,8 @@ describe("exifParse", () => {
     // put Make in IFD0, Software in sub-IFD pointed to by ExifIFD
     const be = true;
     const makeStr = asciiBytes("Sony");
-    const swStr = asciiBytes("Lightroom");
     const dataOff = 38;
     const subIfdOff = 80;
-    const subDataOff = subIfdOff + 2 + 1 * 12 + 4; // 80 + 18 = 98
 
     const ifd0Entries = [
       buildIfdEntry(0x010f, 2, makeStr.length, dataOff, be),
