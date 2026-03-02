@@ -4,6 +4,7 @@ import { Card } from "../../components/Card";
 import { Button } from "../../components/Button";
 import { PdfDropZone } from "../../components/PdfDropZone";
 import { Surface } from "../../components/Surface";
+import { Term } from "../../components/Term";
 import { flattenToImagePdf } from "../../../utils/pdf/operations/flattenToImagePdf";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
@@ -69,9 +70,12 @@ export function FlattenToolPage() {
     <div className="space-y-4">
       <Surface variant="warning" compact>
         <div className="text-[15px] text-amber-900">
-          This tool rasterizes every page, destroying all hidden structure (fonts,
-          layers, metadata, embedded files, scripts, form data, EXIF). Text will
-          become non-selectable. This is the nuclear option for maximum privacy.
+          This tool <Term tip="Converts each page into a flat image">rasterizes</Term> every
+          page, removing all hidden structure (fonts, layers,{" "}
+          <Term tip="Author, dates, software info embedded in the file">metadata</Term>,
+          embedded files, scripts, form data,{" "}
+          <Term tip="Photo data: camera model, date, GPS coordinates">EXIF</Term>).
+          Text will become non-selectable.
         </div>
       </Surface>
 

@@ -66,8 +66,8 @@ export function SignToolPage() {
     <div className="space-y-4">
       <Surface variant="emphasis" compact>
         <div className="text-[15px] text-blue-900">
-          This is a visual overlay, not a cryptographic signature. The drawn image is embedded
-          on the page as a PNG — it does not provide legal non-repudiation or tamper evidence.
+          This is a visual overlay, not a cryptographic digital signature — it does not prove
+          who signed or whether the document was changed afterward.
         </div>
       </Surface>
 

@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";
 import { InlineCode } from "../components/InlineCode";
+import { Term } from "../components/Term";
 import { useAuth } from "../auth/AuthContext";
 import { canUseScrubber, incrementScrubUse, usageStatus } from "../../utils/usage";
 import { deepScrubPdf } from "../../utils/pdf/deepScrub";
@@ -116,7 +117,9 @@ export function ScrubberPage() {
             />
             <span className="font-semibold">Paranoid mode</span>
             <span className="text-neutral-600">
-              — also removes JavaScript, embedded files, ICC profiles, document ID
+              — also removes JavaScript, embedded files,{" "}
+              <Term tip="Color profiles embedded by design software">ICC profiles</Term>,{" "}
+              <Term tip="Unique file fingerprint that can track copies">document ID</Term>
             </span>
           </label>
           <div className="flex flex-wrap gap-3">
@@ -173,8 +176,8 @@ function ScrubReport({ report }: { report: any }) {
         report.exifStripReport.pngChunksStripped > 0) ? (
         <Surface variant="emphasis" compact>
           Stripped {report.exifStripReport.jpegSegmentsStripped + report.exifStripReport.pngChunksStripped}{" "}
-          EXIF/IPTC segments ({report.exifStripReport.bytesRemoved} bytes) from
-          embedded images.
+          <Term tip="Photo data: camera, date, location">EXIF</Term>/<Term tip="Caption and copyright fields">IPTC</Term>{" "}
+          segments ({report.exifStripReport.bytesRemoved} bytes) from embedded images.
         </Surface>
       ) : report.exifWarning ? (
         <Surface variant="warning" compact>
@@ -213,12 +216,12 @@ function ScrubReport({ report }: { report: any }) {
         </div>
         <ul className="list-inside list-disc space-y-1 text-neutral-800">
           <li>Document Info fields cleared</li>
-          <li>XMP metadata removed</li>
+          <li><Term tip="Hidden metadata stream, often from Adobe software">XMP</Term> metadata removed</li>
           <li>Open actions and additional actions removed</li>
           <li>Forms removed</li>
           <li>Annotations removed (including hyperlinks)</li>
           <li>Embedded files removed</li>
-          <li>PDF rebuilt (removes incremental-update baggage)</li>
+          <li>PDF rebuilt (removes edit history leftovers)</li>
           <li>EXIF/IPTC metadata stripped from embedded images</li>
         </ul>
       </Surface>
@@ -226,7 +229,7 @@ function ScrubReport({ report }: { report: any }) {
       {report.fontWarning && report.customFontNames?.length > 0 ? (
         <Surface variant="warning" compact>
           <div className="text-[15px] text-amber-900">
-            Custom font subsets detected ({report.customFontNames.length} fonts).
+            Custom <Term tip="Partial fonts with unique random prefixes">font subsets</Term> detected ({report.customFontNames.length} fonts).
             Font subsets can fingerprint the source application. Use{" "}
             <NavLink className="underline" to="/tools/flatten">
               Flatten to Image
