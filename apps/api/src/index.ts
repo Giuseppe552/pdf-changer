@@ -35,6 +35,7 @@ function entitlementExpiryIso(user: { plan: "free" | "paid"; paid_until_ms: numb
 const app = new Hono<{ Bindings: Env }>();
 
 app.onError((err, c) => {
+  console.error("unhandled:", err instanceof Error ? err.message : err);
   if (err instanceof Error && err.message === "Bad origin") {
     return c.text("Forbidden", 403);
   }

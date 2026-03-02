@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Plugin, ResolvedConfig } from "vite";
 
-const Markdown = ReactMarkdown as unknown as React.FC<{ remarkPlugins: unknown[]; children: string }>;
+const Markdown = ReactMarkdown as unknown as React.FC<{ remarkPlugins: unknown[] }>;
 import { parseFaqMarkdown } from "./src/content/faq/frontmatter";
 import {
   parseSecurityMarkdown,
