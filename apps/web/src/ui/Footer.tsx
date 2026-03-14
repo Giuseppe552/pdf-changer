@@ -79,7 +79,7 @@ export function Footer() {
         </div>
 
         <div className="mt-6 text-sm text-neutral-500">
-          © {new Date().getFullYear()} PDF Changer. Built for calm, not noise.
+          © {new Date().getFullYear()} PDF Changer. Built by Giuseppe Giona.
         </div>
       </div>
     </footer>

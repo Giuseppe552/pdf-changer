@@ -7,6 +7,9 @@ import { watermarkPdf } from "../../../utils/pdf/operations/watermarkPdf";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { processAudited } from "../../../utils/vpe/processAudited";
+import type { AuditReport } from "../../../utils/vpe/types";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 export function WatermarkToolPage() {
   const { me } = useAuth();
@@ -18,6 +21,7 @@ export function WatermarkToolPage() {
   const [busy, setBusy] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [out, setOut] = React.useState<{ url: string; name: string } | null>(null);
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   React.useEffect(
     () => () => {
@@ -36,14 +40,15 @@ export function WatermarkToolPage() {
         throw new Error("Monthly quota reached for this tool.");
       }
       const inputBytes = new Uint8Array(await file.arrayBuffer());
-      const output = await watermarkPdf({
+      const { outputBytes, toolReport, auditReport: report } = await processAudited({
+        toolName: "watermark",
         inputBytes,
-        text,
-        opacity,
-        fontSize,
-        angleDegrees,
+        processFn: async (bytes) => watermarkPdf({ inputBytes: bytes, text, opacity, fontSize, angleDegrees }),
       });
-      const blob = new Blob([toArrayBuffer(output.outputBytes)], {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      const output = toolReport as any;
+      setAuditReport(report);
+      const blob = new Blob([toArrayBuffer(outputBytes)], {
         type: "application/pdf",
       });
       const url = URL.createObjectURL(blob);
@@ -123,6 +128,7 @@ export function WatermarkToolPage() {
         </div>
       </Card>
 
+      {auditReport ? <AuditBadge report={auditReport} /> : null}
       {out ? <ResultDownloadPanel files={[out]} /> : null}
 
       {error ? (

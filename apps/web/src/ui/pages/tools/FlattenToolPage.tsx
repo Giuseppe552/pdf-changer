@@ -9,6 +9,9 @@ import { flattenToImagePdf } from "../../../utils/pdf/operations/flattenToImageP
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { processAudited } from "../../../utils/vpe/processAudited";
+import type { AuditReport } from "../../../utils/vpe/types";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 const DPI_OPTIONS = [72, 150, 200, 300] as const;
 
@@ -25,6 +28,7 @@ export function FlattenToolPage() {
     name: string;
     pageCount: number;
   } | null>(null);
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   React.useEffect(
     () => () => {
@@ -43,13 +47,15 @@ export function FlattenToolPage() {
         throw new Error("Monthly heavy quota reached for this device.");
       }
       const inputBytes = new Uint8Array(await file.arrayBuffer());
-      const output = await flattenToImagePdf({
-        pdfBytes: inputBytes,
-        dpi,
-        format,
-        jpegQuality: quality,
+      const { outputBytes, toolReport, auditReport: report } = await processAudited({
+        toolName: "flatten",
+        inputBytes,
+        processFn: async (bytes) => flattenToImagePdf({ pdfBytes: bytes, dpi, format, jpegQuality: quality }),
       });
-      const blob = new Blob([toArrayBuffer(output.outputBytes)], {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      const output = toolReport as any;
+      setAuditReport(report);
+      const blob = new Blob([toArrayBuffer(outputBytes)], {
         type: "application/pdf",
       });
       const url = URL.createObjectURL(blob);
@@ -153,6 +159,7 @@ export function FlattenToolPage() {
         </Card>
       ) : null}
 
+      {auditReport ? <AuditBadge report={auditReport} /> : null}
       {result ? (
         <ResultDownloadPanel files={[{ url: result.url, name: result.name }]} />
       ) : null}

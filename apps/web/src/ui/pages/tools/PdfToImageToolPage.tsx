@@ -6,7 +6,10 @@ import { Card } from "../../components/Card";
 import { PdfDropZone } from "../../components/PdfDropZone";
 import { pdfToImage } from "../../../utils/pdf/operations/pdfToImage";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
+import { runAudited } from "../../../utils/vpe/auditRunner";
+import type { AuditReport } from "../../../utils/vpe/types";
 import { ResultDownloadPanel, type ToolOutputFile } from "./components/ResultDownloadPanel";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 export function PdfToImageToolPage() {
   const { me } = useAuth();
@@ -19,6 +22,7 @@ export function PdfToImageToolPage() {
   const [busy, setBusy] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [outputs, setOutputs] = React.useState<ToolOutputFile[]>([]);
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   const HARD_PAGE_LIMIT = 40;
 
@@ -77,28 +81,39 @@ export function PdfToImageToolPage() {
         throw new Error("Scale above 2.5 is blocked to prevent browser memory spikes.");
       }
       const pdfBytes = new Uint8Array(await file.arrayBuffer());
-      const result = await pdfToImage({
-        pdfBytes,
-        format,
-        scale,
-        maxPages: plannedPages,
+      const { result: auditResult, report } = await runAudited({
+        toolName: "pdf-to-image",
+        inputBytes: pdfBytes,
+        processFn: async (bytes) => {
+          const result = await pdfToImage({
+            pdfBytes: bytes,
+            format,
+            scale,
+            maxPages: plannedPages!,
+          });
+          const extension = format === "jpeg" ? "jpg" : "png";
+          const base = baseName(file.name);
+          const nextOutputs = await Promise.all(
+            result.images.map(async (image) => {
+              const response = await fetch(image.dataUrl);
+              const blob = await response.blob();
+              const imgBytes = new Uint8Array(await blob.arrayBuffer());
+              return {
+                name: `${base}.page-${image.pageIndex + 1}.${extension}`,
+                url: URL.createObjectURL(blob),
+                bytes: imgBytes,
+              };
+            }),
+          );
+          // Return first image bytes as outputBytes for audit hash
+          const outputBytes = nextOutputs[0]?.bytes ?? new Uint8Array(0);
+          return { outputBytes, outputs: nextOutputs };
+        },
       });
-      const extension = format === "jpeg" ? "jpg" : "png";
-      const base = baseName(file.name);
-      const nextOutputs = await Promise.all(
-        result.images.map(async (image) => {
-          const response = await fetch(image.dataUrl);
-          const blob = await response.blob();
-          const bytes = new Uint8Array(await blob.arrayBuffer());
-          return {
-            name: `${base}.page-${image.pageIndex + 1}.${extension}`,
-            url: URL.createObjectURL(blob),
-            bytes,
-          };
-        }),
-      );
       incrementToolUse(me, "pdf-to-image");
-      setOutputs(nextOutputs);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      setOutputs((auditResult as any).outputs);
+      setAuditReport(report);
     } catch (value) {
       setError(value instanceof Error ? value.message : "Export failed");
     } finally {
@@ -190,6 +205,8 @@ export function PdfToImageToolPage() {
           </Button>
         </div>
       </Card>
+
+      {auditReport ? <AuditBadge report={auditReport} /> : null}
 
       <ResultDownloadPanel
         title="Image downloads"

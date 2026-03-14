@@ -13,7 +13,10 @@ import {
 } from "../../../utils/pdf/pipeline";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
+import { runAudited } from "../../../utils/vpe/auditRunner";
+import type { AuditReport } from "../../../utils/vpe/types";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 const AVAILABLE_STEPS: PipelineStepType[] = [
   "scrub",
@@ -47,6 +50,7 @@ export function PipelineToolPage() {
     name: string;
     stepResults: PipelineStepResult[];
     totalDurationMs: number;
+    auditReport: AuditReport;
   } | null>(null);
 
   React.useEffect(
@@ -90,19 +94,33 @@ export function PipelineToolPage() {
     setCurrentStep(0);
     try {
       const inputBytes = new Uint8Array(await file.arrayBuffer());
-      const pipelineResult = await executePipeline(inputBytes, steps, (idx) => {
-        setCurrentStep(idx);
+      const { result: auditResult, report: auditReport } = await runAudited({
+        toolName: "pipeline",
+        inputBytes,
+        processFn: async (bytes) => {
+          const pipelineResult = await executePipeline(bytes, steps, (idx) => {
+            setCurrentStep(idx);
+          });
+          return {
+            outputBytes: pipelineResult.outputBytes,
+            steps: pipelineResult.steps,
+            totalDurationMs: pipelineResult.totalDurationMs,
+          };
+        },
       });
-      const blob = new Blob([toArrayBuffer(pipelineResult.outputBytes)], {
+      const blob = new Blob([toArrayBuffer(auditResult.outputBytes)], {
         type: "application/pdf",
       });
       const url = URL.createObjectURL(blob);
       incrementToolUse(me, "pipeline");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      const pipeReport = auditResult as any;
       setResult({
         url,
         name: `${baseName(file.name)}.pipeline.pdf`,
-        stepResults: pipelineResult.steps,
-        totalDurationMs: pipelineResult.totalDurationMs,
+        stepResults: pipeReport.steps,
+        totalDurationMs: pipeReport.totalDurationMs,
+        auditReport,
       });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Pipeline failed");
@@ -253,7 +271,10 @@ export function PipelineToolPage() {
       ) : null}
 
       {result ? (
-        <ResultDownloadPanel files={[{ url: result.url, name: result.name }]} />
+        <>
+          <AuditBadge report={result.auditReport} />
+          <ResultDownloadPanel files={[{ url: result.url, name: result.name }]} />
+        </>
       ) : null}
 
       {error ? (

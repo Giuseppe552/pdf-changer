@@ -29,7 +29,7 @@ export default defineConfig({
       workbox: {
         // Cache the app shell so the scrubber can run offline after first load.
         navigateFallback: "/index.html",
-        navigateFallbackDenylist: [/^\/blog(\/|$)/, /^\/faq(\/|$)/],
+        navigateFallbackDenylist: [/^\/blog(\/|$)/, /^\/faq(\/|$)/, /^\/sandbox\.html$/],
         globPatterns: ["**/*.{js,css,html,svg,png,webmanifest}"],
       },
     }),

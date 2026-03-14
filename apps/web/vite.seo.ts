@@ -636,7 +636,7 @@ ${bodyHtml}
               </div>
             </div>
           </div>
-          <div class="mt-6 text-xs text-neutral-400">© ${new Date().getFullYear()} PDF Changer.</div>
+          <div class="mt-6 text-xs text-neutral-400">© ${new Date().getFullYear()} PDF Changer. Built by Giuseppe Giona.</div>
         </div>
       </footer>
     </div>
@@ -2754,6 +2754,7 @@ export function seoStaticBlogPlugin(): Plugin {
   Cross-Origin-Resource-Policy: same-origin
   Cross-Origin-Embedder-Policy: require-corp
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-DNS-Prefetch-Control: off
   Content-Security-Policy: default-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; manifest-src 'self'; worker-src 'self' blob:; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; font-src 'self'; connect-src ${cspConnectSrc};
 `;
       writeFileEnsured(path.join(outDir, "_headers"), headers);
@@ -2889,6 +2890,43 @@ ${rssItems}
 </rss>
 `;
         writeFileEnsured(path.join(outDir, "rss.xml"), rss);
+      }
+
+      // Build sandboxed processing iframe with inlined script
+      const sandboxEntryPath = path.join(
+        cfg.root,
+        "src",
+        "utils",
+        "vpe",
+        "sandbox",
+        "sandboxEntry.ts",
+      );
+      if (fs.existsSync(sandboxEntryPath)) {
+        const esbuild = await import("esbuild");
+        const bundled = await esbuild.build({
+          entryPoints: [sandboxEntryPath],
+          bundle: true,
+          format: "iife",
+          write: false,
+          platform: "browser",
+          target: "es2022",
+          minify: true,
+        });
+        const sandboxJs = new TextDecoder().decode(
+          bundled.outputFiles[0].contents,
+        );
+
+        const sandboxHtml = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'wasm-unsafe-eval'; worker-src blob:; connect-src 'none'; form-action 'none'; img-src 'none'; font-src 'none'; style-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none';">
+</head>
+<body>
+  <script>${sandboxJs}</script>
+</body>
+</html>`;
+        writeFileEnsured(path.join(outDir, "sandbox.html"), sandboxHtml);
       }
     },
   };

@@ -5,7 +5,10 @@ import { Card } from "../../components/Card";
 import { Button } from "../../components/Button";
 import { loadPdfThumbnails } from "../../../utils/pdf/thumbnails";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
+import { runAudited } from "../../../utils/vpe/auditRunner";
+import type { AuditReport } from "../../../utils/vpe/types";
 import { PdfDropZone } from "../../components/PdfDropZone";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 
 type PageState = {
@@ -25,6 +28,7 @@ export function PageEditorToolPage() {
   const [out, setOut] = React.useState<{ url: string; name: string } | null>(
     null,
   );
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   React.useEffect(() => {
     return () => {
@@ -98,27 +102,36 @@ export function PageEditorToolPage() {
     setBusy(true);
     setError(null);
     setOut(null);
+    setAuditReport(null);
     try {
       if (!canUseTool(me, "editor")) {
         throw new Error("Monthly quota reached for this tool.");
       }
-      const bytes = new Uint8Array(await file.arrayBuffer());
-      const src = await PDFDocument.load(bytes, { ignoreEncryption: false });
-      const outDoc = await PDFDocument.create();
+      const inputBytes = new Uint8Array(await file.arrayBuffer());
       const chosen = pages.filter((p) => !p.deleted && (kind === "edited" || p.selected));
       if (chosen.length === 0) throw new Error("No pages selected.");
-      for (const p of chosen) {
-        const [copied] = await outDoc.copyPages(src, [p.idx]);
-        if (p.rotation) copied.setRotation(degrees(p.rotation));
-        outDoc.addPage(copied);
-      }
-      const outBytes = await outDoc.save();
-      const blob = new Blob([toArrayBuffer(outBytes)], { type: "application/pdf" });
+      const { result, report } = await runAudited({
+        toolName: "editor",
+        inputBytes,
+        processFn: async (bytes) => {
+          const src = await PDFDocument.load(bytes, { ignoreEncryption: false });
+          const outDoc = await PDFDocument.create();
+          for (const p of chosen) {
+            const [copied] = await outDoc.copyPages(src, [p.idx]);
+            if (p.rotation) copied.setRotation(degrees(p.rotation));
+            outDoc.addPage(copied);
+          }
+          const outputBytes = new Uint8Array(await outDoc.save());
+          return { outputBytes };
+        },
+      });
+      const blob = new Blob([toArrayBuffer(result.outputBytes)], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       const nameBase = baseName(file.name);
       const name = kind === "edited" ? `${nameBase}.edited.pdf` : `${nameBase}.extract.pdf`;
       incrementToolUse(me, "editor");
       setOut({ url, name });
+      setAuditReport(report);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Export failed");
     } finally {
@@ -161,6 +174,8 @@ export function PageEditorToolPage() {
           {busy ? <div className="text-sm text-neutral-600">Working…</div> : null}
         </div>
       </Card>
+
+      {auditReport ? <AuditBadge report={auditReport} /> : null}
 
       {pages.length ? (
         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">

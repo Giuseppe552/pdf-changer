@@ -6,7 +6,10 @@ import { FileDropZone } from "../../components/FileDropZone";
 import { imageToPdf } from "../../../utils/pdf/operations/imageToPdf";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
+import { runAudited } from "../../../utils/vpe/auditRunner";
+import type { AuditReport } from "../../../utils/vpe/types";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 type ImageItem = { id: string; file: File };
 
@@ -24,6 +27,7 @@ export function ImageToPdfToolPage() {
   const [busy, setBusy] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [out, setOut] = React.useState<{ url: string; name: string } | null>(null);
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   React.useEffect(
     () => () => {
@@ -75,13 +79,29 @@ export function ImageToPdfToolPage() {
           bytes: new Uint8Array(await file.arrayBuffer()),
         })),
       );
-      const output = await imageToPdf({ images });
-      const blob = new Blob([toArrayBuffer(output.outputBytes)], {
+      // Combine all image bytes for audit input hash
+      const totalSize = images.reduce((sum, img) => sum + img.bytes.byteLength, 0);
+      const combinedInput = new Uint8Array(totalSize);
+      let offset = 0;
+      for (const img of images) {
+        combinedInput.set(img.bytes, offset);
+        offset += img.bytes.byteLength;
+      }
+      const { result, report } = await runAudited({
+        toolName: "image-to-pdf",
+        inputBytes: combinedInput,
+        processFn: async () => {
+          const output = await imageToPdf({ images });
+          return { outputBytes: output.outputBytes };
+        },
+      });
+      const blob = new Blob([toArrayBuffer(result.outputBytes)], {
         type: "application/pdf",
       });
       const url = URL.createObjectURL(blob);
       incrementToolUse(me, "image-to-pdf");
       setOut({ url, name: "images.pdf" });
+      setAuditReport(report);
     } catch (value) {
       setError(value instanceof Error ? value.message : "Conversion failed");
     } finally {
@@ -137,6 +157,7 @@ export function ImageToPdfToolPage() {
         </div>
       </Card>
 
+      {auditReport ? <AuditBadge report={auditReport} /> : null}
       {out ? <ResultDownloadPanel files={[out]} /> : null}
 
       {error ? (

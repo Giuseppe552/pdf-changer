@@ -9,6 +9,9 @@ import { signPdf } from "../../../utils/pdf/operations/signPdf";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { processAudited } from "../../../utils/vpe/processAudited";
+import type { AuditReport } from "../../../utils/vpe/types";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 type WidthChoice = 0.2 | 0.25 | 0.3 | 0.4 | 0.5;
 
@@ -23,6 +26,7 @@ export function SignToolPage() {
   const [busy, setBusy] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [out, setOut] = React.useState<{ url: string; name: string } | null>(null);
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   React.useEffect(
     () => () => {
@@ -41,12 +45,15 @@ export function SignToolPage() {
         throw new Error("Monthly quota reached for this tool.");
       }
       const inputBytes = new Uint8Array(await file.arrayBuffer());
-      const output = await signPdf({
+      const { outputBytes, toolReport, auditReport: report } = await processAudited({
+        toolName: "sign",
         inputBytes,
-        signaturePngDataUrl: signatureDataUrl,
-        placement: { pageIndex, x: xPos, y: yPos, widthFraction },
+        processFn: async (bytes) => signPdf({ inputBytes: bytes, signaturePngDataUrl: signatureDataUrl, placement: { pageIndex, x: xPos, y: yPos, widthFraction } }),
       });
-      const blob = new Blob([toArrayBuffer(output.outputBytes)], {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      const output = toolReport as any;
+      setAuditReport(report);
+      const blob = new Blob([toArrayBuffer(outputBytes)], {
         type: "application/pdf",
       });
       const url = URL.createObjectURL(blob);
@@ -155,6 +162,7 @@ export function SignToolPage() {
         </div>
       </Card>
 
+      {auditReport ? <AuditBadge report={auditReport} /> : null}
       {out ? <ResultDownloadPanel files={[out]} /> : null}
 
       {error ? (

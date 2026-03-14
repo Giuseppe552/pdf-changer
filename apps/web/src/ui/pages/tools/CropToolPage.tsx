@@ -7,6 +7,9 @@ import { cropPdf, type CropUnit } from "../../../utils/pdf/operations/cropPdf";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { processAudited } from "../../../utils/vpe/processAudited";
+import type { AuditReport } from "../../../utils/vpe/types";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 type ApplyTo = "all" | "range";
 type MarginMode = "uniform" | "per-side";
@@ -27,6 +30,7 @@ export function CropToolPage() {
   const [error, setError] = React.useState<string | null>(null);
   const [out, setOut] = React.useState<{ url: string; name: string } | null>(null);
   const [summary, setSummary] = React.useState<{ cropped: number; total: number } | null>(null);
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   React.useEffect(
     () => () => {
@@ -50,13 +54,15 @@ export function CropToolPage() {
           ? { top: uniformValue, bottom: uniformValue, left: uniformValue, right: uniformValue }
           : { top, bottom, left, right };
       const inputBytes = new Uint8Array(await file.arrayBuffer());
-      const output = await cropPdf({
+      const { outputBytes, toolReport, auditReport: report } = await processAudited({
+        toolName: "crop",
         inputBytes,
-        margins,
-        unit,
-        pageRanges: applyTo === "all" ? "" : pageRanges,
+        processFn: async (bytes) => cropPdf({ inputBytes: bytes, margins, unit, pageRanges: applyTo === "all" ? "" : pageRanges }),
       });
-      const blob = new Blob([toArrayBuffer(output.outputBytes)], {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      const output = toolReport as any;
+      setAuditReport(report);
+      const blob = new Blob([toArrayBuffer(outputBytes)], {
         type: "application/pdf",
       });
       const url = URL.createObjectURL(blob);
@@ -191,6 +197,7 @@ export function CropToolPage() {
         </Card>
       ) : null}
 
+      {auditReport ? <AuditBadge report={auditReport} /> : null}
       {out ? <ResultDownloadPanel files={[out]} /> : null}
 
       {error ? (

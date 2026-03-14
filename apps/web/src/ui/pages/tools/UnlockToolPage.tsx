@@ -7,6 +7,9 @@ import { unlockPdf } from "../../../utils/pdf/operations/unlockPdf";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { processAudited } from "../../../utils/vpe/processAudited";
+import type { AuditReport } from "../../../utils/vpe/types";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 export function UnlockToolPage() {
   const { me } = useAuth();
@@ -15,6 +18,7 @@ export function UnlockToolPage() {
   const [error, setError] = React.useState<string | null>(null);
   const [out, setOut] = React.useState<{ url: string; name: string } | null>(null);
   const [encryptedState, setEncryptedState] = React.useState<string | null>(null);
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   React.useEffect(
     () => () => {
@@ -34,10 +38,15 @@ export function UnlockToolPage() {
         throw new Error("Monthly heavy quota reached for this device.");
       }
       const inputBytes = new Uint8Array(await file.arrayBuffer());
-      const output = await unlockPdf({
+      const { outputBytes, toolReport, auditReport: report } = await processAudited({
+        toolName: "unlock",
         inputBytes,
+        processFn: async (bytes) => unlockPdf({ inputBytes: bytes }),
       });
-      const blob = new Blob([toArrayBuffer(output.outputBytes)], {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      const output = toolReport as any;
+      setAuditReport(report);
+      const blob = new Blob([toArrayBuffer(outputBytes)], {
         type: "application/pdf",
       });
       const url = URL.createObjectURL(blob);
@@ -83,6 +92,7 @@ export function UnlockToolPage() {
         </Card>
       ) : null}
 
+      {auditReport ? <AuditBadge report={auditReport} /> : null}
       {out ? <ResultDownloadPanel files={[out]} /> : null}
 
       <Card title="Limitations" variant="warning">

@@ -10,6 +10,9 @@ import { redactPdf, type RedactionRect } from "../../../utils/pdf/operations/red
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { processAudited } from "../../../utils/vpe/processAudited";
+import type { AuditReport } from "../../../utils/vpe/types";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 type PagePreview = { pageIndex: number; dataUrl: string; width: number; height: number };
 
@@ -31,6 +34,7 @@ export function RedactToolPage() {
     pageCount: number;
     redactedPageCount: number;
   } | null>(null);
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   React.useEffect(
     () => () => {
@@ -115,13 +119,15 @@ export function RedactToolPage() {
           });
         }
       }
-      const output = await redactPdf({
-        pdfBytes: bytes,
-        redactions: allRedactions,
-        dpi: 200,
-        flattenAll: true,
+      const { outputBytes, toolReport, auditReport: report } = await processAudited({
+        toolName: "redact",
+        inputBytes: bytes,
+        processFn: async (b) => redactPdf({ pdfBytes: b, redactions: allRedactions, dpi: 200, flattenAll: true }),
       });
-      const blob = new Blob([toArrayBuffer(output.outputBytes)], { type: "application/pdf" });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      const output = toolReport as any;
+      setAuditReport(report);
+      const blob = new Blob([toArrayBuffer(outputBytes)], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       incrementToolUse(me, "redact");
       setResult({
@@ -259,6 +265,7 @@ export function RedactToolPage() {
               </div>
             </div>
           </Card>
+          {auditReport ? <AuditBadge report={auditReport} /> : null}
           <ResultDownloadPanel files={[{ url: result.url, name: result.name }]} />
         </>
       ) : null}

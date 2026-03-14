@@ -4,7 +4,10 @@ import { useAuth } from "../../auth/AuthContext";
 import { Card } from "../../components/Card";
 import { Button } from "../../components/Button";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
+import { runAudited } from "../../../utils/vpe/auditRunner";
+import type { AuditReport } from "../../../utils/vpe/types";
 import { PdfDropZone } from "../../components/PdfDropZone";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 
 type MergeItem = {
@@ -20,6 +23,7 @@ export function MergeToolPage() {
   const [out, setOut] = React.useState<{ url: string; name: string } | null>(
     null,
   );
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   function addFiles(files: File[]) {
     if (!files.length) return;
@@ -52,23 +56,44 @@ export function MergeToolPage() {
     setBusy(true);
     setError(null);
     setOut(null);
+    setAuditReport(null);
     try {
       if (!canUseTool(me, "merge")) {
         throw new Error("Monthly quota reached for this tool.");
       }
       if (items.length < 2) throw new Error("Choose at least 2 PDFs to merge.");
-      const outDoc = await PDFDocument.create();
+      // Concatenate all input files for auditing
+      const allInputBytes: Uint8Array[] = [];
       for (const item of items) {
-        const bytes = new Uint8Array(await item.file.arrayBuffer());
-        const src = await PDFDocument.load(bytes, { ignoreEncryption: false });
-        const pages = await outDoc.copyPages(src, src.getPageIndices());
-        for (const p of pages) outDoc.addPage(p);
+        allInputBytes.push(new Uint8Array(await item.file.arrayBuffer()));
       }
-      const mergedBytes = await outDoc.save();
-      const blob = new Blob([toArrayBuffer(mergedBytes)], { type: "application/pdf" });
+      const combinedInput = new Uint8Array(
+        allInputBytes.reduce((sum, b) => sum + b.byteLength, 0),
+      );
+      let offset = 0;
+      for (const b of allInputBytes) {
+        combinedInput.set(b, offset);
+        offset += b.byteLength;
+      }
+      const { result, report } = await runAudited({
+        toolName: "merge",
+        inputBytes: combinedInput,
+        processFn: async () => {
+          const outDoc = await PDFDocument.create();
+          for (const inputBuf of allInputBytes) {
+            const src = await PDFDocument.load(inputBuf, { ignoreEncryption: false });
+            const pages = await outDoc.copyPages(src, src.getPageIndices());
+            for (const p of pages) outDoc.addPage(p);
+          }
+          const outputBytes = new Uint8Array(await outDoc.save());
+          return { outputBytes };
+        },
+      });
+      const blob = new Blob([toArrayBuffer(result.outputBytes)], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       incrementToolUse(me, "merge");
       setOut({ url, name: "merged.pdf" });
+      setAuditReport(report);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Merge failed");
     } finally {
@@ -144,6 +169,7 @@ export function MergeToolPage() {
           </div>
         </div>
       </Card>
+      {auditReport ? <AuditBadge report={auditReport} /> : null}
       {error ? (
         <Card title="Error">
           <div className="text-sm text-red-700">{error}</div>

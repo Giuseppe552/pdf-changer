@@ -10,8 +10,11 @@ import { deepScrubPdf } from "../../utils/pdf/deepScrub";
 import { paranoidScrubPdf } from "../../utils/pdf/paranoidScrub";
 import { bytesToHex } from "../../utils/hex";
 import { toArrayBuffer } from "../../utils/toArrayBuffer";
+import { processAudited } from "../../utils/vpe/processAudited";
+import type { AuditReport } from "../../utils/vpe/types";
 import { PdfDropZone } from "../components/PdfDropZone";
 import { Surface } from "../components/Surface";
+import { AuditBadge } from "../components/vpe/AuditBadge";
 
 export function ScrubberPage() {
   const { me, loading } = useAuth();
@@ -24,6 +27,7 @@ export function ScrubberPage() {
     filename: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- scrub report shape varies by mode
     report: any;
+    auditReport: AuditReport;
   } | null>(null);
 
   const status = usageStatus(me);
@@ -39,9 +43,14 @@ export function ScrubberPage() {
         throw new Error("Usage limit reached. Create a passkey account to continue.");
       }
       const inputBytes = new Uint8Array(await file.arrayBuffer());
-      const { outputBytes, report } = paranoidMode
-        ? await paranoidScrubPdf(inputBytes)
-        : await deepScrubPdf(inputBytes);
+      const { outputBytes, toolReport, auditReport } = await processAudited({
+        toolName: paranoidMode ? "paranoid-scrub" : "deep-scrub",
+        inputBytes,
+        processFn: async (bytes) =>
+          paranoidMode ? paranoidScrubPdf(bytes) : deepScrubPdf(bytes),
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- scrub report shape varies
+      const scrubReport = (toolReport as any).report ?? toolReport;
       const blob = new Blob([toArrayBuffer(outputBytes)], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       const safeName = file.name.toLowerCase().endsWith(".pdf")
@@ -49,7 +58,7 @@ export function ScrubberPage() {
         : file.name;
       const filename = `${safeName}.scrubbed.pdf`;
       incrementScrubUse(me);
-      setResult({ url, filename, report });
+      setResult({ url, filename, report: scrubReport, auditReport });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Scrub failed");
     } finally {
@@ -159,6 +168,7 @@ export function ScrubberPage() {
             <a download={result.filename} href={result.url}>
               <Button>Download {result.filename}</Button>
             </a>
+            <AuditBadge report={result.auditReport} />
             <ScrubReport report={result.report} />
           </div>
         </Card>

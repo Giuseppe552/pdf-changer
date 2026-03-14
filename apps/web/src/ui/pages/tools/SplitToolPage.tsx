@@ -5,7 +5,10 @@ import { Card } from "../../components/Card";
 import { Button } from "../../components/Button";
 import { parsePageRanges } from "../../../utils/pdf/pageRanges";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
+import { runAudited } from "../../../utils/vpe/auditRunner";
+import type { AuditReport } from "../../../utils/vpe/types";
 import { PdfDropZone } from "../../components/PdfDropZone";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { ResultDownloadPanel, type ToolOutputFile } from "./components/ResultDownloadPanel";
 
@@ -19,6 +22,7 @@ export function SplitToolPage() {
   const [busy, setBusy] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [outs, setOuts] = React.useState<ToolOutputFile[]>([]);
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   const MAX_PER_PAGE_OUTPUTS = 200;
   const MAX_RANGE_PARTS = 40;
@@ -79,59 +83,66 @@ export function SplitToolPage() {
     setBusy(true);
     setError(null);
     setOuts([]);
+    setAuditReport(null);
     try {
       if (!canUseTool(me, "split")) {
         throw new Error("Monthly quota reached for this tool.");
       }
-      const bytes = new Uint8Array(await file.arrayBuffer());
-      const src = await PDFDocument.load(bytes, { ignoreEncryption: false });
-      const pageCount = src.getPageCount();
+      const inputBytes = new Uint8Array(await file.arrayBuffer());
+      const { result, report } = await runAudited({
+        toolName: "split",
+        inputBytes,
+        processFn: async (bytes) => {
+          const src = await PDFDocument.load(bytes, { ignoreEncryption: false });
+          const pageCount = src.getPageCount();
+          const outputs: ToolOutputFile[] = [];
 
-      if (mode === "perPage") {
-        if (pageCount > MAX_PER_PAGE_OUTPUTS) {
-          throw new Error(
-            `This tool limits one-per-page exports to ${MAX_PER_PAGE_OUTPUTS} pages.`,
-          );
-        }
-        const outputs: ToolOutputFile[] = [];
-        for (let i = 0; i < pageCount; i++) {
-          const outDoc = await PDFDocument.create();
-          const [page] = await outDoc.copyPages(src, [i]);
-          outDoc.addPage(page);
-          const outBytes = await outDoc.save();
-          const blob = new Blob([toArrayBuffer(outBytes)], { type: "application/pdf" });
-          outputs.push({
-            url: URL.createObjectURL(blob),
-            name: `${baseName(file.name)}.page-${i + 1}.pdf`,
-            bytes: outBytes,
-          });
-        }
-        incrementToolUse(me, "split");
-        setOuts(outputs);
-        return;
-      }
-
-      const parts = parsePageRanges(ranges, pageCount);
-      if (parts.length === 0) throw new Error("No pages selected.");
-      if (parts.length > MAX_RANGE_PARTS) {
-        throw new Error(`Too many parts. Keep it under ${MAX_RANGE_PARTS}.`);
-      }
-
-      const outputs: ToolOutputFile[] = [];
-      for (let i = 0; i < parts.length; i++) {
-        const outDoc = await PDFDocument.create();
-        const pages = await outDoc.copyPages(src, parts[i]);
-        for (const p of pages) outDoc.addPage(p);
-        const outBytes = await outDoc.save();
-        const blob = new Blob([toArrayBuffer(outBytes)], { type: "application/pdf" });
-        outputs.push({
-          url: URL.createObjectURL(blob),
-          name: `${baseName(file.name)}.part-${i + 1}.pdf`,
-          bytes: outBytes,
-        });
-      }
+          if (mode === "perPage") {
+            if (pageCount > MAX_PER_PAGE_OUTPUTS) {
+              throw new Error(
+                `This tool limits one-per-page exports to ${MAX_PER_PAGE_OUTPUTS} pages.`,
+              );
+            }
+            for (let i = 0; i < pageCount; i++) {
+              const outDoc = await PDFDocument.create();
+              const [page] = await outDoc.copyPages(src, [i]);
+              outDoc.addPage(page);
+              const outBytes = new Uint8Array(await outDoc.save());
+              const blob = new Blob([toArrayBuffer(outBytes)], { type: "application/pdf" });
+              outputs.push({
+                url: URL.createObjectURL(blob),
+                name: `${baseName(file.name)}.page-${i + 1}.pdf`,
+                bytes: outBytes,
+              });
+            }
+          } else {
+            const parts = parsePageRanges(ranges, pageCount);
+            if (parts.length === 0) throw new Error("No pages selected.");
+            if (parts.length > MAX_RANGE_PARTS) {
+              throw new Error(`Too many parts. Keep it under ${MAX_RANGE_PARTS}.`);
+            }
+            for (let i = 0; i < parts.length; i++) {
+              const outDoc = await PDFDocument.create();
+              const pages = await outDoc.copyPages(src, parts[i]);
+              for (const p of pages) outDoc.addPage(p);
+              const outBytes = new Uint8Array(await outDoc.save());
+              const blob = new Blob([toArrayBuffer(outBytes)], { type: "application/pdf" });
+              outputs.push({
+                url: URL.createObjectURL(blob),
+                name: `${baseName(file.name)}.part-${i + 1}.pdf`,
+                bytes: outBytes,
+              });
+            }
+          }
+          // Return first output's bytes as the "outputBytes" for the audit report hash
+          const outputBytes = outputs[0]?.bytes ?? new Uint8Array(0);
+          return { outputBytes, outputs };
+        },
+      });
       incrementToolUse(me, "split");
-      setOuts(outputs);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      setOuts((result as any).outputs);
+      setAuditReport(report);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Split failed");
     } finally {
@@ -218,6 +229,7 @@ export function SplitToolPage() {
         </div>
       </Card>
 
+      {auditReport ? <AuditBadge report={auditReport} /> : null}
       <ResultDownloadPanel title="Downloads" files={outs} zipName="split-outputs.zip" />
 
       {error ? (

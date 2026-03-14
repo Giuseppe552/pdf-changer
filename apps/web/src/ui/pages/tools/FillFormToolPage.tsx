@@ -10,7 +10,10 @@ import {
 } from "../../../utils/pdf/operations/fillFormPdf";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
+import { processAudited } from "../../../utils/vpe/processAudited";
+import type { AuditReport } from "../../../utils/vpe/types";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 type Phase = "upload" | "fill" | "done";
 
@@ -25,6 +28,7 @@ export function FillFormToolPage() {
   const [error, setError] = React.useState<string | null>(null);
   const [out, setOut] = React.useState<{ url: string; name: string } | null>(null);
   const [filledCount, setFilledCount] = React.useState(0);
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   React.useEffect(
     () => () => {
@@ -67,14 +71,20 @@ export function FillFormToolPage() {
         throw new Error("Monthly quota reached for this tool.");
       }
       const inputBytes = new Uint8Array(await file.arrayBuffer());
-      const output = await fillFormPdf({ inputBytes, values, flattenAfterFill });
-      const blob = new Blob([toArrayBuffer(output.outputBytes)], {
+      const { outputBytes, toolReport, auditReport: report } = await processAudited({
+        toolName: "fill-form",
+        inputBytes,
+        processFn: async (bytes) => fillFormPdf({ inputBytes: bytes, values, flattenAfterFill }),
+      });
+      const blob = new Blob([toArrayBuffer(outputBytes)], {
         type: "application/pdf",
       });
       const url = URL.createObjectURL(blob);
       incrementToolUse(me, "fill-form");
       setOut({ url, name: `${baseName(file.name)}.filled.pdf` });
-      setFilledCount(output.filledCount);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      setFilledCount((toolReport as any).filledCount);
+      setAuditReport(report);
       setPhase("done");
     } catch (value) {
       setError(value instanceof Error ? value.message : "Fill failed");
@@ -213,6 +223,7 @@ export function FillFormToolPage() {
               {flattenAfterFill ? " Form was flattened." : ""}
             </div>
           </Card>
+          {auditReport ? <AuditBadge report={auditReport} /> : null}
           {out ? <ResultDownloadPanel files={[out]} /> : null}
           <Button variant="secondary" onClick={startOver}>
             Start over

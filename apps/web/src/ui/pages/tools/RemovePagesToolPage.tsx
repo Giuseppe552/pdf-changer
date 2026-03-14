@@ -7,6 +7,9 @@ import { removePagesPdf } from "../../../utils/pdf/operations/removePagesPdf";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { processAudited } from "../../../utils/vpe/processAudited";
+import type { AuditReport } from "../../../utils/vpe/types";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 export function RemovePagesToolPage() {
   const { me } = useAuth();
@@ -19,6 +22,7 @@ export function RemovePagesToolPage() {
     keptPages: number;
     removedPages: number;
   } | null>(null);
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   React.useEffect(
     () => () => {
@@ -38,11 +42,15 @@ export function RemovePagesToolPage() {
         throw new Error("Monthly quota reached for this tool.");
       }
       const inputBytes = new Uint8Array(await file.arrayBuffer());
-      const output = await removePagesPdf({
+      const { outputBytes, toolReport, auditReport: report } = await processAudited({
+        toolName: "remove-pages",
         inputBytes,
-        removeRanges,
+        processFn: async (bytes) => removePagesPdf({ inputBytes: bytes, removeRanges }),
       });
-      const blob = new Blob([toArrayBuffer(output.outputBytes)], {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      const output = toolReport as any;
+      setAuditReport(report);
+      const blob = new Blob([toArrayBuffer(outputBytes)], {
         type: "application/pdf",
       });
       const url = URL.createObjectURL(blob);
@@ -96,6 +104,7 @@ export function RemovePagesToolPage() {
         </Card>
       ) : null}
 
+      {auditReport ? <AuditBadge report={auditReport} /> : null}
       {out ? <ResultDownloadPanel files={[out]} /> : null}
 
       {error ? (

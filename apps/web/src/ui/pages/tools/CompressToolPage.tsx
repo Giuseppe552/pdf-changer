@@ -6,7 +6,10 @@ import { PdfDropZone } from "../../components/PdfDropZone";
 import { compressPdf } from "../../../utils/pdf/operations/compressPdf";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
+import { processAudited } from "../../../utils/vpe/processAudited";
+import type { AuditReport } from "../../../utils/vpe/types";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 function formatBytes(bytes: number): string {
   if (bytes <= 0) return "0 B";
@@ -31,6 +34,7 @@ export function CompressToolPage() {
     inputSizeBytes: number;
     outputSizeBytes: number;
     reductionRatio: number;
+    auditReport: AuditReport;
   } | null>(null);
 
   React.useEffect(
@@ -50,8 +54,14 @@ export function CompressToolPage() {
         throw new Error("Monthly heavy quota reached for this device.");
       }
       const inputBytes = new Uint8Array(await file.arrayBuffer());
-      const output = await compressPdf({ inputBytes });
-      const blob = new Blob([toArrayBuffer(output.outputBytes)], {
+      const { outputBytes, toolReport, auditReport } = await processAudited({
+        toolName: "compress",
+        inputBytes,
+        processFn: async (bytes) => compressPdf({ inputBytes: bytes }),
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      const output = toolReport as any;
+      const blob = new Blob([toArrayBuffer(outputBytes)], {
         type: "application/pdf",
       });
       const url = URL.createObjectURL(blob);
@@ -62,6 +72,7 @@ export function CompressToolPage() {
         inputSizeBytes: output.inputSizeBytes,
         outputSizeBytes: output.outputSizeBytes,
         reductionRatio: output.reductionRatio,
+        auditReport,
       });
     } catch (value) {
       setError(value instanceof Error ? value.message : "Compression failed");
@@ -107,7 +118,10 @@ export function CompressToolPage() {
       ) : null}
 
       {result ? (
-        <ResultDownloadPanel files={[{ url: result.url, name: result.name }]} />
+        <>
+          <AuditBadge report={result.auditReport} />
+          <ResultDownloadPanel files={[{ url: result.url, name: result.name }]} />
+        </>
       ) : null}
 
       {error ? (

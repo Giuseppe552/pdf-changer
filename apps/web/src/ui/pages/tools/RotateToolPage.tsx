@@ -7,6 +7,9 @@ import { rotatePdf } from "../../../utils/pdf/operations/rotatePdf";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { processAudited } from "../../../utils/vpe/processAudited";
+import type { AuditReport } from "../../../utils/vpe/types";
+import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 type AngleChoice = 90 | 180 | 270;
 type ApplyTo = "all" | "range";
@@ -21,6 +24,7 @@ export function RotateToolPage() {
   const [error, setError] = React.useState<string | null>(null);
   const [out, setOut] = React.useState<{ url: string; name: string } | null>(null);
   const [summary, setSummary] = React.useState<{ rotated: number; total: number } | null>(null);
+  const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
 
   React.useEffect(
     () => () => {
@@ -40,12 +44,15 @@ export function RotateToolPage() {
         throw new Error("Monthly quota reached for this tool.");
       }
       const inputBytes = new Uint8Array(await file.arrayBuffer());
-      const output = await rotatePdf({
+      const { outputBytes, toolReport, auditReport: report } = await processAudited({
+        toolName: "rotate",
         inputBytes,
-        angleDegrees,
-        pageRanges: applyTo === "all" ? "" : pageRanges,
+        processFn: async (bytes) => rotatePdf({ inputBytes: bytes, angleDegrees, pageRanges: applyTo === "all" ? "" : pageRanges }),
       });
-      const blob = new Blob([toArrayBuffer(output.outputBytes)], {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
+      const output = toolReport as any;
+      setAuditReport(report);
+      const blob = new Blob([toArrayBuffer(outputBytes)], {
         type: "application/pdf",
       });
       const url = URL.createObjectURL(blob);
@@ -125,6 +132,7 @@ export function RotateToolPage() {
         </Card>
       ) : null}
 
+      {auditReport ? <AuditBadge report={auditReport} /> : null}
       {out ? <ResultDownloadPanel files={[out]} /> : null}
 
       {error ? (
