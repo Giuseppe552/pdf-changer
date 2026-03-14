@@ -255,7 +255,15 @@ export function ColophonPage() {
             <span className="font-semibold text-neutral-900">Giuseppe Giona</span>
           </div>
           <div className="text-sm text-neutral-500">
-            Source available on request for technical review.
+            <a
+              href="https://github.com/Giuseppe552/pdf-changer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-neutral-900"
+            >
+              Source on GitHub
+            </a>{" "}
+            — MIT licensed.
           </div>
         </div>
       </div>

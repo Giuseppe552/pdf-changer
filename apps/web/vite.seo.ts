@@ -2544,7 +2544,7 @@ export function seoStaticBlogPlugin(): Plugin {
           </div>
 
           <div class="rounded-sm border border-neutral-200 bg-white p-5">
-            <div class="text-sm text-neutral-500">Built by <span class="font-semibold text-neutral-900">Giuseppe Giona</span>. Source available on request for technical review.</div>
+            <div class="text-sm text-neutral-500">Built by <span class="font-semibold text-neutral-900">Giuseppe Giona</span>. <a class="underline hover:text-neutral-900" href="https://github.com/Giuseppe552/pdf-changer" target="_blank" rel="noopener noreferrer">Source on GitHub</a> — MIT licensed.</div>
           </div>
         </div>`.trim(),
         }),
