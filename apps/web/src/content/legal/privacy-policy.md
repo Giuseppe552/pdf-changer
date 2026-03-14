@@ -4,7 +4,7 @@
 
 ## Overview
 
-PDF Changer is built to minimize data collection. In v1, PDF tools run locally in your browser and **your PDF files do not upload to our servers**.
+PDF Changer is built to minimize data collection. PDF tools run locally in your browser and **your PDF files do not upload to our servers**.
 
 ## What we collect
 

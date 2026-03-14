@@ -1,12 +1,12 @@
 # Why we remove links, forms, and annotations
 
-PDF links, comments, and form fields are “annotations” — and they can carry actions, embedded files, and surprising behavior across viewers. In v1, we remove **all** annotations on purpose.
+PDF links, comments, and form fields are “annotations” — and they can carry actions, embedded files, and surprising behavior across viewers. We remove **all** annotations on purpose.
 
 People often ask: “Why did the scrubber remove my hyperlinks?”
 
-Yes — in v1, the Deep Metadata Scrubber removes **all annotations** on purpose.
+Yes — the Deep Metadata Scrubber removes **all annotations** on purpose.
 
-It’s not because links are “bad”. It’s because v1 is built around a strict, high‑risk default: **safe and boring beats feature‑complete**.
+It’s not because links are “bad”. It’s because the scrubber is built around a strict, high‑risk default: **safe and boring beats feature‑complete**.
 
 ## What counts as an annotation?
 
@@ -26,16 +26,16 @@ Annotations can:
 - create unpredictable behavior across PDF viewers,
 - accidentally carry information you didn’t intend to share.
 
-Also: it’s genuinely hard to automatically separate “harmless” annotations from risky ones across the wild variety of PDFs and PDF viewers. v1 chooses the strict default.
+Also: it’s genuinely hard to automatically separate “harmless” annotations from risky ones across the wild variety of PDFs and PDF viewers. We choose the strict default.
 
 ## What to expect
 
 After scrubbing:
 
-- Text remains selectable (we do not rasterize in v1).
+- Text remains selectable (we do not rasterize by default).
 - Hyperlinks won’t work (because they were annotations).
 - Forms won’t be fillable (forms are removed).
 
-If you need a “keep links” mode later, we can add it as an explicit toggle with warnings — but v1 defaults to maximum safety.
+If you need a “keep links” mode later, we can add it as an explicit toggle with warnings — but the default is maximum safety.
 
 If you want the bigger picture, start here: [Anonymity 101](/blog/basics/anonymity-101).

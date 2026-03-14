@@ -35,7 +35,7 @@ PDFs can include:
 
 Even if none of these are “malicious”, they can create surprising behavior and extra risk when shared.
 
-## What Deep Metadata Scrubber removes (v1)
+## What Deep Metadata Scrubber removes
 
 The scrubber rebuilds the PDF and removes:
 

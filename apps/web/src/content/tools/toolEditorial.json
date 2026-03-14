@@ -23,7 +23,7 @@
     },
     "faq": {
       "what-it-does": "It rebuilds the PDF and removes metadata, forms, annotations, and risky actions by default.",
-      "data-safety": "Processing stays local for this GA tool; no PDF bytes are uploaded in v1.",
+      "data-safety": "Processing stays local for this GA tool; no PDF bytes are uploaded.",
       "limitations": "It reduces technical metadata exposure, not legal or identity risk by itself."
     },
     "troubleshooting": [

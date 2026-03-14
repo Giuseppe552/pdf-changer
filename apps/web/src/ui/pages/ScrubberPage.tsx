@@ -83,7 +83,7 @@ export function ScrubberPage() {
 
       <Surface variant="emphasis" compact>
         <div className="text-[15px] text-neutral-800">
-          Processing happens locally in your browser in v1. Open{" "}
+          Processing happens locally in your browser. Open{" "}
           <NavLink className="underline" to="/security">
             Security Hub
           </NavLink>{" "}

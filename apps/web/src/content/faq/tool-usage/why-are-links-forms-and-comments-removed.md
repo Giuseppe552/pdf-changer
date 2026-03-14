@@ -1,13 +1,13 @@
 ---
 title: Why are links, forms, and comments removed?
 question: Why are links, forms, and comments removed?
-summary: They are removed in v1 because annotations and forms can carry actions, scripts, and hidden data that increase risk.
+summary: They are removed because annotations and forms can carry actions, scripts, and hidden data that increase risk.
 tags: [tool-usage, annotations, forms, links]
 lastReviewed: 2026-02-20
 ---
 # Why are links, forms, and comments removed?
 
-They are removed in v1 because annotations and forms can carry actions, scripts, and hidden data that increase risk.
+They are removed because annotations and forms can carry actions, scripts, and hidden data that increase risk.
 
 ## Why this matters
 

@@ -70,7 +70,7 @@ export function AppShell() {
                   PDF Changer
                 </NavLink>
                 <div className="text-[15px] text-neutral-700">
-                  On-device PDF privacy tools. No uploads. No trackers.
+                  Free PDF tools that run in your browser. Nothing uploaded.
                 </div>
               </div>
 

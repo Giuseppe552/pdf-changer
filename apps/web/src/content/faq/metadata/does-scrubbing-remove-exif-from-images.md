@@ -1,13 +1,13 @@
 ---
 title: Does scrubbing remove EXIF from images?
 question: Does scrubbing remove EXIF from images?
-summary: Not guaranteed in v1. EXIF may remain in embedded images, so high-risk cases should treat image metadata as potentially present.
+summary: Not guaranteed. EXIF may remain in embedded images, so high-risk cases should treat image metadata as potentially present.
 tags: [metadata, exif, images]
 lastReviewed: 2026-02-20
 ---
 # Does scrubbing remove EXIF from images?
 
-Not guaranteed in v1. EXIF may remain in embedded images, so high-risk cases should treat image metadata as potentially present.
+Not guaranteed. EXIF may remain in embedded images, so high-risk cases should treat image metadata as potentially present.
 
 ## Why this matters
 
@@ -28,7 +28,7 @@ Image metadata can include timestamps, device model details, and other clues tha
 
 ## Limits
 
-v1 prioritizes preserving selectable text and core document structure. Full rasterization or advanced image cleaning is a future mode.
+The scrubber prioritizes preserving selectable text and core document structure. Full rasterization or advanced image cleaning is a future mode.
 
 ## Related
 

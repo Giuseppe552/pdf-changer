@@ -29,6 +29,6 @@ If an organization publishes a PGP key and you’re comfortable using it, follow
 
 ## Where PDF Changer fits
 
-PDF Changer focuses on making the **document itself** safer to share (on‑device scrubbing, no uploads in v1). Message encryption is a separate layer.
+PDF Changer focuses on making the **document itself** safer to share (on‑device scrubbing, no uploads). Message encryption is a separate layer.
 
 If you’re getting started, read [Anonymity 101](/blog/basics/anonymity-101) and [device and network basics](/blog/opsec/device-and-network-basics) first — they prevent the most common mistakes.

@@ -1,57 +1,57 @@
-export const homeIdentity = "On-device PDF privacy tools. No uploads. No trackers.";
+export const homeIdentity = "Free PDF tools that run in your browser. Nothing uploaded. Nothing tracked.";
 
 export const homeHeroTitle =
-  "Private PDF handling for office work that cannot afford mistakes.";
+  "Every PDF tool you need, without the subscriptions or the sketchy uploads.";
 
 export const homeHeroSummary =
-  "PDF Changer runs core processing on your device in v1. Use it for monthly close packs, board decks, client document prep, and high-risk submissions where metadata mistakes can leak information.";
+  "I got tired of paying Adobe just to merge two files. The free alternatives were worse — pop-ups, malware warnings, and your documents uploaded to servers you've never heard of. So I built PDF Changer: every operation runs locally in your browser. Your files never leave your device.";
 
 export const homeAudience = [
-  "Office workers sharing HR, legal, or finance files.",
-  "Whistleblowers submitting sensitive documents.",
-  "General users sending applications or personal records.",
-  "Journalists and supporter teams handling source material.",
+  "Anyone tired of paying for basic PDF operations.",
+  "People who don't trust uploading sensitive files to random websites.",
+  "Office workers handling HR, legal, or finance documents.",
+  "Anyone who wants to understand what's actually inside their PDFs.",
 ];
 
 export const homeWhyUse = [
-  "Local processing for core tools keeps document bytes off upload queues.",
-  "Clear run reports show exactly what changed and what did not.",
-  "Usage limits are transparent and predictable per month.",
+  "Everything runs in your browser — no file uploads, no server processing.",
+  "20 tools that cover what you'd normally need Adobe or a dozen browser tabs for.",
+  "Every operation produces a clear report showing exactly what changed.",
 ];
 
 export const homeHowItWorks = [
-  "Open /scrub and choose a PDF.",
-  "Run local scrub and review the report (hashes + removed elements).",
-  "Download the rebuilt PDF and verify before sharing.",
+  "Pick a tool and drop in your PDF.",
+  "Processing happens instantly in your browser tab.",
+  "Download the result. Your original file was never uploaded anywhere.",
 ];
 
 export const homeProofMetrics = [
-  { value: "12", label: "daily tools live", note: "with explicit GA/Labs status" },
-  { value: "0", label: "third-party trackers", note: "no analytics pixels or ad scripts" },
-  { value: "123", label: "tool help URLs", note: "for searchable how-to and FAQ coverage" },
-  { value: "2000-01-01", label: "fixed scrub dates", note: "normalized to avoid “edited now” leaks" },
+  { value: "20", label: "tools available", note: "merge, split, scrub, compress, redact, and more" },
+  { value: "0", label: "files uploaded", note: "everything processes locally in your browser" },
+  { value: "0", label: "trackers", note: "no analytics, no pixels, no third-party scripts" },
+  { value: "125", label: "tests passing", note: "verified processing with automated test suite" },
 ];
 
 export const homeAccountantOutcomes = [
   {
-    title: "Monthly close pack prep",
+    title: "Merge and organise",
     detail:
-      "Merge and reorder supporting PDFs, then remove metadata before sharing with external reviewers.",
+      "Combine supporting documents into one PDF, reorder pages, add page numbers — all without desktop software.",
   },
   {
-    title: "Board packet hygiene",
+    title: "Clean before sharing",
     detail:
-      "Split large packets by range, apply page numbers, and export clean subsets without desktop installs.",
+      "Strip metadata, remove hidden data, and flatten fonts before sending files to clients or reviewers.",
   },
   {
-    title: "Client-ready redacted share",
+    title: "Redact and protect",
     detail:
-      "Use scrub + remove pages + watermark to create a deliberate, audit-friendly outbound copy.",
+      "Black out sensitive information properly (not just covering it with a box), then watermark or password-protect the result.",
   },
 ];
 
 export const homeLimits = [
-  "Names or identifiers already visible in document content.",
-  "Legal or jurisdictional exposure from disclosure decisions.",
-  "Compromised devices, compromised accounts, or prior leaks.",
+  "Text and images already visible in the document — we remove hidden data, not visible content.",
+  "Compromised devices or browsers — if your machine is compromised, no website can help.",
+  "Legal decisions about what to share — that's on you, not a tool.",
 ];

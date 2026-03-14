@@ -23,10 +23,7 @@ export function Footer() {
               PDF Changer
             </div>
             <div className="text-[15px] text-neutral-700">
-              Private PDF tools for people who need clear defaults and no tracking.
-            </div>
-            <div className="text-[15px] text-neutral-700">
-              On-device processing in v1. Account and billing only for plans.
+              Free PDF tools that run entirely in your browser. No uploads, no trackers.
             </div>
           </div>
 

@@ -16,6 +16,6 @@ If you print a sensitive document and then scan it, the scan may carry printer�
 - Avoid printing sensitive material when possible.
 - If you must scan, assume the scan may carry device fingerprints.
 
-This is one reason we emphasize that v1 scrubbing can’t remove **content‑based identifiers**.
+This is one reason we emphasize that scrubbing can’t remove **content‑based identifiers**.
 
 Related: [what metadata is (and why it matters)](/blog/documents/what-metadata-is-and-why-it-matters).

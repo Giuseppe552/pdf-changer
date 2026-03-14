@@ -47,8 +47,8 @@ export function PricingPage() {
 
       <Surface variant="emphasis" compact>
         <div className="text-[15px] text-neutral-800">
-          Payments are handled by Stripe. Core privacy stance remains the same:
-          no analytics trackers and no PDF upload processing in v1.
+          Payments are handled by Stripe. Your PDFs are never uploaded — all
+          processing stays in your browser regardless of plan.
         </div>
       </Surface>
 

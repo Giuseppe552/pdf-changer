@@ -8,7 +8,7 @@ By using PDF Changer, you agree to these terms.
 
 ## Service description
 
-PDF Changer provides on-device PDF tools. In v1, the service is designed so PDF processing happens locally in your browser.
+PDF Changer provides on-device PDF tools. PDF processing happens locally in your browser.
 
 ## Your responsibility
 

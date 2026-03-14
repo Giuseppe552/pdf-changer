@@ -1,13 +1,13 @@
 ---
 title: What data do you store for accounts?
 question: What data do you store for accounts?
-summary: Account storage is minimal in v1 and focused on passkeys, recovery code hashes, plan status, and required billing references.
+summary: Account storage is minimal and focused on passkeys, recovery code hashes, plan status, and required billing references.
 tags: [account, privacy, passkeys, billing]
 lastReviewed: 2026-02-20
 ---
 # What data do you store for accounts?
 
-Account storage is minimal in v1 and focused on passkeys, recovery code hashes, plan status, and required billing references.
+Account storage is minimal and focused on passkeys, recovery code hashes, plan status, and required billing references.
 
 ## Why this matters
 

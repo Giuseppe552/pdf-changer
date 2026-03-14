@@ -609,7 +609,7 @@ ${bodyHtml}
           <div class="grid gap-8 md:grid-cols-4">
             <div class="space-y-3">
               <div class="text-sm font-semibold text-neutral-900">PDF Changer</div>
-              <div class="text-sm text-neutral-600">On-device PDF tools. No uploads. No trackers.</div>
+              <div class="text-sm text-neutral-600">Free PDF tools that run entirely in your browser. No uploads, no trackers.</div>
             </div>
             <div class="space-y-2">
               <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Legal</div>
@@ -2453,7 +2453,7 @@ export function seoStaticBlogPlugin(): Plugin {
       // Static homepage
       const homePath = "/";
       const homeDescription =
-        "Free, private PDF tools that run entirely in your browser. Merge, split, scrub metadata, redact, compress, and more — no uploads, no trackers, no account required.";
+        "Free PDF tools that run entirely in your browser. Merge, split, compress, redact, scrub metadata, and more — no uploads, no subscriptions, no tracking. Built by Giuseppe Giona.";
       const enabledToolsList = toolRegistry
         .filter((t) => t.enabled)
         .map((t) => `<li><a class="underline" href="/tools/${escapeHtml(t.slug)}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`)

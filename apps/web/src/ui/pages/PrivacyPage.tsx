@@ -6,9 +6,9 @@ export function PrivacyPage() {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold tracking-tight">Privacy</h1>
-      <Card title="No uploads in v1">
-        PDF bytes never upload to our servers. Tools run locally in your
-        browser.
+      <Card title="No uploads">
+        Your PDF files never leave your device. Every tool runs locally in
+        your browser.
       </Card>
       <Card title="No trackers">
         No analytics scripts, no third-party CDNs, no marketing pixels.

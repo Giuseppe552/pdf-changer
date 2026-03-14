@@ -15,7 +15,7 @@ Scrubbing removes common metadata and interactive elements. It does **not** remo
 Open the scrubbed PDF and confirm:
 
 - Content looks correct
-- Links are removed (v1 removes all annotations)
+- Links are removed (all annotations are removed by default)
 - Dates are normalized
 
 If your risk is high, consider an air‑gapped or offline workflow.

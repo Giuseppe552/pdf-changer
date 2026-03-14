@@ -1,13 +1,13 @@
 ---
 title: Can you remove names inside the document content?
 question: Can you remove names inside the document content?
-summary: Not automatically in v1. Metadata scrubbing does not remove names, signatures, logos, or IDs visible on the page.
+summary: Not automatically. Metadata scrubbing does not remove names, signatures, logos, or IDs visible on the page.
 tags: [metadata, redaction, content]
 lastReviewed: 2026-02-20
 ---
 # Can you remove names inside the document content?
 
-Not automatically in v1. Metadata scrubbing does not remove names, signatures, logos, or IDs visible on the page.
+Not automatically. Metadata scrubbing does not remove names, signatures, logos, or IDs visible on the page.
 
 ## Why this matters
 
