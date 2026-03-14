@@ -30,6 +30,17 @@ import {
   type ToolDefinition,
   type ToolCategory,
 } from "./src/content/tools/toolRegistry";
+import {
+  homeIdentity,
+  homeHeroTitle,
+  homeHeroSummary,
+  homeAudience,
+  homeWhyUse,
+  homeHowItWorks,
+  homeProofMetrics,
+  homeAccountantOutcomes,
+  homeLimits,
+} from "./src/content/landing/homeContent";
 
 type BlogPost = {
   date: string; // YYYY-MM-DD
@@ -552,9 +563,14 @@ function htmlLayout(opts: {
     <meta property="og:title" content="${escapeHtml(title)}" />
     <meta property="og:description" content="${escapeHtml(description)}" />
     <meta property="og:type" content="${ogType}" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content="${ogUrl ? new URL("/og.png", ogUrl).href : "/og.png"}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="PDF Changer — free, private PDF tools that run in your browser" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeHtml(title)}" />
     <meta name="twitter:description" content="${escapeHtml(description)}" />
+    <meta name="twitter:image" content="${ogUrl ? new URL("/og.png", ogUrl).href : "/og.png"}" />
     ${ogUrlTag}
     ${articleMeta}
     ${articleSectionMeta}
@@ -593,7 +609,7 @@ ${bodyHtml}
           <div class="grid gap-8 md:grid-cols-4">
             <div class="space-y-3">
               <div class="text-sm font-semibold text-neutral-900">PDF Changer</div>
-              <div class="text-sm text-neutral-600">On-device PDF tools. No uploads in v1. No trackers.</div>
+              <div class="text-sm text-neutral-600">On-device PDF tools. No uploads. No trackers.</div>
             </div>
             <div class="space-y-2">
               <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Legal</div>
@@ -1982,7 +1998,7 @@ export function seoStaticBlogPlugin(): Plugin {
         process.env.SITE_ORIGIN ??
         process.env.CF_PAGES_URL ??
         process.env.VITE_SITE_ORIGIN ??
-        "";
+        "https://pdf-changer.pages.dev";
       const siteOrigin = originRaw ? cleanOrigin(originRaw) : null;
       const rssHref = siteOrigin ? "/rss.xml" : undefined;
 
@@ -2431,6 +2447,286 @@ export function seoStaticBlogPlugin(): Plugin {
           cssHrefs,
           bodyHtml: buildStatusBody(),
           rssHref,
+        }),
+      );
+
+      // Static homepage
+      const homePath = "/";
+      const homeDescription =
+        "Free, private PDF tools that run entirely in your browser. Merge, split, scrub metadata, redact, compress, and more — no uploads, no trackers, no account required.";
+      const enabledToolsList = toolRegistry
+        .filter((t) => t.enabled)
+        .map((t) => `<li><a class="underline" href="/tools/${escapeHtml(t.slug)}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`)
+        .join("\n              ");
+      const homeJsonLd = JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            name: "PDF Changer",
+            url: siteOrigin ?? "https://pdf-changer.pages.dev",
+            description: homeDescription,
+            applicationCategory: "UtilitiesApplication",
+            operatingSystem: "Any",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "GBP",
+            },
+            browserRequirements: "Requires a modern browser with JavaScript enabled",
+          },
+          {
+            "@type": "Organization",
+            name: "PDF Changer",
+            url: siteOrigin ?? "https://pdf-changer.pages.dev",
+            logo: `${siteOrigin ?? "https://pdf-changer.pages.dev"}/icon.svg`,
+          },
+        ],
+      });
+      writeFileEnsured(
+        path.join(outDir, "index.html"),
+        htmlLayout({
+          title: "Free Private PDF Tools, No Uploads",
+          description: homeDescription,
+          canonicalHref: siteOrigin ? `${siteOrigin}${homePath}` : homePath,
+          ogUrl: siteOrigin ? `${siteOrigin}${homePath}` : undefined,
+          ogType: "website",
+          cssHrefs,
+          headExtra: `<script type="application/ld+json">${homeJsonLd}</script>`,
+          rssHref,
+          bodyHtml: `
+        <div class="space-y-7">
+          <div class="rounded-sm border border-blue-200 bg-blue-50 px-4 py-3">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="text-[15px] font-semibold text-neutral-900">${escapeHtml(homeIdentity)}</div>
+              <a href="/privacy-policy" class="text-[15px] underline">Read privacy policy</a>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl max-w-4xl">${escapeHtml(homeHeroTitle)}</h1>
+            <p class="text-lg text-neutral-700 max-w-3xl">${escapeHtml(homeHeroSummary)}</p>
+            <div class="flex flex-wrap gap-3">
+              <a href="/scrub" class="inline-flex items-center rounded-sm bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800">Start scrubber</a>
+              <a href="/security" class="inline-flex items-center rounded-sm border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50">See security model</a>
+            </div>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="rounded-sm border border-neutral-200 bg-white p-5">
+              <h2 class="mb-3 text-base font-semibold text-neutral-900">Why people use this</h2>
+              <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+                ${homeWhyUse.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n                ")}
+              </ul>
+            </div>
+            <div class="rounded-sm border border-neutral-200 bg-white p-5">
+              <h2 class="mb-3 text-base font-semibold text-neutral-900">Who this is for</h2>
+              <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+                ${homeAudience.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n                ")}
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-4">
+            ${homeProofMetrics.map((m) => `
+            <div class="rounded-sm border border-neutral-200 bg-white p-4">
+              <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">${escapeHtml(m.label)}</div>
+              <div class="mt-1 text-2xl font-semibold text-neutral-900">${escapeHtml(String(m.value))}</div>
+              <div class="mt-1 text-sm text-neutral-600">${escapeHtml(m.note)}</div>
+            </div>`).join("")}
+          </div>
+
+          <div class="rounded-sm border border-neutral-200 bg-white p-5">
+            <h2 class="mb-3 text-base font-semibold text-neutral-900">How it works</h2>
+            <ol class="list-inside list-decimal space-y-2 text-[15px] text-neutral-700">
+              ${homeHowItWorks.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n              ")}
+            </ol>
+          </div>
+
+          <div class="rounded-sm border border-neutral-200 bg-white p-5">
+            <h2 class="mb-3 text-base font-semibold text-neutral-900">For accountants and office workflows</h2>
+            <div class="grid gap-3 md:grid-cols-3">
+              ${homeAccountantOutcomes.map((o) => `
+              <div class="rounded-sm border border-neutral-300 bg-neutral-50 p-4">
+                <div class="text-base font-semibold text-neutral-900">${escapeHtml(o.title)}</div>
+                <p class="mt-2 text-[15px] text-neutral-700">${escapeHtml(o.detail)}</p>
+              </div>`).join("")}
+            </div>
+          </div>
+
+          <div class="rounded-sm border border-neutral-200 bg-white p-5">
+            <h2 class="mb-3 text-base font-semibold text-neutral-900">All tools</h2>
+            <ul class="list-inside list-disc space-y-1 text-[15px] text-neutral-700">
+              ${enabledToolsList}
+            </ul>
+          </div>
+
+          <div class="rounded-sm border border-amber-200 bg-amber-50 p-5">
+            <h2 class="mb-3 text-base font-semibold text-neutral-900">What this does not protect</h2>
+            <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+              ${homeLimits.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n              ")}
+            </ul>
+          </div>
+
+          <div class="rounded-sm border border-blue-200 bg-blue-50 px-4 py-3">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="text-base font-semibold text-neutral-900">Start with one PDF safely.</div>
+              <a href="/scrub" class="inline-flex items-center rounded-sm bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800">Open scrubber</a>
+            </div>
+          </div>
+
+          <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[15px] text-neutral-800">
+            <a class="underline" href="/security">Security Hub</a>
+            <a class="underline" href="/faq">FAQ Hub</a>
+            <a class="underline" href="/privacy-policy">Privacy Policy</a>
+            <a class="underline" href="/donate">Donate</a>
+            <a class="underline" href="/tools">All Tools</a>
+            <a class="underline" href="/blog">Blog</a>
+          </nav>
+        </div>`.trim(),
+        }),
+      );
+
+      // Static guide pages
+      const guideSlugs = listGuideSlugs(cfg.root);
+      const guidesDir = path.join(cfg.root, "src", "content", "guides");
+
+      // Guide hub
+      const guidesHubPath = "/guides";
+      const guideLinks = guideSlugs
+        .map((slug) => {
+          const raw = fs.readFileSync(path.join(guidesDir, `${slug}.md`), "utf8");
+          const { title: h1 } = stripLeadingH1(raw);
+          const guideTitle = h1 ?? slugToReadableTitle(slug);
+          return `<li><a class="underline text-blue-700" href="/guides/${escapeHtml(slug)}">${escapeHtml(guideTitle)}</a></li>`;
+        })
+        .join("\n              ");
+      writeFileEnsured(
+        path.join(outDir, "guides", "index.html"),
+        htmlLayout({
+          title: "Guides",
+          description:
+            "Step-by-step PDF workflow guides for anonymization, metadata removal, safe sharing, and high-risk document handling.",
+          canonicalHref: siteOrigin ? `${siteOrigin}${guidesHubPath}` : guidesHubPath,
+          ogUrl: siteOrigin ? `${siteOrigin}${guidesHubPath}` : undefined,
+          ogType: "website",
+          cssHrefs,
+          rssHref,
+          activeNav: "guides",
+          bodyHtml: `
+        <div class="space-y-6">
+          <h1 class="text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl">Guides</h1>
+          <p class="text-lg text-neutral-700 max-w-3xl">Step-by-step PDF workflow guides covering anonymization, metadata, safe sharing, and operational security.</p>
+          <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+              ${guideLinks}
+          </ul>
+        </div>`.trim(),
+        }),
+      );
+
+      // Individual guide pages
+      for (const slug of guideSlugs) {
+        const raw = fs.readFileSync(path.join(guidesDir, `${slug}.md`), "utf8");
+        const { title: h1, body } = stripLeadingH1(raw);
+        const guideTitle = h1 ?? slugToReadableTitle(slug);
+        const desc = truncate(firstParagraph(body) || `Guide: ${guideTitle}.`, 160);
+        const guideBodyHtml = renderToStaticMarkup(
+          React.createElement(Markdown, { remarkPlugins: [remarkGfm] }, body),
+        );
+        const guidePath = `/guides/${slug}`;
+        const otherGuides = guideSlugs
+          .filter((s) => s !== slug)
+          .map((s) => {
+            const otherRaw = fs.readFileSync(path.join(guidesDir, `${s}.md`), "utf8");
+            const { title: otherH1 } = stripLeadingH1(otherRaw);
+            return `<li><a class="underline text-blue-700" href="/guides/${escapeHtml(s)}">${escapeHtml(otherH1 ?? slugToReadableTitle(s))}</a></li>`;
+          })
+          .join("\n                ");
+
+        writeFileEnsured(
+          path.join(outDir, "guides", slug, "index.html"),
+          htmlLayout({
+            title: guideTitle,
+            description: desc,
+            canonicalHref: siteOrigin ? `${siteOrigin}${guidePath}` : guidePath,
+            ogUrl: siteOrigin ? `${siteOrigin}${guidePath}` : undefined,
+            ogType: "article",
+            cssHrefs,
+            rssHref,
+            activeNav: "guides",
+            bodyHtml: `
+        <article class="space-y-6">
+          <nav class="text-sm text-neutral-500"><a class="underline" href="/guides">Guides</a> / ${escapeHtml(guideTitle)}</nav>
+          <h1 class="text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl">${escapeHtml(guideTitle)}</h1>
+          <div class="prose prose-neutral max-w-none text-[15px] leading-relaxed">${guideBodyHtml}</div>
+          <hr class="border-neutral-200" />
+          <div class="space-y-2">
+            <h2 class="text-base font-semibold text-neutral-900">More guides</h2>
+            <ul class="list-inside list-disc space-y-1 text-[15px] text-neutral-700">
+                ${otherGuides}
+            </ul>
+          </div>
+        </article>`.trim(),
+          }),
+        );
+      }
+
+      // Static pricing page
+      const pricingPath = "/pricing";
+      writeFileEnsured(
+        path.join(outDir, "pricing", "index.html"),
+        htmlLayout({
+          title: "Pricing",
+          description:
+            "All core PDF tools are free with generous local quotas. Upgrade to the paid plan for unlimited workflow scale at £10/month.",
+          canonicalHref: siteOrigin ? `${siteOrigin}${pricingPath}` : pricingPath,
+          ogUrl: siteOrigin ? `${siteOrigin}${pricingPath}` : undefined,
+          ogType: "website",
+          cssHrefs,
+          rssHref,
+          activeNav: "pricing",
+          bodyHtml: `
+        <div class="space-y-6">
+          <div class="space-y-2">
+            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl">Pricing</h1>
+            <p class="text-lg text-neutral-700 max-w-3xl">All core tools are free with generous local quotas. Upgrade for unlimited workflow scale.</p>
+          </div>
+
+          <div class="rounded-sm border border-blue-200 bg-blue-50 px-4 py-3 text-[15px] text-neutral-800">
+            Payments are handled by Stripe. Core privacy stance remains the same: no analytics trackers and no PDF upload processing.
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-3">
+            <div class="rounded-sm border border-neutral-200 bg-white p-5 h-full">
+              <h2 class="mb-3 text-base font-semibold text-neutral-900">Guest</h2>
+              <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+                <li>All core tools enabled</li>
+                <li>40 actions/month (device-local)</li>
+              </ul>
+              <div class="mt-3 text-sm text-neutral-600">No account needed.</div>
+            </div>
+            <div class="rounded-sm border border-neutral-200 bg-white p-5 h-full">
+              <h2 class="mb-3 text-base font-semibold text-neutral-900">Free (Passkey)</h2>
+              <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+                <li>All core tools enabled</li>
+                <li>600 actions/month (device-local)</li>
+                <li>Heavy-bucket cap: 150/month</li>
+              </ul>
+              <div class="mt-3 text-sm text-neutral-600">Create a passkey in <a class="underline" href="/account">/account</a>.</div>
+            </div>
+            <div class="rounded-sm border border-blue-200 bg-blue-50 p-5 h-full">
+              <h2 class="mb-3 text-base font-semibold text-neutral-900">Paid — £10/month</h2>
+              <div class="mb-3 text-[15px] text-neutral-700">Workflow unlock plan for higher-volume and repeat workloads.</div>
+              <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+                <li>Unlimited actions on all GA tools</li>
+                <li>Offline paid use until entitlement expiry</li>
+                <li>Batch queue and pipelines (planned)</li>
+                <li>Saved presets and profile defaults (planned)</li>
+              </ul>
+              <div class="mt-3"><a href="/account" class="inline-flex items-center rounded-sm bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800">Create account to upgrade</a></div>
+            </div>
+          </div>
+        </div>`.trim(),
         }),
       );
 
