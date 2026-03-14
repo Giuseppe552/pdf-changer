@@ -140,6 +140,7 @@ function knownRoutes(files) {
     "/donate/transparency",
     "/verify",
     "/about",
+    "/colophon",
   ]);
   for (const file of files) {
     const route = normalizeRouteFromFile(file);

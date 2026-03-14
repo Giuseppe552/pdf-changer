@@ -63,6 +63,7 @@ export function Footer() {
               <FooterLink to="/blog">Blog</FooterLink>
               <FooterLink to="/sitemap">Sitemap</FooterLink>
               <FooterLink to="/about">About</FooterLink>
+              <FooterLink to="/colophon">How it's built</FooterLink>
               <FooterLink to="/verify">Verify</FooterLink>
               <FooterLink to="/status">Status</FooterLink>
               <FooterLink to="/newsletter">Newsletter</FooterLink>

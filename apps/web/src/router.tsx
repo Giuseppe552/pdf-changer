@@ -77,6 +77,7 @@ const SitemapPageLazy = lazyNamed(
 );
 const StatusPageLazy = lazyNamed(() => import("./ui/pages/StatusPage"), "StatusPage");
 const AboutPageLazy = lazyNamed(() => import("./ui/pages/AboutPage"), "AboutPage");
+const ColophonPageLazy = lazyNamed(() => import("./ui/pages/ColophonPage"), "ColophonPage");
 const VerifyPageLazy = lazyNamed(() => import("./ui/pages/VerifyPage"), "VerifyPage");
 const NewsletterPageLazy = lazyNamed(
   () => import("./ui/pages/NewsletterPage"),
@@ -231,6 +232,7 @@ export const router = createBrowserRouter([
       { path: "sitemap", element: withSuspense(<SitemapPageLazy />) },
       { path: "status", element: withSuspense(<StatusPageLazy />) },
       { path: "about", element: withSuspense(<AboutPageLazy />) },
+      { path: "colophon", element: withSuspense(<ColophonPageLazy />) },
       { path: "verify", element: withSuspense(<VerifyPageLazy />) },
       { path: "newsletter", element: withSuspense(<NewsletterPageLazy />) },
       { path: "contact", element: withSuspense(<ContactPageLazy />) },

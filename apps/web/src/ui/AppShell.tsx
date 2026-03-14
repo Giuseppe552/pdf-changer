@@ -23,6 +23,7 @@ const moreNavItems: Array<{ to: string; label: string }> = [
   { to: "/terms", label: "Terms" },
   { to: "/refund-policy", label: "Refunds" },
   { to: "/about", label: "About" },
+  { to: "/colophon", label: "How it's built" },
   { to: "/verify", label: "Verify" },
 ];
 

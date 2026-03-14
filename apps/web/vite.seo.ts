@@ -2416,6 +2416,140 @@ export function seoStaticBlogPlugin(): Plugin {
         }),
       );
 
+      // Colophon (how it's built) page
+      const colophonPath = "/colophon";
+      writeFileEnsured(
+        path.join(outDir, "colophon", "index.html"),
+        htmlLayout({
+          title: "How it's built",
+          description:
+            "The engineering behind PDF Changer: 19k lines of TypeScript, sandboxed processing, steganography detection, and a 2,900-line build plugin. Built by Giuseppe Giona.",
+          canonicalHref: siteOrigin ? `${siteOrigin}${colophonPath}` : colophonPath,
+          ogUrl: siteOrigin ? `${siteOrigin}${colophonPath}` : undefined,
+          ogType: "article",
+          cssHrefs,
+          rssHref,
+          bodyHtml: `
+        <div class="space-y-8">
+          <div class="space-y-3">
+            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl">How it's built</h1>
+            <p class="text-lg text-neutral-700 max-w-3xl">PDF Changer is a solo project. I built it to learn, to solve my own problem, and to see how far I could push browser-based document processing. This page is the honest breakdown of what's under the hood.</p>
+          </div>
+
+          <div class="grid gap-3 grid-cols-2 md:grid-cols-4">
+            <div class="rounded-sm border border-neutral-200 bg-white p-4">
+              <div class="text-2xl font-semibold text-neutral-900">~19k</div>
+              <div class="mt-1 text-sm text-neutral-600">lines of TypeScript</div>
+            </div>
+            <div class="rounded-sm border border-neutral-200 bg-white p-4">
+              <div class="text-2xl font-semibold text-neutral-900">125</div>
+              <div class="mt-1 text-sm text-neutral-600">automated tests</div>
+            </div>
+            <div class="rounded-sm border border-neutral-200 bg-white p-4">
+              <div class="text-2xl font-semibold text-neutral-900">500+</div>
+              <div class="mt-1 text-sm text-neutral-600">pre-rendered pages</div>
+            </div>
+            <div class="rounded-sm border border-neutral-200 bg-white p-4">
+              <div class="text-2xl font-semibold text-neutral-900">14</div>
+              <div class="mt-1 text-sm text-neutral-600">bundle size budgets</div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-lg font-semibold text-neutral-900">The stack</h2>
+            <div class="rounded-sm border border-neutral-200 bg-white p-5">
+              <div class="grid gap-4 md:grid-cols-2 text-[15px] text-neutral-700">
+                <div class="space-y-2">
+                  <div class="font-semibold text-neutral-900">Frontend</div>
+                  <ul class="list-inside list-disc space-y-1"><li>React 19 + React Router (SPA)</li><li>Tailwind CSS (utility-first, no component library)</li><li>Vite (build tooling + dev server)</li><li>Workbox (service worker for offline use)</li></ul>
+                </div>
+                <div class="space-y-2">
+                  <div class="font-semibold text-neutral-900">PDF processing</div>
+                  <ul class="list-inside list-disc space-y-1"><li>pdf-lib (create, modify, merge, split)</li><li>PDF.js (rendering for redact, flatten, export)</li><li>Tesseract.js (OCR text extraction)</li><li>Web Crypto API (SHA-256, HMAC, ECDSA)</li></ul>
+                </div>
+                <div class="space-y-2">
+                  <div class="font-semibold text-neutral-900">Infrastructure</div>
+                  <ul class="list-inside list-disc space-y-1"><li>Cloudflare Pages (hosting, headers, CDN)</li><li>Stripe (payments, no custom billing)</li><li>WebAuthn passkeys (no passwords stored)</li></ul>
+                </div>
+                <div class="space-y-2">
+                  <div class="font-semibold text-neutral-900">Quality</div>
+                  <ul class="list-inside list-disc space-y-1"><li>Vitest (125 tests across 31 files)</li><li>TypeScript strict mode throughout</li><li>Bundle budget enforcement (14 limits)</li><li>Content validation pipeline (5 scripts)</li></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-lg font-semibold text-neutral-900">The interesting problems</h2>
+            <div class="space-y-4">
+              <div class="rounded-sm border border-neutral-200 bg-white p-5">
+                <h3 class="text-base font-semibold text-neutral-900">Verified Processing Environment</h3>
+                <div class="mt-3 space-y-3 text-[15px] text-neutral-700">
+                  <p>"We don't upload your files" is easy to say. Proving it is harder. I built a system that wraps every PDF operation in three concurrent monitors: a PerformanceObserver watching all network requests, a CSP violation listener catching blocked exfiltration attempts, and a MutationObserver detecting injected scripts or tracking pixels.</p>
+                  <p>WebRTC is monkey-patched during processing to prevent IP leaks via ICE candidates. The sandbox iframe runs with an opaque origin and a CSP that blocks all outbound connections. After processing, the system produces a tamper-evident audit report with HMAC-chained entries and SHA-256 hashes of input and output.</p>
+                  <p class="text-sm text-neutral-500">Threat model based on analysis of 45+ browser exfiltration vectors. <a class="underline" href="/security/technical/verified-processing-environment">Full architecture doc</a> · <a class="underline" href="/security/technical/csp-exfiltration-analysis">Vector analysis</a></p>
+                </div>
+              </div>
+              <div class="rounded-sm border border-neutral-200 bg-white p-5">
+                <h3 class="text-base font-semibold text-neutral-900">Steganography detection</h3>
+                <div class="mt-3 space-y-3 text-[15px] text-neutral-700">
+                  <p>Most printers embed invisible yellow tracking dots (Machine Identification Code) that encode the printer serial number, date, and time. If you scan a printed document back to PDF, those dots survive. The scrubber includes a heuristic detector that renders pages at high resolution and scans margin areas for yellow pixel patterns matching known MIC grids.</p>
+                </div>
+              </div>
+              <div class="rounded-sm border border-neutral-200 bg-white p-5">
+                <h3 class="text-base font-semibold text-neutral-900">Structure randomization</h3>
+                <div class="mt-3 text-[15px] text-neutral-700">
+                  <p>PDFs have internal object ordering. If every output from this tool had identical structure, that structure itself becomes a fingerprint. The paranoid scrub mode shuffles internal object insertion order using Fisher-Yates. Two identical inputs produce visually identical but structurally different outputs.</p>
+                </div>
+              </div>
+              <div class="rounded-sm border border-neutral-200 bg-white p-5">
+                <h3 class="text-base font-semibold text-neutral-900">2,900-line build plugin</h3>
+                <div class="mt-3 text-[15px] text-neutral-700">
+                  <p>The static site generation is a custom Vite plugin that pre-renders 500+ pages at build time. It parses markdown, generates JSON-LD structured data, builds the sitemap, generates RSS, creates the sandboxed processing iframe, and enforces CSP headers. The build also runs five content validation scripts including prohibited-phrase detection.</p>
+                </div>
+              </div>
+              <div class="rounded-sm border border-neutral-200 bg-white p-5">
+                <h3 class="text-base font-semibold text-neutral-900">Font fingerprinting</h3>
+                <div class="mt-3 text-[15px] text-neutral-700">
+                  <p>When you create a PDF with a custom font, the authoring tool embeds a font subset with a randomly generated prefix unique to that export. The scrubber detects these subsets and warns you, with a link to the flatten tool which destroys all font data by converting pages to images.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-lg font-semibold text-neutral-900">How competitors do it</h2>
+            <div class="rounded-sm border border-neutral-200 bg-white p-5 text-[15px] text-neutral-700 space-y-3">
+              <p>Every major free PDF tool uploads your document to their servers for processing. Some claim to delete files after an hour; some don't say. Either way, your document leaves your device, crosses the network, and sits on someone else's infrastructure.</p>
+              <p>PDF Changer processes everything in a sandboxed iframe inside your browser tab. The iframe's Content Security Policy blocks all outbound connections. Three monitors verify that nothing leaked. The difference isn't just a privacy policy — it's a fundamentally different architecture.</p>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-lg font-semibold text-neutral-900">Try it</h2>
+            <div class="grid gap-3 md:grid-cols-3">
+              <div class="rounded-sm border border-neutral-200 bg-white p-4">
+                <a href="/verify" class="underline text-[15px] font-semibold text-neutral-900">Run the live audit</a>
+                <p class="mt-1 text-sm text-neutral-600">Process a sample PDF and watch three monitors prove zero data left your browser.</p>
+              </div>
+              <div class="rounded-sm border border-neutral-200 bg-white p-4">
+                <a href="/scrub" class="underline text-[15px] font-semibold text-neutral-900">Scrub a real file</a>
+                <p class="mt-1 text-sm text-neutral-600">Drop in a PDF and see the full report — metadata stripped, hashes computed, audit badge attached.</p>
+              </div>
+              <div class="rounded-sm border border-neutral-200 bg-white p-4">
+                <a href="/security" class="underline text-[15px] font-semibold text-neutral-900">Read the security docs</a>
+                <p class="mt-1 text-sm text-neutral-600">Threat models, exfiltration analysis, and residual risk disclosures.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-sm border border-neutral-200 bg-white p-5">
+            <div class="text-sm text-neutral-500">Built by <span class="font-semibold text-neutral-900">Giuseppe Giona</span>. Source available on request for technical review.</div>
+          </div>
+        </div>`.trim(),
+        }),
+      );
+
       // Verify page
       const verifyPath = "/verify";
       writeFileEnsured(
@@ -2789,6 +2923,7 @@ export function seoStaticBlogPlugin(): Plugin {
         "/guides",
         "/blog",
         "/about",
+        "/colophon",
         "/verify",
         "/status",
       ];
