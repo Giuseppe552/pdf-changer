@@ -298,68 +298,69 @@
   },
   "protect": {
     "howToSteps": [
-      "Review this route as a status page, not an active processing tool.",
-      "Confirm current production status before planning workflows.",
-      "Use available GA tools for immediate document prep.",
-      "Track release notes for protect support milestones.",
-      "Do not assume this route can generate encrypted PDFs yet."
+      "This tool is not functional. Password-protected PDF writing is not implemented.",
+      "Do not plan workflows around this tool. It cannot encrypt or password-protect PDFs.",
+      "For password protection, use LibreOffice (free), Adobe Acrobat, or qpdf (CLI).",
+      "For privacy without passwords, use Deep Metadata Scrubber + Flatten instead.",
+      "This page exists for transparency. We list it as coming-soon rather than hiding it."
     ],
     "tips": [
-      "Use scrub + watermark for current risk-reduction baseline.",
-      "Keep sensitive originals in controlled storage.",
-      "Follow Security Hub guidance for channel-level controls."
+      "Scrub + Flatten provides stronger privacy than a weak PDF password. PDF passwords are trivially crackable with free tools.",
+      "If you need to restrict who can open a document, use encrypted email or a secure file-sharing platform instead of PDF passwords.",
+      "PDF user passwords (restrict printing/copying) provide zero security. They are cosmetic only."
     ],
     "limitations": [
-      "Password-protected PDF writing is not active in GA.",
-      "No cloud fallback is triggered silently."
+      "Password-protected PDF writing is not implemented. This tool does nothing.",
+      "Even when implemented, PDF password protection is weak by design. RC4 and AES-128 encryption in PDFs are well-understood and quickly crackable."
     ],
     "useCases": {
-      "office-daily": "Use this page to monitor readiness if your compliance policy requires PDF passwords.",
-      "secure-sharing": "Plan alternate controls until protect reaches stable GA.",
-      "high-volume": "Track roadmap impact before committing process changes."
+      "office-daily": "Not available. Use LibreOffice or qpdf for PDF password protection.",
+      "secure-sharing": "Not available. For real security, use encrypted channels (Signal, PGP, secure file share) rather than PDF passwords.",
+      "high-volume": "Not available. For batch password protection, use qpdf: qpdf --encrypt user owner 256 -- input.pdf output.pdf"
     },
     "faq": {
-      "what-it-does": "Currently it provides explicit status visibility only.",
-      "data-safety": "No document bytes are processed on this route today.",
-      "limitations": "It is not a functional encryption endpoint yet."
+      "what-it-does": "Nothing. This tool is not implemented. It is listed as coming-soon for transparency.",
+      "data-safety": "No document bytes are processed. The route is disabled.",
+      "limitations": "It does not exist as a functional tool. Use alternatives listed in the how-to section."
     },
     "troubleshooting": [
-      "If you expected a run button, this is intentionally disabled for honesty.",
-      "If your policy requires passwords now, use approved external tooling.",
-      "Monitor release notes before onboarding teams."
+      "There is no run button. This is intentional — the tool is not implemented.",
+      "If your workflow requires PDF passwords, use qpdf (free, CLI) or LibreOffice (free, GUI).",
+      "If you need privacy without passwords, use Scrub + Flatten. This removes all hidden data and is more effective than a PDF password."
     ]
   },
   "unlock": {
     "howToSteps": [
-      "Select a PDF you are authorized to process.",
-      "Run local rebuild and wait for output note.",
-      "Download rebuilt file and test open behavior.",
-      "Verify that required pages remain intact.",
-      "Document this action in your internal audit trail."
+      "Upload a PDF that has permission restrictions (printing, copying, editing disabled).",
+      "The tool re-saves the file with pdf-lib using ignoreEncryption, which strips owner-password restrictions.",
+      "Download the rebuilt file. Permission restrictions are removed if the PDF used owner-password-only protection.",
+      "This does NOT work on PDFs that require a user password to open. If the PDF asks for a password before you can see the content, this tool cannot help.",
+      "Verify the output opens correctly and content is intact before relying on it."
     ],
     "tips": [
-      "Treat this as a compatibility utility, not a bypass tool.",
-      "Run on copies, never on the only original.",
-      "Pair with scrub only after successful authorized open."
+      "This tool works on PDFs with 'owner passwords' (restrict print/copy/edit) but no 'user password' (restrict opening). Most PDFs from government agencies and corporate tools use owner-password-only.",
+      "If a PDF requires a password to open (user password), you need qpdf with the actual password: qpdf --decrypt --password=PASS input.pdf output.pdf",
+      "PDF permission restrictions are security theater. Any tool that can parse the PDF structure can ignore them. This tool just makes that explicit."
     ],
     "limitations": [
-      "Password prompt is not part of current local rebuild mode.",
-      "Some cryptographic protection modes remain unsupported."
+      "Cannot decrypt PDFs that require a user password to open. The tool has no password input — it simply re-parses and re-saves.",
+      "AES-256 encrypted PDFs with user passwords will fail completely. There is no brute-force or cracking capability.",
+      "Some PDFs with unusual encryption handlers (non-standard, DRM) will fail to load."
     ],
     "useCases": {
-      "office-daily": "Rebuild authorized PDFs that fail in older internal viewers.",
-      "secure-sharing": "Prepare compatible copies for approved recipients.",
-      "high-volume": "Standardize document openness checks in controlled operations."
+      "office-daily": "Remove printing/copying restrictions from vendor PDFs or government forms where you need to copy text or print sections.",
+      "secure-sharing": "Strip owner-password restrictions from documents you own before applying scrub or flatten operations.",
+      "high-volume": "Batch-remove permission restrictions from downloaded compliance documents that block text selection."
     },
     "faq": {
-      "what-it-does": "It attempts an authorized local rebuild for compatible encrypted inputs.",
-      "data-safety": "No upload path is used in current beta mode.",
-      "limitations": "It is not guaranteed for all encryption methods."
+      "what-it-does": "It loads the PDF with pdf-lib's ignoreEncryption flag and re-saves it. This strips owner-password permission restrictions (no-print, no-copy, no-edit) but cannot bypass user-password encryption.",
+      "data-safety": "Processing is local. The PDF is parsed and re-saved in your browser.",
+      "limitations": "It removes permission flags only. It cannot decrypt user-password-protected PDFs. It is not a cracking tool."
     },
     "troubleshooting": [
-      "If rebuild fails, validate authorization and source integrity first.",
-      "If file opens but content is wrong, compare against original copy.",
-      "If repeated failures occur, use a dedicated decryption workflow."
+      "PDF asks for password before opening: this tool cannot help. You need the actual password.",
+      "Output is blank or corrupted: the encryption handler is unsupported. Try qpdf as an alternative.",
+      "Restrictions still present after unlock: some viewers cache permission flags. Try opening in a different PDF viewer."
     ]
   },
   "remove-pages": {
@@ -397,70 +398,79 @@
   },
   "flatten": {
     "howToSteps": [
-      "Choose one PDF to flatten. Every page will be rasterized to an image.",
-      "Select DPI (150 recommended), format (PNG for lossless, JPEG for smaller), and quality.",
-      "Run flatten and wait for all pages to be rasterized.",
-      "Download the output PDF. Text is now non-selectable by design.",
-      "Verify visually that all pages rendered correctly before sharing."
+      "Choose one PDF to flatten. Every page will be rendered to pixels and re-embedded as an image.",
+      "Select DPI: 150 (good for screen sharing, ~0.3-0.8MB/page), 200 (print-quality, ~0.5-1.5MB/page), 300 (archival, ~1-3MB/page).",
+      "Select format: PNG (lossless, larger) or JPEG (lossy, smaller). For text-heavy pages, JPEG at 85% quality is usually indistinguishable.",
+      "Run flatten. Each page is rendered via PDF.js, drawn to a canvas, and exported. Progress shows per-page status.",
+      "Download the output and verify visually. Text is intentionally non-selectable — the entire page is now a single image."
     ],
     "tips": [
-      "Use 150 DPI for a good balance of quality and file size.",
-      "JPEG format produces smaller files but introduces compression artifacts.",
-      "This removes all hidden structure, leaving only visual content as flat images."
+      "150 DPI is sufficient for screen viewing and email sharing. Only use 200+ if the document will be printed.",
+      "JPEG at 85% quality produces files roughly 3x smaller than PNG with no visible difference at normal zoom. Use PNG only when pixel-perfect reproduction matters.",
+      "Flatten is the nuclear option for metadata removal. It destroys: fonts (preventing font fingerprinting), forms (preventing data extraction), JavaScript (preventing tracking), layers (preventing hidden content), EXIF in embedded images, and all PDF structure. What remains is visual content only.",
+      "Output file size depends heavily on page content. Text-only pages compress well (~0.3MB at 150 DPI JPEG). Full-color photos expand significantly (~1-2MB per page).",
+      "For maximum privacy, chain: Paranoid Scrub → Flatten → Compress. The scrub removes metadata, flatten destroys structure, compress reduces the inflated file size."
     ],
     "limitations": [
-      "Text becomes non-selectable in the output.",
-      "Large documents (200+ pages) are capped for browser memory safety.",
-      "Output file size may be larger than the original due to rasterization."
+      "Text becomes non-selectable. Recipients cannot copy-paste, search, or index the text. If they need searchable text, they would need to OCR the result.",
+      "Output file size is almost always larger than the original for text-heavy documents. A 500KB text PDF may become 3-5MB after flatten at 150 DPI.",
+      "200-page cap exists because each page requires ~50-100MB of RAM for canvas rendering. For longer documents, split first and flatten sections.",
+      "Transparent elements and blend modes may render differently than in specialized PDF viewers. Always verify the output."
     ],
     "useCases": {
-      "office-daily": "Flatten sensitive internal reports before archiving to remove all hidden metadata and structure.",
-      "secure-sharing": "Before sharing with external parties, flatten to ensure no hidden data (fonts, forms, scripts, EXIF) leaks.",
-      "high-volume": "Create a standard flatten workflow for recurring document sets that require maximum privacy."
+      "office-daily": "Flatten sensitive internal reports before archiving. This removes all hidden metadata, edit history, font fingerprints, and form data. Accept the file size increase as the cost of privacy.",
+      "secure-sharing": "Before sharing with external parties or submitting to journalists, flatten guarantees that no hidden data survives — no fonts, forms, scripts, layers, EXIF, or structure. Combine with Paranoid Scrub for the strongest protection available.",
+      "high-volume": "Create a standard flatten workflow at 150 DPI JPEG for recurring document sets. Test file sizes on a sample batch before committing to ensure storage and email attachment limits are met."
     },
     "faq": {
-      "what-it-does": "It rasterizes every page to a clean image, removing all hidden PDF structure including fonts, layers, metadata, EXIF, scripts, and forms.",
-      "data-safety": "Processing is entirely local. No PDF bytes leave your browser.",
-      "limitations": "It removes all hidden structure but does not redact visible content. Text becomes non-selectable."
+      "what-it-does": "It renders every page to a pixel image using PDF.js, then embeds those images in a new PDF. The original PDF structure is completely destroyed: fonts, forms, annotations, JavaScript, layers, EXIF, and metadata are all gone. What remains is exactly what you see on screen — nothing more.",
+      "data-safety": "Processing is entirely local. PDF.js renders pages in a canvas element, the canvas exports as PNG or JPEG, and pdf-lib builds a new PDF from those images. No bytes leave your browser at any step.",
+      "limitations": "It destroys all structure, including useful structure. Text selection, form filling, accessibility features, and bookmarks are gone. File size increases for text-heavy documents. The 200-page cap exists for browser memory safety."
     },
     "troubleshooting": [
-      "If output is blank, try a lower DPI setting.",
-      "If processing stalls, reduce document page count by splitting first.",
-      "If file size is too large, use JPEG format with lower quality."
+      "Blank output: the source PDF may use features PDF.js cannot render (rare 3D content, uncommon fonts). Try a lower DPI first.",
+      "Processing stalls at page N: browser is out of memory. Split the document before page N and flatten each half separately.",
+      "Output too large: switch from PNG to JPEG, or reduce DPI from 200 to 150. JPEG at 85% quality is 2-4x smaller than PNG with minimal visual difference.",
+      "Colors look wrong: some CMYK-heavy PDFs render differently in PDF.js (which works in RGB). The content is correct but colors may shift slightly."
     ]
   },
   "redact": {
     "howToSteps": [
-      "Load a PDF and wait for page thumbnails to appear.",
-      "Click a page to open the redaction canvas. Draw rectangles over content to redact.",
-      "Red overlays show marked areas. Click an existing rectangle to delete it.",
-      "When all redactions are marked, click Burn Redactions to permanently rasterize.",
-      "Download the output. Redacted areas are solid black and irrecoverable."
+      "Load a PDF and wait for page thumbnails to render.",
+      "Click a page to open the full-size redaction canvas at 200 DPI.",
+      "Click and drag to draw red rectangles over content to redact. Click an existing rectangle to remove it.",
+      "Review ALL pages — redacted pages show red overlays, but every page gets rasterized on burn.",
+      "Click Burn Redactions. This is permanent and irreversible. The output replaces every page with a flat image."
     ],
     "tips": [
-      "All pages are rasterized for uniformity, not just redacted ones.",
-      "Preview shows red overlays; burned output shows solid black.",
-      "There is no undo after burning. Review carefully before proceeding."
+      "Every page is rasterized at 200 DPI on burn, not just pages with redactions. This prevents metadata analysis from revealing which pages were redacted.",
+      "Draw rectangles slightly larger than the target content. Rasterization at 200 DPI can shift pixel boundaries by 1-2px.",
+      "After burning, open the output PDF, zoom to 200%, and verify each redacted area is fully black. This is the critical verification step.",
+      "Output file size will be larger than the original. A 10-page document at 200 DPI produces roughly 5-15MB depending on content complexity.",
+      "For maximum privacy, run the Paranoid Scrub after redaction to strip any remaining metadata from the rasterized output."
     ],
     "limitations": [
-      "Redaction is irreversible by design. Original content cannot be recovered.",
-      "Text under redacted areas is permanently removed in the rasterized output.",
-      "Large documents may take longer to process due to per-page rasterization."
+      "Redaction is irreversible by design. There is no undo after burning. The original text under redacted areas is destroyed, not hidden.",
+      "Output file size increases significantly because every page becomes a raster image. Expect 0.5-1.5MB per page at 200 DPI.",
+      "Text in the output PDF is not selectable. If recipients need searchable text, they would need to OCR the result.",
+      "Documents over 200 pages are capped for browser memory safety. Split first, then redact sections individually.",
+      "This is visual redaction only. It does not produce PDF redaction annotations compatible with Adobe's redaction workflow."
     ],
     "useCases": {
-      "office-daily": "Redact personal identifiers from HR documents before internal distribution.",
-      "secure-sharing": "Black out sensitive content before journalist submission or FOIA response.",
-      "high-volume": "Apply consistent redaction patterns across recurring document templates."
+      "office-daily": "Redact personal identifiers (SSN, bank details, home addresses) from HR documents before internal distribution. Verify each redaction at 200% zoom before sharing.",
+      "secure-sharing": "Black out sensitive content before journalist submission or FOIA response. Run Paranoid Scrub after redaction for complete metadata removal.",
+      "high-volume": "For recurring document types with consistent layouts, photograph your redaction pattern once and replicate it. Always verify — automated consistency does not replace manual checking."
     },
     "faq": {
-      "what-it-does": "It lets you draw black-out boxes on PDF pages and burns them permanently by rasterizing every page.",
-      "data-safety": "All processing happens locally in your browser. No document data is uploaded.",
-      "limitations": "It removes text selectability and increases file size due to rasterization."
+      "what-it-does": "It rasterizes every page at 200 DPI, draws solid black rectangles over marked areas, and exports the result as image-only pages. The original text, fonts, layers, and metadata are destroyed. This is not a cosmetic overlay — the content is gone.",
+      "data-safety": "All processing happens locally in your browser. No document data is uploaded. The redaction canvas renders pages using PDF.js, the same library used by Firefox.",
+      "limitations": "Output is image-only — no selectable text. File size increases to 0.5-1.5MB per page. The 200-page cap exists because each page requires ~50MB of RAM for rasterization."
     },
     "troubleshooting": [
-      "If rectangles don't appear, ensure you click and drag on the page canvas.",
-      "If output still shows content under redaction, verify the burn step completed.",
-      "If processing is slow, reduce DPI or process fewer pages at a time."
+      "Rectangles not appearing: click and drag, don't just click. The minimum rectangle size is 5x5 pixels.",
+      "Content visible after burn: zoom to 200% and check again. If content is truly visible, the burn did not complete — retry.",
+      "Processing slow: each page is rendered at 200 DPI and composited. For 50+ page documents, expect 30-60 seconds.",
+      "File too large after redaction: this is expected. Every page is now a raster image. Run Compress as a follow-up, but accept some size increase."
     ]
   },
   "pipeline": {
@@ -632,67 +642,77 @@
   "ocr": {
     "howToSteps": [
       "Upload a scanned or image-based PDF and select the primary text language.",
-      "Set the maximum number of pages to process based on your document length.",
-      "Click Extract text and monitor the progress bar as each page is recognized.",
-      "Review the extracted text in the output area and check average confidence scores.",
-      "Download the result as a plain text file for further use."
+      "Set the maximum number of pages to process. Each page takes 2-8 seconds depending on complexity.",
+      "Click Extract text and monitor the per-page progress bar.",
+      "Review extracted text and per-page confidence scores. Above 85% is reliable; below 70% expect errors.",
+      "Download results as plain text. Pages with low confidence are flagged in the output."
     ],
     "tips": [
-      "Higher-quality scans (300 DPI or above) produce significantly better OCR accuracy.",
-      "Select the correct language to improve recognition of special characters and accents.",
-      "The first run for each language downloads a data file; subsequent runs use the cached version."
+      "300 DPI scans produce dramatically better results than 150 DPI. If confidence is low, rescan at higher DPI before blaming the OCR.",
+      "The first run per language downloads a ~15MB Tesseract data file. Subsequent runs use the cached version — no re-download.",
+      "English is the default language model. For documents mixing Latin scripts (French, Spanish, Italian), English still works well. Switch language explicitly for non-Latin scripts (Chinese, Arabic, Korean).",
+      "Process a single test page first to check quality before running all pages. This saves time on bad scans.",
+      "Skewed or rotated scans reduce accuracy. Use the Rotate tool to fix orientation before running OCR."
     ],
     "limitations": [
-      "OCR accuracy depends heavily on scan quality, font clarity, and document layout complexity.",
-      "Handwritten text, decorative fonts, and low-contrast documents may produce poor results."
+      "Tesseract.js runs in a Web Worker. Each page consumes ~50-100MB of RAM during processing. Documents over 50 pages may cause memory pressure on devices with less than 4GB free.",
+      "Handwritten text is poorly supported. Tesseract is designed for printed text. Expect less than 30% accuracy on handwriting.",
+      "Multi-column layouts are partially supported. Tesseract reads left-to-right by default and may interleave columns on complex layouts.",
+      "Tables are not preserved structurally. Cell contents are extracted as text, but row/column relationships are lost."
     ],
     "useCases": {
-      "office-daily": "Extract searchable text from scanned contracts, invoices, or receipts for filing.",
-      "secure-sharing": "Convert image-based regulatory documents to text for compliance review before distribution.",
-      "high-volume": "Process stacks of scanned correspondence to create text-searchable archives."
+      "office-daily": "Extract searchable text from scanned contracts, invoices, or receipts for filing. Run on the specific pages you need, not the entire document.",
+      "secure-sharing": "Convert image-based regulatory documents to text for compliance review. Check confidence scores before relying on extracted text for legal purposes.",
+      "high-volume": "Process scanned correspondence in batches of 10-20 pages. For larger archives, split the PDF first, then OCR each section."
     },
     "faq": {
-      "what-it-does": "It renders each PDF page as an image and runs Tesseract OCR to extract text content.",
-      "data-safety": "All OCR processing happens in your browser using Tesseract.js. No page images leave your device.",
-      "limitations": "It extracts text only and does not modify the original PDF. Output quality varies with scan resolution."
+      "what-it-does": "It renders each PDF page to an image at 300 DPI and runs Tesseract.js OCR. Each page produces a text block with a confidence percentage. Results are concatenated with page markers.",
+      "data-safety": "All OCR processing happens in your browser using Tesseract.js (WASM). No page images leave your device. Language data files are cached in the browser after first download.",
+      "limitations": "It extracts text only — it does not create a searchable PDF layer. Output quality varies with scan resolution, language selection, and font clarity. Below 70% confidence, expect word-level errors."
     },
     "troubleshooting": [
-      "If confidence is low, try scanning the original document at higher resolution before running OCR.",
-      "If the wrong language is detected, explicitly select the correct language from the dropdown.",
-      "If processing stalls on large documents, reduce the max pages setting and process in batches."
+      "Confidence below 50%: the scan is too low quality. Rescan at 300+ DPI with good lighting.",
+      "Wrong characters: check the language setting. English model will misread accented characters in French/German/etc.",
+      "Processing stalls: reduce max pages. Each page renders at 300 DPI which uses significant memory.",
+      "First run is slow: it's downloading the ~15MB Tesseract language data. This only happens once per language."
     ]
   },
   "analyze": {
     "howToSteps": [
-      "Drop a PDF into the analyzer and wait for the on-device scan to complete.",
-      "Read the risk badge at the top — it tells you the overall exposure level.",
-      "Review each finding for specific threats: GPS leaks, author identity, tracking beacons.",
-      "Check the metadata table and embedded image EXIF cards for raw field values.",
-      "Use the scrubber or privacy pipeline links at the bottom to neutralize what was found."
+      "Drop a PDF into the analyzer. Scanning takes 1-5 seconds depending on file size and embedded image count.",
+      "Read the risk badge: Critical (GPS, JavaScript), High (author PII, edit history), Medium (software fingerprints), Low (generic metadata).",
+      "Expand each finding category to see raw field values. Author, Creator, Producer, and ModDate are the most common identity leaks.",
+      "Check the EXIF section — embedded images may contain GPS coordinates, camera serial numbers, and timestamps independent of the PDF metadata.",
+      "Use the direct links to the scrubber, flatten, or privacy pipeline to neutralize what was found. Run the analyzer again on the cleaned output to verify."
     ],
     "tips": [
-      "Run the analyzer before sharing any document externally to catch surprises.",
-      "Pay attention to critical findings first — GPS and JavaScript are the most dangerous.",
-      "Compare findings before and after scrubbing to verify cleanup worked."
+      "The most common leak: Author field containing your Windows username or company email. This is set by Microsoft Office on every PDF export.",
+      "GPS coordinates in embedded JPEG images are the highest-severity finding. A single photo with EXIF GPS can reveal your exact location.",
+      "JavaScript in PDFs can phone home when opened. The analyzer flags this as critical because it enables tracking on document open.",
+      "Run analyze → scrub → analyze as a verification loop. The second analysis should show zero or near-zero findings.",
+      "Software fingerprints (Creator: Microsoft Word, Producer: LibreOffice) reveal what tools you used. This matters for source protection but is low-severity for most users."
     ],
     "limitations": [
-      "Analysis is read-only and does not modify the PDF in any way.",
-      "Encrypted or malformed PDFs fall back to byte-level scanning with reduced coverage."
+      "Analysis is read-only. It does not modify the PDF in any way — use the scrubber for that.",
+      "Encrypted or malformed PDFs fall back to byte-level pattern matching. Coverage is reduced but EXIF markers and JavaScript signatures are still detected.",
+      "Printer tracking dots (Machine Identification Codes) are not detected in the current analyzer. Use the MIC decoder research tool for that — it requires high-resolution page rendering.",
+      "The analyzer checks PDF metadata and embedded image EXIF. It does not analyze text content for PII (names, addresses in the visible text)."
     ],
     "useCases": {
-      "office-daily": "Check outbound reports for author names, edit timestamps, and software fingerprints before sending to clients.",
-      "secure-sharing": "Scan documents for GPS coordinates, tracking URLs, and embedded JavaScript before publishing or whistleblower submission.",
-      "high-volume": "Audit batches of received PDFs for hidden beacons, revision history, and embedded file attachments."
+      "office-daily": "Before sending any PDF externally, run the analyzer to catch author names, company metadata, and edit timestamps. The most common finding is the Author field leaking a Windows username.",
+      "secure-sharing": "For whistleblower submissions or journalist handoffs, the analyzer is the first step. Check for GPS in embedded images, JavaScript beacons, and revision history. Then scrub, flatten, and analyze again.",
+      "high-volume": "Audit received PDFs before opening them. JavaScript findings indicate potential tracking beacons. EXIF findings on images indicate the sender did not strip metadata."
     },
     "faq": {
-      "what-it-does": "It scans the PDF structure, embedded images, and raw bytes for metadata, EXIF, tracking vectors, and security risks.",
-      "data-safety": "Everything runs locally in your browser. No PDF bytes are uploaded or transmitted.",
-      "limitations": "It detects and reports threats but does not remove them. Use the scrubber for cleanup."
+      "what-it-does": "It parses the PDF Info Dictionary, XMP metadata, embedded image EXIF headers, and raw byte patterns. Findings are categorized by severity (critical, high, medium, low) and grouped by type (identity, location, tracking, structure).",
+      "data-safety": "Everything runs locally in your browser using pdf-lib for structure parsing and byte-level scanning for EXIF markers. No PDF bytes are uploaded or transmitted. The analyzer runs inside the same privacy boundary as all other tools.",
+      "limitations": "It detects metadata and structural risks but does not analyze visible text content. A PDF with 'John Smith' written in the body text will not flag that as a finding — only metadata fields like Author, Creator, and EXIF tags are scanned."
     },
     "troubleshooting": [
-      "If the analyzer reports zero findings on a suspicious file, the PDF may be encrypted — try unlocking it first.",
-      "If EXIF markers are detected but not parsed, the image format may be unsupported — the warning still flags the risk.",
-      "If analysis takes long on large files, this is normal — byte-level scanning scales with file size."
+      "Zero findings on a suspicious file: the PDF may be encrypted (try unlocking first) or may have already been scrubbed by another tool.",
+      "EXIF markers detected but not fully parsed: the image format may be JPEG2000 or a rare variant. The warning still flags the risk — use ExifTool for deep extraction if needed.",
+      "Analysis slow on large files: byte-level EXIF scanning reads the entire file. For files over 50MB, expect 5-10 seconds.",
+      "GPS finding shows 0,0 coordinates: this is a real finding (Null Island). Some cameras default to 0,0 when GPS signal is lost. The location is still metadata that reveals GPS was active."
     ]
   }
 }

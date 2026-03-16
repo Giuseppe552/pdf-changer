@@ -72,6 +72,40 @@ const SHARED_RELATED = {
   guides: ["/guides/safely-sharing-pdfs"],
 };
 
+const PRIVACY_RELATED = {
+  faq: [
+    "/faq/tool-usage/how-do-i-scrub-a-pdf-safely",
+    "/faq/anonymity-basics/what-is-a-threat-model",
+  ],
+  blog: [
+    "/blog/documents/what-metadata-is-and-why-it-matters",
+    "/blog/opsec/printer-tracking-dots",
+  ],
+  security: [
+    "/security/technical/metadata-forensic-traces",
+    "/security/technical/csp-exfiltration-analysis",
+    "/security/non-technical/safe-pdf-handling-basics",
+  ],
+  guides: ["/guides/safely-sharing-pdfs", "/guides/anonymization-checklist"],
+};
+
+const ANALYZE_RELATED = {
+  faq: [
+    "/faq/tool-usage/how-do-i-scrub-a-pdf-safely",
+    "/faq/metadata/what-metadata-can-a-pdf-contain",
+  ],
+  blog: [
+    "/blog/documents/what-metadata-is-and-why-it-matters",
+    "/blog/opsec/printer-tracking-dots",
+  ],
+  security: [
+    "/security/technical/metadata-forensic-traces",
+    "/security/technical/endpoint-and-browser-leakage-model",
+    "/security/technical/verified-processing-environment",
+  ],
+  guides: ["/guides/pdf-metadata-explained", "/guides/anonymization-checklist"],
+};
+
 export const toolRegistry: ToolDefinition[] = [
   {
     slug: "scrub",
@@ -90,7 +124,7 @@ export const toolRegistry: ToolDefinition[] = [
       description: "Scrub hidden metadata, forms, and annotations from PDFs online for free. No upload — runs entirely in your browser with hash verification.",
       keywords: ["pdf metadata remover", "pdf scrubber", "privacy pdf"],
     },
-    related: SHARED_RELATED,
+    related: PRIVACY_RELATED,
   },
   {
     slug: "merge",
@@ -322,7 +356,7 @@ export const toolRegistry: ToolDefinition[] = [
       description: "Flatten PDFs to image-only pages online for free. No upload — rasterize every page to destroy fonts, layers, metadata, and scripts.",
       keywords: ["flatten pdf", "rasterize pdf", "image only pdf", "privacy pdf"],
     },
-    related: SHARED_RELATED,
+    related: PRIVACY_RELATED,
   },
   {
     slug: "redact",
@@ -342,7 +376,7 @@ export const toolRegistry: ToolDefinition[] = [
       description: "Redact sensitive content from PDFs online for free. No upload — draw and burn black boxes with irreversible rasterization in your browser.",
       keywords: ["redact pdf", "black out pdf", "pdf redaction tool", "pdf privacy redaction"],
     },
-    related: SHARED_RELATED,
+    related: PRIVACY_RELATED,
   },
   {
     slug: "pipeline",
@@ -362,7 +396,7 @@ export const toolRegistry: ToolDefinition[] = [
       description: "Chain multiple PDF privacy operations in sequence online for free. No upload — scrub, flatten, and strip in one pass in your browser.",
       keywords: ["pdf privacy pipeline", "chain pdf tools", "maximum privacy pdf"],
     },
-    related: SHARED_RELATED,
+    related: PRIVACY_RELATED,
   },
   {
     slug: "rotate",
@@ -479,7 +513,7 @@ export const toolRegistry: ToolDefinition[] = [
       description: "Analyze PDFs for hidden metadata, GPS coordinates, tracking beacons, and identity leaks. No upload — forensic scanning runs in your browser.",
       keywords: ["pdf analyzer", "pdf forensic", "pdf metadata scanner", "pdf privacy check"],
     },
-    related: SHARED_RELATED,
+    related: ANALYZE_RELATED,
   },
 ];
 
