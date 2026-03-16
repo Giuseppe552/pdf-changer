@@ -588,7 +588,7 @@ function htmlLayout(opts: {
   </head>
   <body style="background:#0e1117;color:#e6edf3">
     <div id="root"></div>
-    <noscript>
+    <div id="ssg-fallback">
     <div class="min-h-screen">
       <header class="sticky top-0 z-10 border-b border-[var(--ui-border)] bg-[var(--ui-bg-raised)]/80 backdrop-blur">
         <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
@@ -645,7 +645,7 @@ ${bodyHtml}
         </div>
       </footer>
     </div>
-    </noscript>
+    </div>
     ${(opts.jsTags ?? []).join("\n    ")}
   </body>
 </html>`;
@@ -2005,7 +2005,7 @@ export function seoStaticBlogPlugin(): Plugin {
         process.env.SITE_ORIGIN ??
         process.env.CF_PAGES_URL ??
         process.env.VITE_SITE_ORIGIN ??
-        "https://pdf-changer.pages.dev";
+        "https://pdfchanger.org";
       const siteOrigin = originRaw ? cleanOrigin(originRaw) : null;
       const rssHref = siteOrigin ? "/rss.xml" : undefined;
 
@@ -2618,7 +2618,7 @@ export function seoStaticBlogPlugin(): Plugin {
           {
             "@type": "WebApplication",
             name: "PDF Changer",
-            url: siteOrigin ?? "https://pdf-changer.pages.dev",
+            url: siteOrigin ?? "https://pdfchanger.org",
             description: homeDescription,
             applicationCategory: "UtilitiesApplication",
             operatingSystem: "Any",
@@ -2632,8 +2632,8 @@ export function seoStaticBlogPlugin(): Plugin {
           {
             "@type": "Organization",
             name: "PDF Changer",
-            url: siteOrigin ?? "https://pdf-changer.pages.dev",
-            logo: `${siteOrigin ?? "https://pdf-changer.pages.dev"}/icon.svg`,
+            url: siteOrigin ?? "https://pdfchanger.org",
+            logo: `${siteOrigin ?? "https://pdfchanger.org"}/icon.svg`,
           },
         ],
       });

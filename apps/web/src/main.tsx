@@ -5,6 +5,10 @@ import { router } from "./router";
 import { AppRuntimeErrorBoundary } from "./ui/AppRuntimeErrorBoundary";
 import "./styles.css";
 
+// hide SSG fallback content once React mounts
+const ssgFallback = document.getElementById("ssg-fallback");
+if (ssgFallback) ssgFallback.style.display = "none";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AppRuntimeErrorBoundary>

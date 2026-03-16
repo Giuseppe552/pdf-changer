@@ -4,7 +4,7 @@ import { Button } from "../../../components/Button";
 type Tab = "linux" | "macos" | "windows";
 
 const GITHUB_RAW = "https://raw.githubusercontent.com/Giuseppe552/pdf-changer-proofs/main";
-const SITE_BASE = "https://pdf-changer.pages.dev";
+const SITE_BASE = "https://pdfchanger.org";
 
 function commandSet(statementPath: string, signaturePath: string, keyPath: string) {
   const statement = statementPath.replace(/^\//, "");

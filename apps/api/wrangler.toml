@@ -5,9 +5,9 @@ compatibility_date = "2026-02-17"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
-APP_ORIGIN = "https://pdf-changer.pages.dev"
-RP_ID = "pdf-changer.pages.dev"
-RP_ORIGIN = "https://pdf-changer.pages.dev"
+APP_ORIGIN = "https://pdfchanger.org"
+RP_ID = "pdfchanger.org"
+RP_ORIGIN = "https://pdfchanger.org"
 RP_NAME = "PDF Changer"
 
 # D1 database UUID — this is NOT a secret. It is a public identifier
