@@ -24,11 +24,11 @@ export function Card({
       className={className}
     >
       {title ? (
-        <h2 className="mb-3 text-base font-semibold text-neutral-950">{title}</h2>
+        <h2 className="mb-3 text-sm font-semibold text-[var(--ui-text)]">{title}</h2>
       ) : null}
-      <div className="text-[15px] text-neutral-800">{children}</div>
+      <div className="text-sm text-[var(--ui-text-secondary)]">{children}</div>
       {footer ? (
-        <div className="mt-4 border-t border-neutral-300 pt-4">{footer}</div>
+        <div className="mt-4 border-t border-[var(--ui-border)] pt-4">{footer}</div>
       ) : null}
     </Surface>
   );

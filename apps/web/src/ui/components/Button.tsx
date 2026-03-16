@@ -16,14 +16,14 @@ export function Button({
   size?: "md" | "lg";
 }) {
   const base =
-    "inline-flex items-center justify-center rounded-sm border text-[15px] font-semibold transition focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:ring-offset-2 focus:ring-offset-neutral-50 disabled:cursor-not-allowed disabled:opacity-60";
-  const sizeStyles = size === "lg" ? "min-h-12 px-5" : "min-h-11 px-4";
+    "inline-flex items-center justify-center gap-2 rounded-md border text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
+  const sizeStyles = size === "lg" ? "min-h-11 px-5 py-2.5" : "min-h-10 px-4 py-2";
   const styles =
     variant === "primary"
-      ? "border-blue-800 bg-blue-800 text-white hover:bg-blue-700"
+      ? "border-[var(--ui-accent)] bg-[var(--ui-accent)] text-[#0e1117] hover:bg-[var(--ui-accent-hover)] focus:ring-[var(--ui-accent)]/30 focus:ring-offset-[var(--ui-bg)]"
       : variant === "danger"
-        ? "border-red-700 bg-red-700 text-white hover:bg-red-600"
-        : "border-neutral-400 bg-white text-neutral-900 hover:bg-neutral-100";
+        ? "border-red-600 bg-red-600 text-white hover:bg-red-500 focus:ring-red-500/30 focus:ring-offset-[var(--ui-bg)]"
+        : "border-[var(--ui-border-strong)] bg-transparent text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)] hover:bg-[var(--ui-bg-overlay)] hover:border-[var(--ui-text-muted)] focus:ring-[var(--ui-accent)]/20 focus:ring-offset-[var(--ui-bg)]";
 
   return (
     <button

@@ -2,134 +2,123 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Design tokens ─────────────────────────────────────────────────────── */
 :root {
-  --ui-radius: 2px;
-  --ui-border: #d4d4d8;
-  --ui-border-strong: #a1a1aa;
-  --ui-bg: #f8f8f8;
-  --ui-text: #0f172a;
-  --ui-muted: #334155;
-  --ui-focus: rgba(37, 99, 235, 0.24);
+  --ui-radius: 6px;
+  --ui-bg: #0e1117;
+  --ui-bg-raised: #161b22;
+  --ui-bg-overlay: #1c2129;
+  --ui-border: rgba(255, 255, 255, 0.08);
+  --ui-border-strong: rgba(255, 255, 255, 0.14);
+  --ui-text: #e6edf3;
+  --ui-text-secondary: #9ca3b0;
+  --ui-text-muted: #6b7280;
+  --ui-focus: rgba(79, 172, 254, 0.3);
+  --ui-accent: #4facfe;
+  --ui-accent-hover: #6bb8ff;
+  --ui-warn: #f0883e;
+  --ui-success: #3fb950;
+  --ui-danger: #f85149;
+
+  --font-mono: "SF Mono", "Fira Code", "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
 }
 
-html,
-body {
-  height: 100%;
-}
-
-html {
-  font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-}
+/* ── Base ──────────────────────────────────────────────────────────────── */
+html, body { height: 100%; }
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
 
 body {
   background: var(--ui-bg);
   color: var(--ui-text);
-  font-family:
-    "Segoe UI",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Helvetica Neue",
-    Arial,
-    sans-serif;
+  font-family: var(--font-sans);
   line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
 
-a {
-  text-underline-offset: 0.18em;
-}
+a { color: inherit; text-underline-offset: 0.18em; }
+::selection { background: rgba(79, 172, 254, 0.25); }
+
+* { scrollbar-color: #3b3f47 transparent; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #3b3f47; border-radius: 3px; }
 
 @layer base {
-  .text-xs {
-    font-size: 0.94rem;
-    line-height: 1.45;
-  }
+  .text-xs { font-size: 0.8125rem; line-height: 1.4; }
+  .text-sm { font-size: 0.875rem; line-height: 1.45; }
 
-  .text-sm {
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-
-  button,
-  select,
-  textarea,
+  button, select, textarea,
   input:not([type="checkbox"]):not([type="radio"]) {
-    font-size: 1rem;
+    font-size: 0.9375rem;
     min-height: 44px;
   }
 }
 
-* {
-  scrollbar-color: #a3a3a3 transparent;
-}
+/* ── Utility classes ───────────────────────────────────────────────────── */
+.mono { font-family: var(--font-mono); }
 
 @layer components {
+  /* Surfaces */
   .ui-surface {
-    @apply rounded-sm border border-neutral-300 bg-white shadow-[0_1px_0_0_rgba(15,23,42,0.06)];
+    @apply rounded-md border bg-[var(--ui-bg-raised)];
+    border-color: var(--ui-border);
   }
-
   .ui-surface-emphasis {
-    @apply rounded-sm border border-neutral-400 bg-white shadow-[0_1px_0_0_rgba(15,23,42,0.08)];
+    @apply rounded-md border bg-[var(--ui-bg-raised)];
+    border-color: var(--ui-border-strong);
   }
-
   .ui-surface-warning {
-    @apply rounded-sm border border-amber-400 bg-amber-50;
+    @apply rounded-md border border-amber-700/40 bg-amber-950/30;
   }
-
   .ui-surface-danger {
-    @apply rounded-sm border border-red-400 bg-red-50;
+    @apply rounded-md border border-red-700/40 bg-red-950/30;
   }
 
+  /* Inputs */
   .ui-input {
-    @apply h-11 w-full rounded-sm border border-neutral-400 bg-white px-3 text-[15px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-600/20;
+    @apply h-11 w-full rounded-md border bg-[var(--ui-bg-raised)] px-3 text-[15px] text-[var(--ui-text)] placeholder:text-[var(--ui-text-muted)] focus:outline-none focus:ring-2;
+    border-color: var(--ui-border-strong);
+    --tw-ring-color: var(--ui-focus);
   }
-
   .ui-select {
-    @apply h-11 w-full rounded-sm border border-neutral-400 bg-white px-3 text-[15px] text-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-600/20;
+    @apply h-11 w-full rounded-md border bg-[var(--ui-bg-raised)] px-3 text-[15px] text-[var(--ui-text)] focus:outline-none focus:ring-2;
+    border-color: var(--ui-border-strong);
+    --tw-ring-color: var(--ui-focus);
   }
 
+  /* Tags */
   .ui-tag {
-    @apply inline-flex items-center rounded-sm border border-neutral-400 bg-white px-2 py-0.5 text-[13px] font-medium text-neutral-800;
+    @apply inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium;
+    border-color: var(--ui-border);
+    color: var(--ui-text-secondary);
+    background: var(--ui-bg-overlay);
   }
 
+  /* Typography */
   .ui-title {
-    @apply text-3xl font-semibold tracking-tight text-neutral-950;
+    @apply text-3xl font-semibold tracking-tight;
+    color: var(--ui-text);
   }
-
   .ui-subtitle {
-    @apply text-base text-neutral-700;
+    @apply text-base;
+    color: var(--ui-text-secondary);
   }
 
-  .term {
-    position: relative;
-    cursor: help;
-    border-bottom: 1px dotted var(--ui-border-strong);
-  }
-
+  /* Term tooltip */
+  .term { position: relative; cursor: help; border-bottom: 1px dotted var(--ui-border-strong); }
   .term-tip {
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-    bottom: calc(100% + 6px);
-    left: 50%;
+    visibility: hidden; opacity: 0;
+    position: absolute; bottom: calc(100% + 6px); left: 50%;
     transform: translateX(-50%);
-    max-width: 240px;
-    font-size: 0.85rem;
-    line-height: 1.35;
-    padding: 6px 10px;
-    border-radius: var(--ui-radius);
-    background: #1e293b;
-    color: #f8fafc;
-    pointer-events: none;
+    max-width: 240px; font-size: 0.8rem; line-height: 1.35;
+    padding: 6px 10px; border-radius: var(--ui-radius);
+    background: #2d333b; color: #e6edf3;
+    pointer-events: none; z-index: 50; text-align: left; font-weight: normal;
     transition: opacity 0.15s ease, visibility 0.15s ease;
-    z-index: 50;
-    text-align: left;
-    font-weight: normal;
+    border: 1px solid var(--ui-border);
   }
-
-  .term:hover .term-tip,
-  .term:focus-within .term-tip {
-    visibility: visible;
-    opacity: 1;
+  .term:hover .term-tip, .term:focus-within .term-tip {
+    visibility: visible; opacity: 1;
   }
 }
