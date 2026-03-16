@@ -547,7 +547,7 @@ function htmlLayout(opts: {
     if (activeNav === key) {
       return "rounded-sm bg-blue-700 px-3 py-1.5 text-xs font-medium text-white";
     }
-    return "rounded-sm px-3 py-1.5 text-xs font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900";
+    return "rounded-sm px-3 py-1.5 text-xs font-medium text-[var(--ui-text-secondary)] hover:bg-[var(--ui-bg-overlay)] hover:text-[var(--ui-text)]";
   }
 
   return `<!doctype html>
@@ -583,11 +583,11 @@ function htmlLayout(opts: {
     ${headExtra ?? ""}
     ${cssTags}
   </head>
-  <body class="bg-neutral-50 text-neutral-950">
-    <div class="min-h-screen bg-neutral-50">
-      <header class="sticky top-0 z-10 border-b border-neutral-200 bg-white/80 backdrop-blur">
+  <body style="background:#0e1117;color:#e6edf3">
+    <div class="min-h-screen">
+      <header class="sticky top-0 z-10 border-b border-[var(--ui-border)] bg-[var(--ui-bg-raised)]/80 backdrop-blur">
         <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
-          <a href="/" class="text-sm font-semibold tracking-wide text-neutral-900">PDF Changer</a>
+          <a href="/" class="text-sm font-semibold tracking-wide text-[var(--ui-text)]">PDF Changer</a>
           <nav class="flex flex-wrap items-center justify-end gap-2">
             <a href="/scrub" class="${navClass("scrub")}">Scrub</a>
             <a href="/tools" class="${navClass("tools")}">Tools</a>
@@ -604,39 +604,39 @@ function htmlLayout(opts: {
       <main class="mx-auto max-w-5xl px-4 py-10">
 ${bodyHtml}
       </main>
-      <footer class="border-t border-neutral-200 bg-white">
+      <footer class="border-t border-[var(--ui-border)] bg-[var(--ui-bg-raised)]">
         <div class="mx-auto max-w-5xl px-4 py-10">
           <div class="grid gap-8 md:grid-cols-4">
             <div class="space-y-3">
-              <div class="text-sm font-semibold text-neutral-900">PDF Changer</div>
-              <div class="text-sm text-neutral-600">Free PDF tools that run entirely in your browser. No uploads, no trackers.</div>
+              <div class="text-sm font-semibold text-[var(--ui-text)]">PDF Changer</div>
+              <div class="text-sm text-[var(--ui-text-muted)]">Free PDF tools that run entirely in your browser. No uploads, no trackers.</div>
             </div>
             <div class="space-y-2">
-              <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Legal</div>
+              <div class="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">Legal</div>
               <div class="flex flex-col gap-2">
-                <a class="text-sm text-neutral-600 hover:text-neutral-900" href="/privacy-policy">Privacy policy</a>
-                <a class="text-sm text-neutral-600 hover:text-neutral-900" href="/terms">Terms</a>
-                <a class="text-sm text-neutral-600 hover:text-neutral-900" href="/refund-policy">Refund policy</a>
+                <a class="text-sm text-[var(--ui-text-muted)] hover:text-[var(--ui-text)]" href="/privacy-policy">Privacy policy</a>
+                <a class="text-sm text-[var(--ui-text-muted)] hover:text-[var(--ui-text)]" href="/terms">Terms</a>
+                <a class="text-sm text-[var(--ui-text-muted)] hover:text-[var(--ui-text)]" href="/refund-policy">Refund policy</a>
               </div>
             </div>
             <div class="space-y-2">
-              <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Resources</div>
+              <div class="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">Resources</div>
               <div class="flex flex-col gap-2">
-                <a class="text-sm text-neutral-600 hover:text-neutral-900" href="/security">Security</a>
-                <a class="text-sm text-neutral-600 hover:text-neutral-900" href="/privacy">Privacy summary</a>
-                <a class="text-sm text-neutral-600 hover:text-neutral-900" href="/faq">FAQ</a>
-                <a class="text-sm text-neutral-600 hover:text-neutral-900" href="/sitemap">Sitemap</a>
-                <a class="text-sm text-neutral-600 hover:text-neutral-900" href="/donate">Donate</a>
+                <a class="text-sm text-[var(--ui-text-muted)] hover:text-[var(--ui-text)]" href="/security">Security</a>
+                <a class="text-sm text-[var(--ui-text-muted)] hover:text-[var(--ui-text)]" href="/privacy">Privacy summary</a>
+                <a class="text-sm text-[var(--ui-text-muted)] hover:text-[var(--ui-text)]" href="/faq">FAQ</a>
+                <a class="text-sm text-[var(--ui-text-muted)] hover:text-[var(--ui-text)]" href="/sitemap">Sitemap</a>
+                <a class="text-sm text-[var(--ui-text-muted)] hover:text-[var(--ui-text)]" href="/donate">Donate</a>
               </div>
             </div>
             <div class="space-y-2">
-              <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Updates</div>
-              <div class="text-sm text-neutral-600">
-                Want product updates? Use the <a class="underline hover:text-neutral-900" href="/newsletter">newsletter page</a>.
+              <div class="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">Updates</div>
+              <div class="text-sm text-[var(--ui-text-muted)]">
+                Want product updates? Use the <a class="underline hover:text-[var(--ui-text)]" href="/newsletter">newsletter page</a>.
               </div>
             </div>
           </div>
-          <div class="mt-6 text-xs text-neutral-400">© ${new Date().getFullYear()} PDF Changer. Built by Giuseppe Giona.</div>
+          <div class="mt-6 text-xs text-[var(--ui-text-muted)]">© ${new Date().getFullYear()} PDF Changer. Built by Giuseppe Giona.</div>
         </div>
       </footer>
     </div>
@@ -650,7 +650,7 @@ function buildBlogIndexBody(posts: BlogPost[]): string {
     .map(
       (category) => {
         const count = posts.filter((p) => p.category === category).length;
-        return `<a href="/blog/${escapeHtml(category)}" class="rounded-sm border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-700 hover:border-neutral-300 hover:text-neutral-900">${escapeHtml(titleCaseWord(category))} (${count})</a>`;
+        return `<a href="/blog/${escapeHtml(category)}" class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-1 text-xs font-medium text-[var(--ui-text-secondary)] hover:border-[var(--ui-border)] hover:text-[var(--ui-text)]">${escapeHtml(titleCaseWord(category))} (${count})</a>`;
       },
     )
     .join("\n          ");
@@ -665,12 +665,12 @@ function buildBlogIndexBody(posts: BlogPost[]): string {
         )
         .join("\n            ");
       return `
-        <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">${escapeHtml(titleCaseWord(category))}</div>
-          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-neutral-700">
+        <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">${escapeHtml(titleCaseWord(category))}</div>
+          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-[var(--ui-text-secondary)]">
             ${list}
           </ul>
-          <div class="mt-4 text-sm text-neutral-600"><a class="underline" href="/blog/${escapeHtml(category)}">Open ${escapeHtml(titleCaseWord(category))} archive</a></div>
+          <div class="mt-4 text-sm text-[var(--ui-text-muted)]"><a class="underline" href="/blog/${escapeHtml(category)}">Open ${escapeHtml(titleCaseWord(category))} archive</a></div>
         </div>
       `.trim();
     })
@@ -679,13 +679,13 @@ function buildBlogIndexBody(posts: BlogPost[]): string {
   const items = posts
     .map((p) => {
       return `
-        <a href="${escapeHtml(p.route)}" class="group block rounded-sm border border-neutral-200 bg-white p-5 shadow-sm transition hover:border-neutral-300 hover:shadow">
+        <a href="${escapeHtml(p.route)}" class="group block rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5 shadow-sm transition hover:border-[var(--ui-border)] hover:shadow">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">${escapeHtml(titleCaseWord(p.category))}</div>
-            <div class="text-xs text-neutral-500">${escapeHtml(p.date)} · ${escapeHtml(String(p.readingMinutes))} min read</div>
+            <div class="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">${escapeHtml(titleCaseWord(p.category))}</div>
+            <div class="text-xs text-[var(--ui-text-muted)]">${escapeHtml(p.date)} · ${escapeHtml(String(p.readingMinutes))} min read</div>
           </div>
-          <h2 class="mt-2 text-sm font-semibold text-neutral-900 group-hover:text-neutral-950">${escapeHtml(p.title)}</h2>
-          <p class="mt-1 text-sm text-neutral-600">${escapeHtml(p.description)}</p>
+          <h2 class="mt-2 text-sm font-semibold text-[var(--ui-text)] group-hover:text-[var(--ui-text)]">${escapeHtml(p.title)}</h2>
+          <p class="mt-1 text-sm text-[var(--ui-text-muted)]">${escapeHtml(p.description)}</p>
         </a>
       `.trim();
     })
@@ -694,7 +694,7 @@ function buildBlogIndexBody(posts: BlogPost[]): string {
   return `
         <div class="space-y-2">
           <h1 class="text-2xl font-semibold tracking-tight">Blog Hub</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">
             Daily-read security guidance focused on anonymity, document risk, and safer submissions. Calm language, strict defaults, practical steps.
           </p>
         </div>
@@ -702,18 +702,18 @@ function buildBlogIndexBody(posts: BlogPost[]): string {
           ${categoryLinks}
         </div>
         <div class="mt-6 grid gap-4 md:grid-cols-2">
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <div class="text-sm font-semibold text-neutral-900">Start here</div>
-            <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-neutral-700">
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <div class="text-sm font-semibold text-[var(--ui-text)]">Start here</div>
+            <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-[var(--ui-text-secondary)]">
               <li><a class="underline" href="/blog/basics/anonymity-101">Anonymity 101</a></li>
               <li><a class="underline" href="/blog/opsec/device-and-network-basics">Device and network basics</a></li>
               <li><a class="underline" href="/scrub">Use the scrubber (on-device)</a></li>
             </ul>
           </div>
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <div class="text-sm font-semibold text-neutral-900">Scale snapshot</div>
-            <div class="mt-2 text-sm text-neutral-700">${posts.length} published posts across ${categories.length} core topics.</div>
-            <div class="mt-3 text-sm text-neutral-700">Start with practical defaults, then expand to topic archives for deeper workflows.</div>
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <div class="text-sm font-semibold text-[var(--ui-text)]">Scale snapshot</div>
+            <div class="mt-2 text-sm text-[var(--ui-text-secondary)]">${posts.length} published posts across ${categories.length} core topics.</div>
+            <div class="mt-3 text-sm text-[var(--ui-text-secondary)]">Start with practical defaults, then expand to topic archives for deeper workflows.</div>
           </div>
         </div>
         <div class="mt-6 grid gap-4 md:grid-cols-2">
@@ -732,7 +732,7 @@ function buildCategoryIndexBody(category: string, posts: BlogPost[]): string {
     .filter((c) => c !== category)
     .map(
       (c) =>
-        `<a href="/blog/${escapeHtml(c)}" class="rounded-sm border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-700 hover:border-neutral-300 hover:text-neutral-900">${escapeHtml(titleCaseWord(c))}</a>`,
+        `<a href="/blog/${escapeHtml(c)}" class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-1 text-xs font-medium text-[var(--ui-text-secondary)] hover:border-[var(--ui-border)] hover:text-[var(--ui-text)]">${escapeHtml(titleCaseWord(c))}</a>`,
     )
     .join("\n          ");
 
@@ -740,13 +740,13 @@ function buildCategoryIndexBody(category: string, posts: BlogPost[]): string {
     .filter((p) => p.category === category)
     .map((p) => {
       return `
-        <a href="${escapeHtml(p.route)}" class="group block rounded-sm border border-neutral-200 bg-white p-5 shadow-sm transition hover:border-neutral-300 hover:shadow">
+        <a href="${escapeHtml(p.route)}" class="group block rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5 shadow-sm transition hover:border-[var(--ui-border)] hover:shadow">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">${escapeHtml(titleCaseWord(p.category))}</div>
-            <div class="text-xs text-neutral-500">${escapeHtml(p.date)} · ${escapeHtml(String(p.readingMinutes))} min read</div>
+            <div class="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">${escapeHtml(titleCaseWord(p.category))}</div>
+            <div class="text-xs text-[var(--ui-text-muted)]">${escapeHtml(p.date)} · ${escapeHtml(String(p.readingMinutes))} min read</div>
           </div>
-          <h2 class="mt-2 text-sm font-semibold text-neutral-900 group-hover:text-neutral-950">${escapeHtml(p.title)}</h2>
-          <p class="mt-1 text-sm text-neutral-600">${escapeHtml(p.description)}</p>
+          <h2 class="mt-2 text-sm font-semibold text-[var(--ui-text)] group-hover:text-[var(--ui-text)]">${escapeHtml(p.title)}</h2>
+          <p class="mt-1 text-sm text-[var(--ui-text-muted)]">${escapeHtml(p.description)}</p>
         </a>
       `.trim();
     })
@@ -754,9 +754,9 @@ function buildCategoryIndexBody(category: string, posts: BlogPost[]): string {
 
   return `
         <div class="space-y-2">
-          <nav aria-label="Breadcrumb" class="text-xs text-neutral-500"><a class="hover:text-neutral-900" href="/blog">Blog</a> / ${escapeHtml(titleCaseWord(category))}</nav>
+          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/blog">Blog</a> / ${escapeHtml(titleCaseWord(category))}</nav>
           <h1 class="text-2xl font-semibold tracking-tight">${escapeHtml(titleCaseWord(category))}</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">Posts tagged ${escapeHtml(titleCaseWord(category))}. Practical security guidance you can apply without advanced tooling.</p>
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">Posts tagged ${escapeHtml(titleCaseWord(category))}. Practical security guidance you can apply without advanced tooling.</p>
         </div>
         <div class="mt-4 flex flex-wrap gap-2">
           ${categoryLinks}
@@ -775,9 +775,9 @@ function buildPostBody(
 ): string {
   const relatedHtml = related.length
     ? `
-        <div class="mt-8 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">More in ${escapeHtml(post.category)}</div>
-          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-neutral-700">
+        <div class="mt-8 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">More in ${escapeHtml(post.category)}</div>
+          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-[var(--ui-text-secondary)]">
             ${related
               .map(
                 (p) =>
@@ -790,23 +790,23 @@ function buildPostBody(
     : "";
 
   const continueReadingHtml = `
-        <div class="mt-8 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Continue reading</div>
+        <div class="mt-8 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Continue reading</div>
           <div class="mt-3 grid gap-3 sm:grid-cols-2">
             <div class="space-y-1">
-              <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Newer</div>
+              <div class="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">Newer</div>
               ${
                 newer
                   ? `<a class="text-sm underline" href="${escapeHtml(newer.route)}">${escapeHtml(newer.title)}</a>`
-                  : `<div class="text-sm text-neutral-500">No newer post.</div>`
+                  : `<div class="text-sm text-[var(--ui-text-muted)]">No newer post.</div>`
               }
             </div>
             <div class="space-y-1">
-              <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Older</div>
+              <div class="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">Older</div>
               ${
                 older
                   ? `<a class="text-sm underline" href="${escapeHtml(older.route)}">${escapeHtml(older.title)}</a>`
-                  : `<div class="text-sm text-neutral-500">No older post.</div>`
+                  : `<div class="text-sm text-[var(--ui-text-muted)]">No older post.</div>`
               }
             </div>
           </div>
@@ -819,18 +819,18 @@ function buildPostBody(
           <meta itemprop="datePublished" content="${escapeHtml(post.date)}" />
           <meta itemprop="dateModified" content="${escapeHtml(post.date)}" />
           <meta itemprop="description" content="${escapeHtml(post.description)}" />
-          <nav aria-label="Breadcrumb" class="text-xs text-neutral-500"><a class="hover:text-neutral-900" href="/blog">Blog</a> / <a class="hover:text-neutral-900" href="/blog/${escapeHtml(post.category)}">${escapeHtml(titleCaseWord(post.category))}</a> / <time datetime="${escapeHtml(post.date)}">${escapeHtml(post.date)}</time> · ${escapeHtml(String(post.readingMinutes))} min read</nav>
+          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/blog">Blog</a> / <a class="hover:text-[var(--ui-text)]" href="/blog/${escapeHtml(post.category)}">${escapeHtml(titleCaseWord(post.category))}</a> / <time datetime="${escapeHtml(post.date)}">${escapeHtml(post.date)}</time> · ${escapeHtml(String(post.readingMinutes))} min read</nav>
           <h1 itemprop="headline" class="text-2xl font-semibold tracking-tight">${escapeHtml(post.title)}</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">${escapeHtml(post.description)}</p>
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 text-sm text-neutral-700 shadow-sm">
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">${escapeHtml(post.description)}</p>
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-sm text-[var(--ui-text-secondary)] shadow-sm">
             This post is general information, not legal advice. If you may face retaliation or legal risk, consider speaking to a qualified lawyer or a trusted journalist organization before acting.
           </div>
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
             <div itemprop="articleBody" class="prose prose-neutral prose-sm max-w-none">
               ${post.bodyHtml}
             </div>
           </div>
-          <div class="text-sm text-neutral-600">
+          <div class="text-sm text-[var(--ui-text-muted)]">
             Next step: <a class="underline" href="/scrub">scrub a PDF locally</a>.
           </div>
         </article>
@@ -844,7 +844,7 @@ function buildFaqIndexBody(questions: FaqQuestion[]): string {
   const topicLinks = topics
     .map((topic) => {
       const count = questions.filter((q) => q.topic === topic).length;
-      return `<a href="/faq/${escapeHtml(topic)}" class="rounded-sm border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-700 hover:border-neutral-300 hover:text-neutral-900">${escapeHtml(titleCasePhrase(topic))} (${count})</a>`;
+      return `<a href="/faq/${escapeHtml(topic)}" class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-1 text-xs font-medium text-[var(--ui-text-secondary)] hover:border-[var(--ui-border)] hover:text-[var(--ui-text)]">${escapeHtml(titleCasePhrase(topic))} (${count})</a>`;
     })
     .join("\n          ");
 
@@ -859,12 +859,12 @@ function buildFaqIndexBody(questions: FaqQuestion[]): string {
         )
         .join("\n            ");
       return `
-        <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">${escapeHtml(titleCasePhrase(topic))}</div>
-          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-neutral-700">
+        <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">${escapeHtml(titleCasePhrase(topic))}</div>
+          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-[var(--ui-text-secondary)]">
             ${items}
           </ul>
-          <div class="mt-4 text-sm text-neutral-600"><a class="underline" href="/faq/${escapeHtml(topic)}">View all ${escapeHtml(titleCasePhrase(topic))} questions</a></div>
+          <div class="mt-4 text-sm text-[var(--ui-text-muted)]"><a class="underline" href="/faq/${escapeHtml(topic)}">View all ${escapeHtml(titleCasePhrase(topic))} questions</a></div>
         </div>
       `.trim();
     })
@@ -873,17 +873,17 @@ function buildFaqIndexBody(questions: FaqQuestion[]): string {
   const allItems = questions
     .map(
       (q) => `
-        <a href="${escapeHtml(q.route)}" class="group block rounded-sm border border-neutral-200 bg-white p-5 shadow-sm transition hover:border-neutral-300 hover:shadow">
+        <a href="${escapeHtml(q.route)}" class="group block rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5 shadow-sm transition hover:border-[var(--ui-border)] hover:shadow">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">${escapeHtml(titleCasePhrase(q.topic))}</div>
+            <div class="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">${escapeHtml(titleCasePhrase(q.topic))}</div>
             ${
               q.lastReviewed
-                ? `<div class="text-xs text-neutral-500">Reviewed ${escapeHtml(q.lastReviewed)}</div>`
+                ? `<div class="text-xs text-[var(--ui-text-muted)]">Reviewed ${escapeHtml(q.lastReviewed)}</div>`
                 : ""
             }
           </div>
-          <h2 class="mt-2 text-sm font-semibold text-neutral-900 group-hover:text-neutral-950">${escapeHtml(q.question)}</h2>
-          <p class="mt-1 text-sm text-neutral-600">${escapeHtml(q.description)}</p>
+          <h2 class="mt-2 text-sm font-semibold text-[var(--ui-text)] group-hover:text-[var(--ui-text)]">${escapeHtml(q.question)}</h2>
+          <p class="mt-1 text-sm text-[var(--ui-text-muted)]">${escapeHtml(q.description)}</p>
         </a>
       `.trim(),
     )
@@ -892,7 +892,7 @@ function buildFaqIndexBody(questions: FaqQuestion[]): string {
   return `
         <div class="space-y-2">
           <h1 class="text-2xl font-semibold tracking-tight">FAQ Hub</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">
             Practical, plain-English answers on anonymity, document safety, and secure sharing. This is general information, not legal advice.
           </p>
         </div>
@@ -917,7 +917,7 @@ function buildFaqTopicBody(topic: string, questions: FaqQuestion[]): string {
   const otherLinks = otherTopics
     .map(
       (item) =>
-        `<a href="/faq/${escapeHtml(item)}" class="rounded-sm border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-700 hover:border-neutral-300 hover:text-neutral-900">${escapeHtml(titleCasePhrase(item))}</a>`,
+        `<a href="/faq/${escapeHtml(item)}" class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-1 text-xs font-medium text-[var(--ui-text-secondary)] hover:border-[var(--ui-border)] hover:text-[var(--ui-text)]">${escapeHtml(titleCasePhrase(item))}</a>`,
     )
     .join("\n          ");
 
@@ -925,10 +925,10 @@ function buildFaqTopicBody(topic: string, questions: FaqQuestion[]): string {
     .filter((q) => q.topic === topic)
     .map(
       (q) => `
-        <a href="${escapeHtml(q.route)}" class="group block rounded-sm border border-neutral-200 bg-white p-5 shadow-sm transition hover:border-neutral-300 hover:shadow">
-          <h2 class="text-sm font-semibold text-neutral-900 group-hover:text-neutral-950">${escapeHtml(q.question)}</h2>
-          <p class="mt-1 text-sm text-neutral-600">${escapeHtml(q.description)}</p>
-          <div class="mt-2 text-xs text-neutral-500">
+        <a href="${escapeHtml(q.route)}" class="group block rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5 shadow-sm transition hover:border-[var(--ui-border)] hover:shadow">
+          <h2 class="text-sm font-semibold text-[var(--ui-text)] group-hover:text-[var(--ui-text)]">${escapeHtml(q.question)}</h2>
+          <p class="mt-1 text-sm text-[var(--ui-text-muted)]">${escapeHtml(q.description)}</p>
+          <div class="mt-2 text-xs text-[var(--ui-text-muted)]">
             ${q.lastReviewed ? `Reviewed ${escapeHtml(q.lastReviewed)}` : "Review date pending"}
           </div>
         </a>
@@ -938,9 +938,9 @@ function buildFaqTopicBody(topic: string, questions: FaqQuestion[]): string {
 
   return `
         <div class="space-y-2">
-          <nav aria-label="Breadcrumb" class="text-xs text-neutral-500"><a class="hover:text-neutral-900" href="/faq">FAQ Hub</a> / ${escapeHtml(topicTitle)}</nav>
+          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/faq">FAQ Hub</a> / ${escapeHtml(topicTitle)}</nav>
           <h1 class="text-2xl font-semibold tracking-tight">${escapeHtml(topicTitle)}</h1>
-          <p class="max-w-2xl text-sm text-neutral-700">Frequently asked questions for ${escapeHtml(topicTitle.toLowerCase())}.</p>
+          <p class="max-w-2xl text-sm text-[var(--ui-text-secondary)]">Frequently asked questions for ${escapeHtml(topicTitle.toLowerCase())}.</p>
         </div>
         <div class="mt-4 flex flex-wrap gap-2">
           ${otherLinks}
@@ -954,9 +954,9 @@ function buildFaqTopicBody(topic: string, questions: FaqQuestion[]): string {
 function buildFaqQuestionBody(question: FaqQuestion, related: FaqQuestion[]): string {
   const relatedHtml = related.length
     ? `
-        <div class="mt-8 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Related questions</div>
-          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-neutral-700">
+        <div class="mt-8 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Related questions</div>
+          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-[var(--ui-text-secondary)]">
             ${related
               .map(
                 (item) =>
@@ -974,7 +974,7 @@ function buildFaqQuestionBody(question: FaqQuestion, related: FaqQuestion[]): st
           ${question.tags
             .map(
               (tag) =>
-                `<span class="rounded-sm border border-neutral-200 bg-neutral-50 px-2 py-0.5 text-xs text-neutral-600">${escapeHtml(tag)}</span>`,
+                `<span class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg)] px-2 py-0.5 text-xs text-[var(--ui-text-muted)]">${escapeHtml(tag)}</span>`,
             )
             .join("\n          ")}
         </div>
@@ -984,25 +984,25 @@ function buildFaqQuestionBody(question: FaqQuestion, related: FaqQuestion[]): st
   return `
         <article itemscope itemtype="https://schema.org/FAQPage" class="space-y-4">
           <div itemprop="mainEntity" itemscope itemtype="https://schema.org/Question" class="space-y-4">
-            <nav aria-label="Breadcrumb" class="text-xs text-neutral-500"><a class="hover:text-neutral-900" href="/faq">FAQ Hub</a> / <a class="hover:text-neutral-900" href="/faq/${escapeHtml(question.topic)}">${escapeHtml(titleCasePhrase(question.topic))}</a></nav>
+            <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/faq">FAQ Hub</a> / <a class="hover:text-[var(--ui-text)]" href="/faq/${escapeHtml(question.topic)}">${escapeHtml(titleCasePhrase(question.topic))}</a></nav>
             <h1 itemprop="name" class="text-2xl font-semibold tracking-tight">${escapeHtml(question.question)}</h1>
-            <div class="rounded-sm border border-neutral-200 bg-white p-6 text-sm text-neutral-700 shadow-sm">
-              <div class="font-semibold text-neutral-900">Short answer</div>
+            <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-sm text-[var(--ui-text-secondary)] shadow-sm">
+              <div class="font-semibold text-[var(--ui-text)]">Short answer</div>
               <p class="mt-2">${escapeHtml(question.description)}</p>
               ${
                 question.lastReviewed
-                  ? `<div class="mt-3 text-xs text-neutral-500">Last reviewed: ${escapeHtml(question.lastReviewed)}</div>`
+                  ? `<div class="mt-3 text-xs text-[var(--ui-text-muted)]">Last reviewed: ${escapeHtml(question.lastReviewed)}</div>`
                   : ""
               }
               ${tagsHtml}
             </div>
-            <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
+            <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer" class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
               <div itemprop="text" class="prose prose-neutral prose-sm max-w-none">
                 ${question.bodyHtml}
               </div>
             </div>
           </div>
-          <div class="text-sm text-neutral-600">
+          <div class="text-sm text-[var(--ui-text-muted)]">
             Next safe step: <a class="underline" href="/scrub">scrub a PDF locally</a> and review <a class="underline" href="/security">threat model limits</a>.
           </div>
         </article>
@@ -1022,13 +1022,13 @@ function buildSecurityHubBody(articles: SecurityArticle[]): string {
   const cards = trackArticles
     .map(
       (article) => `
-        <a href="${escapeHtml(article.route)}" class="group block rounded-sm border border-neutral-200 bg-white p-5 shadow-sm transition hover:border-neutral-300 hover:shadow">
+        <a href="${escapeHtml(article.route)}" class="group block rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5 shadow-sm transition hover:border-[var(--ui-border)] hover:shadow">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">${escapeHtml(article.track ? trackToTitle(article.track) : "Policy")} · ${escapeHtml(article.riskLevel)} · ${escapeHtml(article.difficulty)}</div>
-            <div class="text-xs text-neutral-500">${escapeHtml(article.lastReviewed ?? "Review pending")} · ${escapeHtml(String(article.estimatedMinutes))} min</div>
+            <div class="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">${escapeHtml(article.track ? trackToTitle(article.track) : "Policy")} · ${escapeHtml(article.riskLevel)} · ${escapeHtml(article.difficulty)}</div>
+            <div class="text-xs text-[var(--ui-text-muted)]">${escapeHtml(article.lastReviewed ?? "Review pending")} · ${escapeHtml(String(article.estimatedMinutes))} min</div>
           </div>
-          <h2 class="mt-2 text-sm font-semibold text-neutral-900 group-hover:text-neutral-950">${escapeHtml(article.title)}</h2>
-          <p class="mt-1 text-sm text-neutral-600">${escapeHtml(article.description)}</p>
+          <h2 class="mt-2 text-sm font-semibold text-[var(--ui-text)] group-hover:text-[var(--ui-text)]">${escapeHtml(article.title)}</h2>
+          <p class="mt-1 text-sm text-[var(--ui-text-muted)]">${escapeHtml(article.description)}</p>
         </a>
       `.trim(),
     )
@@ -1037,24 +1037,24 @@ function buildSecurityHubBody(articles: SecurityArticle[]): string {
   return `
         <div class="space-y-2">
           <h1 class="text-2xl font-semibold tracking-tight">Security Hub</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">
             Defensive security guidance for document workflows. Plain-English for non-technical readers, deep technical references for advanced users.
           </p>
         </div>
 
         <div class="mt-6 grid gap-4 md:grid-cols-2">
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <div class="text-sm font-semibold text-neutral-900">Who this is for</div>
-            <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-neutral-700">
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <div class="text-sm font-semibold text-[var(--ui-text)]">Who this is for</div>
+            <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-[var(--ui-text-secondary)]">
               <li>Office workers</li>
               <li>Whistleblowers</li>
               <li>General PDF users</li>
               <li>Journalists and support teams</li>
             </ul>
           </div>
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <div class="text-sm font-semibold text-neutral-900">Start here</div>
-            <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-neutral-700">
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <div class="text-sm font-semibold text-[var(--ui-text)]">Start here</div>
+            <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-[var(--ui-text-secondary)]">
               <li><a class="underline" href="/security/non-technical/whistleblower-quickstart">Whistleblower quickstart</a></li>
               <li><a class="underline" href="/security/non-technical/safe-pdf-handling-basics">Safe PDF handling basics</a></li>
               <li><a class="underline" href="/security/technical/threat-modeling-workflow">Threat modeling workflow</a></li>
@@ -1063,26 +1063,26 @@ function buildSecurityHubBody(articles: SecurityArticle[]): string {
         </div>
 
         <div class="mt-6 grid gap-4 md:grid-cols-3">
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <div class="text-sm font-semibold text-neutral-900">Non-Technical (${nonTechnical.length})</div>
-            <p class="mt-2 text-sm text-neutral-700">Practical guidance with minimum jargon.</p>
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <div class="text-sm font-semibold text-[var(--ui-text)]">Non-Technical (${nonTechnical.length})</div>
+            <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">Practical guidance with minimum jargon.</p>
             <div class="mt-3 text-sm"><a class="underline" href="/security/non-technical">Open non-technical track</a></div>
           </div>
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <div class="text-sm font-semibold text-neutral-900">Technical (${technical.length})</div>
-            <p class="mt-2 text-sm text-neutral-700">Deep risk models and systems-level controls.</p>
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <div class="text-sm font-semibold text-[var(--ui-text)]">Technical (${technical.length})</div>
+            <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">Deep risk models and systems-level controls.</p>
             <div class="mt-3 text-sm"><a class="underline" href="/security/technical">Open technical track</a></div>
           </div>
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <div class="text-sm font-semibold text-neutral-900">Policy</div>
-            <p class="mt-2 text-sm text-neutral-700">Defensive-only boundary for all security content.</p>
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <div class="text-sm font-semibold text-[var(--ui-text)]">Policy</div>
+            <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">Defensive-only boundary for all security content.</p>
             <div class="mt-3 text-sm"><a class="underline" href="/security/policy">Read policy</a></div>
           </div>
         </div>
 
-        <div class="mt-6 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Latest reviewed</div>
-          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-neutral-700">
+        <div class="mt-6 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Latest reviewed</div>
+          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-[var(--ui-text-secondary)]">
             ${latest
               .map(
                 (item) =>
@@ -1105,13 +1105,13 @@ function buildSecurityTrackBody(track: SecurityTrack, articles: SecurityArticle[
   const cards = entries
     .map(
       (article) => `
-        <a href="${escapeHtml(article.route)}" class="group block rounded-sm border border-neutral-200 bg-white p-5 shadow-sm transition hover:border-neutral-300 hover:shadow">
+        <a href="${escapeHtml(article.route)}" class="group block rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5 shadow-sm transition hover:border-[var(--ui-border)] hover:shadow">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">${escapeHtml(article.riskLevel)} · ${escapeHtml(article.difficulty)}</div>
-            <div class="text-xs text-neutral-500">${escapeHtml(article.lastReviewed ?? "Review pending")} · ${escapeHtml(String(article.estimatedMinutes))} min</div>
+            <div class="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">${escapeHtml(article.riskLevel)} · ${escapeHtml(article.difficulty)}</div>
+            <div class="text-xs text-[var(--ui-text-muted)]">${escapeHtml(article.lastReviewed ?? "Review pending")} · ${escapeHtml(String(article.estimatedMinutes))} min</div>
           </div>
-          <h2 class="mt-2 text-sm font-semibold text-neutral-900 group-hover:text-neutral-950">${escapeHtml(article.title)}</h2>
-          <p class="mt-1 text-sm text-neutral-600">${escapeHtml(article.description)}</p>
+          <h2 class="mt-2 text-sm font-semibold text-[var(--ui-text)] group-hover:text-[var(--ui-text)]">${escapeHtml(article.title)}</h2>
+          <p class="mt-1 text-sm text-[var(--ui-text-muted)]">${escapeHtml(article.description)}</p>
         </a>
       `.trim(),
     )
@@ -1119,15 +1119,15 @@ function buildSecurityTrackBody(track: SecurityTrack, articles: SecurityArticle[
 
   return `
         <div class="space-y-2">
-          <nav aria-label="Breadcrumb" class="text-xs text-neutral-500"><a class="hover:text-neutral-900" href="/security">Security Hub</a> / ${escapeHtml(trackToTitle(track))}</nav>
+          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/security">Security Hub</a> / ${escapeHtml(trackToTitle(track))}</nav>
           <h1 class="text-2xl font-semibold tracking-tight">${escapeHtml(trackToTitle(track))} Security Track</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">
             ${track === "non-technical" ? "Practical behavior and low-friction safety defaults." : "Technical notes for deeper threat-modeling and exposure review."}
           </p>
         </div>
         <div class="mt-4 flex flex-wrap gap-2">
-          <a href="/security/${escapeHtml(otherTrack)}" class="rounded-sm border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-700 hover:border-neutral-300 hover:text-neutral-900">Switch to ${escapeHtml(trackToTitle(otherTrack))}</a>
-          <a href="/security/policy" class="rounded-sm border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-700 hover:border-neutral-300 hover:text-neutral-900">Defensive-only policy</a>
+          <a href="/security/${escapeHtml(otherTrack)}" class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-1 text-xs font-medium text-[var(--ui-text-secondary)] hover:border-[var(--ui-border)] hover:text-[var(--ui-text)]">Switch to ${escapeHtml(trackToTitle(otherTrack))}</a>
+          <a href="/security/policy" class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-1 text-xs font-medium text-[var(--ui-text-secondary)] hover:border-[var(--ui-border)] hover:text-[var(--ui-text)]">Defensive-only policy</a>
         </div>
         <div class="mt-6 space-y-3">
           ${cards}
@@ -1141,14 +1141,14 @@ function buildSecurityArticleBody(
 ): string {
   const breadcrumb =
     article.section === "policy"
-      ? `<a class="hover:text-neutral-900" href="/security">Security Hub</a> / Policy`
-      : `<a class="hover:text-neutral-900" href="/security">Security Hub</a> / <a class="hover:text-neutral-900" href="/security/${escapeHtml(article.section)}">${escapeHtml(trackToTitle(article.section as SecurityTrack))}</a>`;
+      ? `<a class="hover:text-[var(--ui-text)]" href="/security">Security Hub</a> / Policy`
+      : `<a class="hover:text-[var(--ui-text)]" href="/security">Security Hub</a> / <a class="hover:text-[var(--ui-text)]" href="/security/${escapeHtml(article.section)}">${escapeHtml(trackToTitle(article.section as SecurityTrack))}</a>`;
 
   const relatedHtml = related.length
     ? `
-        <div class="mt-8 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Related security articles</div>
-          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-neutral-700">
+        <div class="mt-8 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Related security articles</div>
+          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-[var(--ui-text-secondary)]">
             ${related
               .map(
                 (item) =>
@@ -1164,9 +1164,9 @@ function buildSecurityArticleBody(
         <article itemscope itemtype="https://schema.org/Article" class="space-y-4">
           <meta itemprop="dateModified" content="${escapeHtml(article.lastReviewed ?? "2026-02-20")}" />
           <meta itemprop="description" content="${escapeHtml(article.description)}" />
-          <nav aria-label="Breadcrumb" class="text-xs text-neutral-500">${breadcrumb}</nav>
+          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]">${breadcrumb}</nav>
           <h1 itemprop="headline" class="text-2xl font-semibold tracking-tight">${escapeHtml(article.title)}</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">${escapeHtml(article.description)}</p>
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">${escapeHtml(article.description)}</p>
 
           <div class="rounded-sm border border-amber-300 bg-amber-50 p-4">
             <div class="text-sm font-semibold text-amber-900">Risk profile</div>
@@ -1176,10 +1176,10 @@ function buildSecurityArticleBody(
             No tool guarantees anonymity. Review the “What this does not protect” section before acting.
           </div>
 
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
             <div itemprop="articleBody" class="prose prose-neutral prose-sm max-w-none">${article.bodyHtml}</div>
           </div>
-          <div class="text-sm text-neutral-600">
+          <div class="text-sm text-[var(--ui-text-muted)]">
             Next safe step: <a class="underline" href="/scrub">scrub a PDF locally</a>, open <a class="underline" href="/faq">FAQ Hub</a>, and review <a class="underline" href="/security/policy">defensive-only policy</a>.
           </div>
         </article>
@@ -1199,11 +1199,11 @@ function buildToolsHubBody(): string {
   const featuredHtml = featured
     .map(
       (tool) => `
-        <div class="rounded-sm border border-neutral-200 bg-white p-4 shadow-sm">
-          <div class="text-base font-semibold text-neutral-900">${escapeHtml(tool.name)}</div>
-          <div class="mt-1 text-sm text-neutral-700">${escapeHtml(tool.description)}</div>
-          <div class="mt-2 text-xs text-neutral-600">${escapeHtml(tool.processingMode === "local" ? "On-device" : "Cloud Optional")} · ${escapeHtml(tool.bucket === "heavy" ? "Heavy quota" : "Core quota")}</div>
-          <div class="mt-2 text-sm text-neutral-700">
+        <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4 shadow-sm">
+          <div class="text-base font-semibold text-[var(--ui-text)]">${escapeHtml(tool.name)}</div>
+          <div class="mt-1 text-sm text-[var(--ui-text-secondary)]">${escapeHtml(tool.description)}</div>
+          <div class="mt-2 text-xs text-[var(--ui-text-muted)]">${escapeHtml(tool.processingMode === "local" ? "On-device" : "Cloud Optional")} · ${escapeHtml(tool.bucket === "heavy" ? "Heavy quota" : "Core quota")}</div>
+          <div class="mt-2 text-sm text-[var(--ui-text-secondary)]">
             <a class="underline" href="/tools/${escapeHtml(tool.slug)}">Open</a> ·
             <a class="underline" href="/tools/${escapeHtml(tool.slug)}/how-to"> How-to</a> ·
             <a class="underline" href="/tools/${escapeHtml(tool.slug)}/privacy"> Privacy</a>
@@ -1224,9 +1224,9 @@ function buildToolsHubBody(): string {
         )
         .join("\n");
       return `
-        <div class="rounded-sm border border-neutral-200 bg-white p-4 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">${escapeHtml(toolCategoryLabel(category as ToolCategory))}</div>
-          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-neutral-700">
+        <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">${escapeHtml(toolCategoryLabel(category as ToolCategory))}</div>
+          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-[var(--ui-text-secondary)]">
             ${toolsHtml}
           </ul>
         </div>
@@ -1237,10 +1237,10 @@ function buildToolsHubBody(): string {
   const collectionsHtml = toolCollections
     .map(
       (collection) => `
-        <div class="rounded-sm border border-neutral-200 bg-white p-4 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">${escapeHtml(collection.title)}</div>
-          <div class="mt-1 text-sm text-neutral-700">${escapeHtml(collection.description)}</div>
-          <a class="mt-2 inline-block underline text-sm text-neutral-800" href="/tools/collections/${escapeHtml(collection.slug)}">Open collection</a>
+        <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">${escapeHtml(collection.title)}</div>
+          <div class="mt-1 text-sm text-[var(--ui-text-secondary)]">${escapeHtml(collection.description)}</div>
+          <a class="mt-2 inline-block underline text-sm text-[var(--ui-text-secondary)]" href="/tools/collections/${escapeHtml(collection.slug)}">Open collection</a>
         </div>
       `.trim(),
     )
@@ -1249,7 +1249,7 @@ function buildToolsHubBody(): string {
   return `
         <div class="space-y-2">
           <h1 class="text-2xl font-semibold tracking-tight">Tools Hub</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">
             Privacy-first PDF productivity tools for daily work. On-device by default, no trackers.
           </p>
         </div>
@@ -1257,24 +1257,24 @@ function buildToolsHubBody(): string {
           Free-first model: generous local quotas with optional paid workflow unlock.
         </div>
         <section class="mt-6 space-y-3">
-          <h2 class="text-lg font-semibold text-neutral-900">Quick actions</h2>
+          <h2 class="text-lg font-semibold text-[var(--ui-text)]">Quick actions</h2>
           <div class="grid gap-4 md:grid-cols-2">
             ${featuredHtml}
           </div>
         </section>
         <section class="mt-6 space-y-3">
-          <h2 class="text-lg font-semibold text-neutral-900">Browse by category</h2>
+          <h2 class="text-lg font-semibold text-[var(--ui-text)]">Browse by category</h2>
           <div class="grid gap-4 md:grid-cols-2">
             ${categoryHtml}
           </div>
         </section>
         <section class="mt-6 space-y-3">
-          <h2 class="text-lg font-semibold text-neutral-900">Daily workflows</h2>
+          <h2 class="text-lg font-semibold text-[var(--ui-text)]">Daily workflows</h2>
           <div class="grid gap-4 md:grid-cols-3">
             ${collectionsHtml}
           </div>
         </section>
-        <div class="mt-6 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm text-sm text-neutral-700">
+        <div class="mt-6 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm text-sm text-[var(--ui-text-secondary)]">
           Next step: open a tool, read how-to guidance, and review security limits before sharing outputs.
         </div>
   `.trim();
@@ -1298,9 +1298,9 @@ function buildToolPageBody(tool: ToolDefinition): string {
 
   const faqHtml = FAQ_SLUGS.map(
     (faqSlug) => `
-            <details class="border-b border-neutral-100 pb-3 mb-3 last:border-0">
-              <summary class="cursor-pointer text-[15px] font-medium text-neutral-900">${escapeHtml(faqQuestion(faqSlug, tool.name))}</summary>
-              <p class="mt-2 text-[15px] text-neutral-600">${escapeHtml(editorial.faq[faqSlug])}</p>
+            <details class="border-b border-[var(--ui-border)] pb-3 mb-3 last:border-0">
+              <summary class="cursor-pointer text-[15px] font-medium text-[var(--ui-text)]">${escapeHtml(faqQuestion(faqSlug, tool.name))}</summary>
+              <p class="mt-2 text-[15px] text-[var(--ui-text-muted)]">${escapeHtml(editorial.faq[faqSlug])}</p>
             </details>`,
   ).join("\n");
 
@@ -1313,14 +1313,14 @@ function buildToolPageBody(tool: ToolDefinition): string {
     related.length > 0
       ? `
           <div class="mt-6">
-            <h3 class="text-sm font-semibold text-neutral-900 mb-3">Related tools</h3>
+            <h3 class="text-sm font-semibold text-[var(--ui-text)] mb-3">Related tools</h3>
             <div class="grid gap-3 sm:grid-cols-2">
               ${related
                 .map(
                   (r) => `
-              <a href="/tools/${escapeHtml(r.slug)}" class="block rounded-sm border border-neutral-200 bg-white p-4 hover:border-neutral-300">
-                <div class="text-sm font-medium text-neutral-900">${escapeHtml(r.name)}</div>
-                <div class="mt-1 text-xs text-neutral-600">${escapeHtml(r.description)}</div>
+              <a href="/tools/${escapeHtml(r.slug)}" class="block rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4 hover:border-[var(--ui-border)]">
+                <div class="text-sm font-medium text-[var(--ui-text)]">${escapeHtml(r.name)}</div>
+                <div class="mt-1 text-xs text-[var(--ui-text-muted)]">${escapeHtml(r.description)}</div>
               </a>`,
                 )
                 .join("\n")}
@@ -1340,8 +1340,8 @@ function buildToolPageBody(tool: ToolDefinition): string {
   return `
         <article itemscope itemtype="https://schema.org/SoftwareApplication" class="space-y-6">
           <h1 itemprop="name" class="text-2xl font-semibold tracking-tight">${escapeHtml(tool.name)}</h1>
-          <p itemprop="description" class="max-w-3xl text-sm text-neutral-700">${escapeHtml(tool.description)}</p>
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm text-sm text-neutral-700">
+          <p itemprop="description" class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">${escapeHtml(tool.description)}</p>
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm text-sm text-[var(--ui-text-secondary)]">
             <div><strong>Category:</strong> ${escapeHtml(toolCategoryLabel(tool.category))}</div>
             <div><strong>Processing:</strong> ${escapeHtml(tool.processingMode === "local" ? "On-device" : "Cloud Optional")}</div>
             <div><strong>Quota bucket:</strong> ${escapeHtml(tool.bucket === "heavy" ? "Heavy" : "Core")}</div>
@@ -1350,16 +1350,16 @@ function buildToolPageBody(tool: ToolDefinition): string {
             Open interactive tool: <a class="underline" href="/tools/${escapeHtml(tool.slug)}">/tools/${escapeHtml(tool.slug)}</a>
           </div>
 
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900 mb-3">How to use ${escapeHtml(tool.name)}</h2>
-            <ol class="list-decimal list-inside space-y-2 text-[15px] text-neutral-700">
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)] mb-3">How to use ${escapeHtml(tool.name)}</h2>
+            <ol class="list-decimal list-inside space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
               ${howToStepsHtml}
             </ol>
           </div>
 
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900 mb-3">Tips</h2>
-            <ul class="list-disc list-inside space-y-1 text-[15px] text-neutral-700">
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)] mb-3">Tips</h2>
+            <ul class="list-disc list-inside space-y-1 text-[15px] text-[var(--ui-text-secondary)]">
               ${tipsHtml}
             </ul>
           </div>
@@ -1369,23 +1369,23 @@ function buildToolPageBody(tool: ToolDefinition): string {
             <a class="underline ml-1" href="/tools/${escapeHtml(tool.slug)}/privacy">Full privacy model</a>
           </div>
 
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900 mb-3">Frequently asked questions</h2>
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)] mb-3">Frequently asked questions</h2>
             ${faqHtml}
           </div>
 
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900 mb-3">Limitations</h2>
-            <ul class="list-disc list-inside space-y-1 text-[15px] text-neutral-700">
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)] mb-3">Limitations</h2>
+            <ul class="list-disc list-inside space-y-1 text-[15px] text-[var(--ui-text-secondary)]">
               ${limitationsHtml}
             </ul>
           </div>
 
           ${relatedToolsHtml}
 
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-sm font-semibold text-neutral-900 mb-2">Documentation</h2>
-            <ul class="list-inside list-disc space-y-1 text-sm text-neutral-700">
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-sm font-semibold text-[var(--ui-text)] mb-2">Documentation</h2>
+            <ul class="list-inside list-disc space-y-1 text-sm text-[var(--ui-text-secondary)]">
               ${docLinksHtml}
             </ul>
           </div>
@@ -1458,20 +1458,20 @@ function buildToolDocBody(
   const bodyHtml = renderMarkdownToHtml(markdown);
   const links = toolSlug
     ? `
-      <div class="text-sm text-neutral-700">
+      <div class="text-sm text-[var(--ui-text-secondary)]">
         <a class="underline" href="/tools/${escapeHtml(toolSlug)}">Open tool</a> ·
         <a class="underline" href="/tools/${escapeHtml(toolSlug)}/how-to"> How-to</a> ·
         <a class="underline" href="/tools/${escapeHtml(toolSlug)}/privacy"> Privacy</a>
       </div>
     `
-    : `<div class="text-sm text-neutral-700"><a class="underline" href="/tools">Back to Tools Hub</a></div>`;
+    : `<div class="text-sm text-[var(--ui-text-secondary)]"><a class="underline" href="/tools">Back to Tools Hub</a></div>`;
 
   return `
         <article itemscope itemtype="https://schema.org/Article" class="space-y-4">
           <h1 itemprop="headline" class="text-2xl font-semibold tracking-tight">${escapeHtml(title)}</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">${escapeHtml(description)}</p>
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">${escapeHtml(description)}</p>
           ${links}
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
             <div itemprop="articleBody" class="prose prose-neutral prose-sm max-w-none">${bodyHtml}</div>
           </div>
         </article>
@@ -1485,10 +1485,10 @@ function buildDonateBody(
   const addressBlocks = donateAddresses
     .map(
       (item) => `
-        <div class="rounded-sm border border-neutral-200 bg-neutral-50 p-3">
-          <div class="text-sm font-semibold text-neutral-900">${escapeHtml(item.network)} (${escapeHtml(item.symbol)})</div>
-          <div class="mt-2 break-all rounded bg-white p-2 font-mono text-xs text-neutral-900">${escapeHtml(item.address)}</div>
-          ${item.note ? `<div class="mt-2 text-xs text-neutral-600">${escapeHtml(item.note)}</div>` : ""}
+        <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg)] p-3">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">${escapeHtml(item.network)} (${escapeHtml(item.symbol)})</div>
+          <div class="mt-2 break-all rounded bg-[var(--ui-bg-raised)] p-2 font-mono text-xs text-[var(--ui-text)]">${escapeHtml(item.address)}</div>
+          ${item.note ? `<div class="mt-2 text-xs text-[var(--ui-text-muted)]">${escapeHtml(item.note)}</div>` : ""}
         </div>
       `.trim(),
     )
@@ -1497,13 +1497,13 @@ function buildDonateBody(
   return `
         <div class="space-y-2">
           <h1 class="text-2xl font-semibold tracking-tight">Donate</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">
             Donations keep security guidance free and tracker-free. Funding supports documentation, audits, and maintenance.
           </p>
         </div>
         <div class="mt-6 grid gap-4 md:grid-cols-2">
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <div class="text-sm font-semibold text-neutral-900">Card donation (Stripe)</div>
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <div class="text-sm font-semibold text-[var(--ui-text)]">Card donation (Stripe)</div>
             <div class="mt-3 flex flex-wrap gap-2">
               ${
                 oneTimeUrl
@@ -1512,23 +1512,23 @@ function buildDonateBody(
               }
               ${
                 monthlyUrl
-                  ? `<a class="rounded-sm border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50" href="${escapeHtml(monthlyUrl)}" target="_blank" rel="noopener noreferrer">Monthly donation</a>`
+                  ? `<a class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-4 py-2 text-sm font-medium text-[var(--ui-text)] hover:bg-[var(--ui-bg)]" href="${escapeHtml(monthlyUrl)}" target="_blank" rel="noopener noreferrer">Monthly donation</a>`
                   : ""
               }
             </div>
-            <div class="mt-3 text-xs text-neutral-600">No analytics scripts or wallet scripts are loaded on donation pages.</div>
+            <div class="mt-3 text-xs text-[var(--ui-text-muted)]">No analytics scripts or wallet scripts are loaded on donation pages.</div>
           </div>
-          <div class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <div class="text-sm font-semibold text-neutral-900">Crypto donation</div>
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <div class="text-sm font-semibold text-[var(--ui-text)]">Crypto donation</div>
             <div class="mt-3 space-y-3">
               ${addressBlocks}
             </div>
-            <div class="mt-3 text-xs text-neutral-600">Verify addresses at <a class="underline" href="/donate/proof">signed proof page</a>.</div>
+            <div class="mt-3 text-xs text-[var(--ui-text-muted)]">Verify addresses at <a class="underline" href="/donate/proof">signed proof page</a>.</div>
           </div>
         </div>
-        <div class="mt-6 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Trust links</div>
-          <div class="mt-2 text-sm text-neutral-700">
+        <div class="mt-6 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Trust links</div>
+          <div class="mt-2 text-sm text-[var(--ui-text-secondary)]">
             <a class="underline" href="/donate/proof">Address proof</a> ·
             <a class="underline" href="/donate/proof/archive"> Proof archive</a> ·
             <a class="underline" href="/donate/transparency"> Transparency</a> ·
@@ -1596,10 +1596,10 @@ function buildDonateProofBody({
   const fileRows = files
     .map(
       (file) => `
-            <tr class="border-b border-neutral-200">
-              <td class="px-2 py-2 font-mono text-xs text-neutral-900">${escapeHtml(file.path)}</td>
-              <td class="px-2 py-2 font-mono text-xs text-neutral-700">${escapeHtml(file.sha256)}</td>
-              <td class="px-2 py-2 text-sm text-neutral-700">${escapeHtml(String(file.sizeBytes))}</td>
+            <tr class="border-b border-[var(--ui-border)]">
+              <td class="px-2 py-2 font-mono text-xs text-[var(--ui-text)]">${escapeHtml(file.path)}</td>
+              <td class="px-2 py-2 font-mono text-xs text-[var(--ui-text-secondary)]">${escapeHtml(file.sha256)}</td>
+              <td class="px-2 py-2 text-sm text-[var(--ui-text-secondary)]">${escapeHtml(String(file.sizeBytes))}</td>
             </tr>
       `.trim(),
     )
@@ -1608,9 +1608,9 @@ function buildDonateProofBody({
   const addressRows = (manifest?.addresses ?? donateAddresses)
     .map(
       (item) => `
-            <tr class="border-b border-neutral-200">
-              <td class="px-2 py-2 text-sm text-neutral-900">${escapeHtml(item.network)} (${escapeHtml(item.symbol)})</td>
-              <td class="px-2 py-2 font-mono text-xs text-neutral-700">${escapeHtml(item.address)}</td>
+            <tr class="border-b border-[var(--ui-border)]">
+              <td class="px-2 py-2 text-sm text-[var(--ui-text)]">${escapeHtml(item.network)} (${escapeHtml(item.symbol)})</td>
+              <td class="px-2 py-2 font-mono text-xs text-[var(--ui-text-secondary)]">${escapeHtml(item.address)}</td>
             </tr>
       `.trim(),
     )
@@ -1619,9 +1619,9 @@ function buildDonateProofBody({
   return `
         <article itemscope itemtype="https://schema.org/TechArticle" class="space-y-4">
           <meta itemprop="dateModified" content="${escapeHtml(manifest?.publishedAt ?? "2026-02-20T00:00:00Z")}" />
-          <nav aria-label="Breadcrumb" class="text-xs text-neutral-500"><a class="hover:text-neutral-900" href="/donate">Donate</a> / Proof</nav>
+          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/donate">Donate</a> / Proof</nav>
           <h1 itemprop="headline" class="text-2xl font-semibold tracking-tight">Donation trust center</h1>
-          <p itemprop="description" class="max-w-3xl text-sm text-neutral-700">Beginner-first and technical verification flow for donation addresses.</p>
+          <p itemprop="description" class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">Beginner-first and technical verification flow for donation addresses.</p>
 
           <div class="rounded-sm border border-blue-300 bg-blue-50 p-4">
             <div class="text-sm font-semibold text-blue-900">Trust status</div>
@@ -1633,24 +1633,24 @@ function buildDonateProofBody({
             </div>
           </div>
 
-          <section class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900">Quick verify (beginner path)</h2>
-            <ol class="mt-3 list-inside list-decimal space-y-2 text-sm text-neutral-700">
+          <section class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)]">Quick verify (beginner path)</h2>
+            <ol class="mt-3 list-inside list-decimal space-y-2 text-sm text-[var(--ui-text-secondary)]">
               <li>Download the statement, signature, and signing key files.</li>
               <li>Import key, then run verify command shown below.</li>
               <li>Confirm the fingerprint exactly matches the pinned value.</li>
             </ol>
-            <div class="mt-3 rounded-sm border border-neutral-300 bg-neutral-100 p-3 font-mono text-xs text-neutral-900">${escapeHtml(importCmd)}</div>
-            <div class="mt-2 rounded-sm border border-neutral-300 bg-neutral-100 p-3 font-mono text-xs text-neutral-900">${escapeHtml(verifyCmd)}</div>
-            <div class="mt-2 text-sm text-neutral-700">Expected pass outcome: <strong>Good signature</strong> and exact fingerprint match. If either fails, do not donate.</div>
+            <div class="mt-3 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-overlay)] p-3 font-mono text-xs text-[var(--ui-text)]">${escapeHtml(importCmd)}</div>
+            <div class="mt-2 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-overlay)] p-3 font-mono text-xs text-[var(--ui-text)]">${escapeHtml(verifyCmd)}</div>
+            <div class="mt-2 text-sm text-[var(--ui-text-secondary)]">Expected pass outcome: <strong>Good signature</strong> and exact fingerprint match. If either fails, do not donate.</div>
           </section>
 
-          <section class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900">Verification files</h2>
+          <section class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)]">Verification files</h2>
             <div class="mt-3 overflow-x-auto">
               <table class="min-w-full border-collapse text-left text-sm">
                 <thead>
-                  <tr class="border-b border-neutral-300 text-neutral-700">
+                  <tr class="border-b border-[var(--ui-border)] text-[var(--ui-text-secondary)]">
                     <th class="px-2 py-2 font-semibold">File</th>
                     <th class="px-2 py-2 font-semibold">SHA-256</th>
                     <th class="px-2 py-2 font-semibold">Size</th>
@@ -1661,7 +1661,7 @@ function buildDonateProofBody({
                 </tbody>
               </table>
             </div>
-            <div class="mt-3 text-sm text-neutral-700">
+            <div class="mt-3 text-sm text-[var(--ui-text-secondary)]">
               <a class="underline" href="${escapeHtml(statementPath)}">Statement</a> ·
               <a class="underline" href="${escapeHtml(signaturePath)}"> Signature</a> ·
               <a class="underline" href="${escapeHtml(manifestPath)}"> Manifest</a> ·
@@ -1670,28 +1670,28 @@ function buildDonateProofBody({
             </div>
           </section>
 
-          <section class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900">Key identity</h2>
-            <div class="mt-3 grid gap-2 text-sm text-neutral-700 md:grid-cols-2">
+          <section class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)]">Key identity</h2>
+            <div class="mt-3 grid gap-2 text-sm text-[var(--ui-text-secondary)] md:grid-cols-2">
               <div><span class="font-semibold">Fingerprint:</span> <span class="font-mono">${escapeHtml(fingerprint)}</span></div>
               <div><span class="font-semibold">Key ID:</span> <span class="font-mono">${escapeHtml(keyId)}</span></div>
               <div><span class="font-semibold">Algorithm:</span> ${escapeHtml(algorithm)}</div>
               <div><span class="font-semibold">First seen:</span> ${escapeHtml(firstSeenAt)}</div>
             </div>
-            <div class="mt-2 text-sm text-neutral-600">Rotation policy: old keys remain available in archive with retirement or revocation notes.</div>
+            <div class="mt-2 text-sm text-[var(--ui-text-muted)]">Rotation policy: old keys remain available in archive with retirement or revocation notes.</div>
           </section>
 
-          <section class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900">Advanced verification</h2>
-            <details class="mt-3 rounded-sm border border-neutral-300 bg-neutral-50 p-3" open>
-              <summary class="cursor-pointer text-sm font-semibold text-neutral-900">Linux/macOS commands</summary>
-              <pre class="mt-2 overflow-x-auto rounded-sm border border-neutral-300 bg-white p-3 text-xs text-neutral-900">${escapeHtml(linuxCmd)}</pre>
+          <section class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)]">Advanced verification</h2>
+            <details class="mt-3 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg)] p-3" open>
+              <summary class="cursor-pointer text-sm font-semibold text-[var(--ui-text)]">Linux/macOS commands</summary>
+              <pre class="mt-2 overflow-x-auto rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-3 text-xs text-[var(--ui-text)]">${escapeHtml(linuxCmd)}</pre>
             </details>
-            <details class="mt-3 rounded-sm border border-neutral-300 bg-neutral-50 p-3">
-              <summary class="cursor-pointer text-sm font-semibold text-neutral-900">Windows commands</summary>
-              <pre class="mt-2 overflow-x-auto rounded-sm border border-neutral-300 bg-white p-3 text-xs text-neutral-900">${escapeHtml(windowsCmd)}</pre>
+            <details class="mt-3 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg)] p-3">
+              <summary class="cursor-pointer text-sm font-semibold text-[var(--ui-text)]">Windows commands</summary>
+              <pre class="mt-2 overflow-x-auto rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-3 text-xs text-[var(--ui-text)]">${escapeHtml(windowsCmd)}</pre>
             </details>
-            <div class="mt-2 text-sm text-neutral-600">Offline workflow: download files, disconnect network, run GPG verification locally.</div>
+            <div class="mt-2 text-sm text-[var(--ui-text-muted)]">Offline workflow: download files, disconnect network, run GPG verification locally.</div>
           </section>
 
           <section class="rounded-sm border border-red-300 bg-red-50 p-6">
@@ -1704,9 +1704,9 @@ function buildDonateProofBody({
             </ul>
           </section>
 
-          <section class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900">Common scam patterns</h2>
-            <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-neutral-700">
+          <section class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)]">Common scam patterns</h2>
+            <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-[var(--ui-text-secondary)]">
               <li>Screenshot address replacement or edited chat screenshots.</li>
               <li>Mirror domains serving stale proof bundles from old cache.</li>
               <li>Clipboard malware replacing pasted wallet addresses.</li>
@@ -1721,12 +1721,12 @@ function buildDonateProofBody({
             </div>
           </section>
 
-          <section class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900">Address list in current proof</h2>
+          <section class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)]">Address list in current proof</h2>
             <div class="mt-3 overflow-x-auto">
               <table class="min-w-full border-collapse text-left text-sm">
                 <thead>
-                  <tr class="border-b border-neutral-300 text-neutral-700">
+                  <tr class="border-b border-[var(--ui-border)] text-[var(--ui-text-secondary)]">
                     <th class="px-2 py-2 font-semibold">Network</th>
                     <th class="px-2 py-2 font-semibold">Address</th>
                   </tr>
@@ -1738,9 +1738,9 @@ function buildDonateProofBody({
             </div>
           </section>
 
-          <section class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900">Archive links</h2>
-            <div class="mt-2 text-sm text-neutral-700">
+          <section class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)]">Archive links</h2>
+            <div class="mt-2 text-sm text-[var(--ui-text-secondary)]">
               <a class="underline" href="/donate/proof/archive">Open proof archive</a> for prior proofs, old keys, and revocation history.
             </div>
           </section>
@@ -1752,11 +1752,11 @@ function buildDonateProofArchiveBody(archive: DonateProofArchive | null): string
   if (!archive) {
     return `
         <div class="space-y-2">
-          <nav aria-label="Breadcrumb" class="text-xs text-neutral-500"><a class="hover:text-neutral-900" href="/donate">Donate</a> / <a class="hover:text-neutral-900" href="/donate/proof">Proof</a> / Archive</nav>
+          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/donate">Donate</a> / <a class="hover:text-[var(--ui-text)]" href="/donate/proof">Proof</a> / Archive</nav>
           <h1 class="text-2xl font-semibold tracking-tight">Proof archive unavailable</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">Archive index is missing or invalid.</p>
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">Archive index is missing or invalid.</p>
         </div>
-        <div class="mt-4 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm text-sm text-neutral-700">
+        <div class="mt-4 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm text-sm text-[var(--ui-text-secondary)]">
           Restore <code>/donate-proof/archive/index.json</code> and rebuild static pages.
         </div>
     `.trim();
@@ -1765,11 +1765,11 @@ function buildDonateProofArchiveBody(archive: DonateProofArchive | null): string
   const proofRows = archive.proofs
     .map(
       (proof) => `
-            <tr class="border-b border-neutral-200">
-              <td class="px-2 py-2 font-mono text-xs text-neutral-900">${escapeHtml(proof.proofId)}</td>
-              <td class="px-2 py-2 text-sm text-neutral-700">${escapeHtml(formatIsoUtc(proof.publishedAt))}</td>
-              <td class="px-2 py-2 text-sm text-neutral-700">${proof.revoked ? "Revoked" : "Valid at publish"}</td>
-              <td class="px-2 py-2 text-sm text-neutral-700"><a class="underline" href="${escapeHtml(proof.manifestPath)}">Open manifest</a></td>
+            <tr class="border-b border-[var(--ui-border)]">
+              <td class="px-2 py-2 font-mono text-xs text-[var(--ui-text)]">${escapeHtml(proof.proofId)}</td>
+              <td class="px-2 py-2 text-sm text-[var(--ui-text-secondary)]">${escapeHtml(formatIsoUtc(proof.publishedAt))}</td>
+              <td class="px-2 py-2 text-sm text-[var(--ui-text-secondary)]">${proof.revoked ? "Revoked" : "Valid at publish"}</td>
+              <td class="px-2 py-2 text-sm text-[var(--ui-text-secondary)]"><a class="underline" href="${escapeHtml(proof.manifestPath)}">Open manifest</a></td>
             </tr>
       `.trim(),
     )
@@ -1778,11 +1778,11 @@ function buildDonateProofArchiveBody(archive: DonateProofArchive | null): string
   const keyRows = archive.keys
     .map(
       (key) => `
-            <tr class="border-b border-neutral-200">
-              <td class="px-2 py-2 font-mono text-xs text-neutral-900">${escapeHtml(key.fingerprint)}</td>
-              <td class="px-2 py-2 text-sm text-neutral-700">${escapeHtml(key.status)}</td>
-              <td class="px-2 py-2 text-sm text-neutral-700">${escapeHtml(formatIsoUtc(key.firstSeenAt))}</td>
-              <td class="px-2 py-2 text-sm text-neutral-700"><a class="underline" href="${escapeHtml(key.path)}">Download key</a></td>
+            <tr class="border-b border-[var(--ui-border)]">
+              <td class="px-2 py-2 font-mono text-xs text-[var(--ui-text)]">${escapeHtml(key.fingerprint)}</td>
+              <td class="px-2 py-2 text-sm text-[var(--ui-text-secondary)]">${escapeHtml(key.status)}</td>
+              <td class="px-2 py-2 text-sm text-[var(--ui-text-secondary)]">${escapeHtml(formatIsoUtc(key.firstSeenAt))}</td>
+              <td class="px-2 py-2 text-sm text-[var(--ui-text-secondary)]"><a class="underline" href="${escapeHtml(key.path)}">Download key</a></td>
             </tr>
       `.trim(),
     )
@@ -1790,18 +1790,18 @@ function buildDonateProofArchiveBody(archive: DonateProofArchive | null): string
 
   return `
         <article itemscope itemtype="https://schema.org/CollectionPage" class="space-y-4">
-          <nav aria-label="Breadcrumb" class="text-xs text-neutral-500"><a class="hover:text-neutral-900" href="/donate">Donate</a> / <a class="hover:text-neutral-900" href="/donate/proof">Proof</a> / Archive</nav>
+          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/donate">Donate</a> / <a class="hover:text-[var(--ui-text)]" href="/donate/proof">Proof</a> / Archive</nav>
           <h1 class="text-2xl font-semibold tracking-tight">Proof archive</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">Historical proof bundles, retired keys, and revocation notes.</p>
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">Historical proof bundles, retired keys, and revocation notes.</p>
           <div class="rounded-sm border border-blue-300 bg-blue-50 p-4 text-sm text-blue-900">
             Last updated: ${escapeHtml(formatIsoUtc(archive.updatedAt))}
           </div>
-          <section class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900">Proof history</h2>
+          <section class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)]">Proof history</h2>
             <div class="mt-3 overflow-x-auto">
               <table class="min-w-full border-collapse text-left text-sm">
                 <thead>
-                  <tr class="border-b border-neutral-300 text-neutral-700">
+                  <tr class="border-b border-[var(--ui-border)] text-[var(--ui-text-secondary)]">
                     <th class="px-2 py-2 font-semibold">Proof ID</th>
                     <th class="px-2 py-2 font-semibold">Published</th>
                     <th class="px-2 py-2 font-semibold">Status</th>
@@ -1814,12 +1814,12 @@ function buildDonateProofArchiveBody(archive: DonateProofArchive | null): string
               </table>
             </div>
           </section>
-          <section class="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-            <h2 class="text-base font-semibold text-neutral-900">Key history</h2>
+          <section class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+            <h2 class="text-base font-semibold text-[var(--ui-text)]">Key history</h2>
             <div class="mt-3 overflow-x-auto">
               <table class="min-w-full border-collapse text-left text-sm">
                 <thead>
-                  <tr class="border-b border-neutral-300 text-neutral-700">
+                  <tr class="border-b border-[var(--ui-border)] text-[var(--ui-text-secondary)]">
                     <th class="px-2 py-2 font-semibold">Fingerprint</th>
                     <th class="px-2 py-2 font-semibold">Status</th>
                     <th class="px-2 py-2 font-semibold">First seen</th>
@@ -1839,23 +1839,23 @@ function buildDonateProofArchiveBody(archive: DonateProofArchive | null): string
 function buildDonateTransparencyBody(): string {
   return `
         <div class="space-y-2">
-          <nav aria-label="Breadcrumb" class="text-xs text-neutral-500"><a class="hover:text-neutral-900" href="/donate">Donate</a> / Transparency</nav>
+          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/donate">Donate</a> / Transparency</nav>
           <h1 class="text-2xl font-semibold tracking-tight">Minimal monthly transparency</h1>
-          <p class="max-w-3xl text-sm text-neutral-700">High-level totals and spend categories without donor-identifying details.</p>
+          <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">High-level totals and spend categories without donor-identifying details.</p>
         </div>
-        <div class="mt-6 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Reporting model</div>
-          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-neutral-700">
+        <div class="mt-6 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Reporting model</div>
+          <ul class="mt-3 list-inside list-disc space-y-2 text-sm text-[var(--ui-text-secondary)]">
             <li>Total donations received (month)</li>
             <li>Total operational spend (month)</li>
             <li>Spend categories: hosting, security review, docs, operations</li>
             <li>Closing reserve balance</li>
           </ul>
         </div>
-        <div class="mt-4 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Current status</div>
-          <p class="mt-2 text-sm text-neutral-700">Report publishing starts at launch. Donor identities are never published.</p>
-          <p class="mt-2 text-sm text-neutral-700">
+        <div class="mt-4 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Current status</div>
+          <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">Report publishing starts at launch. Donor identities are never published.</p>
+          <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">
             Verify addresses in the <a class="underline" href="/donate/proof">trust center</a> and review prior proofs in the
             <a class="underline" href="/donate/proof/archive"> archive</a>.
           </p>
@@ -1866,36 +1866,36 @@ function buildDonateTransparencyBody(): string {
 function buildAboutBody(): string {
   return `
         <h1 class="text-2xl font-semibold tracking-tight">About</h1>
-        <div class="mt-6 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Why this exists</div>
-          <p class="mt-2 text-sm text-neutral-700">Privacy is a human right recognized in most legal systems. Existing PDF tools upload your files to servers you can't audit. We built something different: every operation happens in your browser, on your device, under your control.</p>
+        <div class="mt-6 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Why this exists</div>
+          <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">Privacy is a human right recognized in most legal systems. Existing PDF tools upload your files to servers you can't audit. We built something different: every operation happens in your browser, on your device, under your control.</p>
         </div>
-        <div class="mt-4 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">How it works</div>
-          <p class="mt-2 text-sm text-neutral-700">Every tool processes files using JavaScript in your browser tab. No bytes leave your device. The API exists only for account sessions and billing — it never sees your PDFs.</p>
+        <div class="mt-4 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">How it works</div>
+          <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">Every tool processes files using JavaScript in your browser tab. No bytes leave your device. The API exists only for account sessions and billing — it never sees your PDFs.</p>
         </div>
-        <div class="mt-4 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">What we don't do</div>
-          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-neutral-700">
+        <div class="mt-4 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">What we don't do</div>
+          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-[var(--ui-text-secondary)]">
             <li>No analytics or usage tracking.</li>
             <li>No tracking pixels or third-party CDNs.</li>
             <li>No browser fingerprinting.</li>
             <li>No selling or sharing data with anyone.</li>
           </ul>
         </div>
-        <div class="mt-4 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Our principles</div>
-          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-neutral-700">
+        <div class="mt-4 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Our principles</div>
+          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-[var(--ui-text-secondary)]">
             <li>Free tier forever.</li>
             <li>Honest about limitations.</li>
             <li>Open security documentation.</li>
             <li>No dark patterns.</li>
           </ul>
         </div>
-        <div class="mt-4 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Verify it yourself</div>
-          <p class="mt-2 text-sm text-neutral-700">Don't take our word for it.</p>
-          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-neutral-700">
+        <div class="mt-4 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Verify it yourself</div>
+          <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">Don't take our word for it.</p>
+          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-[var(--ui-text-secondary)]">
             <li><a class="underline" href="/verify">Verify</a> — run a live network monitor test.</li>
             <li><a class="underline" href="/status">Status</a> — check system health.</li>
             <li><a class="underline" href="/security">Security</a> — read our threat models and guides.</li>
@@ -1908,26 +1908,26 @@ function buildAboutBody(): string {
 function buildVerifyBody(): string {
   return `
         <h1 class="text-2xl font-semibold tracking-tight">Verify</h1>
-        <div class="mt-6 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Don't trust us. Verify.</div>
-          <p class="mt-2 text-sm text-neutral-700">This page lets you prove our privacy claims yourself. Load the interactive page to create a sample PDF in memory, scrub it with our engine, and monitor every network request during processing.</p>
+        <div class="mt-6 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Don't trust us. Verify.</div>
+          <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">This page lets you prove our privacy claims yourself. Load the interactive page to create a sample PDF in memory, scrub it with our engine, and monitor every network request during processing.</p>
         </div>
-        <div class="mt-4 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Network monitor test</div>
-          <p class="mt-2 text-sm text-neutral-700">Load the interactive page to run the verification test. The test uses your browser's PerformanceObserver API to capture all network activity during PDF processing.</p>
+        <div class="mt-4 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Network monitor test</div>
+          <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">Load the interactive page to run the verification test. The test uses your browser's PerformanceObserver API to capture all network activity during PDF processing.</p>
         </div>
-        <div class="mt-4 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">DIY verification</div>
-          <ol class="mt-2 list-inside list-decimal space-y-1 text-sm text-neutral-700">
+        <div class="mt-4 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">DIY verification</div>
+          <ol class="mt-2 list-inside list-decimal space-y-1 text-sm text-[var(--ui-text-secondary)]">
             <li>Open your browser DevTools (F12).</li>
             <li>Go to the Network tab.</li>
             <li>Run any PDF tool on a file.</li>
             <li>See for yourself: zero requests to external servers.</li>
           </ol>
         </div>
-        <div class="mt-4 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Technical transparency</div>
-          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-neutral-700">
+        <div class="mt-4 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Technical transparency</div>
+          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-[var(--ui-text-secondary)]">
             <li>No third-party scripts loaded on any page.</li>
             <li>Service worker enables full offline operation.</li>
             <li>Content Security Policy restricts all external connections.</li>
@@ -1939,25 +1939,25 @@ function buildVerifyBody(): string {
 function buildStatusBody(): string {
   return `
         <h1 class="text-2xl font-semibold tracking-tight">Status</h1>
-        <div class="mt-6 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">All systems operational (v1)</div>
-          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-neutral-700">
+        <div class="mt-6 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">All systems operational (v1)</div>
+          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-[var(--ui-text-secondary)]">
             <li>PDF processing runs locally in your browser.</li>
             <li>The API is used only for account sessions and billing.</li>
             <li>No analytics or tracking scripts are used.</li>
           </ul>
         </div>
-        <div class="mt-4 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Offline mode</div>
-          <p class="mt-2 text-sm text-neutral-700">The scrubber works offline after the first load (within local usage caps).</p>
+        <div class="mt-4 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Offline mode</div>
+          <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">The scrubber works offline after the first load (within local usage caps).</p>
         </div>
-        <div class="mt-4 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Live health checks</div>
-          <p class="mt-2 text-sm text-neutral-700">Load the interactive page to run live health checks for: API reachability, Service Worker status, local storage, and PDF engine loading.</p>
+        <div class="mt-4 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Live health checks</div>
+          <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">Load the interactive page to run live health checks for: API reachability, Service Worker status, local storage, and PDF engine loading.</p>
         </div>
-        <div class="mt-4 rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <div class="text-sm font-semibold text-neutral-900">Uptime</div>
-          <p class="mt-2 text-sm text-neutral-700">All PDF tools run in your browser. There is no server to go down. The API handles only authentication and billing.</p>
+        <div class="mt-4 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <div class="text-sm font-semibold text-[var(--ui-text)]">Uptime</div>
+          <p class="mt-2 text-sm text-[var(--ui-text-secondary)]">All PDF tools run in your browser. There is no server to go down. The API handles only authentication and billing.</p>
         </div>
   `.trim();
 }
@@ -2432,47 +2432,47 @@ export function seoStaticBlogPlugin(): Plugin {
           bodyHtml: `
         <div class="space-y-8">
           <div class="space-y-3">
-            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl">How it's built</h1>
-            <p class="text-lg text-neutral-700 max-w-3xl">PDF Changer is a solo project. I built it to learn, to solve my own problem, and to see how far I could push browser-based document processing. This page is the honest breakdown of what's under the hood.</p>
+            <h1 class="text-2xl font-bold tracking-tight text-[var(--ui-text)] md:text-3xl">How it's built</h1>
+            <p class="text-lg text-[var(--ui-text-secondary)] max-w-3xl">PDF Changer is a solo project. I built it to learn, to solve my own problem, and to see how far I could push browser-based document processing. This page is the honest breakdown of what's under the hood.</p>
           </div>
 
           <div class="grid gap-3 grid-cols-2 md:grid-cols-4">
-            <div class="rounded-sm border border-neutral-200 bg-white p-4">
-              <div class="text-2xl font-semibold text-neutral-900">~19k</div>
-              <div class="mt-1 text-sm text-neutral-600">lines of TypeScript</div>
+            <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4">
+              <div class="text-2xl font-semibold text-[var(--ui-text)]">~19k</div>
+              <div class="mt-1 text-sm text-[var(--ui-text-muted)]">lines of TypeScript</div>
             </div>
-            <div class="rounded-sm border border-neutral-200 bg-white p-4">
-              <div class="text-2xl font-semibold text-neutral-900">125</div>
-              <div class="mt-1 text-sm text-neutral-600">automated tests</div>
+            <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4">
+              <div class="text-2xl font-semibold text-[var(--ui-text)]">125</div>
+              <div class="mt-1 text-sm text-[var(--ui-text-muted)]">automated tests</div>
             </div>
-            <div class="rounded-sm border border-neutral-200 bg-white p-4">
-              <div class="text-2xl font-semibold text-neutral-900">500+</div>
-              <div class="mt-1 text-sm text-neutral-600">pre-rendered pages</div>
+            <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4">
+              <div class="text-2xl font-semibold text-[var(--ui-text)]">500+</div>
+              <div class="mt-1 text-sm text-[var(--ui-text-muted)]">pre-rendered pages</div>
             </div>
-            <div class="rounded-sm border border-neutral-200 bg-white p-4">
-              <div class="text-2xl font-semibold text-neutral-900">14</div>
-              <div class="mt-1 text-sm text-neutral-600">bundle size budgets</div>
+            <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4">
+              <div class="text-2xl font-semibold text-[var(--ui-text)]">14</div>
+              <div class="mt-1 text-sm text-[var(--ui-text-muted)]">bundle size budgets</div>
             </div>
           </div>
 
           <div class="space-y-3">
-            <h2 class="text-lg font-semibold text-neutral-900">The stack</h2>
-            <div class="rounded-sm border border-neutral-200 bg-white p-5">
-              <div class="grid gap-4 md:grid-cols-2 text-[15px] text-neutral-700">
+            <h2 class="text-lg font-semibold text-[var(--ui-text)]">The stack</h2>
+            <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+              <div class="grid gap-4 md:grid-cols-2 text-[15px] text-[var(--ui-text-secondary)]">
                 <div class="space-y-2">
-                  <div class="font-semibold text-neutral-900">Frontend</div>
+                  <div class="font-semibold text-[var(--ui-text)]">Frontend</div>
                   <ul class="list-inside list-disc space-y-1"><li>React 19 + React Router (SPA)</li><li>Tailwind CSS (utility-first, no component library)</li><li>Vite (build tooling + dev server)</li><li>Workbox (service worker for offline use)</li></ul>
                 </div>
                 <div class="space-y-2">
-                  <div class="font-semibold text-neutral-900">PDF processing</div>
+                  <div class="font-semibold text-[var(--ui-text)]">PDF processing</div>
                   <ul class="list-inside list-disc space-y-1"><li>pdf-lib (create, modify, merge, split)</li><li>PDF.js (rendering for redact, flatten, export)</li><li>Tesseract.js (OCR text extraction)</li><li>Web Crypto API (SHA-256, HMAC, ECDSA)</li></ul>
                 </div>
                 <div class="space-y-2">
-                  <div class="font-semibold text-neutral-900">Infrastructure</div>
+                  <div class="font-semibold text-[var(--ui-text)]">Infrastructure</div>
                   <ul class="list-inside list-disc space-y-1"><li>Cloudflare Pages (hosting, headers, CDN)</li><li>Stripe (payments, no custom billing)</li><li>WebAuthn passkeys (no passwords stored)</li></ul>
                 </div>
                 <div class="space-y-2">
-                  <div class="font-semibold text-neutral-900">Quality</div>
+                  <div class="font-semibold text-[var(--ui-text)]">Quality</div>
                   <ul class="list-inside list-disc space-y-1"><li>Vitest (125 tests across 31 files)</li><li>TypeScript strict mode throughout</li><li>Bundle budget enforcement (14 limits)</li><li>Content validation pipeline (5 scripts)</li></ul>
                 </div>
               </div>
@@ -2480,37 +2480,37 @@ export function seoStaticBlogPlugin(): Plugin {
           </div>
 
           <div class="space-y-3">
-            <h2 class="text-lg font-semibold text-neutral-900">The interesting problems</h2>
+            <h2 class="text-lg font-semibold text-[var(--ui-text)]">The interesting problems</h2>
             <div class="space-y-4">
-              <div class="rounded-sm border border-neutral-200 bg-white p-5">
-                <h3 class="text-base font-semibold text-neutral-900">Verified Processing Environment</h3>
-                <div class="mt-3 space-y-3 text-[15px] text-neutral-700">
+              <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+                <h3 class="text-base font-semibold text-[var(--ui-text)]">Verified Processing Environment</h3>
+                <div class="mt-3 space-y-3 text-[15px] text-[var(--ui-text-secondary)]">
                   <p>"We don't upload your files" is easy to say. Proving it is harder. I built a system that wraps every PDF operation in three concurrent monitors: a PerformanceObserver watching all network requests, a CSP violation listener catching blocked exfiltration attempts, and a MutationObserver detecting injected scripts or tracking pixels.</p>
                   <p>WebRTC is monkey-patched during processing to prevent IP leaks via ICE candidates. The sandbox iframe runs with an opaque origin and a CSP that blocks all outbound connections. After processing, the system produces a tamper-evident audit report with HMAC-chained entries and SHA-256 hashes of input and output.</p>
-                  <p class="text-sm text-neutral-500">Threat model based on analysis of 45+ browser exfiltration vectors. <a class="underline" href="/security/technical/verified-processing-environment">Full architecture doc</a> · <a class="underline" href="/security/technical/csp-exfiltration-analysis">Vector analysis</a></p>
+                  <p class="text-sm text-[var(--ui-text-muted)]">Threat model based on analysis of 45+ browser exfiltration vectors. <a class="underline" href="/security/technical/verified-processing-environment">Full architecture doc</a> · <a class="underline" href="/security/technical/csp-exfiltration-analysis">Vector analysis</a></p>
                 </div>
               </div>
-              <div class="rounded-sm border border-neutral-200 bg-white p-5">
-                <h3 class="text-base font-semibold text-neutral-900">Steganography detection</h3>
-                <div class="mt-3 space-y-3 text-[15px] text-neutral-700">
+              <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+                <h3 class="text-base font-semibold text-[var(--ui-text)]">Steganography detection</h3>
+                <div class="mt-3 space-y-3 text-[15px] text-[var(--ui-text-secondary)]">
                   <p>Most printers embed invisible yellow tracking dots (Machine Identification Code) that encode the printer serial number, date, and time. If you scan a printed document back to PDF, those dots survive. The scrubber includes a heuristic detector that renders pages at high resolution and scans margin areas for yellow pixel patterns matching known MIC grids.</p>
                 </div>
               </div>
-              <div class="rounded-sm border border-neutral-200 bg-white p-5">
-                <h3 class="text-base font-semibold text-neutral-900">Structure randomization</h3>
-                <div class="mt-3 text-[15px] text-neutral-700">
+              <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+                <h3 class="text-base font-semibold text-[var(--ui-text)]">Structure randomization</h3>
+                <div class="mt-3 text-[15px] text-[var(--ui-text-secondary)]">
                   <p>PDFs have internal object ordering. If every output from this tool had identical structure, that structure itself becomes a fingerprint. The paranoid scrub mode shuffles internal object insertion order using Fisher-Yates. Two identical inputs produce visually identical but structurally different outputs.</p>
                 </div>
               </div>
-              <div class="rounded-sm border border-neutral-200 bg-white p-5">
-                <h3 class="text-base font-semibold text-neutral-900">2,900-line build plugin</h3>
-                <div class="mt-3 text-[15px] text-neutral-700">
+              <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+                <h3 class="text-base font-semibold text-[var(--ui-text)]">2,900-line build plugin</h3>
+                <div class="mt-3 text-[15px] text-[var(--ui-text-secondary)]">
                   <p>The static site generation is a custom Vite plugin that pre-renders 500+ pages at build time. It parses markdown, generates JSON-LD structured data, builds the sitemap, generates RSS, creates the sandboxed processing iframe, and enforces CSP headers. The build also runs five content validation scripts including prohibited-phrase detection.</p>
                 </div>
               </div>
-              <div class="rounded-sm border border-neutral-200 bg-white p-5">
-                <h3 class="text-base font-semibold text-neutral-900">Font fingerprinting</h3>
-                <div class="mt-3 text-[15px] text-neutral-700">
+              <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+                <h3 class="text-base font-semibold text-[var(--ui-text)]">Font fingerprinting</h3>
+                <div class="mt-3 text-[15px] text-[var(--ui-text-secondary)]">
                   <p>When you create a PDF with a custom font, the authoring tool embeds a font subset with a randomly generated prefix unique to that export. The scrubber detects these subsets and warns you, with a link to the flatten tool which destroys all font data by converting pages to images.</p>
                 </div>
               </div>
@@ -2518,33 +2518,33 @@ export function seoStaticBlogPlugin(): Plugin {
           </div>
 
           <div class="space-y-3">
-            <h2 class="text-lg font-semibold text-neutral-900">How competitors do it</h2>
-            <div class="rounded-sm border border-neutral-200 bg-white p-5 text-[15px] text-neutral-700 space-y-3">
+            <h2 class="text-lg font-semibold text-[var(--ui-text)]">How competitors do it</h2>
+            <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5 text-[15px] text-[var(--ui-text-secondary)] space-y-3">
               <p>Every major free PDF tool uploads your document to their servers for processing. Some claim to delete files after an hour; some don't say. Either way, your document leaves your device, crosses the network, and sits on someone else's infrastructure.</p>
               <p>PDF Changer processes everything in a sandboxed iframe inside your browser tab. The iframe's Content Security Policy blocks all outbound connections. Three monitors verify that nothing leaked. The difference isn't just a privacy policy — it's a fundamentally different architecture.</p>
             </div>
           </div>
 
           <div class="space-y-3">
-            <h2 class="text-lg font-semibold text-neutral-900">Try it</h2>
+            <h2 class="text-lg font-semibold text-[var(--ui-text)]">Try it</h2>
             <div class="grid gap-3 md:grid-cols-3">
-              <div class="rounded-sm border border-neutral-200 bg-white p-4">
-                <a href="/verify" class="underline text-[15px] font-semibold text-neutral-900">Run the live audit</a>
-                <p class="mt-1 text-sm text-neutral-600">Process a sample PDF and watch three monitors prove zero data left your browser.</p>
+              <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4">
+                <a href="/verify" class="underline text-[15px] font-semibold text-[var(--ui-text)]">Run the live audit</a>
+                <p class="mt-1 text-sm text-[var(--ui-text-muted)]">Process a sample PDF and watch three monitors prove zero data left your browser.</p>
               </div>
-              <div class="rounded-sm border border-neutral-200 bg-white p-4">
-                <a href="/scrub" class="underline text-[15px] font-semibold text-neutral-900">Scrub a real file</a>
-                <p class="mt-1 text-sm text-neutral-600">Drop in a PDF and see the full report — metadata stripped, hashes computed, audit badge attached.</p>
+              <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4">
+                <a href="/scrub" class="underline text-[15px] font-semibold text-[var(--ui-text)]">Scrub a real file</a>
+                <p class="mt-1 text-sm text-[var(--ui-text-muted)]">Drop in a PDF and see the full report — metadata stripped, hashes computed, audit badge attached.</p>
               </div>
-              <div class="rounded-sm border border-neutral-200 bg-white p-4">
-                <a href="/security" class="underline text-[15px] font-semibold text-neutral-900">Read the security docs</a>
-                <p class="mt-1 text-sm text-neutral-600">Threat models, exfiltration analysis, and residual risk disclosures.</p>
+              <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4">
+                <a href="/security" class="underline text-[15px] font-semibold text-[var(--ui-text)]">Read the security docs</a>
+                <p class="mt-1 text-sm text-[var(--ui-text-muted)]">Threat models, exfiltration analysis, and residual risk disclosures.</p>
               </div>
             </div>
           </div>
 
-          <div class="rounded-sm border border-neutral-200 bg-white p-5">
-            <div class="text-sm text-neutral-500">Built by <span class="font-semibold text-neutral-900">Giuseppe Giona</span>. <a class="underline hover:text-neutral-900" href="https://github.com/Giuseppe552/pdf-changer" target="_blank" rel="noopener noreferrer">Source on GitHub</a> — MIT licensed.</div>
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+            <div class="text-sm text-[var(--ui-text-muted)]">Built by <span class="font-semibold text-[var(--ui-text)]">Giuseppe Giona</span>. <a class="underline hover:text-[var(--ui-text)]" href="https://github.com/Giuseppe552/pdf-changer" target="_blank" rel="noopener noreferrer">Source on GitHub</a> — MIT licensed.</div>
           </div>
         </div>`.trim(),
         }),
@@ -2632,30 +2632,30 @@ export function seoStaticBlogPlugin(): Plugin {
         <div class="space-y-7">
           <div class="rounded-sm border border-blue-200 bg-blue-50 px-4 py-3">
             <div class="flex flex-wrap items-center justify-between gap-3">
-              <div class="text-[15px] font-semibold text-neutral-900">${escapeHtml(homeIdentity)}</div>
+              <div class="text-[15px] font-semibold text-[var(--ui-text)]">${escapeHtml(homeIdentity)}</div>
               <a href="/privacy-policy" class="text-[15px] underline">Read privacy policy</a>
             </div>
           </div>
 
           <div class="space-y-4">
-            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl max-w-4xl">${escapeHtml(homeHeroTitle)}</h1>
-            <p class="text-lg text-neutral-700 max-w-3xl">${escapeHtml(homeHeroSummary)}</p>
+            <h1 class="text-2xl font-bold tracking-tight text-[var(--ui-text)] md:text-3xl max-w-4xl">${escapeHtml(homeHeroTitle)}</h1>
+            <p class="text-lg text-[var(--ui-text-secondary)] max-w-3xl">${escapeHtml(homeHeroSummary)}</p>
             <div class="flex flex-wrap gap-3">
               <a href="/scrub" class="inline-flex items-center rounded-sm bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800">Start scrubber</a>
-              <a href="/security" class="inline-flex items-center rounded-sm border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50">See security model</a>
+              <a href="/security" class="inline-flex items-center rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-4 py-2 text-sm font-medium text-[var(--ui-text-secondary)] hover:bg-[var(--ui-bg)]">See security model</a>
             </div>
           </div>
 
           <div class="grid gap-4 md:grid-cols-2">
-            <div class="rounded-sm border border-neutral-200 bg-white p-5">
-              <h2 class="mb-3 text-base font-semibold text-neutral-900">Why people use this</h2>
-              <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+            <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+              <h2 class="mb-3 text-base font-semibold text-[var(--ui-text)]">Why people use this</h2>
+              <ul class="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
                 ${homeWhyUse.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n                ")}
               </ul>
             </div>
-            <div class="rounded-sm border border-neutral-200 bg-white p-5">
-              <h2 class="mb-3 text-base font-semibold text-neutral-900">Who this is for</h2>
-              <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+            <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+              <h2 class="mb-3 text-base font-semibold text-[var(--ui-text)]">Who this is for</h2>
+              <ul class="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
                 ${homeAudience.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n                ")}
               </ul>
             </div>
@@ -2663,53 +2663,53 @@ export function seoStaticBlogPlugin(): Plugin {
 
           <div class="grid gap-4 md:grid-cols-4">
             ${homeProofMetrics.map((m) => `
-            <div class="rounded-sm border border-neutral-200 bg-white p-4">
-              <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500">${escapeHtml(m.label)}</div>
-              <div class="mt-1 text-2xl font-semibold text-neutral-900">${escapeHtml(String(m.value))}</div>
-              <div class="mt-1 text-sm text-neutral-600">${escapeHtml(m.note)}</div>
+            <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4">
+              <div class="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">${escapeHtml(m.label)}</div>
+              <div class="mt-1 text-2xl font-semibold text-[var(--ui-text)]">${escapeHtml(String(m.value))}</div>
+              <div class="mt-1 text-sm text-[var(--ui-text-muted)]">${escapeHtml(m.note)}</div>
             </div>`).join("")}
           </div>
 
-          <div class="rounded-sm border border-neutral-200 bg-white p-5">
-            <h2 class="mb-3 text-base font-semibold text-neutral-900">How it works</h2>
-            <ol class="list-inside list-decimal space-y-2 text-[15px] text-neutral-700">
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+            <h2 class="mb-3 text-base font-semibold text-[var(--ui-text)]">How it works</h2>
+            <ol class="list-inside list-decimal space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
               ${homeHowItWorks.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n              ")}
             </ol>
           </div>
 
-          <div class="rounded-sm border border-neutral-200 bg-white p-5">
-            <h2 class="mb-3 text-base font-semibold text-neutral-900">For accountants and office workflows</h2>
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+            <h2 class="mb-3 text-base font-semibold text-[var(--ui-text)]">For accountants and office workflows</h2>
             <div class="grid gap-3 md:grid-cols-3">
               ${homeAccountantOutcomes.map((o) => `
-              <div class="rounded-sm border border-neutral-300 bg-neutral-50 p-4">
-                <div class="text-base font-semibold text-neutral-900">${escapeHtml(o.title)}</div>
-                <p class="mt-2 text-[15px] text-neutral-700">${escapeHtml(o.detail)}</p>
+              <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg)] p-4">
+                <div class="text-base font-semibold text-[var(--ui-text)]">${escapeHtml(o.title)}</div>
+                <p class="mt-2 text-[15px] text-[var(--ui-text-secondary)]">${escapeHtml(o.detail)}</p>
               </div>`).join("")}
             </div>
           </div>
 
-          <div class="rounded-sm border border-neutral-200 bg-white p-5">
-            <h2 class="mb-3 text-base font-semibold text-neutral-900">All tools</h2>
-            <ul class="list-inside list-disc space-y-1 text-[15px] text-neutral-700">
+          <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+            <h2 class="mb-3 text-base font-semibold text-[var(--ui-text)]">All tools</h2>
+            <ul class="list-inside list-disc space-y-1 text-[15px] text-[var(--ui-text-secondary)]">
               ${enabledToolsList}
             </ul>
           </div>
 
           <div class="rounded-sm border border-amber-200 bg-amber-50 p-5">
-            <h2 class="mb-3 text-base font-semibold text-neutral-900">What this does not protect</h2>
-            <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+            <h2 class="mb-3 text-base font-semibold text-[var(--ui-text)]">What this does not protect</h2>
+            <ul class="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
               ${homeLimits.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n              ")}
             </ul>
           </div>
 
           <div class="rounded-sm border border-blue-200 bg-blue-50 px-4 py-3">
             <div class="flex flex-wrap items-center justify-between gap-3">
-              <div class="text-base font-semibold text-neutral-900">Start with one PDF safely.</div>
+              <div class="text-base font-semibold text-[var(--ui-text)]">Start with one PDF safely.</div>
               <a href="/scrub" class="inline-flex items-center rounded-sm bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800">Open scrubber</a>
             </div>
           </div>
 
-          <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[15px] text-neutral-800">
+          <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[15px] text-[var(--ui-text-secondary)]">
             <a class="underline" href="/security">Security Hub</a>
             <a class="underline" href="/faq">FAQ Hub</a>
             <a class="underline" href="/privacy-policy">Privacy Policy</a>
@@ -2749,9 +2749,9 @@ export function seoStaticBlogPlugin(): Plugin {
           activeNav: "guides",
           bodyHtml: `
         <div class="space-y-6">
-          <h1 class="text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl">Guides</h1>
-          <p class="text-lg text-neutral-700 max-w-3xl">Step-by-step PDF workflow guides covering anonymization, metadata, safe sharing, and operational security.</p>
-          <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+          <h1 class="text-2xl font-bold tracking-tight text-[var(--ui-text)] md:text-3xl">Guides</h1>
+          <p class="text-lg text-[var(--ui-text-secondary)] max-w-3xl">Step-by-step PDF workflow guides covering anonymization, metadata, safe sharing, and operational security.</p>
+          <ul class="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
               ${guideLinks}
           </ul>
         </div>`.trim(),
@@ -2790,13 +2790,13 @@ export function seoStaticBlogPlugin(): Plugin {
             activeNav: "guides",
             bodyHtml: `
         <article class="space-y-6">
-          <nav class="text-sm text-neutral-500"><a class="underline" href="/guides">Guides</a> / ${escapeHtml(guideTitle)}</nav>
-          <h1 class="text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl">${escapeHtml(guideTitle)}</h1>
+          <nav class="text-sm text-[var(--ui-text-muted)]"><a class="underline" href="/guides">Guides</a> / ${escapeHtml(guideTitle)}</nav>
+          <h1 class="text-2xl font-bold tracking-tight text-[var(--ui-text)] md:text-3xl">${escapeHtml(guideTitle)}</h1>
           <div class="prose prose-neutral max-w-none text-[15px] leading-relaxed">${guideBodyHtml}</div>
-          <hr class="border-neutral-200" />
+          <hr class="border-[var(--ui-border)]" />
           <div class="space-y-2">
-            <h2 class="text-base font-semibold text-neutral-900">More guides</h2>
-            <ul class="list-inside list-disc space-y-1 text-[15px] text-neutral-700">
+            <h2 class="text-base font-semibold text-[var(--ui-text)]">More guides</h2>
+            <ul class="list-inside list-disc space-y-1 text-[15px] text-[var(--ui-text-secondary)]">
                 ${otherGuides}
             </ul>
           </div>
@@ -2822,36 +2822,36 @@ export function seoStaticBlogPlugin(): Plugin {
           bodyHtml: `
         <div class="space-y-6">
           <div class="space-y-2">
-            <h1 class="text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl">Pricing</h1>
-            <p class="text-lg text-neutral-700 max-w-3xl">All core tools are free with generous local quotas. Upgrade for unlimited workflow scale.</p>
+            <h1 class="text-2xl font-bold tracking-tight text-[var(--ui-text)] md:text-3xl">Pricing</h1>
+            <p class="text-lg text-[var(--ui-text-secondary)] max-w-3xl">All core tools are free with generous local quotas. Upgrade for unlimited workflow scale.</p>
           </div>
 
-          <div class="rounded-sm border border-blue-200 bg-blue-50 px-4 py-3 text-[15px] text-neutral-800">
+          <div class="rounded-sm border border-blue-200 bg-blue-50 px-4 py-3 text-[15px] text-[var(--ui-text-secondary)]">
             Payments are handled by Stripe. Core privacy stance remains the same: no analytics trackers and no PDF upload processing.
           </div>
 
           <div class="grid gap-4 md:grid-cols-3">
-            <div class="rounded-sm border border-neutral-200 bg-white p-5 h-full">
-              <h2 class="mb-3 text-base font-semibold text-neutral-900">Guest</h2>
-              <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+            <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5 h-full">
+              <h2 class="mb-3 text-base font-semibold text-[var(--ui-text)]">Guest</h2>
+              <ul class="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
                 <li>All core tools enabled</li>
                 <li>40 actions/month (device-local)</li>
               </ul>
-              <div class="mt-3 text-sm text-neutral-600">No account needed.</div>
+              <div class="mt-3 text-sm text-[var(--ui-text-muted)]">No account needed.</div>
             </div>
-            <div class="rounded-sm border border-neutral-200 bg-white p-5 h-full">
-              <h2 class="mb-3 text-base font-semibold text-neutral-900">Free (Passkey)</h2>
-              <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+            <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5 h-full">
+              <h2 class="mb-3 text-base font-semibold text-[var(--ui-text)]">Free (Passkey)</h2>
+              <ul class="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
                 <li>All core tools enabled</li>
                 <li>600 actions/month (device-local)</li>
                 <li>Heavy-bucket cap: 150/month</li>
               </ul>
-              <div class="mt-3 text-sm text-neutral-600">Create a passkey in <a class="underline" href="/account">/account</a>.</div>
+              <div class="mt-3 text-sm text-[var(--ui-text-muted)]">Create a passkey in <a class="underline" href="/account">/account</a>.</div>
             </div>
             <div class="rounded-sm border border-blue-200 bg-blue-50 p-5 h-full">
-              <h2 class="mb-3 text-base font-semibold text-neutral-900">Paid — £10/month</h2>
-              <div class="mb-3 text-[15px] text-neutral-700">Workflow unlock plan for higher-volume and repeat workloads.</div>
-              <ul class="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+              <h2 class="mb-3 text-base font-semibold text-[var(--ui-text)]">Paid — £10/month</h2>
+              <div class="mb-3 text-[15px] text-[var(--ui-text-secondary)]">Workflow unlock plan for higher-volume and repeat workloads.</div>
+              <ul class="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
                 <li>Unlimited actions on all GA tools</li>
                 <li>Offline paid use until entitlement expiry</li>
                 <li>Batch queue and pipelines (planned)</li>
