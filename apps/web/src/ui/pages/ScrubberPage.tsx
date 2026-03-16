@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";
 import { InlineCode } from "../components/InlineCode";
+import { ProcessingIndicator } from "../components/ProcessingIndicator";
 import { Term } from "../components/Term";
 import { useAuth } from "../auth/AuthContext";
 import { canUseScrubber, incrementScrubUse, usageStatus } from "../../utils/usage";
@@ -128,14 +129,12 @@ export function ScrubberPage() {
               <Button variant="secondary">Read security model</Button>
             </NavLink>
           </div>
-          {!allowed ? (
-            <div className="text-[15px] text-amber-300">
-              Monthly quota reached on this device. Wait for reset or see{" "}
-              <InlineCode>/pricing</InlineCode> for unlimited workflow usage.
-            </div>
-          ) : null}
         </div>
       </Card>
+
+      {busy && (
+        <ProcessingIndicator label={paranoidMode ? "Paranoid scrub running" : "Scrubbing metadata"} />
+      )}
 
       {error ? (
         <Card title="Error" variant="danger">

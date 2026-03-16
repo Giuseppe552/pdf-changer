@@ -122,3 +122,9 @@ a { color: inherit; text-underline-offset: 0.18em; }
     visibility: visible; opacity: 1;
   }
 }
+
+@keyframes processing-slide {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(250%); }
+  100% { transform: translateX(-100%); }
+}

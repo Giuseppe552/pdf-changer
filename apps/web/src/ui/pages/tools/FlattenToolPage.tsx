@@ -3,6 +3,7 @@ import { useAuth } from "../../auth/AuthContext";
 import { Card } from "../../components/Card";
 import { Button } from "../../components/Button";
 import { PdfDropZone } from "../../components/PdfDropZone";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 import { Surface } from "../../components/Surface";
 import { Term } from "../../components/Term";
 import { flattenToImagePdf } from "../../../utils/pdf/operations/flattenToImagePdf";
@@ -149,6 +150,8 @@ export function FlattenToolPage() {
           </Button>
         </div>
       </Card>
+
+      {busy && <ProcessingIndicator label="Rasterising pages — this takes a moment for large files" />}
 
       {result ? (
         <Card title="Flatten report">

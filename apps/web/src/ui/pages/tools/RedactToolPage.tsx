@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth } from "../../auth/AuthContext";
 import { Card } from "../../components/Card";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 import { Button } from "../../components/Button";
 import { PdfDropZone } from "../../components/PdfDropZone";
 import { Surface } from "../../components/Surface";
@@ -250,6 +251,8 @@ export function RedactToolPage() {
           </div>
         </>
       ) : null}
+
+      {state === "burning" && <ProcessingIndicator label="Burning redactions into the document" />}
 
       {state === "done" && result ? (
         <>

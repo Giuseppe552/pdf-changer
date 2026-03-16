@@ -106,7 +106,7 @@ export function AccountPage() {
           }
         >
           <Button onClick={registerPasskey} disabled={busy || loading}>
-            Create passkey
+            {busy ? "Creating passkey…" : "Create passkey"}
           </Button>
         </Card>
 
@@ -119,7 +119,7 @@ export function AccountPage() {
           }
         >
           <Button onClick={loginPasskey} disabled={busy || loading}>
-            Sign in with passkey
+            {busy ? "Signing in…" : "Sign in with passkey"}
           </Button>
         </Card>
       </div>
