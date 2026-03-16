@@ -76,9 +76,9 @@ export function ScrubberPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-3">
-        <h1 className="ui-title">Deep Metadata Scrubber</h1>
+        <h1 className="ui-title">Remove Metadata from PDF</h1>
         <p className="ui-subtitle max-w-3xl">
-          Upload nothing. Process on device. Review the report before sharing.
+          Strip hidden metadata, EXIF, forms, and annotations. No upload — runs in your browser.
         </p>
       </div>
 

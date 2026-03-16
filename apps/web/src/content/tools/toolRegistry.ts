@@ -109,8 +109,8 @@ const ANALYZE_RELATED = {
 export const toolRegistry: ToolDefinition[] = [
   {
     slug: "scrub",
-    name: "Deep Metadata Scrubber",
-    description: "Remove metadata, forms, annotations, and risky interactive PDF elements locally.",
+    name: "Remove Metadata from PDF",
+    description: "Strip metadata, forms, annotations, and risky interactive PDF elements. No upload required.",
     category: "privacy",
     minTier: "guest",
     bucket: "core",
@@ -120,9 +120,9 @@ export const toolRegistry: ToolDefinition[] = [
     featured: true,
     enabled: true,
     seo: {
-      title: "Deep Metadata Scrubber",
-      description: "Scrub hidden metadata, forms, and annotations from PDFs online for free. No upload — runs entirely in your browser with hash verification.",
-      keywords: ["pdf metadata remover", "pdf scrubber", "privacy pdf"],
+      title: "Remove Metadata from PDF — Free, No Upload",
+      description: "Remove hidden metadata, EXIF data, forms, and annotations from PDFs for free. Runs entirely in your browser — files never leave your device.",
+      keywords: ["remove metadata from pdf", "pdf metadata remover", "pdf scrubber", "strip pdf metadata", "pdf privacy tool"],
     },
     related: PRIVACY_RELATED,
   },
