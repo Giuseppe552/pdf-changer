@@ -2,7 +2,7 @@
 
 **Free PDF toolkit that runs entirely in your browser. No uploads. No tracking. No subscriptions.**
 
-[**Try it live →**](https://pdf-changer.pages.dev) · [How it's built](https://pdf-changer.pages.dev/colophon) · [Security docs](https://pdf-changer.pages.dev/security) · [Verify our claims](https://pdf-changer.pages.dev/verify)
+[**Try it live →**](https://pdf-changer.pages.dev) · [How it's built](https://pdf-changer.pages.dev/colophon) · [Security docs](https://pdf-changer.pages.dev/security) · [Research](https://pdf-changer.pages.dev/research) · [Self-test](https://pdf-changer.pages.dev/verify)
 
 ---
 
@@ -12,7 +12,7 @@ PDF Changer processes everything in your browser tab. Your files never leave you
 
 ## Tools
 
-20 PDF tools, all running client-side:
+19 PDF tools, all running client-side (+ 1 coming soon):
 
 | Tool | What it does |
 |------|-------------|
@@ -29,7 +29,7 @@ PDF Changer processes everything in your browser tab. Your files never leave you
 | **Page numbers** | Add numbering to pages |
 | **Sign** | Place signature images on pages |
 | **Fill forms** | Detect and fill interactive PDF form fields |
-| **Protect / Unlock** | Password protection and removal |
+| **Unlock** | Strip owner-password restrictions (cannot decrypt user-password PDFs) |
 | **Image ↔ PDF** | Convert between images and PDFs |
 | **Analyze** | Forensic analysis of PDF structure and hidden data |
 | **Pipeline** | Chain operations: scrub → flatten → compress in one pass |
@@ -68,7 +68,7 @@ When you create a PDF with a custom font, the authoring tool embeds a font subse
 
 | Layer | Tech |
 |-------|------|
-| Frontend | React 19, Vite, Tailwind CSS, PWA (offline-capable) |
+| Frontend | React 18, Vite, Tailwind CSS, PWA (offline-capable) |
 | PDF processing | pdf-lib, PDF.js, Tesseract.js (WASM) |
 | Crypto | Web Crypto API (SHA-256, HMAC-SHA256, ECDSA P-256) |
 | Backend | Hono on Cloudflare Workers (auth + billing only) |
@@ -76,7 +76,7 @@ When you create a PDF with a custom font, the authoring tool embeds a font subse
 | Auth | WebAuthn passkeys, recovery codes |
 | Billing | Stripe subscriptions |
 | Deploy | Cloudflare Pages + Workers |
-| Tests | Vitest — 125 tests across 31 files |
+| Tests | Vitest — 134 tests across 32 files |
 | SSG | Custom Vite plugin — 2,900 lines, pre-renders 500+ static pages |
 
 ## Architecture
@@ -96,7 +96,7 @@ The web app is a PWA — once loaded, it works fully offline. Usage quotas are t
 The build runs 5 content validation scripts before producing output:
 
 1. **Security content** — enforces required fields, blocks prohibited phrases ("how to commit fraud", "evade law enforcement")
-2. **Tool registry** — validates all 20 tool definitions, checks route references
+2. **Tool registry** — validates all 21 tool definitions (19 enabled + 1 beta + 1 coming-soon), checks route references
 3. **Copy quality** — grammar, tone, jargon detection
 4. **Tool doc quality** — documentation completeness per tool
 5. **Donation proof** — cryptographic verification of donation artifacts
@@ -112,6 +112,25 @@ The build runs 5 content validation scripts before producing output:
 **Passkey auth** — no passwords stored. WebAuthn registration with 10 one-time recovery codes (SHA-256 hashed with pepper, consumed on use).
 
 **Content Security Policy** — `default-src 'none'` on the sandbox iframe. The main site uses strict CSP with `X-DNS-Prefetch-Control: off` to block DNS-based exfiltration (documented in [Chalmers/ACM AsiaCCS 2016](https://pdf-changer.pages.dev/security/technical/csp-exfiltration-analysis)).
+
+## Research
+
+Original security research published at [/research](https://pdf-changer.pages.dev/research):
+
+- **[Competitor data audit](https://pdf-changer.pages.dev/research/competitor-data-audit)** — canary PDFs + traffic interception to verify what iLovePDF, Smallpdf, etc. actually transmit and retain (in progress)
+- **[CSP exfiltration test suite](https://pdf-changer.pages.dev/research/csp-exfiltration-tests)** — systematic cross-browser testing of 45+ data exfiltration vectors against CSP restrictions (in progress)
+- **[Printer tracking dot decoder](https://pdf-changer.pages.dev/research/printer-tracking-decoder)** — first browser-based Machine Identification Code decoder. Identifies Xerox DocuColor serial numbers and print timestamps from invisible yellow dots (published)
+- **[Why PDF Changer](https://pdf-changer.pages.dev/research/why-pdf-changer)** — honest comparison against Dangerzone, mat2, ExifTool, and online tools
+
+## Honest limitations
+
+- **Protect (password) tool is not implemented.** It's listed as coming-soon, not functional. Use qpdf or LibreOffice for PDF password protection.
+- **Unlock is basic.** It strips owner-password restrictions (`ignoreEncryption`). It cannot decrypt user-password-protected PDFs.
+- **Browser trust model.** If your browser or OS is compromised, no website can help. Use [Dangerzone](https://dangerzone.rocks/) for container-level isolation.
+- **No Office file support.** We handle PDFs only. Dangerzone handles Word/Excel/PowerPoint.
+- **No batch CLI.** For scripted pipelines, use mat2 or ExifTool.
+- **200-page cap** on flatten/redact due to browser memory limits.
+- **Remaining npm dev-dependency vulnerabilities** are in build tools (wrangler, vite, miniflare) that never ship to users. We update as upstream patches become available.
 
 ## Self-hosting
 
@@ -137,7 +156,7 @@ All PDF tools work without the API. The API is only needed for passkey accounts 
 
 ```sh
 npm test          # everything
-cd apps/web && npm test   # web (125 tests)
+cd apps/web && npm test   # web (134 tests)
 cd apps/api && npm test   # api
 ```
 
