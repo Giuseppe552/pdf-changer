@@ -91,20 +91,9 @@ export function ScrubberPage() {
         </div>
       </Surface>
 
-      <Card
-        title="Usage and plan"
-        footer={
-          <div className="text-sm text-[var(--ui-text-muted)]">
-            Limits are privacy-first and local. Clearing site storage can reset
-            counters.
-          </div>
-        }
-      >
-        <div className="space-y-1">
-          <div>
-            <span className="font-semibold text-[var(--ui-text)]">Plan:</span> {me.plan}
-          </div>
-          <div>{status}</div>
+      <Card title="Status">
+        <div className="text-sm text-[var(--ui-text-secondary)]">
+          All tools are free. No limits, no tracking, no account required.
         </div>
       </Card>
 
