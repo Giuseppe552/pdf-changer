@@ -247,7 +247,7 @@ export function routeTypeFor(route) {
   if (route === "/" || route === "/security" || route === "/faq" || route === "/blog" || route === "/guides") {
     return "hub";
   }
-  if (route === "/scrub" || route === "/pricing" || route === "/account") {
+  if (route === "/scrub" || route === "/account") {
     return "transactional";
   }
   if (route.startsWith("/tools")) {
