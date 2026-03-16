@@ -154,16 +154,20 @@ export async function insertRecoveryCode(
     .run();
 }
 
+/**
+ * Consume a recovery code (marks it as used).
+ * Used by the legacy single-code endpoint AND the Shamir reconstruct endpoint.
+ */
 export async function consumeRecoveryCode(
   db: D1Database,
   codeHash: string,
-): Promise<{ userId: string } | null> {
+): Promise<{ userId: string; schemeId: string | null } | null> {
   const row = await db
     .prepare(
-      "SELECT id, user_id, used_at FROM recovery_codes WHERE code_hash = ?1",
+      "SELECT id, user_id, used_at, scheme_id FROM recovery_codes WHERE code_hash = ?1",
     )
     .bind(codeHash)
-    .first<RecoveryCodeRow>();
+    .first<RecoveryCodeRow & { scheme_id: string | null }>();
   if (!row) return null;
   if (row.used_at) return null;
   const now = new Date().toISOString();
@@ -171,7 +175,85 @@ export async function consumeRecoveryCode(
     .prepare("UPDATE recovery_codes SET used_at = ?1 WHERE id = ?2")
     .bind(now, row.id)
     .run();
-  return { userId: row.user_id };
+  return { userId: row.user_id, schemeId: row.scheme_id ?? null };
+}
+
+/**
+ * Look up a recovery code WITHOUT consuming it. Used by Shamir reconstruct
+ * to validate shares before committing to consumption.
+ */
+export async function lookupRecoveryCode(
+  db: D1Database,
+  codeHash: string,
+): Promise<{ userId: string; schemeId: string | null; used: boolean } | null> {
+  const row = await db
+    .prepare(
+      "SELECT user_id, used_at, scheme_id FROM recovery_codes WHERE code_hash = ?1",
+    )
+    .bind(codeHash)
+    .first<{ user_id: string; used_at: string | null; scheme_id: string | null }>();
+  if (!row) return null;
+  return { userId: row.user_id, schemeId: row.scheme_id ?? null, used: !!row.used_at };
+}
+
+/**
+ * Consume multiple recovery codes atomically (batch).
+ * Only call AFTER successful Shamir reconstruction.
+ */
+export async function consumeRecoveryCodes(
+  db: D1Database,
+  codeHashes: string[],
+): Promise<void> {
+  const now = new Date().toISOString();
+  for (const hash of codeHashes) {
+    await db
+      .prepare("UPDATE recovery_codes SET used_at = ?1 WHERE code_hash = ?2 AND used_at IS NULL")
+      .bind(now, hash)
+      .run();
+  }
+}
+
+export type RecoverySchemeRow = {
+  id: string;
+  user_id: string;
+  threshold: number;
+  total_shares: number;
+  secret_hash: string;
+  created_at: string;
+};
+
+export async function insertRecoveryScheme(
+  db: D1Database,
+  row: RecoverySchemeRow,
+): Promise<void> {
+  await db
+    .prepare(
+      "INSERT INTO recovery_schemes (id, user_id, threshold, total_shares, secret_hash, created_at) VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
+    )
+    .bind(row.id, row.user_id, row.threshold, row.total_shares, row.secret_hash, row.created_at)
+    .run();
+}
+
+export async function getRecoveryScheme(
+  db: D1Database,
+  userId: string,
+): Promise<RecoverySchemeRow | null> {
+  const row = await db
+    .prepare("SELECT id, user_id, threshold, total_shares, secret_hash, created_at FROM recovery_schemes WHERE user_id = ?1")
+    .bind(userId)
+    .first<RecoverySchemeRow>();
+  return row ?? null;
+}
+
+export async function getRecoveryShareHashes(
+  db: D1Database,
+  schemeId: string,
+): Promise<Array<{ code_hash: string; share_index: number; used_at: string | null }>> {
+  const result = await db
+    .prepare("SELECT code_hash, share_index, used_at FROM recovery_codes WHERE scheme_id = ?1 ORDER BY share_index")
+    .bind(schemeId)
+    .all<{ code_hash: string; share_index: number; used_at: string | null }>();
+  return result.results;
 }
 
 export async function upsertNewsletterSubscriber(

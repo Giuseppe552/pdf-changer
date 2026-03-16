@@ -10,13 +10,14 @@ import {
   verifySignedCookie,
   type SessionPayload,
 } from "./session";
-import { createUser, getUserById, hasAnyRecoveryCodes, insertRecoveryCode } from "./db";
+import { createUser, getUserById, hasAnyRecoveryCodes, insertRecoveryCode, insertRecoveryScheme, getRecoveryScheme, getRecoveryShareHashes } from "./db";
 import { makeAuthenticationOptions, makeRegistrationOptions, verifyAndStoreRegistration, verifyAuthentication } from "./webauthn";
 import { aesGcmEncryptToBase64Url, base64DecodeAny, base64urlEncode, hmacSha256, sha256Bytes, utf8 } from "./crypto";
-import { consumeRecoveryCode, upsertNewsletterSubscriber, upsertUserStripe } from "./db";
+import { consumeRecoveryCode, consumeRecoveryCodes, lookupRecoveryCode, upsertNewsletterSubscriber, upsertUserStripe } from "./db";
 import { handleStripeWebhook, stripeClient } from "./stripe";
 import { clientIp, rateLimit } from "./rateLimit";
 import { signEntitlement } from "./entitlement";
+import { shamirSplit, encodeShare, decodeShare, shamirReconstruct, type ShamirShare } from "./shamir";
 
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 14;
 const CHALLENGE_TTL_SECONDS = 60 * 10;
@@ -259,15 +260,31 @@ app.post("/v1/webauthn/register/verify", async (c) => {
     }),
   );
 
-  // Recovery codes: generate once per account.
+  // Recovery codes: generate once per account using Shamir SSS (3-of-10).
   let recoveryCodes: string[] | undefined;
   const already = await hasAnyRecoveryCodes(env.DB, reg.userId);
   if (!already) {
+    const THRESHOLD = 3;
+    const TOTAL = 10;
+    const secret = crypto.getRandomValues(new Uint8Array(32));
+    const secretHash = base64urlEncode(await sha256Bytes(secret));
+    const shares = shamirSplit(secret, THRESHOLD, TOTAL);
+    const schemeId = crypto.randomUUID();
+
+    await insertRecoveryScheme(env.DB, {
+      id: schemeId,
+      user_id: reg.userId,
+      threshold: THRESHOLD,
+      total_shares: TOTAL,
+      secret_hash: secretHash,
+      created_at: new Date().toISOString(),
+    });
+
     recoveryCodes = [];
-    for (let i = 0; i < 10; i++) {
-      const code = generateRecoveryCode();
-      recoveryCodes.push(code);
-      const codeHash = await recoveryHash(env.RECOVERY_PEPPER, code);
+    for (let i = 0; i < TOTAL; i++) {
+      const encoded = encodeShare(shares[i].index, shares[i].data, shares[i].schemeId);
+      recoveryCodes.push(encoded);
+      const codeHash = await recoveryHash(env.RECOVERY_PEPPER, encoded);
       await insertRecoveryCode(env.DB, {
         id: crypto.randomUUID(),
         user_id: reg.userId,
@@ -358,12 +375,112 @@ app.post("/v1/recovery/consume", async (c) => {
   const body = await c.req.json().catch(() => null);
   const code = (body?.code as string | undefined)?.trim();
   if (!code || code.length < 10) return c.text("Bad code", 400);
+
+  // SECURITY: Reject Shamir shares — they MUST go through /v1/recovery/reconstruct.
+  // A single share must NOT grant access (that would bypass the threshold).
+  if (code.startsWith("PDC-")) return c.text("Use the share recovery flow for Shamir shares", 400);
+
   const codeHash = await recoveryHash(env.RECOVERY_PEPPER, code);
   const consumed = await consumeRecoveryCode(env.DB, codeHash);
   if (!consumed) return c.text("Invalid code", 401);
+
+  // Double-check: if this code belongs to a Shamir scheme, reject it
+  if (consumed.schemeId) return c.text("Use the share recovery flow for Shamir shares", 400);
+
   const iat = nowSeconds();
   const sessionValue = await signCookieValue(env.SESSION_SIGNING_KEY, {
     userId: consumed.userId,
+    iat,
+    exp: iat + SESSION_TTL_SECONDS,
+  });
+  setCookie(
+    c,
+    serializeCookie(names.session, sessionValue, {
+      httpOnly: true,
+      secure,
+      sameSite: "Strict",
+      path: "/",
+      maxAgeSeconds: SESSION_TTL_SECONDS,
+    }),
+  );
+  return c.json({ ok: true });
+});
+
+app.post("/v1/recovery/reconstruct", async (c) => {
+  requireSameOrigin(c);
+  const limited = await enforceRateLimit(c, { name: "recovery_reconstruct", limit: 5 });
+  if (limited) return limited;
+  const env = getEnv(c.env);
+  const secure = cookieSecure(env);
+  const names = cookieNames(secure);
+  const body = await c.req.json().catch(() => null);
+  const codes = body?.codes;
+  if (!Array.isArray(codes) || codes.length < 2) return c.text("Need at least 2 shares", 400);
+
+  // Decode all shares
+  const decoded: ShamirShare[] = [];
+  for (const code of codes) {
+    if (typeof code !== "string") return c.text("Invalid share format", 400);
+    const share = decodeShare(code.trim(), 4);
+    if (!share) return c.text("Invalid or corrupted share", 400);
+    decoded.push({ index: share.index, data: share.data, schemeId: share.schemeId });
+  }
+
+  // All shares must have the same schemeId
+  const schemeIdHex = Array.from(decoded[0].schemeId).map((b) => b.toString(16).padStart(2, "0")).join("");
+  for (let i = 1; i < decoded.length; i++) {
+    const hex = Array.from(decoded[i].schemeId).map((b) => b.toString(16).padStart(2, "0")).join("");
+    if (hex !== schemeIdHex) return c.text("Shares from different schemes", 400);
+  }
+
+  // STEP 1: Look up each share WITHOUT consuming — validate all are real and unused
+  const codeHashes: string[] = [];
+  let foundUserId: string | null = null;
+  let validShareCount = 0;
+
+  for (const code of codes) {
+    const codeHash = await recoveryHash(env.RECOVERY_PEPPER, (code as string).trim());
+    codeHashes.push(codeHash);
+    const lookup = await lookupRecoveryCode(env.DB, codeHash);
+    if (!lookup) return c.text("Invalid share", 401);
+    if (lookup.used) return c.text("Share already used", 401);
+    if (foundUserId && foundUserId !== lookup.userId) {
+      return c.text("Shares from different users", 400);
+    }
+    foundUserId = lookup.userId;
+    validShareCount++;
+  }
+
+  if (!foundUserId) return c.text("Invalid shares", 401);
+
+  // All submitted shares must be valid DB entries
+  if (validShareCount !== codes.length) return c.text("Invalid shares", 401);
+
+  // STEP 2: Find the scheme and check threshold
+  const scheme = await getRecoveryScheme(env.DB, foundUserId);
+  if (!scheme) return c.text("No recovery scheme found", 400);
+  if (decoded.length < scheme.threshold) {
+    return c.text(`Need at least ${scheme.threshold} shares`, 400);
+  }
+
+  // STEP 3: Reconstruct the secret and verify BEFORE consuming any shares
+  try {
+    const reconstructed = shamirReconstruct(decoded, scheme.threshold);
+    const reconstructedHash = base64urlEncode(await sha256Bytes(reconstructed));
+    if (reconstructedHash !== scheme.secret_hash) {
+      return c.text("Reconstruction failed — shares may be corrupted", 401);
+    }
+  } catch {
+    return c.text("Reconstruction failed", 401);
+  }
+
+  // STEP 4: Only NOW consume the shares (reconstruction succeeded)
+  await consumeRecoveryCodes(env.DB, codeHashes);
+
+  // Success: create session
+  const iat = nowSeconds();
+  const sessionValue = await signCookieValue(env.SESSION_SIGNING_KEY, {
+    userId: foundUserId,
     iat,
     exp: iat + SESSION_TTL_SECONDS,
   });
