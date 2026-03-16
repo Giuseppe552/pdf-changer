@@ -1,0 +1,258 @@
+{
+  "tabId": 839624667,
+  "startedAt": "2026-03-16T20:57:15.102Z",
+  "requests": [
+    {
+      "url": "https://pdfchanger.org/",
+      "method": "GET",
+      "type": "main_frame",
+      "timestamp": "2026-03-16T20:57:15.102Z",
+      "frameId": 0,
+      "initiator": null,
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/index-BfZNozyJ.css",
+      "method": "GET",
+      "type": "stylesheet",
+      "timestamp": "2026-03-16T20:57:15.624Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/index--yivWC7n.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:15.628Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://pdfchanger.org/manifest.webmanifest",
+      "method": "GET",
+      "type": "other",
+      "timestamp": "2026-03-16T20:57:15.829Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/manifest+json"
+    },
+    {
+      "url": "https://pdfchanger.org/icon.svg",
+      "method": "GET",
+      "type": "image",
+      "timestamp": "2026-03-16T20:57:15.831Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "image/svg+xml"
+    },
+    {
+      "url": "https://pdfchanger.org/icon.svg",
+      "method": "GET",
+      "type": "image",
+      "timestamp": "2026-03-16T20:57:15.895Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "image/svg+xml"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/ToolsLayout-73x5wF1t.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:17.651Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/toolRegistry-BTQ_5fXm.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:17.652Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/MergeToolPage-b7f8J0Fd.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:17.725Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/index-Dj7M0c-S.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:17.727Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/toArrayBuffer-BUtw7G3H.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:17.727Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/AuditReportPanel-CQWBu9sT.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:17.727Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/utils-DvXCA-US.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:17.727Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/_u64-C_8jdoaw.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:17.727Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/PdfDropZone-PPbrDnBj.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:17.727Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/FileDropZone-DPnHwNsV.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:17.728Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/AuditBadge-CQhSpHGu.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:17.728Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://pdfchanger.org/assets/usageV2-BPgr0uwI.js",
+      "method": "GET",
+      "type": "script",
+      "timestamp": "2026-03-16T20:57:17.728Z",
+      "frameId": 0,
+      "initiator": "https://pdfchanger.org",
+      "requestBodySize": 0,
+      "hasRequestBody": false,
+      "server": "cloudflare",
+      "statusCode": 200,
+      "contentType": "application/javascript"
+    }
+  ],
+  "summary": {
+    "totalRequests": 18,
+    "domains": {
+      "pdfchanger.org": 18
+    },
+    "fileUploads": [],
+    "methods": {
+      "GET": 18
+    },
+    "contentTypes": {},
+    "domainsSorted": [
+      {
+        "domain": "pdfchanger.org",
+        "count": 18
+      }
+    ]
+  },
+  "dumpedAt": "2026-03-16T20:57:33.938Z"
+}
