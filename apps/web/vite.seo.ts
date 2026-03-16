@@ -474,6 +474,8 @@ function htmlLayout(opts: {
   bodyHtml: string;
   rssHref?: string;
   headExtra?: string;
+  jsTags?: string[];
+  preloadTags?: string[];
   activeNav?:
     | "scrub"
     | "tools"
@@ -494,7 +496,7 @@ function htmlLayout(opts: {
     publishedDate,
     articleSection,
     articleTags,
-    cssHrefs,
+    cssHrefs, jsTags, preloadTags,
     bodyHtml,
     rssHref,
     headExtra,
@@ -555,8 +557,8 @@ function htmlLayout(opts: {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#0e1117" />
+    <meta name="color-scheme" content="dark" />
     <meta name="description" content="${escapeHtml(description)}" />
     <meta name="robots" content="index,follow" />
     <meta property="og:site_name" content="PDF Changer" />
@@ -582,8 +584,10 @@ function htmlLayout(opts: {
     <title>${escapeHtml(title)} · PDF Changer</title>
     ${headExtra ?? ""}
     ${cssTags}
+    ${(opts.preloadTags ?? []).join("\n    ")}
   </head>
   <body style="background:#0e1117;color:#e6edf3">
+    <div id="root"></div>
     <div class="min-h-screen">
       <header class="sticky top-0 z-10 border-b border-[var(--ui-border)] bg-[var(--ui-bg-raised)]/80 backdrop-blur">
         <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
@@ -640,6 +644,7 @@ ${bodyHtml}
         </div>
       </footer>
     </div>
+    ${(opts.jsTags ?? []).join("\n    ")}
   </body>
 </html>`;
 }
@@ -2006,6 +2011,19 @@ export function seoStaticBlogPlugin(): Plugin {
       const indexHtml = fs.readFileSync(indexPath, "utf8");
       const cssHrefs = cssLinksFromIndexHtml(indexHtml);
 
+      // Extract JS entry scripts from Vite's index.html before we overwrite it
+      const jsTagsRe = /<script[^>]*type="module"[^>]*src="([^"]+)"[^>]*><\/script>/g;
+      const jsTags: string[] = [];
+      for (const m of indexHtml.matchAll(jsTagsRe)) {
+        jsTags.push(m[0]);
+      }
+      // Also grab modulepreload links
+      const preloadRe = /<link[^>]*rel="modulepreload"[^>]*>/g;
+      const preloadTags: string[] = [];
+      for (const m of indexHtml.matchAll(preloadRe)) {
+        preloadTags.push(m[0]);
+      }
+
       // Static blog index
       const blogIndexPath = "/blog";
       writeFileEnsured(
@@ -2017,7 +2035,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${blogIndexPath}` : blogIndexPath,
           ogUrl: siteOrigin ? `${siteOrigin}${blogIndexPath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           bodyHtml: buildBlogIndexBody(posts),
           rssHref,
           activeNav: "blog",
@@ -2036,7 +2054,7 @@ export function seoStaticBlogPlugin(): Plugin {
             canonicalHref: siteOrigin ? `${siteOrigin}${categoryPath}` : categoryPath,
             ogUrl: siteOrigin ? `${siteOrigin}${categoryPath}` : undefined,
             ogType: "website",
-            cssHrefs,
+            cssHrefs, jsTags, preloadTags,
             bodyHtml: buildCategoryIndexBody(category, posts),
             rssHref,
             activeNav: "blog",
@@ -2072,7 +2090,7 @@ export function seoStaticBlogPlugin(): Plugin {
             publishedDate: post.date,
             articleSection: section,
             articleTags: [section, "whistleblowing", "security", "privacy"],
-            cssHrefs,
+            cssHrefs, jsTags, preloadTags,
             bodyHtml: buildPostBody(post, related, newer, older),
             rssHref,
             activeNav: "blog",
@@ -2094,7 +2112,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${faqIndexPath}` : faqIndexPath,
           ogUrl: siteOrigin ? `${siteOrigin}${faqIndexPath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           bodyHtml: buildFaqIndexBody(faqQuestions),
           rssHref,
           activeNav: "faq",
@@ -2111,7 +2129,7 @@ export function seoStaticBlogPlugin(): Plugin {
             canonicalHref: siteOrigin ? `${siteOrigin}${topicPath}` : topicPath,
             ogUrl: siteOrigin ? `${siteOrigin}${topicPath}` : undefined,
             ogType: "website",
-            cssHrefs,
+            cssHrefs, jsTags, preloadTags,
             bodyHtml: buildFaqTopicBody(topic, faqQuestions),
             rssHref,
             activeNav: "faq",
@@ -2141,7 +2159,7 @@ export function seoStaticBlogPlugin(): Plugin {
               titleCasePhrase(question.topic),
               ...question.tags.slice(0, 5),
             ],
-            cssHrefs,
+            cssHrefs, jsTags, preloadTags,
             bodyHtml: buildFaqQuestionBody(question, related),
             rssHref,
             activeNav: "faq",
@@ -2169,7 +2187,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${securityHubPath}` : securityHubPath,
           ogUrl: siteOrigin ? `${siteOrigin}${securityHubPath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           bodyHtml: buildSecurityHubBody(securityArticles),
           rssHref,
           activeNav: "security",
@@ -2189,7 +2207,7 @@ export function seoStaticBlogPlugin(): Plugin {
             canonicalHref: siteOrigin ? `${siteOrigin}${trackPath}` : trackPath,
             ogUrl: siteOrigin ? `${siteOrigin}${trackPath}` : undefined,
             ogType: "website",
-            cssHrefs,
+            cssHrefs, jsTags, preloadTags,
             bodyHtml: buildSecurityTrackBody(track, securityArticles),
             rssHref,
             activeNav: "security",
@@ -2219,7 +2237,7 @@ export function seoStaticBlogPlugin(): Plugin {
                 ? "Non-Technical Security"
                 : "Technical Security",
             articleTags: article.tags.slice(0, 6),
-            cssHrefs,
+            cssHrefs, jsTags, preloadTags,
             bodyHtml: buildSecurityArticleBody(article, related),
             rssHref,
             activeNav: "security",
@@ -2241,7 +2259,7 @@ export function seoStaticBlogPlugin(): Plugin {
             publishedDate: securityPolicy.lastReviewed ?? undefined,
             articleSection: "Security Policy",
             articleTags: securityPolicy.tags.slice(0, 6),
-            cssHrefs,
+            cssHrefs, jsTags, preloadTags,
             bodyHtml: buildSecurityArticleBody(securityPolicy, []),
             rssHref,
             activeNav: "security",
@@ -2259,7 +2277,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${toolsHubPath}` : toolsHubPath,
           ogUrl: siteOrigin ? `${siteOrigin}${toolsHubPath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           bodyHtml: buildToolsHubBody(),
           rssHref,
           activeNav: "tools",
@@ -2282,7 +2300,7 @@ export function seoStaticBlogPlugin(): Plugin {
             canonicalHref: siteOrigin ? `${siteOrigin}${route}` : route,
             ogUrl: siteOrigin ? `${siteOrigin}${route}` : undefined,
             ogType: "website",
-            cssHrefs,
+            cssHrefs, jsTags, preloadTags,
             bodyHtml: buildToolPageBody(tool),
             headExtra: buildToolPageJsonLd(tool, editorial, siteOrigin),
             rssHref,
@@ -2305,7 +2323,7 @@ export function seoStaticBlogPlugin(): Plugin {
             canonicalHref: siteOrigin ? `${siteOrigin}${page.route}` : page.route,
             ogUrl: siteOrigin ? `${siteOrigin}${page.route}` : undefined,
             ogType: "article",
-            cssHrefs,
+            cssHrefs, jsTags, preloadTags,
             bodyHtml: buildToolDocBody(
               page.title,
               page.description,
@@ -2337,7 +2355,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${donatePath}` : donatePath,
           ogUrl: siteOrigin ? `${siteOrigin}${donatePath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           bodyHtml: buildDonateBody(donateStripeOneTime, donateStripeMonthly),
           rssHref,
           activeNav: "donate",
@@ -2353,7 +2371,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${donateProofPath}` : donateProofPath,
           ogUrl: siteOrigin ? `${siteOrigin}${donateProofPath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           bodyHtml: buildDonateProofBody({
             manifest: donateProofManifest,
             archive: donateProofArchive,
@@ -2375,7 +2393,7 @@ export function seoStaticBlogPlugin(): Plugin {
             : donateProofArchivePath,
           ogUrl: siteOrigin ? `${siteOrigin}${donateProofArchivePath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           bodyHtml: buildDonateProofArchiveBody(donateProofArchive),
           rssHref,
           activeNav: "donate",
@@ -2392,7 +2410,7 @@ export function seoStaticBlogPlugin(): Plugin {
             : donateTransparencyPath,
           ogUrl: siteOrigin ? `${siteOrigin}${donateTransparencyPath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           bodyHtml: buildDonateTransparencyBody(),
           rssHref,
           activeNav: "donate",
@@ -2410,7 +2428,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${aboutPath}` : aboutPath,
           ogUrl: siteOrigin ? `${siteOrigin}${aboutPath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           bodyHtml: buildAboutBody(),
           rssHref,
         }),
@@ -2427,7 +2445,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${colophonPath}` : colophonPath,
           ogUrl: siteOrigin ? `${siteOrigin}${colophonPath}` : undefined,
           ogType: "article",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           rssHref,
           bodyHtml: `
         <div class="space-y-8">
@@ -2561,7 +2579,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${verifyPath}` : verifyPath,
           ogUrl: siteOrigin ? `${siteOrigin}${verifyPath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           bodyHtml: buildVerifyBody(),
           rssHref,
         }),
@@ -2578,7 +2596,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${statusPath}` : statusPath,
           ogUrl: siteOrigin ? `${siteOrigin}${statusPath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           bodyHtml: buildStatusBody(),
           rssHref,
         }),
@@ -2625,7 +2643,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${homePath}` : homePath,
           ogUrl: siteOrigin ? `${siteOrigin}${homePath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           headExtra: `<script type="application/ld+json">${homeJsonLd}</script>`,
           rssHref,
           bodyHtml: `
@@ -2744,7 +2762,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${guidesHubPath}` : guidesHubPath,
           ogUrl: siteOrigin ? `${siteOrigin}${guidesHubPath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           rssHref,
           activeNav: "guides",
           bodyHtml: `
@@ -2785,7 +2803,7 @@ export function seoStaticBlogPlugin(): Plugin {
             canonicalHref: siteOrigin ? `${siteOrigin}${guidePath}` : guidePath,
             ogUrl: siteOrigin ? `${siteOrigin}${guidePath}` : undefined,
             ogType: "article",
-            cssHrefs,
+            cssHrefs, jsTags, preloadTags,
             rssHref,
             activeNav: "guides",
             bodyHtml: `
@@ -2816,7 +2834,7 @@ export function seoStaticBlogPlugin(): Plugin {
           canonicalHref: siteOrigin ? `${siteOrigin}${pricingPath}` : pricingPath,
           ogUrl: siteOrigin ? `${siteOrigin}${pricingPath}` : undefined,
           ogType: "website",
-          cssHrefs,
+          cssHrefs, jsTags, preloadTags,
           rssHref,
           activeNav: "pricing",
           bodyHtml: `
