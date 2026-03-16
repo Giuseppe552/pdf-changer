@@ -1,5 +1,20 @@
+# SSG routes — serve pre-rendered HTML for SEO crawlers
 /blog /blog/index.html 200
 /blog/* /blog/:splat 200
 /faq /faq/index.html 200
 /faq/* /faq/:splat 200
+/security /security/index.html 200
+/security/* /security/:splat 200
+/tools /tools/index.html 200
+/tools/* /tools/:splat 200
+/donate /donate/index.html 200
+/donate/* /donate/:splat 200
+/about /about/index.html 200
+/colophon /colophon/index.html 200
+/guides /guides/index.html 200
+/guides/* /guides/:splat 200
+/research /research/index.html 200
+/research/* /research/:splat 200
+
+# SPA fallback for dynamic routes
 /* /index.html 200
