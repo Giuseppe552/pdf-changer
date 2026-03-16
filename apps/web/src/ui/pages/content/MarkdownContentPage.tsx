@@ -58,8 +58,8 @@ export function MarkdownContentPage({
   if (status === "loading") {
     return (
       <div className="space-y-4">
-        <div className="h-7 w-56 animate-pulse rounded bg-neutral-200" />
-        <div className="h-48 animate-pulse rounded-sm border border-neutral-200 bg-white" />
+        <div className="h-7 w-56 animate-pulse rounded bg-[var(--ui-bg-overlay)]" />
+        <div className="h-48 animate-pulse rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]" />
       </div>
     );
   }
@@ -68,7 +68,7 @@ export function MarkdownContentPage({
     return (
       <div className="space-y-4">
         <h1 className="text-2xl font-semibold tracking-tight">Not found</h1>
-        <div className="rounded-sm border border-neutral-200 bg-white p-6 text-sm text-neutral-700 shadow-sm">
+        <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-sm text-[var(--ui-text-secondary)] shadow-sm">
           This page doesn’t exist.
         </div>
       </div>
@@ -78,8 +78,8 @@ export function MarkdownContentPage({
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
-      <div className="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-        <article className="prose prose-neutral prose-sm max-w-none">
+      <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+        <article className="prose prose-invert prose-sm max-w-none">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{body}</ReactMarkdown>
         </article>
       </div>

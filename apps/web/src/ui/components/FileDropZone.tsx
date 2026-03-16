@@ -114,11 +114,11 @@ export function FileDropZone({
       className={[
         "rounded-sm border-2 border-dashed p-5 transition",
         disabled
-          ? "cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-70"
+          ? "cursor-not-allowed border-[var(--ui-border)] bg-[var(--ui-bg)] opacity-70"
           : dragging
-            ? "cursor-pointer border-blue-400 bg-blue-50"
-            : "cursor-pointer border-neutral-200 bg-white hover:border-neutral-300 hover:bg-neutral-50",
-        "focus:outline-none focus:ring-2 focus:ring-blue-600/20",
+            ? "cursor-pointer border-[var(--ui-accent)] bg-[var(--ui-accent)]/10"
+            : "cursor-pointer border-[var(--ui-border)] bg-[var(--ui-bg-raised)] hover:border-[var(--ui-border)] hover:bg-[var(--ui-bg)]",
+        "focus:outline-none focus:ring-2 focus:ring-[var(--ui-focus)]",
       ].join(" ")}
     >
       <input
@@ -137,15 +137,15 @@ export function FileDropZone({
 
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="space-y-1">
-          <div className="text-base font-semibold text-neutral-900">{label}</div>
-          <div className="text-[15px] text-neutral-700">{help}</div>
+          <div className="text-base font-semibold text-[var(--ui-text)]">{label}</div>
+          <div className="text-[15px] text-[var(--ui-text-secondary)]">{help}</div>
         </div>
-        <div className="rounded-sm border border-neutral-400 bg-white px-3 py-2 text-sm font-semibold text-neutral-900">
+        <div className="rounded-sm border border-[var(--ui-border-strong)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm font-semibold text-[var(--ui-text)]">
           {browseLabel}
         </div>
       </div>
 
-      {summary ? <div className="mt-3 text-sm text-neutral-600">{summary}</div> : null}
+      {summary ? <div className="mt-3 text-sm text-[var(--ui-text-muted)]">{summary}</div> : null}
     </div>
   );
 }

@@ -74,12 +74,12 @@ export function OcrToolPage() {
   }
 
   const inputCls =
-    "w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900";
+    "w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]";
 
   return (
     <div className="space-y-4">
       <Surface variant="emphasis" compact>
-        <div className="text-[15px] text-blue-900">
+        <div className="text-[15px] text-[var(--ui-accent)]">
           OCR extracts text from scanned or image-based PDF pages using Tesseract.js.
           The first run for each language downloads a language data file (~2-15 MB).
           All processing happens in your browser.
@@ -97,7 +97,7 @@ export function OcrToolPage() {
           />
           <div className="grid gap-3 md:grid-cols-2">
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Language</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Language</div>
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
@@ -112,7 +112,7 @@ export function OcrToolPage() {
               </select>
             </label>
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Max pages</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Max pages</div>
               <input
                 type="number"
                 min={1}
@@ -133,12 +133,12 @@ export function OcrToolPage() {
       {progress ? (
         <Card title="Progress">
           <div className="space-y-2">
-            <div className="text-[15px] text-neutral-700">
+            <div className="text-[15px] text-[var(--ui-text-secondary)]">
               Processing page {progress.current} of {progress.total}
             </div>
-            <div className="h-2 overflow-hidden rounded-full bg-neutral-200">
+            <div className="h-2 overflow-hidden rounded-full bg-[var(--ui-bg-overlay)]">
               <div
-                className="h-full bg-blue-600 transition-all"
+                className="h-full bg-[var(--ui-accent-hover)] transition-all"
                 style={{ width: `${(progress.current / progress.total) * 100}%` }}
               />
             </div>
@@ -150,7 +150,7 @@ export function OcrToolPage() {
         <>
           <Card title="OCR result">
             <div className="space-y-3">
-              <div className="grid gap-2 text-[15px] text-neutral-800 md:grid-cols-3">
+              <div className="grid gap-2 text-[15px] text-[var(--ui-text-secondary)] md:grid-cols-3">
                 <div>
                   <span className="font-semibold">Pages:</span> {result.pages.length}
                 </div>
@@ -167,7 +167,7 @@ export function OcrToolPage() {
                 readOnly
                 value={result.fullText}
                 rows={12}
-                className="w-full rounded-sm border border-neutral-300 bg-neutral-50 p-3 font-mono text-xs text-neutral-800"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg)] p-3 font-mono text-xs text-[var(--ui-text-secondary)]"
               />
             </div>
           </Card>
@@ -181,7 +181,7 @@ export function OcrToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

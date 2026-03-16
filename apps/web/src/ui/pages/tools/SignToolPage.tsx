@@ -67,12 +67,12 @@ export function SignToolPage() {
   }
 
   const inputCls =
-    "w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900";
+    "w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]";
 
   return (
     <div className="space-y-4">
       <Surface variant="emphasis" compact>
-        <div className="text-[15px] text-blue-900">
+        <div className="text-[15px] text-[var(--ui-accent)]">
           This is a visual overlay, not a cryptographic digital signature — it does not prove
           who signed or whether the document was changed afterward.
         </div>
@@ -89,7 +89,7 @@ export function SignToolPage() {
           />
 
           <div className="space-y-1">
-            <div className="text-sm text-neutral-700">Draw your signature</div>
+            <div className="text-sm text-[var(--ui-text-secondary)]">Draw your signature</div>
             <SignaturePad
               onSignatureChange={setSignatureDataUrl}
               disabled={busy}
@@ -98,7 +98,7 @@ export function SignToolPage() {
 
           <div className="grid gap-3 md:grid-cols-2">
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Page number</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Page number</div>
               <input
                 type="number"
                 min={1}
@@ -110,7 +110,7 @@ export function SignToolPage() {
               />
             </label>
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Signature width</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Signature width</div>
               <select
                 value={widthFraction}
                 onChange={(e) => setWidthFraction(Number(e.target.value) as WidthChoice)}
@@ -125,7 +125,7 @@ export function SignToolPage() {
               </select>
             </label>
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">
+              <div className="text-sm text-[var(--ui-text-secondary)]">
                 Horizontal position ({Math.round(xPos * 100)}%)
               </div>
               <input
@@ -140,7 +140,7 @@ export function SignToolPage() {
               />
             </label>
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">
+              <div className="text-sm text-[var(--ui-text-secondary)]">
                 Vertical position ({Math.round(yPos * 100)}%)
               </div>
               <input
@@ -167,7 +167,7 @@ export function SignToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

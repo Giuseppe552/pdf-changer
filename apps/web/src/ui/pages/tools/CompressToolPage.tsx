@@ -100,17 +100,17 @@ export function CompressToolPage() {
 
       {result ? (
         <Card title="Compression report">
-          <div className="grid gap-2 text-[15px] text-neutral-800 md:grid-cols-3">
+          <div className="grid gap-2 text-[15px] text-[var(--ui-text-secondary)] md:grid-cols-3">
             <div>
-              <span className="font-semibold text-neutral-900">Input:</span>{" "}
+              <span className="font-semibold text-[var(--ui-text)]">Input:</span>{" "}
               {formatBytes(result.inputSizeBytes)}
             </div>
             <div>
-              <span className="font-semibold text-neutral-900">Output:</span>{" "}
+              <span className="font-semibold text-[var(--ui-text)]">Output:</span>{" "}
               {formatBytes(result.outputSizeBytes)}
             </div>
             <div>
-              <span className="font-semibold text-neutral-900">Change:</span>{" "}
+              <span className="font-semibold text-[var(--ui-text)]">Change:</span>{" "}
               {(result.reductionRatio * 100).toFixed(1)}%
             </div>
           </div>
@@ -126,7 +126,7 @@ export function CompressToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

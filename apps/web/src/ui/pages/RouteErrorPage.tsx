@@ -49,10 +49,10 @@ export function RouteErrorPage() {
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-semibold tracking-tight">{info.heading}</h1>
-      <div className="rounded-sm border border-neutral-200 bg-white p-6 text-sm text-neutral-700 shadow-sm">
+      <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-sm text-[var(--ui-text-secondary)] shadow-sm">
         <div className="space-y-2">
           {info.status ? (
-            <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">
               Status {info.status}
             </div>
           ) : null}
@@ -61,20 +61,20 @@ export function RouteErrorPage() {
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="rounded-sm bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+              className="rounded-sm bg-[var(--ui-accent)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--ui-accent-hover)]"
             >
               Reload
             </button>
           </div>
         </div>
       </div>
-      <div className="text-sm text-neutral-600">
+      <div className="text-sm text-[var(--ui-text-muted)]">
         Go to{" "}
-        <NavLink to="/" className="text-neutral-900 underline">
+        <NavLink to="/" className="text-[var(--ui-text)] underline">
           Home
         </NavLink>{" "}
         or{" "}
-        <NavLink to="/blog" className="text-neutral-900 underline">
+        <NavLink to="/blog" className="text-[var(--ui-text)] underline">
           Blog
         </NavLink>
         .

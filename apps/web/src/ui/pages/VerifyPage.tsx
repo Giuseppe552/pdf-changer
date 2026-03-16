@@ -50,7 +50,7 @@ export function VerifyPage() {
       <h1 className="text-2xl font-semibold tracking-tight">Verify</h1>
 
       <Card title="Don't trust us. Verify.">
-        <p className="text-neutral-700">
+        <p className="text-[var(--ui-text-secondary)]">
           This page lets you prove our privacy claims yourself. Click the button
           below to create a sample PDF in memory, scrub it with our engine, and
           monitor every network request, CSP violation, and DOM injection that
@@ -63,19 +63,19 @@ export function VerifyPage() {
           <button
             onClick={runTest}
             disabled={verdict === "running"}
-            className="rounded-sm border border-neutral-400 bg-white px-4 py-2 text-sm font-semibold text-neutral-800 transition hover:bg-neutral-100 disabled:opacity-50"
+            className="rounded-sm border border-[var(--ui-border-strong)] bg-[var(--ui-bg-raised)] px-4 py-2 text-sm font-semibold text-[var(--ui-text-secondary)] transition hover:bg-[var(--ui-bg-overlay)] disabled:opacity-50"
           >
             {verdict === "running" ? "Running…" : "Run test"}
           </button>
 
           {verdict === "pass" && (
-            <div className="rounded-sm border border-green-300 bg-green-50 px-4 py-3 text-sm font-semibold text-green-900">
+            <div className="rounded-sm border border-green-300 bg-green-950/30 px-4 py-3 text-sm font-semibold text-green-300">
               0 suspicious events during processing. 3 monitors active.
             </div>
           )}
 
           {verdict === "fail" && !error && (
-            <div className="rounded-sm border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            <div className="rounded-sm border border-amber-700/40 bg-amber-950/30 px-4 py-3 text-sm text-amber-300">
               <div className="font-semibold">
                 Suspicious activity detected during processing.
               </div>
@@ -83,13 +83,13 @@ export function VerifyPage() {
           )}
 
           {error && (
-            <div className="rounded-sm border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-900">
+            <div className="rounded-sm border border-red-700/40 bg-red-950/30 px-4 py-3 text-sm text-red-300">
               {error}
             </div>
           )}
 
           {verdict === "running" && (
-            <div className="text-sm text-neutral-600">
+            <div className="text-sm text-[var(--ui-text-muted)]">
               Creating sample PDF and running scrub with 3 monitors…
             </div>
           )}
@@ -99,7 +99,7 @@ export function VerifyPage() {
       {auditReport ? <AuditReportPanel report={auditReport} /> : null}
 
       <Card title="DIY verification">
-        <ol className="list-inside list-decimal space-y-2 text-neutral-700">
+        <ol className="list-inside list-decimal space-y-2 text-[var(--ui-text-secondary)]">
           <li>Open your browser DevTools (F12).</li>
           <li>Go to the Network tab.</li>
           <li>Run any PDF tool on a file.</li>
@@ -108,7 +108,7 @@ export function VerifyPage() {
       </Card>
 
       <Card title="Technical transparency">
-        <ul className="list-inside list-disc space-y-2 text-neutral-700">
+        <ul className="list-inside list-disc space-y-2 text-[var(--ui-text-secondary)]">
           <li>No third-party scripts loaded on any page.</li>
           <li>Service worker enables full offline operation.</li>
           <li>Content Security Policy restricts all external connections.</li>

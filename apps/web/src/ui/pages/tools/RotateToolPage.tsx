@@ -79,11 +79,11 @@ export function RotateToolPage() {
           />
           <div className="grid gap-3 md:grid-cols-2">
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Rotation angle</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Rotation angle</div>
               <select
                 value={angleDegrees}
                 onChange={(e) => setAngleDegrees(Number(e.target.value) as AngleChoice)}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
               >
                 <option value={90}>90° clockwise</option>
@@ -92,11 +92,11 @@ export function RotateToolPage() {
               </select>
             </label>
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Apply to</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Apply to</div>
               <select
                 value={applyTo}
                 onChange={(e) => setApplyTo(e.target.value as ApplyTo)}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
               >
                 <option value="all">All pages</option>
@@ -106,13 +106,13 @@ export function RotateToolPage() {
           </div>
           {applyTo === "range" ? (
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">
+              <div className="text-sm text-[var(--ui-text-secondary)]">
                 Page ranges (example: 1,3-5,9-)
               </div>
               <input
                 value={pageRanges}
                 onChange={(e) => setPageRanges(e.target.value)}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
                 spellCheck={false}
               />
@@ -126,7 +126,7 @@ export function RotateToolPage() {
 
       {summary ? (
         <Card title="Result summary">
-          <div className="text-[15px] text-neutral-800">
+          <div className="text-[15px] text-[var(--ui-text-secondary)]">
             Rotated {summary.rotated} of {summary.total} pages.
           </div>
         </Card>
@@ -137,7 +137,7 @@ export function RotateToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

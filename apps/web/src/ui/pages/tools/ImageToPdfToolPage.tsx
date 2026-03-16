@@ -123,15 +123,15 @@ export function ImageToPdfToolPage() {
             accept="image/png,image/jpeg,.png,.jpg,.jpeg"
             validateFile={isImage}
           />
-          <div className="text-sm text-neutral-600">Add images, reorder, then export one PDF.</div>
+          <div className="text-sm text-[var(--ui-text-muted)]">Add images, reorder, then export one PDF.</div>
           {items.length ? (
             <ul className="space-y-2">
               {items.map((item, index) => (
                 <li
                   key={item.id}
-                  className="flex items-center justify-between gap-2 rounded-sm border border-neutral-300 bg-white px-3 py-2"
+                  className="flex items-center justify-between gap-2 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2"
                 >
-                  <div className="min-w-0 truncate text-sm text-neutral-900">
+                  <div className="min-w-0 truncate text-sm text-[var(--ui-text)]">
                     {index + 1}. {item.file.name}
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -149,7 +149,7 @@ export function ImageToPdfToolPage() {
               ))}
             </ul>
           ) : (
-            <div className="text-sm text-neutral-600">No images selected yet.</div>
+            <div className="text-sm text-[var(--ui-text-muted)]">No images selected yet.</div>
           )}
           <Button onClick={run} disabled={!items.length || busy}>
             {busy ? "Converting…" : "Convert locally"}
@@ -162,7 +162,7 @@ export function ImageToPdfToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

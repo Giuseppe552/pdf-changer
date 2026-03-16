@@ -150,7 +150,7 @@ export function RedactToolPage() {
   return (
     <div className="space-y-4">
       <Surface variant="warning" compact>
-        <div className="text-[15px] text-amber-900">
+        <div className="text-[15px] text-amber-300">
           Burned redactions are irreversible. All pages are rasterized for uniformity.
           Text under redacted areas is permanently destroyed.
         </div>
@@ -174,7 +174,7 @@ export function RedactToolPage() {
 
       {state === "loading" ? (
         <Card title="Loading pages...">
-          <div className="text-[15px] text-neutral-600">Rendering page thumbnails...</div>
+          <div className="text-[15px] text-[var(--ui-text-muted)]">Rendering page thumbnails...</div>
         </Card>
       ) : null}
 
@@ -182,7 +182,7 @@ export function RedactToolPage() {
         <>
           <Card title="Mark redactions">
             <div className="space-y-3">
-              <div className="text-[15px] text-neutral-700">
+              <div className="text-[15px] text-[var(--ui-text-secondary)]">
                 Click a page thumbnail to mark redaction areas.{" "}
                 <span className="font-semibold">{totalRedactions}</span> redaction(s) marked.
               </div>
@@ -193,8 +193,8 @@ export function RedactToolPage() {
                     className={[
                       "relative h-24 w-16 overflow-hidden border-2 transition",
                       selectedPage === p.pageIndex
-                        ? "border-blue-600"
-                        : "border-neutral-300 hover:border-neutral-500",
+                        ? "border-[var(--ui-accent)]"
+                        : "border-[var(--ui-border)] hover:border-[var(--ui-border-strong)]",
                     ].join(" ")}
                     onClick={() => setSelectedPage(p.pageIndex)}
                   >
@@ -254,13 +254,13 @@ export function RedactToolPage() {
       {state === "done" && result ? (
         <>
           <Card title="Redaction report">
-            <div className="grid gap-2 text-[15px] text-neutral-800 md:grid-cols-2">
+            <div className="grid gap-2 text-[15px] text-[var(--ui-text-secondary)] md:grid-cols-2">
               <div>
-                <span className="font-semibold text-neutral-900">Pages:</span>{" "}
+                <span className="font-semibold text-[var(--ui-text)]">Pages:</span>{" "}
                 {result.pageCount} rasterized
               </div>
               <div>
-                <span className="font-semibold text-neutral-900">Redacted pages:</span>{" "}
+                <span className="font-semibold text-[var(--ui-text)]">Redacted pages:</span>{" "}
                 {result.redactedPageCount} with black-out areas
               </div>
             </div>
@@ -272,7 +272,7 @@ export function RedactToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

@@ -12,7 +12,7 @@ export function AboutPage() {
       <h1 className="text-2xl font-semibold tracking-tight">About</h1>
 
       <Card title="Why I built this">
-        <div className="space-y-3 text-neutral-700">
+        <div className="space-y-3 text-[var(--ui-text-secondary)]">
           <p>
             I was paying Adobe a monthly subscription just to merge two PDFs. When
             I cancelled, I tried the free alternatives — and they were worse. Pop-up
@@ -39,7 +39,7 @@ export function AboutPage() {
       </Card>
 
       <Card title="How it works">
-        <p className="text-neutral-700">
+        <p className="text-[var(--ui-text-secondary)]">
           Every tool runs JavaScript in your browser tab. Your PDF bytes stay on
           your device — they're never uploaded to a server. The only network
           requests are for account sessions and billing if you choose to upgrade.
@@ -47,7 +47,7 @@ export function AboutPage() {
       </Card>
 
       <Card title="What I don't do">
-        <ul className="list-inside list-disc space-y-2 text-neutral-700">
+        <ul className="list-inside list-disc space-y-2 text-[var(--ui-text-secondary)]">
           <li>No analytics or usage tracking.</li>
           <li>No tracking pixels or third-party scripts.</li>
           <li>No browser fingerprinting.</li>
@@ -56,18 +56,18 @@ export function AboutPage() {
       </Card>
 
       <Card title="Verify it yourself">
-        <p className="text-neutral-700">
+        <p className="text-[var(--ui-text-secondary)]">
           Don't take my word for it.
         </p>
-        <ul className="mt-3 list-inside list-disc space-y-2 text-neutral-700">
+        <ul className="mt-3 list-inside list-disc space-y-2 text-[var(--ui-text-secondary)]">
           <li>
-            <Link to="/verify" className="underline hover:text-neutral-900">
+            <Link to="/verify" className="underline hover:text-[var(--ui-text)]">
               Verify
             </Link>{" "}
             — run a live network monitor test while processing a PDF.
           </li>
           <li>
-            <Link to="/security" className="underline hover:text-neutral-900">
+            <Link to="/security" className="underline hover:text-[var(--ui-text)]">
               Security
             </Link>{" "}
             — read the threat models and technical documentation.
@@ -75,7 +75,7 @@ export function AboutPage() {
           <li>
             <Link
               to="/privacy-policy"
-              className="underline hover:text-neutral-900"
+              className="underline hover:text-[var(--ui-text)]"
             >
               Privacy policy
             </Link>{" "}
@@ -84,10 +84,10 @@ export function AboutPage() {
         </ul>
       </Card>
 
-      <div className="rounded-sm border border-neutral-200 bg-white p-5">
-        <div className="text-sm text-neutral-500">
+      <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5">
+        <div className="text-sm text-[var(--ui-text-muted)]">
           Built by{" "}
-          <span className="font-semibold text-neutral-900">Giuseppe Giona</span>.
+          <span className="font-semibold text-[var(--ui-text)]">Giuseppe Giona</span>.
         </div>
       </div>
     </div>

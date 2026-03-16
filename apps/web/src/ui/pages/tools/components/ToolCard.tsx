@@ -27,7 +27,7 @@ export function ToolCard({
   return (
     <div className="ui-surface p-4">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-base font-semibold text-neutral-900">{tool.name}</span>
+        <span className="text-base font-semibold text-[var(--ui-text)]">{tool.name}</span>
         <span className="ui-tag">{processingModeLabel(tool.processingMode)}</span>
         {showLabsBadge ? (
           <span className="ui-tag border-purple-300 bg-purple-50 text-purple-800">
@@ -38,34 +38,34 @@ export function ToolCard({
           className={[
             "ui-tag",
             tool.bucket === "heavy"
-              ? "border-amber-400 bg-amber-50 text-amber-800"
-              : "border-neutral-400 bg-neutral-100 text-neutral-700",
+              ? "border-amber-400 bg-amber-950/30 text-amber-300"
+              : "border-[var(--ui-border-strong)] bg-[var(--ui-bg-overlay)] text-[var(--ui-text-secondary)]",
           ].join(" ")}
         >
           {tool.bucket === "heavy" ? "Heavy quota" : "Core quota"}
         </span>
         {tool.availability === "limited" ? (
-          <span className="ui-tag border-amber-400 bg-amber-50 text-amber-800">
+          <span className="ui-tag border-amber-400 bg-amber-950/30 text-amber-300">
             Limited
           </span>
         ) : null}
       </div>
-      <p className="mt-2 text-[15px] text-neutral-700">{tool.description}</p>
+      <p className="mt-2 text-[15px] text-[var(--ui-text-secondary)]">{tool.description}</p>
       {tool.releaseNote ? (
-        <p className="mt-2 text-sm text-neutral-600">{tool.releaseNote}</p>
+        <p className="mt-2 text-sm text-[var(--ui-text-muted)]">{tool.releaseNote}</p>
       ) : null}
       <div className="mt-3 flex flex-wrap gap-3 text-sm">
         {disabledOpen ? (
-          <span className="text-neutral-500">Tool route unavailable in production</span>
+          <span className="text-[var(--ui-text-muted)]">Tool route unavailable in production</span>
         ) : (
-          <NavLink className="underline text-neutral-800" to={href}>
+          <NavLink className="underline text-[var(--ui-text-secondary)]" to={href}>
             Open tool
           </NavLink>
         )}
-        <NavLink className="underline text-neutral-700" to={`/tools/${tool.slug}/how-to`}>
+        <NavLink className="underline text-[var(--ui-text-secondary)]" to={`/tools/${tool.slug}/how-to`}>
           How-to
         </NavLink>
-        <NavLink className="underline text-neutral-700" to={`/tools/${tool.slug}/privacy`}>
+        <NavLink className="underline text-[var(--ui-text-secondary)]" to={`/tools/${tool.slug}/privacy`}>
           Privacy
         </NavLink>
       </div>

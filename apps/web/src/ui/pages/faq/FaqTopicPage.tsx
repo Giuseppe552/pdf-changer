@@ -72,8 +72,8 @@ export function FaqTopicPage() {
   if (status === "loading") {
     return (
       <div className="space-y-4">
-        <div className="h-7 w-56 animate-pulse rounded bg-neutral-200" />
-        <div className="h-48 animate-pulse rounded-sm border border-neutral-200 bg-white" />
+        <div className="h-7 w-56 animate-pulse rounded bg-[var(--ui-bg-overlay)]" />
+        <div className="h-48 animate-pulse rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]" />
       </div>
     );
   }
@@ -82,7 +82,7 @@ export function FaqTopicPage() {
     return (
       <div className="space-y-4">
         <h1 className="text-2xl font-semibold tracking-tight">Topic not found</h1>
-        <div className="rounded-sm border border-neutral-200 bg-white p-6 text-sm text-neutral-700 shadow-sm">
+        <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-sm text-[var(--ui-text-secondary)] shadow-sm">
           This FAQ topic does not exist. Open the{" "}
           <NavLink to="/faq" className="underline">
             FAQ hub
@@ -106,23 +106,23 @@ export function FaqTopicPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="text-xs text-neutral-500">
-          <NavLink to="/faq" className="hover:text-neutral-900">
+        <div className="text-xs text-[var(--ui-text-muted)]">
+          <NavLink to="/faq" className="hover:text-[var(--ui-text)]">
             FAQ Hub
           </NavLink>{" "}
           / {topicToTitle(topic)}
         </div>
         <h1 className="text-2xl font-semibold tracking-tight">{topicToTitle(topic)}</h1>
-        <p className="max-w-3xl text-sm text-neutral-700">{topicIntro(topic)}</p>
+        <p className="max-w-3xl text-sm text-[var(--ui-text-secondary)]">{topicIntro(topic)}</p>
       </div>
 
       <div className="max-w-sm space-y-1">
-        <div className="text-xs font-semibold text-neutral-600">Search this topic</div>
+        <div className="text-xs font-semibold text-[var(--ui-text-muted)]">Search this topic</div>
         <input
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search questions..."
-          className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+          className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)] placeholder:text-[var(--ui-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--ui-focus)]"
         />
       </div>
 
@@ -131,19 +131,19 @@ export function FaqTopicPage() {
           <NavLink
             key={entry.route}
             to={entry.route}
-            className="group block rounded-sm border border-neutral-200 bg-white p-5 shadow-sm transition hover:border-neutral-300 hover:shadow"
+            className="group block rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5 shadow-sm transition hover:border-[var(--ui-border)] hover:shadow"
           >
-            <h2 className="text-sm font-semibold text-neutral-900 group-hover:text-neutral-950">
+            <h2 className="text-sm font-semibold text-[var(--ui-text)] group-hover:text-[var(--ui-text)]">
               {entry.question}
             </h2>
-            <p className="mt-1 text-sm text-neutral-600">{entry.summary}</p>
-            <div className="mt-2 text-xs text-neutral-500">
+            <p className="mt-1 text-sm text-[var(--ui-text-muted)]">{entry.summary}</p>
+            <div className="mt-2 text-xs text-[var(--ui-text-muted)]">
               {entry.lastReviewed ? `Reviewed ${entry.lastReviewed}` : "Review date pending"}
             </div>
           </NavLink>
         ))}
         {!filtered.length ? (
-          <div className="rounded-sm border border-neutral-200 bg-white p-6 text-sm text-neutral-700 shadow-sm">
+          <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-sm text-[var(--ui-text-secondary)] shadow-sm">
             No questions match this search in this topic.
           </div>
         ) : null}

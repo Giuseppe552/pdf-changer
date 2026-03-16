@@ -19,7 +19,7 @@ export function GuidesIndexPage() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight">Guides</h1>
-          <div className="text-sm text-neutral-600">
+          <div className="text-sm text-[var(--ui-text-muted)]">
             Short, practical notes on safer PDF sharing.
           </div>
         </div>
@@ -27,7 +27,7 @@ export function GuidesIndexPage() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search guides…"
-          className="w-full max-w-xs rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+          className="w-full max-w-xs rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)] placeholder:text-[var(--ui-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--ui-focus)]"
         />
       </div>
 
@@ -36,12 +36,12 @@ export function GuidesIndexPage() {
           <NavLink
             key={g.route}
             to={`/guides/${g.slug}`}
-            className="group rounded-sm border border-neutral-200 bg-white p-5 shadow-sm transition hover:border-neutral-300 hover:shadow"
+            className="group rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-5 shadow-sm transition hover:border-[var(--ui-border)] hover:shadow"
           >
-            <div className="text-sm font-semibold text-neutral-900 group-hover:text-neutral-950">
+            <div className="text-sm font-semibold text-[var(--ui-text)] group-hover:text-[var(--ui-text)]">
               {slugToTitle(g.slug)}
             </div>
-            <div className="mt-1 text-sm text-neutral-600">
+            <div className="mt-1 text-sm text-[var(--ui-text-muted)]">
               Read guide →
             </div>
           </NavLink>
@@ -49,7 +49,7 @@ export function GuidesIndexPage() {
       </div>
 
       {!filtered.length ? (
-        <div className="rounded-sm border border-neutral-200 bg-white p-6 text-sm text-neutral-700 shadow-sm">
+        <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-sm text-[var(--ui-text-secondary)] shadow-sm">
           No guides found.
         </div>
       ) : null}

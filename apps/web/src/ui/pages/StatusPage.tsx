@@ -21,20 +21,20 @@ const initial: HealthChecks = {
 function Badge({ status }: { status: CheckStatus }) {
   if (status === "pending") {
     return (
-      <span className="inline-block rounded-sm bg-neutral-200 px-2 py-0.5 text-xs font-semibold text-neutral-600">
+      <span className="inline-block rounded-sm bg-[var(--ui-bg-overlay)] px-2 py-0.5 text-xs font-semibold text-[var(--ui-text-muted)]">
         checking…
       </span>
     );
   }
   if (status === "pass") {
     return (
-      <span className="inline-block rounded-sm bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800">
+      <span className="inline-block rounded-sm bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-300">
         OK
       </span>
     );
   }
   return (
-    <span className="inline-block rounded-sm bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-800">
+    <span className="inline-block rounded-sm bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-300">
       failed
     </span>
   );
@@ -91,7 +91,7 @@ export function StatusPage() {
       <h1 className="text-2xl font-semibold tracking-tight">Status</h1>
 
       <Card title="All systems operational (v1)">
-        <ul className="list-inside list-disc space-y-2 text-neutral-700">
+        <ul className="list-inside list-disc space-y-2 text-[var(--ui-text-secondary)]">
           <li>PDF processing runs locally in your browser.</li>
           <li>The API is used only for account sessions and billing.</li>
           <li>No analytics or tracking scripts are used.</li>
@@ -107,24 +107,24 @@ export function StatusPage() {
         <div className="space-y-4">
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-neutral-700">API reachable</span>
+              <span className="text-[var(--ui-text-secondary)]">API reachable</span>
               <Badge status={checks.api} />
             </div>
             {checks.api === "fail" && (
-              <p className="text-xs text-neutral-500">
+              <p className="text-xs text-[var(--ui-text-muted)]">
                 API not reachable (all tools still work locally).
               </p>
             )}
             <div className="flex items-center justify-between text-sm">
-              <span className="text-neutral-700">Service Worker</span>
+              <span className="text-[var(--ui-text-secondary)]">Service Worker</span>
               <Badge status={checks.serviceWorker} />
             </div>
             <div className="flex items-center justify-between text-sm">
-              <span className="text-neutral-700">Local storage</span>
+              <span className="text-[var(--ui-text-secondary)]">Local storage</span>
               <Badge status={checks.localStorage} />
             </div>
             <div className="flex items-center justify-between text-sm">
-              <span className="text-neutral-700">PDF engine</span>
+              <span className="text-[var(--ui-text-secondary)]">PDF engine</span>
               <Badge status={checks.pdfEngine} />
             </div>
           </div>
@@ -132,12 +132,12 @@ export function StatusPage() {
           <div className="flex items-center justify-between">
             <button
               onClick={runChecks}
-              className="rounded-sm border border-neutral-400 bg-white px-3 py-1.5 text-sm font-semibold text-neutral-800 transition hover:bg-neutral-100"
+              className="rounded-sm border border-[var(--ui-border-strong)] bg-[var(--ui-bg-raised)] px-3 py-1.5 text-sm font-semibold text-[var(--ui-text-secondary)] transition hover:bg-[var(--ui-bg-overlay)]"
             >
               Re-check
             </button>
             {lastChecked && (
-              <span className="text-xs text-neutral-500">
+              <span className="text-xs text-[var(--ui-text-muted)]">
                 Last checked: {lastChecked.toLocaleTimeString()}
               </span>
             )}
@@ -146,7 +146,7 @@ export function StatusPage() {
       </Card>
 
       <Card title="Uptime">
-        <p className="text-neutral-700">
+        <p className="text-[var(--ui-text-secondary)]">
           All PDF tools run in your browser. There is no server to go down. The
           API handles only authentication and billing.
         </p>

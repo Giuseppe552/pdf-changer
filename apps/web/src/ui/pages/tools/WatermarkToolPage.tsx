@@ -74,16 +74,16 @@ export function WatermarkToolPage() {
           />
           <div className="grid gap-3 md:grid-cols-2">
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Watermark text</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Watermark text</div>
               <input
                 value={text}
                 onChange={(event) => setText(event.target.value)}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
               />
             </label>
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Opacity (0.05–0.95)</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Opacity (0.05–0.95)</div>
               <input
                 type="number"
                 min={0.05}
@@ -91,12 +91,12 @@ export function WatermarkToolPage() {
                 step={0.05}
                 value={opacity}
                 onChange={(event) => setOpacity(Number(event.target.value))}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
               />
             </label>
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Font size</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Font size</div>
               <input
                 type="number"
                 min={10}
@@ -104,12 +104,12 @@ export function WatermarkToolPage() {
                 step={1}
                 value={fontSize}
                 onChange={(event) => setFontSize(Number(event.target.value))}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
               />
             </label>
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Angle (degrees)</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Angle (degrees)</div>
               <input
                 type="number"
                 min={-85}
@@ -117,7 +117,7 @@ export function WatermarkToolPage() {
                 step={1}
                 value={angleDegrees}
                 onChange={(event) => setAngleDegrees(Number(event.target.value))}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
               />
             </label>
@@ -133,7 +133,7 @@ export function WatermarkToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

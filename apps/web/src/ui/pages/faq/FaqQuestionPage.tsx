@@ -50,8 +50,8 @@ export function FaqQuestionPage() {
   if (status === "loading") {
     return (
       <div className="space-y-4">
-        <div className="h-7 w-56 animate-pulse rounded bg-neutral-200" />
-        <div className="h-48 animate-pulse rounded-sm border border-neutral-200 bg-white" />
+        <div className="h-7 w-56 animate-pulse rounded bg-[var(--ui-bg-overlay)]" />
+        <div className="h-48 animate-pulse rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]" />
       </div>
     );
   }
@@ -60,7 +60,7 @@ export function FaqQuestionPage() {
     return (
       <div className="space-y-4">
         <h1 className="text-2xl font-semibold tracking-tight">Question not found</h1>
-        <div className="rounded-sm border border-neutral-200 bg-white p-6 text-sm text-neutral-700 shadow-sm">
+        <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-sm text-[var(--ui-text-secondary)] shadow-sm">
           This FAQ page does not exist. Open the{" "}
           <NavLink to="/faq" className="underline">
             FAQ hub
@@ -74,12 +74,12 @@ export function FaqQuestionPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="text-xs text-neutral-500">
-          <NavLink to="/faq" className="hover:text-neutral-900">
+        <div className="text-xs text-[var(--ui-text-muted)]">
+          <NavLink to="/faq" className="hover:text-[var(--ui-text)]">
             FAQ Hub
           </NavLink>{" "}
           /{" "}
-          <NavLink to={`/faq/${entry.meta.topic}`} className="hover:text-neutral-900">
+          <NavLink to={`/faq/${entry.meta.topic}`} className="hover:text-[var(--ui-text)]">
             {topicToTitle(entry.meta.topic)}
           </NavLink>
         </div>
@@ -87,23 +87,23 @@ export function FaqQuestionPage() {
       </div>
 
       <Card title="Short answer">
-        <p className="text-neutral-700">{entry.meta.summary}</p>
-        <div className="mt-3 text-xs text-neutral-500">
+        <p className="text-[var(--ui-text-secondary)]">{entry.meta.summary}</p>
+        <div className="mt-3 text-xs text-[var(--ui-text-muted)]">
           {entry.meta.lastReviewed
             ? `Last reviewed: ${entry.meta.lastReviewed}`
             : "Last reviewed date will be added soon."}
         </div>
       </Card>
 
-      <div className="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-        <article className="prose prose-neutral prose-sm max-w-none">
+      <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+        <article className="prose prose-invert prose-sm max-w-none">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{entry.body}</ReactMarkdown>
         </article>
       </div>
 
       {related.length ? (
         <Card title="Related questions">
-          <ul className="list-inside list-disc space-y-2 text-neutral-700">
+          <ul className="list-inside list-disc space-y-2 text-[var(--ui-text-secondary)]">
             {related.map((item) => (
               <li key={item.route}>
                 <NavLink to={item.route} className="underline">
@@ -115,7 +115,7 @@ export function FaqQuestionPage() {
         </Card>
       ) : null}
 
-      <div className="text-sm text-neutral-600">
+      <div className="text-sm text-[var(--ui-text-muted)]">
         Next safe step:{" "}
         <NavLink to="/scrub" className="underline">
           scrub a PDF locally

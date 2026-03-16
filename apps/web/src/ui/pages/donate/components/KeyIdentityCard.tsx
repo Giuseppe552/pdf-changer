@@ -16,25 +16,25 @@ export function KeyIdentityCard({
 }) {
   return (
     <div className="space-y-3">
-      <div className="grid gap-2 text-[15px] text-neutral-800 md:grid-cols-2">
+      <div className="grid gap-2 text-[15px] text-[var(--ui-text-secondary)] md:grid-cols-2">
         <div>
-          <div className="text-sm font-semibold text-neutral-600">Fingerprint</div>
-          <div className="break-all border border-neutral-300 bg-neutral-100 px-2 py-2 font-mono text-sm text-neutral-900">
+          <div className="text-sm font-semibold text-[var(--ui-text-muted)]">Fingerprint</div>
+          <div className="break-all border border-[var(--ui-border)] bg-[var(--ui-bg-overlay)] px-2 py-2 font-mono text-sm text-[var(--ui-text)]">
             {fingerprint}
           </div>
         </div>
         <div>
-          <div className="text-sm font-semibold text-neutral-600">Key ID</div>
-          <div className="border border-neutral-300 bg-neutral-100 px-2 py-2 font-mono text-sm text-neutral-900">
+          <div className="text-sm font-semibold text-[var(--ui-text-muted)]">Key ID</div>
+          <div className="border border-[var(--ui-border)] bg-[var(--ui-bg-overlay)] px-2 py-2 font-mono text-sm text-[var(--ui-text)]">
             {keyId}
           </div>
         </div>
         <div>
-          <div className="text-sm font-semibold text-neutral-600">Algorithm</div>
+          <div className="text-sm font-semibold text-[var(--ui-text-muted)]">Algorithm</div>
           <div>{algorithm}</div>
         </div>
         <div>
-          <div className="text-sm font-semibold text-neutral-600">First seen</div>
+          <div className="text-sm font-semibold text-[var(--ui-text-muted)]">First seen</div>
           <div>{firstSeenAt}</div>
         </div>
       </div>
@@ -52,7 +52,7 @@ export function KeyIdentityCard({
           Copy fingerprint
         </Button>
       </div>
-      <div className="text-sm text-neutral-600">
+      <div className="text-sm text-[var(--ui-text-muted)]">
         Rotation policy: old keys remain in the archive with retirement or revocation notes.
       </div>
     </div>

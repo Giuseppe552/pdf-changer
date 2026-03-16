@@ -43,10 +43,10 @@ export function AuditBadge({ report }: { report: AuditReport }) {
 
   const verdictColor =
     report.verdict === "clean"
-      ? "text-green-800 border-green-300"
+      ? "text-green-300 border-green-300"
       : report.verdict === "suspicious"
-        ? "text-amber-800 border-amber-300"
-        : "text-red-800 border-red-300";
+        ? "text-amber-300 border-amber-700/40"
+        : "text-red-300 border-red-700/40";
 
   return (
     <div className="space-y-2">
@@ -56,17 +56,17 @@ export function AuditBadge({ report }: { report: AuditReport }) {
             <div className="flex items-center gap-1.5 text-[15px] font-semibold">
               <ShieldIcon />
               <span>{verdictText}</span>
-              <span className="font-normal text-neutral-600">
+              <span className="font-normal text-[var(--ui-text-muted)]">
                 · {report.events.length} network request{report.events.length !== 1 ? "s" : ""}
               </span>
             </div>
-            <div className="text-xs text-neutral-500">
+            <div className="text-xs text-[var(--ui-text-muted)]">
               {report.monitors.length} monitors active · {report.durationMs}ms
             </div>
           </div>
           <button
             onClick={() => setExpanded(!expanded)}
-            className="shrink-0 text-xs font-semibold text-neutral-600 hover:text-neutral-900"
+            className="shrink-0 text-xs font-semibold text-[var(--ui-text-muted)] hover:text-[var(--ui-text)]"
           >
             {expanded ? "Hide" : "Details"}
           </button>

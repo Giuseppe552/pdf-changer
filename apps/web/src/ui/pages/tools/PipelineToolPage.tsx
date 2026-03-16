@@ -143,12 +143,12 @@ export function PipelineToolPage() {
           />
 
           <div className="space-y-2">
-            <div className="text-sm font-semibold text-neutral-900">Presets</div>
+            <div className="text-sm font-semibold text-[var(--ui-text)]">Presets</div>
             <div className="flex flex-wrap gap-2">
               {PIPELINE_PRESETS.map((preset) => (
                 <button
                   key={preset.name}
-                  className="rounded border border-neutral-300 px-3 py-1.5 text-sm text-neutral-800 hover:bg-neutral-100"
+                  className="rounded border border-[var(--ui-border)] px-3 py-1.5 text-sm text-[var(--ui-text-secondary)] hover:bg-[var(--ui-bg-overlay)]"
                   onClick={() => applyPreset(preset.steps)}
                   disabled={busy}
                   title={preset.description}
@@ -160,11 +160,11 @@ export function PipelineToolPage() {
           </div>
 
           <div className="space-y-2">
-            <div className="text-sm font-semibold text-neutral-900">
+            <div className="text-sm font-semibold text-[var(--ui-text)]">
               Steps ({steps.length})
             </div>
             {steps.length === 0 ? (
-              <div className="text-sm text-neutral-500">
+              <div className="text-sm text-[var(--ui-text-muted)]">
                 Choose a preset or add steps manually.
               </div>
             ) : (
@@ -175,28 +175,28 @@ export function PipelineToolPage() {
                     className={[
                       "flex items-center gap-2 rounded border px-3 py-2 text-sm",
                       busy && currentStep === i
-                        ? "border-blue-400 bg-blue-50"
-                        : "border-neutral-200 bg-white",
+                        ? "border-[var(--ui-accent)] bg-[var(--ui-accent)]/10"
+                        : "border-[var(--ui-border)] bg-[var(--ui-bg-raised)]",
                     ].join(" ")}
                   >
-                    <span className="font-mono text-neutral-400">{i + 1}.</span>
-                    <span className="flex-1 font-semibold text-neutral-800">
+                    <span className="font-mono text-[var(--ui-text-muted)]">{i + 1}.</span>
+                    <span className="flex-1 font-semibold text-[var(--ui-text-secondary)]">
                       {stepLabel(step.type)}
                     </span>
                     {busy && currentStep === i ? (
-                      <span className="text-xs text-blue-600">Running...</span>
+                      <span className="text-xs text-[var(--ui-accent)]">Running...</span>
                     ) : null}
                     {!busy ? (
                       <>
                         <button
-                          className="text-neutral-400 hover:text-neutral-700"
+                          className="text-[var(--ui-text-muted)] hover:text-[var(--ui-text-secondary)]"
                           onClick={() => moveStep(i, -1)}
                           disabled={i === 0}
                         >
                           Up
                         </button>
                         <button
-                          className="text-neutral-400 hover:text-neutral-700"
+                          className="text-[var(--ui-text-muted)] hover:text-[var(--ui-text-secondary)]"
                           onClick={() => moveStep(i, 1)}
                           disabled={i === steps.length - 1}
                         >
@@ -218,12 +218,12 @@ export function PipelineToolPage() {
 
           {!busy ? (
             <div className="space-y-2">
-              <div className="text-sm font-semibold text-neutral-900">Add step</div>
+              <div className="text-sm font-semibold text-[var(--ui-text)]">Add step</div>
               <div className="flex flex-wrap gap-2">
                 {AVAILABLE_STEPS.map((type) => (
                   <button
                     key={type}
-                    className="rounded border border-neutral-300 px-3 py-1.5 text-sm text-neutral-800 hover:bg-neutral-100"
+                    className="rounded border border-[var(--ui-border)] px-3 py-1.5 text-sm text-[var(--ui-text-secondary)] hover:bg-[var(--ui-bg-overlay)]"
                     onClick={() => addStep(type)}
                   >
                     + {stepLabel(type)}
@@ -242,25 +242,25 @@ export function PipelineToolPage() {
       {result ? (
         <Card title="Pipeline report">
           <div className="space-y-3">
-            <div className="text-sm text-neutral-600">
+            <div className="text-sm text-[var(--ui-text-muted)]">
               Total: {(result.totalDurationMs / 1000).toFixed(1)}s
             </div>
             <div className="space-y-1">
               {result.stepResults.map((sr, i) => (
                 <div
                   key={i}
-                  className="grid grid-cols-4 gap-2 border-b border-neutral-100 py-1 text-sm"
+                  className="grid grid-cols-4 gap-2 border-b border-[var(--ui-border)] py-1 text-sm"
                 >
-                  <div className="font-semibold text-neutral-800">
+                  <div className="font-semibold text-[var(--ui-text-secondary)]">
                     {i + 1}. {stepLabel(sr.type)}
                   </div>
-                  <div className="text-neutral-600">
+                  <div className="text-[var(--ui-text-muted)]">
                     In: {formatBytes(sr.inputSize)}
                   </div>
-                  <div className="text-neutral-600">
+                  <div className="text-[var(--ui-text-muted)]">
                     Out: {formatBytes(sr.outputSize)}
                   </div>
-                  <div className="text-neutral-500">
+                  <div className="text-[var(--ui-text-muted)]">
                     {(sr.durationMs / 1000).toFixed(1)}s
                   </div>
                 </div>
@@ -279,7 +279,7 @@ export function PipelineToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

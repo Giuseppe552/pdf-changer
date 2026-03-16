@@ -11,14 +11,14 @@ export function ContactPage() {
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold tracking-tight">Contact</h1>
       <Card title="Sensitive information">
-        <p className="text-neutral-700">
+        <p className="text-[var(--ui-text-secondary)]">
           Please don’t send sensitive documents over contact channels. Use{" "}
           <InlineCode>/scrub</InlineCode> offline and share documents using a
           channel that fits your threat model.
         </p>
       </Card>
       <Card title="Support">
-        <p className="text-neutral-700">
+        <p className="text-[var(--ui-text-secondary)]">
           Support channels are being set up. For billing, use the billing portal
           from <InlineCode>/pricing</InlineCode>.
         </p>

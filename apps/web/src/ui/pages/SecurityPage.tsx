@@ -102,8 +102,8 @@ export function SecurityPage() {
   if (status === "loading") {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-56 animate-pulse rounded-sm bg-neutral-200" />
-        <div className="h-48 animate-pulse rounded-sm border border-neutral-200 bg-white" />
+        <div className="h-8 w-56 animate-pulse rounded-sm bg-[var(--ui-bg-overlay)]" />
+        <div className="h-48 animate-pulse rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]" />
       </div>
     );
   }
@@ -112,7 +112,7 @@ export function SecurityPage() {
     return (
       <div className="space-y-4">
         <h1 className="ui-title">Security Hub</h1>
-        <div className="rounded-sm border border-neutral-200 bg-white p-6 text-[15px] text-neutral-700 shadow-sm">
+        <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-[15px] text-[var(--ui-text-secondary)] shadow-sm">
           No security entries are published yet.
         </div>
       </div>
@@ -130,7 +130,7 @@ export function SecurityPage() {
       </div>
 
       <Surface variant="emphasis" compact>
-        <div className="text-[15px] text-neutral-800">
+        <div className="text-[15px] text-[var(--ui-text-secondary)]">
           Use this hub to understand limits before action. It provides defensive
           guidance only.
         </div>
@@ -138,7 +138,7 @@ export function SecurityPage() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card title="Who this is for">
-          <div className="grid gap-2 text-[15px] text-neutral-700">
+          <div className="grid gap-2 text-[15px] text-[var(--ui-text-secondary)]">
             <div>Office workers handling legal, HR, and finance PDFs.</div>
             <div>Whistleblowers managing high-risk submissions.</div>
             <div>General users sharing applications and personal documents.</div>
@@ -146,7 +146,7 @@ export function SecurityPage() {
           </div>
         </Card>
         <Card title="Start here">
-          <ul className="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+          <ul className="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
             <li>
               <NavLink className="underline" to="/security/non-technical/whistleblower-quickstart">
                 Whistleblower quickstart
@@ -199,11 +199,39 @@ export function SecurityPage() {
         </Card>
       </div>
 
+      <Card
+        title="Original research"
+        footer={
+          <NavLink className="text-sm underline" to="/research">
+            View all research
+          </NavLink>
+        }
+      >
+        <div className="text-[15px] text-[var(--ui-text-secondary)] space-y-2">
+          <div>
+            The security claims on this site are backed by original research, not just spec
+            reading.{" "}
+            <NavLink className="underline" to="/research/csp-exfiltration-tests">
+              CSP exfiltration testing
+            </NavLink>
+            {" "}validates browser security boundaries.{" "}
+            <NavLink className="underline" to="/research/printer-tracking-decoder">
+              MIC decoding
+            </NavLink>
+            {" "}identifies printer tracking dots.{" "}
+            <NavLink className="underline" to="/research/competitor-data-audit">
+              Competitor audits
+            </NavLink>
+            {" "}verify what online tools actually do with your files.
+          </div>
+        </div>
+      </Card>
+
       <div className="grid gap-4 md:grid-cols-2">
         <Card title="Find guidance">
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="space-y-1 sm:col-span-2">
-              <div className="text-sm font-semibold text-neutral-600">Search</div>
+              <div className="text-sm font-semibold text-[var(--ui-text-muted)]">Search</div>
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
@@ -212,7 +240,7 @@ export function SecurityPage() {
               />
             </div>
             <div className="space-y-1">
-              <div className="text-sm font-semibold text-neutral-600">Audience</div>
+              <div className="text-sm font-semibold text-[var(--ui-text-muted)]">Audience</div>
               <select
                 value={audience}
                 onChange={(event) =>
@@ -229,7 +257,7 @@ export function SecurityPage() {
               </select>
             </div>
             <div className="space-y-1">
-              <div className="text-sm font-semibold text-neutral-600">Risk</div>
+              <div className="text-sm font-semibold text-[var(--ui-text-muted)]">Risk</div>
               <select
                 value={risk}
                 onChange={(event) => setRisk(event.target.value as RiskLevel | "all")}
@@ -243,7 +271,7 @@ export function SecurityPage() {
               </select>
             </div>
             <div className="space-y-1 sm:col-span-2">
-              <div className="text-sm font-semibold text-neutral-600">
+              <div className="text-sm font-semibold text-[var(--ui-text-muted)]">
                 Difficulty
               </div>
               <select
@@ -264,13 +292,13 @@ export function SecurityPage() {
         </Card>
 
         <Card title="Freshness">
-          <div className="space-y-3 text-[15px] text-neutral-700">
+          <div className="space-y-3 text-[15px] text-[var(--ui-text-secondary)]">
             <div>
               Updated this month:{" "}
-              <span className="font-semibold text-neutral-900">{updatedThisMonth}</span>
+              <span className="font-semibold text-[var(--ui-text)]">{updatedThisMonth}</span>
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-semibold uppercase tracking-wide text-neutral-500">
+              <div className="text-sm font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">
                 Latest reviewed
               </div>
               {latestReviewed.map((item) => (
@@ -278,14 +306,14 @@ export function SecurityPage() {
                   <NavLink className="underline" to={item.route}>
                     {item.title}
                   </NavLink>{" "}
-                  <span className="text-sm text-neutral-500">
+                  <span className="text-sm text-[var(--ui-text-muted)]">
                     ({item.lastReviewed})
                   </span>
                 </div>
               ))}
             </div>
             {policy ? (
-              <div className="text-sm text-neutral-600">
+              <div className="text-sm text-[var(--ui-text-muted)]">
                 Boundary policy:{" "}
                 <NavLink className="underline" to={policy.route}>
                   {policy.title}
@@ -302,7 +330,7 @@ export function SecurityPage() {
           <SecurityArticleCard key={article.route} article={article} />
         ))}
         {!filtered.length ? (
-          <div className="rounded-sm border border-neutral-200 bg-white p-6 text-[15px] text-neutral-700 shadow-sm">
+          <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-[15px] text-[var(--ui-text-secondary)] shadow-sm">
             No security articles match these filters.
           </div>
         ) : null}

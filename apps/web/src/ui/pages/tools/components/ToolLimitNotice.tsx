@@ -11,7 +11,7 @@ export function ToolLimitNotice({
 }) {
   return (
     <Card title={title} variant="warning">
-      <div className="space-y-2 text-[15px] text-neutral-800">
+      <div className="space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
         <div>
           {message ??
             "This device reached its monthly action limit for this tool bucket."}

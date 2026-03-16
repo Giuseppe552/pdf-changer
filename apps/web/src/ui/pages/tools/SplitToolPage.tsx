@@ -163,7 +163,7 @@ export function SplitToolPage() {
           />
 
           <div className="flex flex-wrap gap-2 text-xs">
-            <label className="flex items-center gap-2 rounded-sm border border-neutral-300 bg-white px-3 py-2 text-neutral-800">
+            <label className="flex items-center gap-2 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-[var(--ui-text-secondary)]">
               <input
                 type="radio"
                 name="mode"
@@ -172,7 +172,7 @@ export function SplitToolPage() {
               />
               Ranges
             </label>
-            <label className="flex items-center gap-2 rounded-sm border border-neutral-300 bg-white px-3 py-2 text-neutral-800">
+            <label className="flex items-center gap-2 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-[var(--ui-text-secondary)]">
               <input
                 type="radio"
                 name="mode"
@@ -185,21 +185,21 @@ export function SplitToolPage() {
 
           {mode === "ranges" ? (
             <div className="space-y-2">
-              <div className="text-xs text-neutral-600">
+              <div className="text-xs text-[var(--ui-text-muted)]">
                 Examples: <span className="font-mono">1-3,5,7-9</span> or{" "}
                 <span className="font-mono">1-</span>
               </div>
               <input
                 value={ranges}
                 onChange={(e) => setRanges(e.target.value)}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)] placeholder:text-[var(--ui-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--ui-focus)]"
                 spellCheck={false}
               />
             </div>
           ) : null}
 
-          <div className="rounded-sm border border-neutral-300 bg-neutral-50 p-3 text-[15px] text-neutral-700">
-            <div className="font-semibold text-neutral-900">Preflight</div>
+          <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg)] p-3 text-[15px] text-[var(--ui-text-secondary)]">
+            <div className="font-semibold text-[var(--ui-text)]">Preflight</div>
             <div className="mt-1">
               {pageCountError
                 ? pageCountError

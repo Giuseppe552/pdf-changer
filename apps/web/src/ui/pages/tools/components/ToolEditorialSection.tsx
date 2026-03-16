@@ -21,7 +21,7 @@ export function ToolEditorialSection({ slug }: { slug: ToolSlug }) {
   return (
     <div className="space-y-6 mt-8">
       <Card title={`How to use ${tool.name}`}>
-        <ol className="list-decimal list-inside space-y-2 text-[15px] text-neutral-700">
+        <ol className="list-decimal list-inside space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
           {editorial.howToSteps.map((step, i) => (
             <li key={i}>{step}</li>
           ))}
@@ -29,7 +29,7 @@ export function ToolEditorialSection({ slug }: { slug: ToolSlug }) {
       </Card>
 
       <Card title="Tips">
-        <ul className="list-disc list-inside space-y-1 text-[15px] text-neutral-700">
+        <ul className="list-disc list-inside space-y-1 text-[15px] text-[var(--ui-text-secondary)]">
           {editorial.tips.map((tip, i) => (
             <li key={i}>{tip}</li>
           ))}
@@ -40,19 +40,19 @@ export function ToolEditorialSection({ slug }: { slug: ToolSlug }) {
         {FAQ_SLUGS.map((faqSlug) => (
           <details
             key={faqSlug}
-            className="border-b border-neutral-100 pb-3 mb-3 last:border-0"
+            className="border-b border-[var(--ui-border)] pb-3 mb-3 last:border-0"
           >
             <summary className="cursor-pointer text-[15px] font-medium">
               {faqQuestion(faqSlug, tool.name)}
             </summary>
-            <p className="mt-2 text-[15px] text-neutral-600">
+            <p className="mt-2 text-[15px] text-[var(--ui-text-muted)]">
               {editorial.faq[faqSlug]}
             </p>
           </details>
         ))}
       </Card>
 
-      <div className="rounded-sm border border-green-200 bg-green-50 p-4 text-sm text-green-900">
+      <div className="rounded-sm border border-green-200 bg-green-950/30 p-4 text-sm text-green-300">
         <strong>Privacy:</strong>{" "}
         {tool.processingMode === "local"
           ? "Your files never leave your browser."
@@ -64,7 +64,7 @@ export function ToolEditorialSection({ slug }: { slug: ToolSlug }) {
 
       {related.length > 0 && (
         <div>
-          <h3 className="text-sm font-semibold text-neutral-900 mb-3">
+          <h3 className="text-sm font-semibold text-[var(--ui-text)] mb-3">
             Related tools
           </h3>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -72,12 +72,12 @@ export function ToolEditorialSection({ slug }: { slug: ToolSlug }) {
               <NavLink
                 key={r.slug}
                 to={`/tools/${r.slug}`}
-                className="block rounded-sm border border-neutral-200 bg-white p-4 hover:border-neutral-300"
+                className="block rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4 hover:border-[var(--ui-border)]"
               >
-                <div className="text-sm font-medium text-neutral-900">
+                <div className="text-sm font-medium text-[var(--ui-text)]">
                   {r.name}
                 </div>
-                <div className="mt-1 text-xs text-neutral-600">
+                <div className="mt-1 text-xs text-[var(--ui-text-muted)]">
                   {r.description}
                 </div>
               </NavLink>

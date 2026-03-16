@@ -9,9 +9,9 @@ import type { AuditReport } from "../../../utils/vpe/types";
 function KeyValue({ k, v, mono }: { k: string; v: string; mono?: boolean }) {
   return (
     <div className="flex items-start justify-between gap-3">
-      <div className="text-sm text-neutral-600">{k}</div>
+      <div className="text-sm text-[var(--ui-text-muted)]">{k}</div>
       <div
-        className={`text-right text-sm text-neutral-900 ${mono ? "font-mono break-all" : ""}`}
+        className={`text-right text-sm text-[var(--ui-text)] ${mono ? "font-mono break-all" : ""}`}
       >
         {v}
       </div>
@@ -64,7 +64,7 @@ export function AuditReportPanel({ report }: { report: AuditReport }) {
         </Surface>
 
         <Surface compact>
-          <div className="mb-2 text-sm font-semibold text-neutral-900">
+          <div className="mb-2 text-sm font-semibold text-[var(--ui-text)]">
             Hashes
           </div>
           <KeyValue k="Input SHA-256" v={report.inputSha256Hex} mono />
@@ -72,15 +72,15 @@ export function AuditReportPanel({ report }: { report: AuditReport }) {
         </Surface>
 
         <Surface compact>
-          <div className="mb-2 text-sm font-semibold text-neutral-900">
+          <div className="mb-2 text-sm font-semibold text-[var(--ui-text)]">
             Monitors
           </div>
-          <div className="space-y-1 text-[15px] text-neutral-800">
+          <div className="space-y-1 text-[15px] text-[var(--ui-text-secondary)]">
             {report.monitors.map((m) => (
               <div key={m} className="flex items-center gap-2">
                 <span className="text-green-700">&#10003;</span>
                 <span className="capitalize">{m}</span>
-                <span className="text-neutral-500">— clean</span>
+                <span className="text-[var(--ui-text-muted)]">— clean</span>
               </div>
             ))}
           </div>
@@ -88,10 +88,10 @@ export function AuditReportPanel({ report }: { report: AuditReport }) {
 
         {report.events.length > 0 ? (
           <Surface variant="warning" compact>
-            <div className="mb-2 text-sm font-semibold text-neutral-900">
+            <div className="mb-2 text-sm font-semibold text-[var(--ui-text)]">
               Events
             </div>
-            <ul className="list-inside list-disc space-y-1 text-sm text-neutral-800">
+            <ul className="list-inside list-disc space-y-1 text-sm text-[var(--ui-text-secondary)]">
               {report.events.map((e, i) => (
                 <li key={i} className="break-all">
                   <span className="font-semibold">{e.type}</span>:{" "}
@@ -107,10 +107,10 @@ export function AuditReportPanel({ report }: { report: AuditReport }) {
         ) : null}
 
         <Surface compact>
-          <div className="mb-2 text-sm font-semibold text-neutral-900">
+          <div className="mb-2 text-sm font-semibold text-[var(--ui-text)]">
             Residual risks
           </div>
-          <p className="text-[15px] text-neutral-700">
+          <p className="text-[15px] text-[var(--ui-text-secondary)]">
             This audit cannot detect browser extensions, OS-level compromise, or
             hardware-level attacks. For maximum safety, use Tor Browser on Tails
             OS.{" "}
@@ -132,7 +132,7 @@ export function AuditReportPanel({ report }: { report: AuditReport }) {
           </Button>
         </div>
 
-        <div className="text-xs text-neutral-500">
+        <div className="text-xs text-[var(--ui-text-muted)]">
           Threat model based on analysis of 45+ browser exfiltration vectors.{" "}
           <NavLink
             to="/security/technical/csp-exfiltration-analysis"

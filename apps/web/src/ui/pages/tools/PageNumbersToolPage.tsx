@@ -76,23 +76,23 @@ export function PageNumbersToolPage() {
           />
           <div className="grid gap-3 md:grid-cols-3">
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Start at</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Start at</div>
               <input
                 type="number"
                 min={1}
                 step={1}
                 value={startAt}
                 onChange={(event) => setStartAt(Number(event.target.value))}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
               />
             </label>
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Position</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Position</div>
               <select
                 value={position}
                 onChange={(event) => setPosition(event.target.value as PageNumbersPosition)}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
               >
                 <option value="bottom-right">Bottom right</option>
@@ -101,7 +101,7 @@ export function PageNumbersToolPage() {
               </select>
             </label>
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Font size</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Font size</div>
               <input
                 type="number"
                 min={8}
@@ -109,7 +109,7 @@ export function PageNumbersToolPage() {
                 step={1}
                 value={fontSize}
                 onChange={(event) => setFontSize(Number(event.target.value))}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
               />
             </label>
@@ -125,7 +125,7 @@ export function PageNumbersToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

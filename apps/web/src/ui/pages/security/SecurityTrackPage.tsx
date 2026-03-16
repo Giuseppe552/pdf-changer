@@ -54,7 +54,7 @@ export function SecurityTrackPage() {
     return (
       <div className="space-y-4">
         <h1 className="ui-title">Security track not found</h1>
-        <div className="rounded-sm border border-neutral-200 bg-white p-6 text-[15px] text-neutral-700 shadow-sm">
+        <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-[15px] text-[var(--ui-text-secondary)] shadow-sm">
           This security track does not exist. Go back to{" "}
           <NavLink className="underline" to="/security">
             Security Hub
@@ -68,8 +68,8 @@ export function SecurityTrackPage() {
   if (status === "loading") {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-56 animate-pulse rounded-sm bg-neutral-200" />
-        <div className="h-48 animate-pulse rounded-sm border border-neutral-200 bg-white" />
+        <div className="h-8 w-56 animate-pulse rounded-sm bg-[var(--ui-bg-overlay)]" />
+        <div className="h-48 animate-pulse rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]" />
       </div>
     );
   }
@@ -87,8 +87,8 @@ export function SecurityTrackPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="text-xs text-neutral-500">
-          <NavLink className="hover:text-neutral-900" to="/security">
+        <div className="text-xs text-[var(--ui-text-muted)]">
+          <NavLink className="hover:text-[var(--ui-text)]" to="/security">
             Security Hub
           </NavLink>{" "}
           / {trackToTitle(track)}
@@ -117,7 +117,7 @@ export function SecurityTrackPage() {
           <SecurityArticleCard key={item.route} article={item} />
         ))}
         {!filtered.length ? (
-          <div className="rounded-sm border border-neutral-200 bg-white p-6 text-[15px] text-neutral-700 shadow-sm">
+          <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-[15px] text-[var(--ui-text-secondary)] shadow-sm">
             No articles match this search.
           </div>
         ) : null}

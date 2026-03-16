@@ -74,19 +74,19 @@ function SecurityArticleView({
   const breadcrumb =
     section === "policy" ? (
       <>
-        <NavLink className="hover:text-neutral-900" to="/security">
+        <NavLink className="hover:text-[var(--ui-text)]" to="/security">
           Security Hub
         </NavLink>{" "}
         / Policy
       </>
     ) : (
       <>
-        <NavLink className="hover:text-neutral-900" to="/security">
+        <NavLink className="hover:text-[var(--ui-text)]" to="/security">
           Security Hub
         </NavLink>{" "}
         /{" "}
         <NavLink
-          className="hover:text-neutral-900"
+          className="hover:text-[var(--ui-text)]"
           to={`/security/${section}`}
         >
           {trackToTitle(section)}
@@ -97,7 +97,7 @@ function SecurityArticleView({
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="text-sm text-neutral-500">{breadcrumb}</div>
+        <div className="text-sm text-[var(--ui-text-muted)]">{breadcrumb}</div>
         <h1 className="ui-title">{title}</h1>
         <p className="ui-subtitle max-w-3xl">{entry.meta.summary}</p>
       </div>
@@ -106,8 +106,8 @@ function SecurityArticleView({
       <LimitationsBox />
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),240px]">
-        <div className="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-          <article className="prose prose-neutral prose-sm max-w-none">
+        <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+          <article className="prose prose-invert prose-sm max-w-none">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
@@ -131,7 +131,7 @@ function SecurityArticleView({
         <aside className="space-y-3 lg:sticky lg:top-20 lg:self-start">
           <Card title="Contents">
             {headings.length ? (
-              <ul className="space-y-1 text-sm text-neutral-700">
+              <ul className="space-y-1 text-sm text-[var(--ui-text-secondary)]">
                 {headings.map((heading) => (
                   <li
                     key={`${heading.level}:${heading.id}`}
@@ -144,11 +144,11 @@ function SecurityArticleView({
                 ))}
               </ul>
             ) : (
-                <div className="text-[15px] text-neutral-600">No section headings.</div>
+                <div className="text-[15px] text-[var(--ui-text-muted)]">No section headings.</div>
               )}
             </Card>
             <Card title="Next safe step">
-            <div className="text-[15px] text-neutral-700">
+            <div className="text-[15px] text-[var(--ui-text-secondary)]">
               <NavLink className="underline" to="/scrub">
                 Scrub a PDF locally
               </NavLink>
@@ -167,7 +167,7 @@ function SecurityArticleView({
 
       {related.length ? (
         <Card title="Related security articles">
-          <ul className="list-inside list-disc space-y-2 text-neutral-700">
+          <ul className="list-inside list-disc space-y-2 text-[var(--ui-text-secondary)]">
             {related.map((item) => (
               <li key={item.route}>
                 <NavLink className="underline" to={item.route}>
@@ -227,8 +227,8 @@ export function SecurityArticlePage() {
   if (status === "loading") {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-56 animate-pulse rounded-sm bg-neutral-200" />
-        <div className="h-48 animate-pulse rounded-sm border border-neutral-200 bg-white" />
+        <div className="h-8 w-56 animate-pulse rounded-sm bg-[var(--ui-bg-overlay)]" />
+        <div className="h-48 animate-pulse rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]" />
       </div>
     );
   }
@@ -237,7 +237,7 @@ export function SecurityArticlePage() {
     return (
       <div className="space-y-4">
         <h1 className="ui-title">Security article not found</h1>
-        <div className="rounded-sm border border-neutral-200 bg-white p-6 text-[15px] text-neutral-700 shadow-sm">
+        <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-[15px] text-[var(--ui-text-secondary)] shadow-sm">
           This article does not exist. Go back to{" "}
           <NavLink className="underline" to="/security">
             Security Hub
@@ -278,8 +278,8 @@ export function SecurityPolicyPage() {
   if (status === "loading") {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-56 animate-pulse rounded-sm bg-neutral-200" />
-        <div className="h-48 animate-pulse rounded-sm border border-neutral-200 bg-white" />
+        <div className="h-8 w-56 animate-pulse rounded-sm bg-[var(--ui-bg-overlay)]" />
+        <div className="h-48 animate-pulse rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]" />
       </div>
     );
   }
@@ -288,7 +288,7 @@ export function SecurityPolicyPage() {
     return (
       <div className="space-y-4">
         <h1 className="ui-title">Policy not found</h1>
-        <div className="rounded-sm border border-neutral-200 bg-white p-6 text-[15px] text-neutral-700 shadow-sm">
+        <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-[15px] text-[var(--ui-text-secondary)] shadow-sm">
           The policy page is unavailable.
         </div>
       </div>

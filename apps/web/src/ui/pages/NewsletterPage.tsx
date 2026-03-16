@@ -12,7 +12,7 @@ export function NewsletterPage() {
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold tracking-tight">Newsletter</h1>
       <Card title="Product updates (optional)">
-        <p className="text-neutral-700">
+        <p className="text-[var(--ui-text-secondary)]">
           If you want release notes and feature updates, subscribe here. No
           tracking pixels. Unsubscribe any time.
         </p>
@@ -21,10 +21,10 @@ export function NewsletterPage() {
         </div>
       </Card>
       <Card title="Privacy note">
-        <p className="text-neutral-700">
+        <p className="text-[var(--ui-text-secondary)]">
           This is optional. Accounts do not require email. See the full privacy
           policy for details:{" "}
-          <NavLink to="/privacy-policy" className="text-neutral-900 underline">
+          <NavLink to="/privacy-policy" className="text-[var(--ui-text)] underline">
             Privacy policy
           </NavLink>
           .

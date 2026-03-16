@@ -65,8 +65,8 @@ export function FaqHubPage() {
   if (status === "loading") {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-56 animate-pulse rounded-sm bg-neutral-200" />
-        <div className="h-48 animate-pulse rounded-sm border border-neutral-200 bg-white" />
+        <div className="h-8 w-56 animate-pulse rounded-sm bg-[var(--ui-bg-overlay)]" />
+        <div className="h-48 animate-pulse rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]" />
       </div>
     );
   }
@@ -75,7 +75,7 @@ export function FaqHubPage() {
     return (
       <div className="space-y-4">
         <h1 className="ui-title">FAQ Hub</h1>
-        <div className="rounded-sm border border-neutral-200 bg-white p-6 text-[15px] text-neutral-700 shadow-sm">
+        <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-[15px] text-[var(--ui-text-secondary)] shadow-sm">
           No FAQ entries are published yet.
         </div>
       </div>
@@ -93,14 +93,14 @@ export function FaqHubPage() {
       </div>
 
       <Surface variant="emphasis" compact>
-        <div className="text-[15px] text-neutral-800">
+        <div className="text-[15px] text-[var(--ui-text-secondary)]">
           Start with plain-language basics, then move into topic-specific pages.
         </div>
       </Surface>
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card title="Start here">
-          <ul className="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+          <ul className="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
             <li>
               <NavLink className="underline" to="/faq/anonymity-basics/what-is-anonymous-document-sharing">
                 What is anonymous document sharing?
@@ -122,7 +122,7 @@ export function FaqHubPage() {
         <Card title="Find answers">
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="space-y-1">
-              <div className="text-sm font-semibold text-neutral-600">Topic</div>
+              <div className="text-sm font-semibold text-[var(--ui-text-muted)]">Topic</div>
               <select
                 value={topic}
                 onChange={(event) => setTopic(event.target.value)}
@@ -136,7 +136,7 @@ export function FaqHubPage() {
               </select>
             </div>
             <div className="space-y-1">
-              <div className="text-sm font-semibold text-neutral-600">Search</div>
+              <div className="text-sm font-semibold text-[var(--ui-text-muted)]">Search</div>
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
@@ -159,7 +159,7 @@ export function FaqHubPage() {
               </NavLink>
             }
           >
-            <ul className="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+            <ul className="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
               {group.items.slice(0, 5).map((entry) => (
                 <li key={entry.route}>
                   <NavLink className="underline" to={entry.route}>
@@ -178,26 +178,26 @@ export function FaqHubPage() {
           <NavLink
             key={entry.route}
             to={entry.route}
-            className="group block rounded-sm border border-neutral-300 bg-white p-6 shadow-sm transition hover:border-neutral-400 hover:shadow"
+            className="group block rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm transition hover:border-[var(--ui-border-strong)] hover:shadow"
           >
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <div className="text-sm font-semibold uppercase tracking-wide text-neutral-500">
+              <div className="text-sm font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">
                 {topicToTitle(entry.topic)}
               </div>
               {entry.lastReviewed ? (
-                <div className="text-sm text-neutral-500">
+                <div className="text-sm text-[var(--ui-text-muted)]">
                   Reviewed {entry.lastReviewed}
                 </div>
               ) : null}
             </div>
-            <h3 className="mt-2 text-base font-semibold text-neutral-900 group-hover:text-neutral-950">
+            <h3 className="mt-2 text-base font-semibold text-[var(--ui-text)] group-hover:text-[var(--ui-text)]">
               {entry.question}
             </h3>
-            <p className="mt-1 text-[15px] text-neutral-600">{entry.summary}</p>
+            <p className="mt-1 text-[15px] text-[var(--ui-text-muted)]">{entry.summary}</p>
           </NavLink>
         ))}
         {!filtered.length ? (
-          <div className="rounded-sm border border-neutral-200 bg-white p-6 text-[15px] text-neutral-700 shadow-sm">
+          <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-[15px] text-[var(--ui-text-secondary)] shadow-sm">
             No questions match this search yet.
           </div>
         ) : null}

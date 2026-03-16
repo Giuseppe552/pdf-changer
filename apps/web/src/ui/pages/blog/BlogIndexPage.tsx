@@ -110,7 +110,7 @@ export function BlogIndexPage() {
       </div>
 
       <Surface variant="emphasis" compact>
-        <div className="text-[15px] text-neutral-800">
+        <div className="text-[15px] text-[var(--ui-text-secondary)]">
           Read this hub like a handbook: start with basics, then move by topic.
         </div>
       </Surface>
@@ -123,8 +123,8 @@ export function BlogIndexPage() {
             className={[
               "shrink-0 rounded-sm border px-3 py-2 text-sm font-semibold transition",
               category === item.value
-                ? "border-blue-800 bg-blue-800 text-white"
-                : "border-neutral-400 bg-white text-neutral-700 hover:border-neutral-500 hover:text-neutral-900",
+                ? "border-[var(--ui-accent)] bg-[var(--ui-accent)] text-white"
+                : "border-[var(--ui-border-strong)] bg-[var(--ui-bg-raised)] text-[var(--ui-text-secondary)] hover:border-[var(--ui-border-strong)] hover:text-[var(--ui-text)]",
             ].join(" ")}
           >
             {item.label} ({item.count})
@@ -134,7 +134,7 @@ export function BlogIndexPage() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card title="Start here">
-          <ul className="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+          <ul className="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
             <li>
               <NavLink className="underline" to="/blog/basics/anonymity-101">
                 Anonymity 101
@@ -156,7 +156,7 @@ export function BlogIndexPage() {
         <Card title="Filter and sort">
           <div className="grid gap-3 sm:grid-cols-3">
             <div className="space-y-1">
-              <div className="text-sm font-semibold text-neutral-600">
+              <div className="text-sm font-semibold text-[var(--ui-text-muted)]">
                 Category
               </div>
               <select
@@ -172,7 +172,7 @@ export function BlogIndexPage() {
               </select>
             </div>
             <div className="space-y-1">
-              <div className="text-sm font-semibold text-neutral-600">Search</div>
+              <div className="text-sm font-semibold text-[var(--ui-text-muted)]">Search</div>
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -181,7 +181,7 @@ export function BlogIndexPage() {
               />
             </div>
             <div className="space-y-1">
-              <div className="text-sm font-semibold text-neutral-600">Sort</div>
+              <div className="text-sm font-semibold text-[var(--ui-text-muted)]">Sort</div>
               <select
                 value={sort}
                 onChange={(e) =>
@@ -209,7 +209,7 @@ export function BlogIndexPage() {
               </NavLink>
             }
           >
-            <ul className="list-inside list-disc space-y-2 text-neutral-700">
+            <ul className="list-inside list-disc space-y-2 text-[var(--ui-text-secondary)]">
               {group.items.map((post) => (
                 <li key={post.route}>
                   <NavLink className="underline" to={post.route}>
@@ -224,7 +224,7 @@ export function BlogIndexPage() {
 
       <div className="space-y-1">
         <h2 className="text-xl font-semibold tracking-tight">All posts</h2>
-        <p className="text-[15px] text-neutral-600">
+        <p className="text-[15px] text-[var(--ui-text-muted)]">
           {sorted.length} result{sorted.length === 1 ? "" : "s"}{category !== "all" ? ` in ${titleCase(category)}` : ""}.
         </p>
       </div>
@@ -234,24 +234,24 @@ export function BlogIndexPage() {
           <NavLink
             key={post.route}
             to={post.route}
-            className="group block rounded-sm border border-neutral-300 bg-white p-6 shadow-sm transition hover:border-neutral-400 hover:shadow"
+            className="group block rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm transition hover:border-[var(--ui-border-strong)] hover:shadow"
           >
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <div className="text-sm font-semibold uppercase tracking-wide text-neutral-500">
+              <div className="text-sm font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">
                 {titleCase(post.category)}
               </div>
-              <div className="text-sm text-neutral-500">
+              <div className="text-sm text-[var(--ui-text-muted)]">
                 {post.date} · {post.readingMinutes} min read
               </div>
             </div>
-            <h3 className="mt-2 text-base font-semibold text-neutral-900 group-hover:text-neutral-950">
+            <h3 className="mt-2 text-base font-semibold text-[var(--ui-text)] group-hover:text-[var(--ui-text)]">
               {post.title}
             </h3>
-            <p className="mt-1 text-[15px] text-neutral-600">{post.teaser}</p>
+            <p className="mt-1 text-[15px] text-[var(--ui-text-muted)]">{post.teaser}</p>
           </NavLink>
         ))}
         {!sorted.length ? (
-          <div className="rounded-sm border border-neutral-200 bg-white p-6 text-[15px] text-neutral-700 shadow-sm">
+          <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-[15px] text-[var(--ui-text-secondary)] shadow-sm">
             No posts found.
           </div>
         ) : null}

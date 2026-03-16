@@ -95,8 +95,8 @@ export function BlogPostPage() {
   if (status === "loading") {
     return (
       <div className="space-y-4">
-        <div className="h-7 w-56 animate-pulse rounded bg-neutral-200" />
-        <div className="h-48 animate-pulse rounded-sm border border-neutral-200 bg-white" />
+        <div className="h-7 w-56 animate-pulse rounded bg-[var(--ui-bg-overlay)]" />
+        <div className="h-48 animate-pulse rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]" />
       </div>
     );
   }
@@ -105,9 +105,9 @@ export function BlogPostPage() {
     return (
       <div className="space-y-4">
         <h1 className="text-2xl font-semibold tracking-tight">Not found</h1>
-        <div className="rounded-sm border border-neutral-200 bg-white p-6 text-sm text-neutral-700 shadow-sm">
+        <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-sm text-[var(--ui-text-secondary)] shadow-sm">
           This post doesn’t exist. Go back to{" "}
-          <NavLink to="/blog" className="text-neutral-900 underline">
+          <NavLink to="/blog" className="text-[var(--ui-text)] underline">
             Blog
           </NavLink>
           .
@@ -119,40 +119,40 @@ export function BlogPostPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="text-xs text-neutral-500">
-          <NavLink to="/blog" className="hover:text-neutral-900">
+        <div className="text-xs text-[var(--ui-text-muted)]">
+          <NavLink to="/blog" className="hover:text-[var(--ui-text)]">
             Blog
           </NavLink>{" "}
           /{" "}
           <NavLink
             to={`/blog/${meta.category}`}
-            className="hover:text-neutral-900"
+            className="hover:text-[var(--ui-text)]"
           >
             {titleCase(meta.category)}
           </NavLink>{" "}
           / {meta.date} · {readingMinutes} min read
         </div>
         <h1 className="text-2xl font-semibold tracking-tight">{displayTitle}</h1>
-        <p className="max-w-3xl text-sm text-neutral-700">{meta.teaser}</p>
+        <p className="max-w-3xl text-sm text-[var(--ui-text-secondary)]">{meta.teaser}</p>
       </div>
 
       <Card title="Read this first">
-        <p className="text-neutral-700">
+        <p className="text-[var(--ui-text-secondary)]">
           This guide is general information, not legal advice. If you may face
           retaliation or legal risk, consider speaking to a qualified lawyer or
           a trusted journalist organization before acting.
         </p>
       </Card>
 
-      <div className="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-        <article className="prose prose-neutral prose-sm max-w-none">
+      <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+        <article className="prose prose-invert prose-sm max-w-none">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{body}</ReactMarkdown>
         </article>
       </div>
 
       {related.length ? (
         <Card title="Related">
-          <ul className="list-inside list-disc space-y-2 text-neutral-700">
+          <ul className="list-inside list-disc space-y-2 text-[var(--ui-text-secondary)]">
             {related.map((p) => (
               <li key={p.route}>
                 <NavLink to={p.route} className="underline">
@@ -167,33 +167,33 @@ export function BlogPostPage() {
       <Card title="Continue reading">
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="space-y-1">
-            <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">
               Newer
             </div>
             {newer ? (
-              <NavLink to={newer.route} className="text-sm text-neutral-900 underline">
+              <NavLink to={newer.route} className="text-sm text-[var(--ui-text)] underline">
                 {newer.title}
               </NavLink>
             ) : (
-              <div className="text-sm text-neutral-500">No newer post.</div>
+              <div className="text-sm text-[var(--ui-text-muted)]">No newer post.</div>
             )}
           </div>
           <div className="space-y-1">
-            <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-muted)]">
               Older
             </div>
             {older ? (
-              <NavLink to={older.route} className="text-sm text-neutral-900 underline">
+              <NavLink to={older.route} className="text-sm text-[var(--ui-text)] underline">
                 {older.title}
               </NavLink>
             ) : (
-              <div className="text-sm text-neutral-500">No older post.</div>
+              <div className="text-sm text-[var(--ui-text-muted)]">No older post.</div>
             )}
           </div>
         </div>
       </Card>
 
-      <div className="text-sm text-neutral-600">
+      <div className="text-sm text-[var(--ui-text-muted)]">
         <NavLink to="/scrub" className="underline">
           Scrub a PDF locally
         </NavLink>{" "}

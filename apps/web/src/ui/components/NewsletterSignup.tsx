@@ -47,7 +47,7 @@ export function NewsletterSignup({
       </form>
       <div
         className={[
-          "text-sm text-neutral-500",
+          "text-sm text-[var(--ui-text-muted)]",
           noteAlign === "right" ? "md:text-right" : "",
         ].join(" ")}
       >

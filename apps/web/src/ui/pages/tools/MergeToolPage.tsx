@@ -121,19 +121,19 @@ export function MergeToolPage() {
           />
           <div className="space-y-2">
             {items.length === 0 ? (
-              <div className="text-sm text-neutral-600">No files yet.</div>
+              <div className="text-sm text-[var(--ui-text-muted)]">No files yet.</div>
             ) : (
               <ul className="space-y-2">
                 {items.map((it, idx) => (
                   <li
                     key={it.id}
-                    className="flex items-center justify-between gap-2 rounded-sm border border-neutral-200 bg-white px-3 py-2"
+                    className="flex items-center justify-between gap-2 rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2"
                   >
                     <div className="min-w-0">
-                      <div className="truncate text-sm text-neutral-900">
+                      <div className="truncate text-sm text-[var(--ui-text)]">
                         {idx + 1}. {it.file.name}
                       </div>
-                      <div className="text-xs text-neutral-500">
+                      <div className="text-xs text-[var(--ui-text-muted)]">
                         {(it.file.size / 1024).toFixed(0)} KB
                       </div>
                     </div>
@@ -159,7 +159,7 @@ export function MergeToolPage() {
             </Button>
             {out ? (
               <a
-                className="inline-flex items-center rounded-sm bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+                className="inline-flex items-center rounded-sm bg-[var(--ui-accent)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--ui-accent-hover)]"
                 href={out.url}
                 download={out.name}
               >

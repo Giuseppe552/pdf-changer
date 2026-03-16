@@ -114,7 +114,6 @@ export function SitemapPage() {
     { to: "/donate", label: "Donate" },
     { to: "/donate/proof", label: "Donate address proof" },
     { to: "/donate/proof/archive", label: "Donate proof archive" },
-    { to: "/donate/transparency", label: "Donate transparency" },
   ];
   for (const link of donatePages) {
     if (q && !link.to.toLowerCase().includes(q) && !link.label.toLowerCase().includes(q)) {
@@ -175,19 +174,19 @@ export function SitemapPage() {
 
     if (!filtered.length) return null;
     return (
-      <div className="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm">
-        <div className="text-sm font-semibold text-neutral-900">{title}</div>
+      <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm">
+        <div className="text-sm font-semibold text-[var(--ui-text)]">{title}</div>
         <ul className="mt-3 space-y-2 text-sm">
           {filtered.map((l) => (
             <li key={l.to}>
               <NavLink
                 to={l.to}
-                className="text-neutral-700 hover:text-neutral-950"
+                className="text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)]"
               >
                 {l.label}
               </NavLink>
               {l.description ? (
-                <div className="text-xs text-neutral-500">{l.description}</div>
+                <div className="text-xs text-[var(--ui-text-muted)]">{l.description}</div>
               ) : null}
             </li>
           ))}
@@ -201,7 +200,7 @@ export function SitemapPage() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight">Sitemap</h1>
-          <div className="text-sm text-neutral-600">
+          <div className="text-sm text-[var(--ui-text-muted)]">
             Everything we publish, in one place.
           </div>
         </div>
@@ -209,7 +208,7 @@ export function SitemapPage() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search pages…"
-          className="w-full max-w-xs rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+          className="w-full max-w-xs rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)] placeholder:text-[var(--ui-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--ui-focus)]"
         />
       </div>
 
@@ -228,12 +227,12 @@ export function SitemapPage() {
             { to: "/security/non-technical", label: "Security non-technical track" },
             { to: "/security/technical", label: "Security technical track" },
             { to: "/security/policy", label: "Security policy" },
+            { to: "/research", label: "Research" },
             { to: "/donate", label: "Donate" },
             { to: "/tools", label: "Tools hub" },
             { to: "/donate/proof", label: "Donate address proof" },
             { to: "/donate/proof/archive", label: "Donate proof archive" },
-            { to: "/donate/transparency", label: "Donate transparency" },
-            { to: "/newsletter", label: "Newsletter" },
+                    { to: "/newsletter", label: "Newsletter" },
             { to: "/contact", label: "Contact" },
             { to: "/status", label: "Status" },
           ]}
@@ -244,9 +243,9 @@ export function SitemapPage() {
         {Array.from(groups.entries()).map(([section, links]) => (
           <div
             key={section}
-            className="rounded-sm border border-neutral-200 bg-white p-6 shadow-sm"
+            className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm"
           >
-            <div className="text-sm font-semibold text-neutral-900">
+            <div className="text-sm font-semibold text-[var(--ui-text)]">
               {sectionTitle(section)}
             </div>
             <ul className="mt-3 space-y-2 text-sm">
@@ -254,7 +253,7 @@ export function SitemapPage() {
                 <li key={l.to}>
                   <NavLink
                     to={l.to}
-                    className="text-neutral-700 hover:text-neutral-950"
+                    className="text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)]"
                   >
                     {l.label}
                   </NavLink>

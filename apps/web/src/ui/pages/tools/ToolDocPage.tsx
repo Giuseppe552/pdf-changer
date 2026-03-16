@@ -54,7 +54,7 @@ export function ToolDocPage({ mode }: { mode: ToolDocMode }) {
       <div className="space-y-4">
         <h1 className="ui-title">Tool document not found</h1>
         <Card title="Missing route">
-          <div className="text-[15px] text-neutral-700">
+          <div className="text-[15px] text-[var(--ui-text-secondary)]">
             This tools documentation page is unavailable.
           </div>
         </Card>
@@ -65,8 +65,8 @@ export function ToolDocPage({ mode }: { mode: ToolDocMode }) {
   return (
     <div className="space-y-5">
       <div className="space-y-2">
-        <div className="text-sm text-neutral-500">
-          <NavLink className="hover:text-neutral-900" to="/tools">
+        <div className="text-sm text-[var(--ui-text-muted)]">
+          <NavLink className="hover:text-[var(--ui-text)]" to="/tools">
             Tools
           </NavLink>{" "}
           / {doc.title}
@@ -77,7 +77,7 @@ export function ToolDocPage({ mode }: { mode: ToolDocMode }) {
 
       {doc.tool ? (
         <Card title="Related links">
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[15px] text-neutral-800">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[15px] text-[var(--ui-text-secondary)]">
             <NavLink className="underline" to={`/tools/${doc.tool.slug}`}>
               Open tool
             </NavLink>
@@ -95,7 +95,7 @@ export function ToolDocPage({ mode }: { mode: ToolDocMode }) {
       ) : null}
 
       <Card>
-        <article className="prose prose-neutral max-w-none text-base">
+        <article className="prose prose-invert max-w-none text-base">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{doc.markdown}</ReactMarkdown>
         </article>
       </Card>

@@ -75,7 +75,7 @@ export function UnlockToolPage() {
             onFiles={(files) => setFile(files[0] ?? null)}
             disabled={busy}
           />
-          <div className="rounded-sm border border-neutral-300 bg-neutral-50 p-3 text-[15px] text-neutral-700">
+          <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg)] p-3 text-[15px] text-[var(--ui-text-secondary)]">
             This beta path performs a local PDF rebuild only. It does not ask for a
             password because the current local engine cannot decrypt locked files via
             password entry.
@@ -88,7 +88,7 @@ export function UnlockToolPage() {
 
       {encryptedState ? (
         <Card title="Result note">
-          <div className="text-[15px] text-neutral-800">{encryptedState}</div>
+          <div className="text-[15px] text-[var(--ui-text-secondary)]">{encryptedState}</div>
         </Card>
       ) : null}
 
@@ -96,7 +96,7 @@ export function UnlockToolPage() {
       {out ? <ResultDownloadPanel files={[out]} /> : null}
 
       <Card title="Limitations" variant="warning">
-        <ul className="list-inside list-disc space-y-1 text-[15px] text-neutral-800">
+        <ul className="list-inside list-disc space-y-1 text-[15px] text-[var(--ui-text-secondary)]">
           <li>This does not bypass legal access controls or ownership rights.</li>
           <li>
             Password-encrypted documents may fail and require dedicated decrypt support.
@@ -107,7 +107,7 @@ export function UnlockToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

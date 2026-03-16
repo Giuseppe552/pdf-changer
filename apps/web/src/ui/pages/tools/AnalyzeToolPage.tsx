@@ -41,8 +41,8 @@ function severityVariant(s: Finding["severity"]) {
 function KV({ k, v, mono }: { k: string; v: string; mono?: boolean }) {
   return (
     <div className="flex items-start justify-between gap-3">
-      <div className="text-sm text-neutral-600">{k}</div>
-      <div className={`text-right text-sm text-neutral-900 ${mono ? "font-mono break-all" : ""}`}>
+      <div className="text-sm text-[var(--ui-text-muted)]">{k}</div>
+      <div className={`text-right text-sm text-[var(--ui-text)] ${mono ? "font-mono break-all" : ""}`}>
         {v}
       </div>
     </div>
@@ -103,7 +103,7 @@ export function AnalyzeToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
 
@@ -114,7 +114,7 @@ export function AnalyzeToolPage() {
             <div className="text-[15px] font-semibold">
               {riskLabel(report.riskLevel)}
             </div>
-            <div className="mt-1 text-sm text-neutral-700">
+            <div className="mt-1 text-sm text-[var(--ui-text-secondary)]">
               {report.findings.length} finding{report.findings.length !== 1 ? "s" : ""} across{" "}
               {report.pageCount} page{report.pageCount !== 1 ? "s" : ""}
             </div>
@@ -126,9 +126,9 @@ export function AnalyzeToolPage() {
               <div className="space-y-3">
                 {sorted.map((f, i) => (
                   <Surface key={i} variant={severityVariant(f.severity)} compact>
-                    <div className="text-sm font-semibold text-neutral-900">{f.title}</div>
-                    <div className="mt-1 text-[15px] text-neutral-800">{f.detail}</div>
-                    <div className="mt-1 text-sm text-neutral-500">{f.remediation}</div>
+                    <div className="text-sm font-semibold text-[var(--ui-text)]">{f.title}</div>
+                    <div className="mt-1 text-[15px] text-[var(--ui-text-secondary)]">{f.detail}</div>
+                    <div className="mt-1 text-sm text-[var(--ui-text-muted)]">{f.remediation}</div>
                   </Surface>
                 ))}
               </div>
@@ -137,15 +137,15 @@ export function AnalyzeToolPage() {
 
           {/* doc overview */}
           <Card title="Document overview">
-            <div className="grid gap-2 text-[15px] text-neutral-800 md:grid-cols-3">
+            <div className="grid gap-2 text-[15px] text-[var(--ui-text-secondary)] md:grid-cols-3">
               <div>
-                <span className="font-semibold text-neutral-900">Pages:</span> {report.pageCount}
+                <span className="font-semibold text-[var(--ui-text)]">Pages:</span> {report.pageCount}
               </div>
               <div>
-                <span className="font-semibold text-neutral-900">Size:</span> {formatBytes(report.fileSize)}
+                <span className="font-semibold text-[var(--ui-text)]">Size:</span> {formatBytes(report.fileSize)}
               </div>
               <div>
-                <span className="font-semibold text-neutral-900">Revisions:</span> {report.revisionCount}
+                <span className="font-semibold text-[var(--ui-text)]">Revisions:</span> {report.revisionCount}
               </div>
             </div>
           </Card>
@@ -164,13 +164,13 @@ export function AnalyzeToolPage() {
           {/* image exif */}
           {report.imageExif.length > 0 ? (
             <Card title="Embedded image EXIF">
-              <p className="mb-3 text-sm text-neutral-500">
+              <p className="mb-3 text-sm text-[var(--ui-text-muted)]">
                 Shown so you can understand what your document exposes. Use the scrubber to remove it before sharing.
               </p>
               <div className="space-y-3">
                 {report.imageExif.map((img) => (
                   <Surface key={img.index} compact>
-                    <div className="text-sm font-semibold text-neutral-900">Image {img.index}</div>
+                    <div className="text-sm font-semibold text-[var(--ui-text)]">Image {img.index}</div>
                     <div className="mt-1 grid gap-1">
                       {img.make ? <KV k="Make" v={img.make} /> : null}
                       {img.model ? <KV k="Model" v={img.model} /> : null}
@@ -191,7 +191,7 @@ export function AnalyzeToolPage() {
             <Card title="Outbound URLs">
               <ul className="space-y-1 text-[15px]">
                 {report.outboundUrls.map((url, i) => (
-                  <li key={i} className="break-all font-mono text-sm text-neutral-800">{url}</li>
+                  <li key={i} className="break-all font-mono text-sm text-[var(--ui-text-secondary)]">{url}</li>
                 ))}
               </ul>
             </Card>
@@ -210,7 +210,7 @@ export function AnalyzeToolPage() {
 
           {/* CTA */}
           <Surface variant="emphasis" compact>
-            <div className="text-[15px] text-neutral-800">
+            <div className="text-[15px] text-[var(--ui-text-secondary)]">
               Want to neutralize these threats?{" "}
               <NavLink className="underline" to="/tools/scrub">Scrub this PDF</NavLink>
               {" or use the "}

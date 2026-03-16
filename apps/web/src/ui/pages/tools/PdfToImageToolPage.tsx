@@ -134,11 +134,11 @@ export function PdfToImageToolPage() {
           />
           <div className="grid gap-3 md:grid-cols-3">
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Format</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Format</div>
               <select
                 value={format}
                 onChange={(event) => setFormat(event.target.value as "png" | "jpeg")}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
               >
                 <option value="png">PNG</option>
@@ -147,7 +147,7 @@ export function PdfToImageToolPage() {
             </label>
 
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Render scale</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Render scale</div>
               <input
                 type="number"
                 min={0.5}
@@ -159,13 +159,13 @@ export function PdfToImageToolPage() {
                   if (!Number.isFinite(next)) return;
                   setScale(next);
                 }}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
               />
             </label>
 
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Max pages</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Max pages</div>
               <input
                 type="number"
                 min={1}
@@ -177,14 +177,14 @@ export function PdfToImageToolPage() {
                   if (!Number.isFinite(next)) return;
                   setMaxPages(next);
                 }}
-                className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+                className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
                 disabled={busy}
               />
             </label>
           </div>
 
-          <div className="rounded-sm border border-neutral-300 bg-neutral-50 p-3 text-[15px] text-neutral-700">
-            <div className="font-semibold text-neutral-900">Preflight</div>
+          <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg)] p-3 text-[15px] text-[var(--ui-text-secondary)]">
+            <div className="font-semibold text-[var(--ui-text)]">Preflight</div>
             <div className="mt-1">
               {pageCountError
                 ? pageCountError
@@ -216,7 +216,7 @@ export function PdfToImageToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

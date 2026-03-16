@@ -10,7 +10,7 @@ export function ProtectToolPage() {
   return (
     <div className="space-y-4">
       <Card title="Protect PDF (Labs Preview)">
-        <div className="space-y-3 text-[15px] text-neutral-800">
+        <div className="space-y-3 text-[15px] text-[var(--ui-text-secondary)]">
           <p>
             This route is intentionally not active in production yet. We do not show a fake
             “run” button for a feature that cannot complete reliably.
@@ -22,7 +22,7 @@ export function ProtectToolPage() {
       </Card>
 
       <Card title="What to use right now" variant="warning">
-        <div className="space-y-2 text-[15px] text-neutral-800">
+        <div className="space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
           <div>Use available GA tools for document prep and risk reduction:</div>
           <ul className="list-inside list-disc space-y-1">
             <li>

@@ -6,7 +6,7 @@ export function LimitationsBox({
   headingId?: string;
 }) {
   return (
-    <div className="rounded-sm border border-red-400 bg-red-50 p-4">
+    <div className="rounded-sm border border-red-400 bg-red-950/30 p-4">
       <div className="text-base font-semibold text-red-700">Limits matter</div>
       <p className="mt-2 text-[15px] text-red-700">
         No tool guarantees anonymity. Treat controls as layers and review the{" "}

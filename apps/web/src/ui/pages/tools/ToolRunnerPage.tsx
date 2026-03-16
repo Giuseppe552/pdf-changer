@@ -90,7 +90,7 @@ export function ToolRunnerPage() {
       <div className="space-y-4">
         <h1 className="ui-title">Tool not found</h1>
         <Card title="Unknown tool">
-          <div className="text-[15px] text-neutral-700">
+          <div className="text-[15px] text-[var(--ui-text-secondary)]">
             Open the <NavLink className="underline" to="/tools">Tools Hub</NavLink> to choose a valid route.
           </div>
         </Card>
@@ -104,8 +104,8 @@ export function ToolRunnerPage() {
   return (
     <div className="space-y-5">
       <div className="space-y-2">
-        <div className="text-sm text-neutral-500">
-          <NavLink className="hover:text-neutral-900" to="/tools">
+        <div className="text-sm text-[var(--ui-text-muted)]">
+          <NavLink className="hover:text-[var(--ui-text)]" to="/tools">
             Tools
           </NavLink>{" "}
           / {tool.name}
@@ -115,7 +115,7 @@ export function ToolRunnerPage() {
       </div>
 
       <Card title="Docs and workflow">
-        <div className="flex flex-wrap gap-x-5 gap-y-2 text-[15px] text-neutral-800">
+        <div className="flex flex-wrap gap-x-5 gap-y-2 text-[15px] text-[var(--ui-text-secondary)]">
           <NavLink className="underline" to={`/tools/${tool.slug}/how-to`}>
             How-to
           </NavLink>

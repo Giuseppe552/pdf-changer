@@ -79,13 +79,13 @@ export function RemovePagesToolPage() {
             disabled={busy}
           />
           <label className="space-y-1">
-            <div className="text-sm text-neutral-700">
+            <div className="text-sm text-[var(--ui-text-secondary)]">
               Page ranges to remove (example: 1,3-5,9-)
             </div>
             <input
               value={removeRanges}
               onChange={(event) => setRemoveRanges(event.target.value)}
-              className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
+              className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]"
               disabled={busy}
               spellCheck={false}
             />
@@ -98,7 +98,7 @@ export function RemovePagesToolPage() {
 
       {summary ? (
         <Card title="Result summary">
-          <div className="text-[15px] text-neutral-800">
+          <div className="text-[15px] text-[var(--ui-text-secondary)]">
             Removed {summary.removedPages} page(s), kept {summary.keptPages}.
           </div>
         </Card>
@@ -109,7 +109,7 @@ export function RemovePagesToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

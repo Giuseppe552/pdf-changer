@@ -3,8 +3,8 @@ import React from "react";
 export function RouteSkeleton() {
   return (
     <div className="space-y-4">
-      <div className="h-7 w-56 animate-pulse rounded bg-neutral-200" />
-      <div className="h-48 animate-pulse rounded-sm border border-neutral-200 bg-white" />
+      <div className="h-7 w-56 animate-pulse rounded bg-[var(--ui-bg-overlay)]" />
+      <div className="h-48 animate-pulse rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]" />
     </div>
   );
 }

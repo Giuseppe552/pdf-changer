@@ -46,7 +46,7 @@ export function PricingPage() {
       </div>
 
       <Surface variant="emphasis" compact>
-        <div className="text-[15px] text-neutral-800">
+        <div className="text-[15px] text-[var(--ui-text-secondary)]">
           Payments are handled by Stripe. Your PDFs are never uploaded — all
           processing stays in your browser regardless of plan.
         </div>
@@ -55,7 +55,7 @@ export function PricingPage() {
       <div className="grid gap-4 md:grid-cols-3">
         <Card
           title="Guest"
-          footer={<div className="text-sm text-neutral-600">No account.</div>}
+          footer={<div className="text-sm text-[var(--ui-text-muted)]">No account.</div>}
           className="h-full"
         >
           <ul className="list-inside list-disc space-y-2">
@@ -66,7 +66,7 @@ export function PricingPage() {
         <Card
           title="Free (Passkey)"
           footer={
-            <div className="text-sm text-neutral-600">
+            <div className="text-sm text-[var(--ui-text-muted)]">
               Create a passkey in <InlineCode>/account</InlineCode>.
             </div>
           }
@@ -100,27 +100,27 @@ export function PricingPage() {
           variant="emphasis"
           className="h-full"
         >
-          <div className="mb-3 text-[15px] text-neutral-700">
+          <div className="mb-3 text-[15px] text-[var(--ui-text-secondary)]">
             Workflow unlock plan for higher-volume and repeat workloads.
           </div>
-          <div className="overflow-x-auto border border-neutral-300">
+          <div className="overflow-x-auto border border-[var(--ui-border)]">
             <table className="min-w-full border-collapse text-left text-[15px]">
               <thead>
-                <tr className="border-b border-neutral-300 bg-neutral-50 text-neutral-800">
+                <tr className="border-b border-[var(--ui-border)] bg-[var(--ui-bg)] text-[var(--ui-text-secondary)]">
                   <th className="px-3 py-2 font-semibold">Capability</th>
                   <th className="px-3 py-2 font-semibold">Status</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-neutral-200">
+                <tr className="border-b border-[var(--ui-border)]">
                   <td className="px-3 py-2">Unlimited actions on all GA tools</td>
                   <td className="px-3 py-2 font-semibold text-emerald-700">Available now</td>
                 </tr>
-                <tr className="border-b border-neutral-200">
+                <tr className="border-b border-[var(--ui-border)]">
                   <td className="px-3 py-2">Offline paid use until entitlement expiry</td>
                   <td className="px-3 py-2 font-semibold text-emerald-700">Available now</td>
                 </tr>
-                <tr className="border-b border-neutral-200">
+                <tr className="border-b border-[var(--ui-border)]">
                   <td className="px-3 py-2">Batch queue + pipelines</td>
                   <td className="px-3 py-2 font-semibold text-amber-700">Planned</td>
                 </tr>
@@ -136,7 +136,7 @@ export function PricingPage() {
 
       {!canUpgrade ? (
         <Card title="Upgrade requires a passkey account">
-          <p className="text-[15px] text-neutral-700">
+          <p className="text-[15px] text-[var(--ui-text-secondary)]">
             We do not require email or phone. Create a passkey in{" "}
             <InlineCode>/account</InlineCode> to upgrade.
           </p>

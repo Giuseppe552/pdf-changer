@@ -91,7 +91,7 @@ export function SignaturePad({
         width={width * 2}
         height={height * 2}
         style={{ width, height, touchAction: "none" }}
-        className="cursor-crosshair rounded-sm border border-neutral-300 bg-white"
+        className="cursor-crosshair rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -100,7 +100,7 @@ export function SignaturePad({
         type="button"
         onClick={clear}
         disabled={disabled}
-        className="text-sm text-neutral-600 underline hover:text-neutral-900 disabled:opacity-50"
+        className="text-sm text-[var(--ui-text-muted)] underline hover:text-[var(--ui-text)] disabled:opacity-50"
       >
         Clear signature
       </button>

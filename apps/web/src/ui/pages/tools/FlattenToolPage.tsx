@@ -75,7 +75,7 @@ export function FlattenToolPage() {
   return (
     <div className="space-y-4">
       <Surface variant="warning" compact>
-        <div className="text-[15px] text-amber-900">
+        <div className="text-[15px] text-amber-300">
           This tool <Term tip="Converts each page into a flat image">rasterizes</Term> every
           page, removing all hidden structure (fonts, layers,{" "}
           <Term tip="Author, dates, software info embedded in the file">metadata</Term>,
@@ -97,9 +97,9 @@ export function FlattenToolPage() {
 
           <div className="grid gap-4 md:grid-cols-3">
             <div className="space-y-1">
-              <label className="text-sm font-semibold text-neutral-900">DPI</label>
+              <label className="text-sm font-semibold text-[var(--ui-text)]">DPI</label>
               <select
-                className="w-full rounded border border-neutral-300 px-3 py-2 text-sm"
+                className="w-full rounded border border-[var(--ui-border)] px-3 py-2 text-sm"
                 value={dpi}
                 onChange={(e) => setDpi(Number(e.target.value))}
                 disabled={busy}
@@ -113,9 +113,9 @@ export function FlattenToolPage() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm font-semibold text-neutral-900">Format</label>
+              <label className="text-sm font-semibold text-[var(--ui-text)]">Format</label>
               <select
-                className="w-full rounded border border-neutral-300 px-3 py-2 text-sm"
+                className="w-full rounded border border-[var(--ui-border)] px-3 py-2 text-sm"
                 value={format}
                 onChange={(e) => setFormat(e.target.value as "png" | "jpeg")}
                 disabled={busy}
@@ -127,7 +127,7 @@ export function FlattenToolPage() {
 
             {format === "jpeg" ? (
               <div className="space-y-1">
-                <label className="text-sm font-semibold text-neutral-900">
+                <label className="text-sm font-semibold text-[var(--ui-text)]">
                   Quality: {Math.round(quality * 100)}%
                 </label>
                 <input
@@ -152,8 +152,8 @@ export function FlattenToolPage() {
 
       {result ? (
         <Card title="Flatten report">
-          <div className="text-[15px] text-neutral-800">
-            <span className="font-semibold text-neutral-900">Pages:</span>{" "}
+          <div className="text-[15px] text-[var(--ui-text-secondary)]">
+            <span className="font-semibold text-[var(--ui-text)]">Pages:</span>{" "}
             {result.pageCount} rasterized. All metadata cleared. Text is non-selectable.
           </div>
         </Card>
@@ -166,7 +166,7 @@ export function FlattenToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 
 export function FailureActionsBox() {
   return (
-    <div className="space-y-3 text-[15px] text-red-800">
-      <div className="text-base font-semibold text-red-900">
+    <div className="space-y-3 text-[15px] text-red-300">
+      <div className="text-base font-semibold text-red-300">
         If verification fails: stop immediately
       </div>
       <ul className="list-inside list-disc space-y-1">

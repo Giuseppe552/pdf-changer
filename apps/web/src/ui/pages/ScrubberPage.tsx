@@ -82,7 +82,7 @@ export function ScrubberPage() {
       </div>
 
       <Surface variant="emphasis" compact>
-        <div className="text-[15px] text-neutral-800">
+        <div className="text-[15px] text-[var(--ui-text-secondary)]">
           Processing happens locally in your browser. Open{" "}
           <NavLink className="underline" to="/security">
             Security Hub
@@ -94,7 +94,7 @@ export function ScrubberPage() {
       <Card
         title="Usage and plan"
         footer={
-          <div className="text-sm text-neutral-600">
+          <div className="text-sm text-[var(--ui-text-muted)]">
             Limits are privacy-first and local. Clearing site storage can reset
             counters.
           </div>
@@ -102,7 +102,7 @@ export function ScrubberPage() {
       >
         <div className="space-y-1">
           <div>
-            <span className="font-semibold text-neutral-900">Plan:</span> {me.plan}
+            <span className="font-semibold text-[var(--ui-text)]">Plan:</span> {me.plan}
           </div>
           <div>{status}</div>
         </div>
@@ -117,7 +117,7 @@ export function ScrubberPage() {
             onFiles={(files) => setFile(files[0] ?? null)}
             disabled={busy}
           />
-          <label className="flex items-center gap-2 text-sm text-neutral-800">
+          <label className="flex items-center gap-2 text-sm text-[var(--ui-text-secondary)]">
             <input
               type="checkbox"
               checked={paranoidMode}
@@ -125,7 +125,7 @@ export function ScrubberPage() {
               disabled={busy}
             />
             <span className="font-semibold">Paranoid mode</span>
-            <span className="text-neutral-600">
+            <span className="text-[var(--ui-text-muted)]">
               — also removes JavaScript, embedded files,{" "}
               <Term tip="Color profiles embedded by design software">ICC profiles</Term>,{" "}
               <Term tip="Unique file fingerprint that can track copies">document ID</Term>
@@ -140,7 +140,7 @@ export function ScrubberPage() {
             </NavLink>
           </div>
           {!allowed ? (
-            <div className="text-[15px] text-amber-800">
+            <div className="text-[15px] text-amber-300">
               Monthly quota reached on this device. Wait for reset or see{" "}
               <InlineCode>/pricing</InlineCode> for unlimited workflow usage.
             </div>
@@ -150,7 +150,7 @@ export function ScrubberPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
 
@@ -158,7 +158,7 @@ export function ScrubberPage() {
         <Card
           title="Scrubbed file"
           footer={
-            <div className="text-sm text-neutral-600">
+            <div className="text-sm text-[var(--ui-text-muted)]">
               If your workflow requires integrity checks, verify input/output
               hashes before submission.
             </div>
@@ -198,19 +198,19 @@ function ScrubReport({ report }: { report: any }) {
 
       <div className="grid gap-3 md:grid-cols-2">
         <Surface compact>
-          <div className="mb-2 text-sm font-semibold text-neutral-900">Input</div>
+          <div className="mb-2 text-sm font-semibold text-[var(--ui-text)]">Input</div>
           <KeyValue k="Pages" v={String(report.pageCount ?? "—")} />
           <KeyValue k="SHA-256" v={bytesToHex(report.inputSha256)} mono />
         </Surface>
         <Surface compact>
-          <div className="mb-2 text-sm font-semibold text-neutral-900">Output</div>
+          <div className="mb-2 text-sm font-semibold text-[var(--ui-text)]">Output</div>
           <KeyValue k="SHA-256" v={bytesToHex(report.outputSha256)} mono />
           <KeyValue k="Dates" v={"2000-01-01T00:00:00Z"} />
         </Surface>
       </div>
 
       <Surface compact>
-        <div className="mb-2 text-sm font-semibold text-neutral-900">
+        <div className="mb-2 text-sm font-semibold text-[var(--ui-text)]">
           Metadata (before)
         </div>
         <div className="grid gap-2 md:grid-cols-2">
@@ -221,10 +221,10 @@ function ScrubReport({ report }: { report: any }) {
       </Surface>
 
       <Surface compact>
-        <div className="mb-2 text-sm font-semibold text-neutral-900">
+        <div className="mb-2 text-sm font-semibold text-[var(--ui-text)]">
           Scrub actions
         </div>
-        <ul className="list-inside list-disc space-y-1 text-neutral-800">
+        <ul className="list-inside list-disc space-y-1 text-[var(--ui-text-secondary)]">
           <li>Document Info fields cleared</li>
           <li><Term tip="Hidden metadata stream, often from Adobe software">XMP</Term> metadata removed</li>
           <li>Open actions and additional actions removed</li>
@@ -238,7 +238,7 @@ function ScrubReport({ report }: { report: any }) {
 
       {report.fontWarning && report.customFontNames?.length > 0 ? (
         <Surface variant="warning" compact>
-          <div className="text-[15px] text-amber-900">
+          <div className="text-[15px] text-amber-300">
             Custom <Term tip="Partial fonts with unique random prefixes">font subsets</Term> detected ({report.customFontNames.length} fonts).
             Font subsets can fingerprint the source application. Use{" "}
             <NavLink className="underline" to="/tools/flatten">
@@ -251,10 +251,10 @@ function ScrubReport({ report }: { report: any }) {
 
       {report.paranoid ? (
         <Surface compact>
-          <div className="mb-2 text-sm font-semibold text-neutral-900">
+          <div className="mb-2 text-sm font-semibold text-[var(--ui-text)]">
             Paranoid actions
           </div>
-          <ul className="list-inside list-disc space-y-1 text-neutral-800">
+          <ul className="list-inside list-disc space-y-1 text-[var(--ui-text-secondary)]">
             {report.paranoid.javascriptRemoved ? <li>JavaScript entries removed</li> : null}
             {report.paranoid.embeddedFilesRemoved ? <li>Embedded files removed</li> : null}
             {report.paranoid.iccProfilesRemoved ? <li>ICC profiles removed</li> : null}
@@ -278,9 +278,9 @@ function KeyValue({
 }) {
   return (
     <div className="flex items-start justify-between gap-3">
-      <div className="text-sm text-neutral-600">{k}</div>
+      <div className="text-sm text-[var(--ui-text-muted)]">{k}</div>
       <div
-        className={`text-right text-sm text-neutral-900 ${mono ? "font-mono break-all" : ""}`}
+        className={`text-right text-sm text-[var(--ui-text)] ${mono ? "font-mono break-all" : ""}`}
       >
         {v}
       </div>

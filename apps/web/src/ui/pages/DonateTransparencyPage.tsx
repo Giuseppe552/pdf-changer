@@ -10,8 +10,8 @@ export function DonateTransparencyPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="text-sm text-neutral-500">
-          <NavLink className="hover:text-neutral-900" to="/donate">
+        <div className="text-sm text-[var(--ui-text-muted)]">
+          <NavLink className="hover:text-[var(--ui-text)]" to="/donate">
             Donate
           </NavLink>{" "}
           / Transparency
@@ -26,7 +26,7 @@ export function DonateTransparencyPage() {
       </div>
 
       <Card title="Reporting model">
-        <ul className="list-inside list-disc space-y-2 text-[15px] text-neutral-700">
+        <ul className="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
           <li>Total donations received (month).</li>
           <li>Total product and infrastructure spend (month).</li>
           <li>Spend categories: hosting, security review, documentation, operations.</li>
@@ -35,7 +35,7 @@ export function DonateTransparencyPage() {
       </Card>
 
       <Card title="Latest sample report (placeholder)">
-        <div className="space-y-2 text-[15px] text-neutral-700">
+        <div className="space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
           <div>Month: 2026-02</div>
           <div>Donations received: £0.00 (publishes after launch).</div>
           <div>Operational spend: £0.00 (publishes after launch).</div>
@@ -44,7 +44,7 @@ export function DonateTransparencyPage() {
       </Card>
 
       <Card title="Boundaries">
-        <div className="space-y-2 text-[15px] text-neutral-700">
+        <div className="space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
           <div>
             We do not publish donor identities, transaction-level linking data, or
             account-level payment details.

@@ -66,18 +66,18 @@ export function AccountPage() {
       <Card title="Status">
         <div className="space-y-2 text-sm">
           <div>
-            <span className="text-neutral-500">Plan:</span>{" "}
-            <span className="font-medium text-neutral-900">{me.plan}</span>
+            <span className="text-[var(--ui-text-muted)]">Plan:</span>{" "}
+            <span className="font-medium text-[var(--ui-text)]">{me.plan}</span>
           </div>
           <div>
-            <span className="text-neutral-500">Authenticated:</span>{" "}
-            <span className="font-medium text-neutral-900">
+            <span className="text-[var(--ui-text-muted)]">Authenticated:</span>{" "}
+            <span className="font-medium text-[var(--ui-text)]">
               {me.authenticated ? "yes" : "no"}
             </span>
           </div>
           <div>
-            <span className="text-neutral-500">Entitlement expiry:</span>{" "}
-            <span className="font-medium text-neutral-900">
+            <span className="text-[var(--ui-text-muted)]">Entitlement expiry:</span>{" "}
+            <span className="font-medium text-[var(--ui-text)]">
               {me.entitlementExpiresAt ?? "—"}
             </span>
           </div>
@@ -100,7 +100,7 @@ export function AccountPage() {
         <Card
           title="Create passkey"
           footer={
-            <div className="text-xs text-neutral-500">
+            <div className="text-xs text-[var(--ui-text-muted)]">
               No email or phone required.
             </div>
           }
@@ -113,7 +113,7 @@ export function AccountPage() {
         <Card
           title="Sign in"
           footer={
-            <div className="text-xs text-neutral-500">
+            <div className="text-xs text-[var(--ui-text-muted)]">
               Uses your device passkey prompt.
             </div>
           }
@@ -125,7 +125,7 @@ export function AccountPage() {
       </div>
 
       <Card title="Account recovery (recovery code)">
-        <p className="mb-3 text-neutral-700">
+        <p className="mb-3 text-[var(--ui-text-secondary)]">
           If you lose your passkey, a recovery code can restore access. Enter one
           code below.
         </p>
@@ -134,11 +134,11 @@ export function AccountPage() {
 
       {recoveryCodes ? (
         <Card title="Save these recovery codes (shown once)">
-          <p className="mb-3 text-neutral-700">
+          <p className="mb-3 text-[var(--ui-text-secondary)]">
             Store these offline. Anyone with a code can access your account.
           </p>
-          <div className="rounded-sm border border-neutral-200 bg-neutral-50 p-3">
-            <ul className="grid gap-2 text-xs text-neutral-900 md:grid-cols-2">
+          <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg)] p-3">
+            <ul className="grid gap-2 text-xs text-[var(--ui-text)] md:grid-cols-2">
               {recoveryCodes.map((c) => (
                 <li key={c} className="font-mono">
                   {c}
@@ -146,7 +146,7 @@ export function AccountPage() {
               ))}
             </ul>
           </div>
-          <p className="mt-3 text-xs text-neutral-500">
+          <p className="mt-3 text-xs text-[var(--ui-text-muted)]">
             Tip: print to paper, or save in an encrypted vault.
           </p>
         </Card>
@@ -183,7 +183,7 @@ function RecoveryForm({
         value={code}
         onChange={(e) => setCode(e.target.value)}
         placeholder="Recovery code"
-        className="w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+        className="w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)] placeholder:text-[var(--ui-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--ui-focus)]"
         autoComplete="off"
         spellCheck={false}
       />

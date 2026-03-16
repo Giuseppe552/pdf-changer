@@ -14,7 +14,7 @@ export function SecurityArticleCard({ article }: { article: SecurityMeta }) {
   return (
     <NavLink
       to={article.route}
-      className="group block rounded-sm border border-neutral-300 bg-white p-6 shadow-sm transition hover:border-neutral-400 hover:shadow"
+      className="group block rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 shadow-sm transition hover:border-[var(--ui-border-strong)] hover:shadow"
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap items-center gap-2 text-sm">
@@ -26,14 +26,14 @@ export function SecurityArticleCard({ article }: { article: SecurityMeta }) {
           <Pill>Risk: {article.riskLevel}</Pill>
           <Pill>{article.difficulty}</Pill>
         </div>
-        <div className="text-sm text-neutral-500">
+        <div className="text-sm text-[var(--ui-text-muted)]">
           {article.lastReviewed ?? "Review date pending"} · {article.estimatedMinutes} min
         </div>
       </div>
-      <h3 className="mt-3 text-base font-semibold text-neutral-900 group-hover:text-neutral-950">
+      <h3 className="mt-3 text-base font-semibold text-[var(--ui-text)] group-hover:text-[var(--ui-text)]">
         {article.title}
       </h3>
-      <p className="mt-1 text-[15px] text-neutral-600">{article.summary}</p>
+      <p className="mt-1 text-[15px] text-[var(--ui-text-muted)]">{article.summary}</p>
       {article.audience.length ? (
         <div className="mt-3 flex flex-wrap gap-2">
           {article.audience.slice(0, 4).map((audience) => (

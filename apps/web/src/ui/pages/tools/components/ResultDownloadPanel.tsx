@@ -66,14 +66,14 @@ export function ResultDownloadPanel({
           <Button onClick={() => void downloadAllZip()} disabled={zipBusy}>
             {zipBusy ? "Preparing ZIP…" : "Download all (.zip)"}
           </Button>
-          <div className="text-[15px] text-neutral-700">
+          <div className="text-[15px] text-[var(--ui-text-secondary)]">
             {files.length} files ready
           </div>
         </div>
       ) : null}
 
       {zipError ? (
-        <div className="mb-4 rounded-sm border border-red-300 bg-red-50 p-3 text-[15px] text-red-700">
+        <div className="mb-4 rounded-sm border border-red-700/40 bg-red-950/30 p-3 text-[15px] text-red-700">
           {zipError}
         </div>
       ) : null}
@@ -82,14 +82,14 @@ export function ResultDownloadPanel({
         {files.map((file) => (
           <li key={`${file.name}:${file.url}`}>
             <a
-              className="inline-flex min-h-11 items-center rounded-sm bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+              className="inline-flex min-h-11 items-center rounded-sm bg-[var(--ui-accent)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--ui-accent-hover)]"
               href={file.url}
               download={file.name}
             >
               {file.name}
             </a>
             {file.note ? (
-              <div className="mt-1 text-sm text-neutral-600">{file.note}</div>
+              <div className="mt-1 text-sm text-[var(--ui-text-muted)]">{file.note}</div>
             ) : null}
           </li>
         ))}

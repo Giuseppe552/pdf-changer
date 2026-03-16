@@ -70,7 +70,7 @@ export function RedactionCanvas({
   return (
     <div
       ref={containerRef}
-      className="relative mx-auto cursor-crosshair select-none overflow-hidden border border-neutral-300"
+      className="relative mx-auto cursor-crosshair select-none overflow-hidden border border-[var(--ui-border)]"
       style={{ aspectRatio: String(aspectRatio), maxWidth: "100%", maxHeight: "80vh" }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
@@ -87,7 +87,7 @@ export function RedactionCanvas({
       {redactions.map((r) => (
         <div
           key={r.id}
-          className="absolute border-2 border-red-600 bg-red-500/30 hover:bg-red-500/50"
+          className="absolute border-2 border-red-600 bg-red-950/300/30 hover:bg-red-950/300/50"
           style={{
             left: `${r.x * 100}%`,
             top: `${r.y * 100}%`,
@@ -105,7 +105,7 @@ export function RedactionCanvas({
       {/* Current drawing rectangle */}
       {drawing ? (
         <div
-          className="pointer-events-none absolute border-2 border-red-600 bg-red-500/30"
+          className="pointer-events-none absolute border-2 border-red-600 bg-red-950/300/30"
           style={{
             left: `${Math.min(drawing.startX, drawing.currentX) * 100}%`,
             top: `${Math.min(drawing.startY, drawing.currentY) * 100}%`,

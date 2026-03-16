@@ -3,32 +3,46 @@ import { Button } from "../../../components/Button";
 
 type Tab = "linux" | "macos" | "windows";
 
+const GITHUB_RAW = "https://raw.githubusercontent.com/Giuseppe552/pdf-changer-proofs/main";
+const SITE_BASE = "https://pdf-changer.pages.dev";
+
 function commandSet(statementPath: string, signaturePath: string, keyPath: string) {
   const statement = statementPath.replace(/^\//, "");
   const signature = signaturePath.replace(/^\//, "");
   const key = keyPath.replace(/^\//, "");
+
+  const githubStatement = `${GITHUB_RAW}/v1/addresses.txt`;
+  const githubSignature = `${GITHUB_RAW}/v1/addresses.txt.asc`;
+  const githubKey = `${GITHUB_RAW}/v1/signing-key.asc`;
+
+  const curl = (os: "unix" | "win") => (os === "win" ? "curl.exe" : "curl");
+
+  function build(os: "unix" | "win") {
+    const c = curl(os);
+    return [
+      `# Step 1: Download from the website`,
+      `${c} -sO ${SITE_BASE}/${statement}`,
+      `${c} -sO ${SITE_BASE}/${signature}`,
+      `${c} -sO ${SITE_BASE}/${key}`,
+      ``,
+      `# Step 2: Download from GitHub (independent channel)`,
+      `${c} -sL ${githubStatement} -o github-addresses.txt`,
+      `${c} -sL ${githubSignature} -o github-addresses.txt.asc`,
+      ``,
+      `# Step 3: Compare — must be identical`,
+      `diff ${statement} github-addresses.txt`,
+      `# If diff shows ANY output, STOP. Do not donate.`,
+      ``,
+      `# Step 4: Import key and verify PGP signature`,
+      `gpg --import ${key}`,
+      `gpg --verify ${signature} ${statement}`,
+    ].join("\n");
+  }
+
   return {
-    linux: [
-      `curl -O ${statementPath}`,
-      `curl -O ${signaturePath}`,
-      `curl -O ${keyPath}`,
-      `gpg --import ${key}`,
-      `gpg --verify ${signature} ${statement}`,
-    ].join("\n"),
-    macos: [
-      `curl -O ${statementPath}`,
-      `curl -O ${signaturePath}`,
-      `curl -O ${keyPath}`,
-      `gpg --import ${key}`,
-      `gpg --verify ${signature} ${statement}`,
-    ].join("\n"),
-    windows: [
-      `curl.exe -O ${statementPath}`,
-      `curl.exe -O ${signaturePath}`,
-      `curl.exe -O ${keyPath}`,
-      `gpg --import ${key}`,
-      `gpg --verify ${signature} ${statement}`,
-    ].join("\n"),
+    linux: build("unix"),
+    macos: build("unix"),
+    windows: build("win"),
   } as const;
 }
 
@@ -50,36 +64,57 @@ export function AdvancedCommandsTabs({
 
   return (
     <div className="space-y-3">
-      <div className="flex flex-wrap gap-2">
+      {/* Explainer */}
+      <div className="text-xs text-[var(--ui-text-secondary)] leading-relaxed">
+        This downloads the proof files from <strong>two independent sources</strong> (the website
+        and{" "}
+        <a
+          href="https://github.com/Giuseppe552/pdf-changer-proofs"
+          target="_blank"
+          rel="noreferrer"
+          className="underline text-[var(--ui-accent)] hover:text-[var(--ui-accent-hover)]"
+        >
+          GitHub
+        </a>
+        ), compares them, then verifies the PGP signature. If the website were compromised,
+        the GitHub copy would need to be independently compromised too.
+      </div>
+
+      {/* OS tabs */}
+      <div className="flex flex-wrap gap-1.5">
         {(["linux", "macos", "windows"] as const).map((item) => (
           <button
             key={item}
             type="button"
             onClick={() => setTab(item)}
             className={[
-              "rounded-sm border px-3 py-2 text-sm font-semibold",
+              "rounded-md px-2.5 py-1.5 text-xs font-medium mono transition",
               tab === item
-                ? "border-blue-800 bg-blue-800 text-white"
-                : "border-neutral-400 bg-white text-neutral-800 hover:bg-neutral-100",
+                ? "bg-[var(--ui-accent)]/10 text-[var(--ui-accent)]"
+                : "text-[var(--ui-text-muted)] hover:text-[var(--ui-text-secondary)] hover:bg-[var(--ui-bg-overlay)]",
             ].join(" ")}
           >
             {item === "macos" ? "macOS" : item[0].toUpperCase() + item.slice(1)}
           </button>
         ))}
       </div>
-      <pre className="overflow-x-auto rounded-sm border border-neutral-300 bg-neutral-100 p-3 text-sm text-neutral-900">
+
+      {/* Commands */}
+      <pre className="overflow-x-auto rounded-lg border border-[var(--ui-border)] bg-[var(--ui-bg)] p-4 text-xs mono text-[var(--ui-text-secondary)] leading-relaxed">
 {current}
       </pre>
-      <Button
-        variant="secondary"
-        size="md"
-        onClick={() => navigator.clipboard.writeText(current)}
-      >
-        Copy {tab === "macos" ? "macOS" : tab} commands
-      </Button>
-      <div className="text-sm text-neutral-600">
-        Offline-friendly flow: download files first, disable network, then run
-        the verify command locally.
+
+      <div className="flex flex-wrap items-center gap-3">
+        <Button
+          variant="secondary"
+          size="md"
+          onClick={() => navigator.clipboard.writeText(current)}
+        >
+          Copy commands
+        </Button>
+        <span className="text-[10px] mono text-[var(--ui-text-muted)]">
+          Offline-friendly: download first, disconnect, then verify locally.
+        </span>
       </div>
     </div>
   );

@@ -83,8 +83,8 @@ export function DonateProofPage() {
   if (status === "loading") {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-56 animate-pulse rounded-sm bg-neutral-200" />
-        <div className="h-48 animate-pulse rounded-sm border border-neutral-200 bg-white" />
+        <div className="h-8 w-56 animate-pulse rounded-sm bg-[var(--ui-bg-overlay)]" />
+        <div className="h-48 animate-pulse rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]" />
       </div>
     );
   }
@@ -93,8 +93,8 @@ export function DonateProofPage() {
     return (
       <div className="space-y-6">
         <div className="space-y-2">
-          <div className="text-sm text-neutral-500">
-            <NavLink className="hover:text-neutral-900" to="/donate">
+          <div className="text-sm text-[var(--ui-text-muted)]">
+            <NavLink className="hover:text-[var(--ui-text)]" to="/donate">
               Donate
             </NavLink>{" "}
             / Proof
@@ -105,7 +105,7 @@ export function DonateProofPage() {
           </p>
         </div>
         <Card title="Fallback identity data" variant="warning">
-          <div className="space-y-2 text-[15px] text-neutral-800">
+          <div className="space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
             <div>
               Reason: {failureReason ?? "Unknown validation error"}
             </div>
@@ -138,8 +138,8 @@ export function DonateProofPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="text-sm text-neutral-500">
-          <NavLink className="hover:text-neutral-900" to="/donate">
+        <div className="text-sm text-[var(--ui-text-muted)]">
+          <NavLink className="hover:text-[var(--ui-text)]" to="/donate">
             Donate
           </NavLink>{" "}
           / Proof
@@ -152,21 +152,21 @@ export function DonateProofPage() {
       </div>
 
       <Surface variant="emphasis">
-        <div className="grid gap-2 text-[15px] text-neutral-800 md:grid-cols-4">
+        <div className="grid gap-2 text-[15px] text-[var(--ui-text-secondary)] md:grid-cols-4">
           <div>
-            <span className="font-semibold text-neutral-900">Proof ID:</span>{" "}
+            <span className="font-semibold text-[var(--ui-text)]">Proof ID:</span>{" "}
             {manifest.proofId}
           </div>
           <div>
-            <span className="font-semibold text-neutral-900">Published:</span>{" "}
+            <span className="font-semibold text-[var(--ui-text)]">Published:</span>{" "}
             {formatDate(manifest.publishedAt)}
           </div>
           <div>
-            <span className="font-semibold text-neutral-900">Valid from:</span>{" "}
+            <span className="font-semibold text-[var(--ui-text)]">Valid from:</span>{" "}
             {formatDate(manifest.validFrom)}
           </div>
           <div>
-            <span className="font-semibold text-neutral-900">Last bundle check:</span>{" "}
+            <span className="font-semibold text-[var(--ui-text)]">Last bundle check:</span>{" "}
             {lastBundleCheckAt ? formatDate(lastBundleCheckAt) : "Not run yet"}
           </div>
         </div>
@@ -194,7 +194,7 @@ export function DonateProofPage() {
           actualSizeBytes: null,
           status: "unknown",
         }))} />
-        <div className="mt-3 flex flex-wrap items-center gap-3 text-[15px] text-neutral-700">
+        <div className="mt-3 flex flex-wrap items-center gap-3 text-[15px] text-[var(--ui-text-secondary)]">
           <a className="underline" href={statementPath} target="_blank" rel="noopener noreferrer">
             Open signed statement
           </a>
@@ -233,7 +233,7 @@ export function DonateProofPage() {
       </Card>
 
       <Card title="Threat model note" variant="warning">
-        <div className="space-y-2 text-[15px] text-neutral-800">
+        <div className="space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
           <div>
             Proof protects against silent address replacement and stale artifact
             confusion when you verify correctly.
@@ -246,7 +246,7 @@ export function DonateProofPage() {
       </Card>
 
       <Card title="Common scam patterns">
-        <ul className="list-inside list-disc space-y-1 text-[15px] text-neutral-800">
+        <ul className="list-inside list-disc space-y-1 text-[15px] text-[var(--ui-text-secondary)]">
           <li>Address from screenshots or social posts differs from signed statement.</li>
           <li>Old mirror page serves stale, superseded proof files.</li>
           <li>Clipboard malware swaps copied wallet addresses before send.</li>
@@ -255,7 +255,7 @@ export function DonateProofPage() {
       </Card>
 
       <Card title="Archive and history">
-        <div className="space-y-2 text-[15px] text-neutral-800">
+        <div className="space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
           <div>
             Review previous proofs, old keys, and retirement notes before large
             donations.

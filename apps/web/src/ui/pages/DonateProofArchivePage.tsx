@@ -46,8 +46,8 @@ export function DonateProofArchivePage() {
   if (status === "loading") {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-56 animate-pulse rounded-sm bg-neutral-200" />
-        <div className="h-48 animate-pulse rounded-sm border border-neutral-200 bg-white" />
+        <div className="h-8 w-56 animate-pulse rounded-sm bg-[var(--ui-bg-overlay)]" />
+        <div className="h-48 animate-pulse rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]" />
       </div>
     );
   }
@@ -56,7 +56,7 @@ export function DonateProofArchivePage() {
     return (
       <div className="space-y-4">
         <h1 className="ui-title">Proof archive unavailable</h1>
-        <div className="rounded-sm border border-neutral-200 bg-white p-6 text-[15px] text-neutral-700 shadow-sm">
+        <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-[15px] text-[var(--ui-text-secondary)] shadow-sm">
           {reason ?? "Archive index could not be loaded."}
         </div>
       </div>
@@ -66,12 +66,12 @@ export function DonateProofArchivePage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="text-sm text-neutral-500">
-          <NavLink className="hover:text-neutral-900" to="/donate">
+        <div className="text-sm text-[var(--ui-text-muted)]">
+          <NavLink className="hover:text-[var(--ui-text)]" to="/donate">
             Donate
           </NavLink>{" "}
           /{" "}
-          <NavLink className="hover:text-neutral-900" to="/donate/proof">
+          <NavLink className="hover:text-[var(--ui-text)]" to="/donate/proof">
             Proof
           </NavLink>{" "}
           / Archive
@@ -87,7 +87,7 @@ export function DonateProofArchivePage() {
         <div className="overflow-x-auto">
           <table className="min-w-full border-collapse text-left text-sm">
             <thead>
-              <tr className="border-b border-neutral-300 text-neutral-700">
+              <tr className="border-b border-[var(--ui-border)] text-[var(--ui-text-secondary)]">
                 <th className="px-2 py-2 font-semibold">Proof ID</th>
                 <th className="px-2 py-2 font-semibold">Published</th>
                 <th className="px-2 py-2 font-semibold">Status</th>
@@ -96,11 +96,11 @@ export function DonateProofArchivePage() {
             </thead>
             <tbody>
               {archive.proofs.map((proof) => (
-                <tr key={proof.proofId} className="border-b border-neutral-200">
-                  <td className="px-2 py-2 font-mono text-xs text-neutral-900">
+                <tr key={proof.proofId} className="border-b border-[var(--ui-border)]">
+                  <td className="px-2 py-2 font-mono text-xs text-[var(--ui-text)]">
                     {proof.proofId}
                   </td>
-                  <td className="px-2 py-2 text-[15px] text-neutral-700">
+                  <td className="px-2 py-2 text-[15px] text-[var(--ui-text-secondary)]">
                     {formatDate(proof.publishedAt)}
                   </td>
                   <td className="px-2 py-2 text-[15px]">
@@ -108,19 +108,19 @@ export function DonateProofArchivePage() {
                       className={[
                         "ui-tag",
                         proof.revoked
-                          ? "border-red-400 bg-red-50 text-red-800"
-                          : "border-emerald-400 bg-emerald-50 text-emerald-800",
+                          ? "border-red-700/40 bg-red-950/30 text-red-300"
+                          : "border-emerald-400 bg-emerald-950/30 text-emerald-300",
                       ].join(" ")}
                     >
                       {proof.revoked ? "Revoked" : "Valid at publish"}
                     </span>
                     {proof.revocationReason ? (
-                      <div className="mt-1 text-sm text-neutral-600">
+                      <div className="mt-1 text-sm text-[var(--ui-text-muted)]">
                         {proof.revocationReason}
                       </div>
                     ) : null}
                   </td>
-                  <td className="px-2 py-2 text-[15px] text-neutral-700">
+                  <td className="px-2 py-2 text-[15px] text-[var(--ui-text-secondary)]">
                     <a
                       className="underline"
                       href={proof.manifestPath}
@@ -141,7 +141,7 @@ export function DonateProofArchivePage() {
         <div className="overflow-x-auto">
           <table className="min-w-full border-collapse text-left text-sm">
             <thead>
-              <tr className="border-b border-neutral-300 text-neutral-700">
+              <tr className="border-b border-[var(--ui-border)] text-[var(--ui-text-secondary)]">
                 <th className="px-2 py-2 font-semibold">Fingerprint</th>
                 <th className="px-2 py-2 font-semibold">Status</th>
                 <th className="px-2 py-2 font-semibold">First seen</th>
@@ -150,17 +150,17 @@ export function DonateProofArchivePage() {
             </thead>
             <tbody>
               {archive.keys.map((key) => (
-                <tr key={`${key.fingerprint}:${key.path}`} className="border-b border-neutral-200">
-                  <td className="px-2 py-2 font-mono text-xs text-neutral-900">
+                <tr key={`${key.fingerprint}:${key.path}`} className="border-b border-[var(--ui-border)]">
+                  <td className="px-2 py-2 font-mono text-xs text-[var(--ui-text)]">
                     {key.fingerprint}
                   </td>
-                  <td className="px-2 py-2 text-[15px] text-neutral-700">
+                  <td className="px-2 py-2 text-[15px] text-[var(--ui-text-secondary)]">
                     {key.status}
                   </td>
-                  <td className="px-2 py-2 text-[15px] text-neutral-700">
+                  <td className="px-2 py-2 text-[15px] text-[var(--ui-text-secondary)]">
                     {formatDate(key.firstSeenAt)}
                   </td>
-                  <td className="px-2 py-2 text-[15px] text-neutral-700">
+                  <td className="px-2 py-2 text-[15px] text-[var(--ui-text-secondary)]">
                     <a
                       className="underline"
                       href={key.path}

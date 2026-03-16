@@ -108,7 +108,7 @@ export function FillFormToolPage() {
   }
 
   const inputCls =
-    "w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900";
+    "w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]";
 
   return (
     <div className="space-y-4">
@@ -135,7 +135,7 @@ export function FillFormToolPage() {
             <div className="space-y-4">
               {fields.map((field) => (
                 <div key={field.name} className="space-y-1">
-                  <div className="text-sm font-medium text-neutral-700">{field.name}</div>
+                  <div className="text-sm font-medium text-[var(--ui-text-secondary)]">{field.name}</div>
                   {field.type === "text" ? (
                     <input
                       type="text"
@@ -145,7 +145,7 @@ export function FillFormToolPage() {
                       disabled={busy}
                     />
                   ) : field.type === "checkbox" ? (
-                    <label className="flex items-center gap-2 text-sm text-neutral-700">
+                    <label className="flex items-center gap-2 text-sm text-[var(--ui-text-secondary)]">
                       <input
                         type="checkbox"
                         checked={values[field.name] === "true"}
@@ -173,7 +173,7 @@ export function FillFormToolPage() {
                   ) : field.type === "radio" ? (
                     <fieldset className="flex flex-wrap gap-3">
                       {field.options?.map((opt) => (
-                        <label key={opt} className="flex items-center gap-1 text-sm text-neutral-700">
+                        <label key={opt} className="flex items-center gap-1 text-sm text-[var(--ui-text-secondary)]">
                           <input
                             type="radio"
                             name={field.name}
@@ -187,12 +187,12 @@ export function FillFormToolPage() {
                       ))}
                     </fieldset>
                   ) : (
-                    <div className="text-sm text-neutral-400">Unsupported field type</div>
+                    <div className="text-sm text-[var(--ui-text-muted)]">Unsupported field type</div>
                   )}
                 </div>
               ))}
 
-              <label className="flex items-center gap-2 text-sm text-neutral-700">
+              <label className="flex items-center gap-2 text-sm text-[var(--ui-text-secondary)]">
                 <input
                   type="checkbox"
                   checked={flattenAfterFill}
@@ -218,7 +218,7 @@ export function FillFormToolPage() {
       {phase === "done" ? (
         <>
           <Card title="Form fill report">
-            <div className="text-[15px] text-neutral-800">
+            <div className="text-[15px] text-[var(--ui-text-secondary)]">
               Filled {filledCount} field(s).
               {flattenAfterFill ? " Form was flattened." : ""}
             </div>
@@ -233,7 +233,7 @@ export function FillFormToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

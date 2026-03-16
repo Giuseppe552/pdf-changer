@@ -8,19 +8,19 @@ function Pill({ children }: { children: React.ReactNode }) {
 
 export function RiskBox({ article }: { article: SecurityMeta }) {
   return (
-    <div className="rounded-sm border border-amber-400 bg-amber-50 p-4">
-      <div className="text-base font-semibold text-amber-900">Risk profile</div>
+    <div className="rounded-sm border border-amber-400 bg-amber-950/30 p-4">
+      <div className="text-base font-semibold text-amber-300">Risk profile</div>
       <div className="mt-2 flex flex-wrap gap-2 text-sm">
         {article.track ? <Pill>{trackToTitle(article.track)}</Pill> : <Pill>Policy</Pill>}
         <Pill>Risk: {article.riskLevel}</Pill>
         <Pill>{article.difficulty}</Pill>
         <Pill>{article.estimatedMinutes} min</Pill>
       </div>
-      <div className="mt-2 text-sm text-amber-900">
+      <div className="mt-2 text-sm text-amber-300">
         Last reviewed: {article.lastReviewed ?? "Pending"}
       </div>
       {article.audience.length ? (
-        <div className="mt-2 text-sm text-amber-900">
+        <div className="mt-2 text-sm text-amber-300">
           Audience:{" "}
           {article.audience.map((item) => audienceToTitle(item)).join(", ")}
         </div>

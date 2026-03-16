@@ -77,7 +77,7 @@ export function CropToolPage() {
   }
 
   const inputCls =
-    "w-full rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900";
+    "w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-2 text-sm text-[var(--ui-text)]";
 
   return (
     <div className="space-y-4">
@@ -92,7 +92,7 @@ export function CropToolPage() {
           />
           <div className="grid gap-3 md:grid-cols-2">
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Unit</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Unit</div>
               <select
                 value={unit}
                 onChange={(e) => setUnit(e.target.value as CropUnit)}
@@ -104,7 +104,7 @@ export function CropToolPage() {
               </select>
             </label>
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Margin mode</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Margin mode</div>
               <select
                 value={marginMode}
                 onChange={(e) => setMarginMode(e.target.value as MarginMode)}
@@ -118,7 +118,7 @@ export function CropToolPage() {
           </div>
           {marginMode === "uniform" ? (
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">
+              <div className="text-sm text-[var(--ui-text-secondary)]">
                 Margin ({unit === "percent" ? "%" : "pt"})
               </div>
               <input
@@ -137,7 +137,7 @@ export function CropToolPage() {
               {([["Top", top, setTop], ["Bottom", bottom, setBottom], ["Left", left, setLeft], ["Right", right, setRight]] as const).map(
                 ([label, value, setter]) => (
                   <label key={label} className="space-y-1">
-                    <div className="text-sm text-neutral-700">
+                    <div className="text-sm text-[var(--ui-text-secondary)]">
                       {label} ({unit === "percent" ? "%" : "pt"})
                     </div>
                     <input
@@ -157,7 +157,7 @@ export function CropToolPage() {
           )}
           <div className="grid gap-3 md:grid-cols-2">
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">Apply to</div>
+              <div className="text-sm text-[var(--ui-text-secondary)]">Apply to</div>
               <select
                 value={applyTo}
                 onChange={(e) => setApplyTo(e.target.value as ApplyTo)}
@@ -171,7 +171,7 @@ export function CropToolPage() {
           </div>
           {applyTo === "range" ? (
             <label className="space-y-1">
-              <div className="text-sm text-neutral-700">
+              <div className="text-sm text-[var(--ui-text-secondary)]">
                 Page ranges (example: 1,3-5,9-)
               </div>
               <input
@@ -191,7 +191,7 @@ export function CropToolPage() {
 
       {summary ? (
         <Card title="Result summary">
-          <div className="text-[15px] text-neutral-800">
+          <div className="text-[15px] text-[var(--ui-text-secondary)]">
             Cropped {summary.cropped} of {summary.total} pages.
           </div>
         </Card>
@@ -202,7 +202,7 @@ export function CropToolPage() {
 
       {error ? (
         <Card title="Error" variant="danger">
-          <div className="text-[15px] text-red-800">{error}</div>
+          <div className="text-[15px] text-red-300">{error}</div>
         </Card>
       ) : null}
     </div>

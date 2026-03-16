@@ -55,7 +55,7 @@ export function ToolsHubPage() {
       </div>
 
       <Surface variant="emphasis" compact>
-        <div className="text-[15px] text-neutral-800">
+        <div className="text-[15px] text-[var(--ui-text-secondary)]">
           On-device by default, no PDF uploads for local tools, and no analytics trackers.
           Only fully functional tools appear in the main lists.
         </div>
@@ -64,7 +64,7 @@ export function ToolsHubPage() {
       <UsageMeter snapshot={snapshot} title="Your monthly tool quota" />
 
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold text-neutral-900">Quick actions</h2>
+        <h2 className="text-lg font-semibold text-[var(--ui-text)]">Quick actions</h2>
         <div className="grid gap-3 md:grid-cols-2">
           {featured.map((tool) => (
             <ToolCard key={tool.slug} tool={tool} />
@@ -83,10 +83,10 @@ export function ToolsHubPage() {
       <Card title="Who this is for">
         <div className="grid gap-3 md:grid-cols-3">
           {PERSONA_PATHS.map((persona) => (
-            <div key={persona.label} className="rounded-sm border border-neutral-300 bg-white p-4">
-              <div className="text-base font-semibold text-neutral-900">{persona.label}</div>
-              <div className="mt-2 text-[15px] text-neutral-700">{persona.blurb}</div>
-              <NavLink className="mt-3 inline-block underline text-sm text-neutral-800" to={persona.to}>
+            <div key={persona.label} className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4">
+              <div className="text-base font-semibold text-[var(--ui-text)]">{persona.label}</div>
+              <div className="mt-2 text-[15px] text-[var(--ui-text-secondary)]">{persona.blurb}</div>
+              <NavLink className="mt-3 inline-block underline text-sm text-[var(--ui-text-secondary)]" to={persona.to}>
                 Open workflow
               </NavLink>
             </div>
@@ -97,10 +97,10 @@ export function ToolsHubPage() {
       <Card title="Daily workflows">
         <div className="grid gap-3 md:grid-cols-3">
           {toolCollections.map((collection) => (
-            <div key={collection.slug} className="rounded-sm border border-neutral-300 bg-white p-4">
-              <div className="text-base font-semibold text-neutral-900">{collection.title}</div>
-              <div className="mt-2 text-[15px] text-neutral-700">{collection.description}</div>
-              <NavLink className="mt-3 inline-block underline text-sm text-neutral-800" to={`/tools/collections/${collection.slug}`}>
+            <div key={collection.slug} className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-4">
+              <div className="text-base font-semibold text-[var(--ui-text)]">{collection.title}</div>
+              <div className="mt-2 text-[15px] text-[var(--ui-text-secondary)]">{collection.description}</div>
+              <NavLink className="mt-3 inline-block underline text-sm text-[var(--ui-text-secondary)]" to={`/tools/collections/${collection.slug}`}>
                 View collection
               </NavLink>
             </div>
@@ -109,7 +109,7 @@ export function ToolsHubPage() {
       </Card>
 
       <Card title="Limits and trust notes" variant="warning">
-        <ul className="list-inside list-disc space-y-2 text-[15px] text-neutral-800">
+        <ul className="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
           <li>Guest: 40 actions/month (device-local, resets monthly).</li>
           <li>Free account: 600 actions/month, including 150 heavy actions.</li>
           <li>Paid plan: unlimited workflows and future batch features.</li>
@@ -120,7 +120,7 @@ export function ToolsHubPage() {
       <Card title="Labs / Beta tools" className="scroll-mt-28" >
         <div id="labs" />
         <div className="space-y-3">
-          <div className="text-[15px] text-neutral-700">
+          <div className="text-[15px] text-[var(--ui-text-secondary)]">
             These routes are visible for transparency, not positioned as daily-driver features.
           </div>
           <div className="grid gap-3 md:grid-cols-2">
@@ -133,7 +133,7 @@ export function ToolsHubPage() {
 
       <Surface compact>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="text-[15px] text-neutral-800">
+          <div className="text-[15px] text-[var(--ui-text-secondary)]">
             Keep this free hub sustainable through donations or upgrade for workflow scale.
           </div>
           <div className="flex flex-wrap gap-2">

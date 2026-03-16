@@ -163,7 +163,7 @@ export function PageEditorToolPage() {
             </Button>
             {out ? (
               <a
-                className="inline-flex items-center rounded-sm bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+                className="inline-flex items-center rounded-sm bg-[var(--ui-accent)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--ui-accent-hover)]"
                 href={out.url}
                 download={out.name}
               >
@@ -171,7 +171,7 @@ export function PageEditorToolPage() {
               </a>
             ) : null}
           </div>
-          {busy ? <div className="text-sm text-neutral-600">Working…</div> : null}
+          {busy ? <div className="text-sm text-[var(--ui-text-muted)]">Working…</div> : null}
         </div>
       </Card>
 
@@ -182,15 +182,15 @@ export function PageEditorToolPage() {
           {pages.map((p, i) => (
             <div
               key={`${p.idx}-${i}`}
-              className={`rounded-sm border bg-white p-3 shadow-sm ${
-                p.deleted ? "border-red-300 opacity-60" : "border-neutral-200"
+              className={`rounded-sm border bg-[var(--ui-bg-raised)] p-3 shadow-sm ${
+                p.deleted ? "border-red-700/40 opacity-60" : "border-[var(--ui-border)]"
               }`}
             >
               <div className="mb-2 flex items-center justify-between gap-2">
-                <div className="text-xs text-neutral-700">
+                <div className="text-xs text-[var(--ui-text-secondary)]">
                   Page {p.idx + 1}
                 </div>
-                <label className="flex items-center gap-2 text-xs text-neutral-700">
+                <label className="flex items-center gap-2 text-xs text-[var(--ui-text-secondary)]">
                   <input type="checkbox" checked={p.selected} onChange={() => toggleSelected(i)} />
                   select
                 </label>
@@ -199,11 +199,11 @@ export function PageEditorToolPage() {
                 <img
                   src={p.thumbUrl}
                   alt={`Page ${p.idx + 1}`}
-                  className="mb-3 w-full rounded-sm border border-neutral-200 bg-white"
+                  className="mb-3 w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)]"
                   loading="lazy"
                 />
               ) : (
-                <div className="mb-3 aspect-[3/4] w-full rounded-sm border border-neutral-200 bg-neutral-50" />
+                <div className="mb-3 aspect-[3/4] w-full rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg)]" />
               )}
               <div className="flex flex-wrap gap-2">
                 <Button variant="secondary" onClick={() => move(i, -1)} disabled={busy}>
@@ -223,7 +223,7 @@ export function PageEditorToolPage() {
                 </Button>
               </div>
               {p.rotation ? (
-                <div className="mt-2 text-xs text-neutral-600">
+                <div className="mt-2 text-xs text-[var(--ui-text-muted)]">
                   Rotation: {p.rotation}°
                 </div>
               ) : null}

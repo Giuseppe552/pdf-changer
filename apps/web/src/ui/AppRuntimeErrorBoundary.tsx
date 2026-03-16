@@ -17,24 +17,24 @@ export class AppRuntimeErrorBoundary extends React.Component<
   render() {
     if (!this.state.hasError) return this.props.children;
     return (
-      <div className="min-h-screen bg-neutral-50">
+      <div className="min-h-screen bg-[var(--ui-bg)]">
         <main className="mx-auto max-w-5xl px-4 py-10">
           <div className="space-y-4">
             <h1 className="text-2xl font-semibold tracking-tight">Unexpected application error</h1>
-            <div className="rounded-sm border border-neutral-200 bg-white p-6 text-sm text-neutral-700 shadow-sm">
+            <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-sm text-[var(--ui-text-secondary)] shadow-sm">
               This page crashed. Reload and try again.
               <div className="mt-3">
                 <button
                   type="button"
                   onClick={() => window.location.reload()}
-                  className="rounded-sm bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+                  className="rounded-sm bg-[var(--ui-accent)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--ui-accent-hover)]"
                 >
                   Reload
                 </button>
               </div>
             </div>
-            <div className="text-sm text-neutral-600">
-              Go to <a href="/" className="text-neutral-900 underline">Home</a>.
+            <div className="text-sm text-[var(--ui-text-muted)]">
+              Go to <a href="/" className="text-[var(--ui-text)] underline">Home</a>.
             </div>
           </div>
         </main>

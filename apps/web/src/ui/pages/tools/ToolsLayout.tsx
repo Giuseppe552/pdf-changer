@@ -9,7 +9,7 @@ export function ToolsLayout() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-semibold tracking-tight">Tools Hub</h1>
-        <div className="text-sm text-neutral-700">
+        <div className="text-sm text-[var(--ui-text-secondary)]">
           Free-first daily tools with honest availability labels
         </div>
       </div>
@@ -21,7 +21,7 @@ export function ToolsLayout() {
         ))}
         <NavLink
           to="/tools#labs"
-          className="rounded-sm border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 hover:text-neutral-900"
+          className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] px-3 py-1.5 text-sm font-medium text-[var(--ui-text-secondary)] transition hover:bg-[var(--ui-bg)] hover:text-[var(--ui-text)]"
         >
           Labs
         </NavLink>
@@ -40,8 +40,8 @@ function ToolTab({ to, label }: { to: string; label: string }) {
         [
           "rounded-sm border px-3 py-1.5 text-sm font-medium transition",
           isActive
-            ? "border-blue-700 bg-blue-700 text-white"
-            : "border-neutral-300 bg-white text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900",
+            ? "border-[var(--ui-accent)] bg-[var(--ui-accent)] text-white"
+            : "border-[var(--ui-border)] bg-[var(--ui-bg-raised)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-bg)] hover:text-[var(--ui-text)]",
         ].join(" ")
       }
     >
