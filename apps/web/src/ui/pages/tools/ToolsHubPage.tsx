@@ -108,12 +108,11 @@ export function ToolsHubPage() {
         </div>
       </Card>
 
-      <Card title="Limits and trust notes" variant="warning">
+      <Card title="Trust notes" variant="warning">
         <ul className="list-inside list-disc space-y-2 text-[15px] text-[var(--ui-text-secondary)]">
-          <li>Guest: 40 actions/month (device-local, resets monthly).</li>
-          <li>Free account: 600 actions/month, including 150 heavy actions.</li>
-          <li>Paid plan: unlimited workflows and future batch features.</li>
+          <li>All tools are free. No usage limits, no accounts required.</li>
           <li>No tool guarantees legal anonymity or endpoint safety.</li>
+          <li>Processing happens in your browser. Files never leave your device.</li>
         </ul>
       </Card>
 
@@ -134,16 +133,11 @@ export function ToolsHubPage() {
       <Surface compact>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="text-[15px] text-[var(--ui-text-secondary)]">
-            Keep this free hub sustainable through donations or upgrade for workflow scale.
+            PDF Changer is free because privacy tools should be accessible to everyone.
           </div>
-          <div className="flex flex-wrap gap-2">
-            <NavLink to="/donate">
-              <Button variant="secondary">Support free tools</Button>
-            </NavLink>
-            <NavLink to="/pricing">
-              <Button>View paid workflow plan</Button>
-            </NavLink>
-          </div>
+          <NavLink to="/donate">
+            <Button variant="secondary">Support the project</Button>
+          </NavLink>
         </div>
       </Surface>
     </div>

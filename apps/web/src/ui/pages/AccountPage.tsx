@@ -66,8 +66,8 @@ export function AccountPage() {
       <Card title="Status">
         <div className="space-y-2 text-sm">
           <div>
-            <span className="text-[var(--ui-text-muted)]">Plan:</span>{" "}
-            <span className="font-medium text-[var(--ui-text)]">{me.plan}</span>
+            <span className="text-[var(--ui-text-muted)]">All tools are free.</span>{" "}
+            <span className="font-medium text-[var(--ui-text)]">No limits.</span>
           </div>
           <div>
             <span className="text-[var(--ui-text-muted)]">Authenticated:</span>{" "}
