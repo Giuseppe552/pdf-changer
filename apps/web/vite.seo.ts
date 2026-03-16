@@ -588,6 +588,7 @@ function htmlLayout(opts: {
   </head>
   <body style="background:#0e1117;color:#e6edf3">
     <div id="root"></div>
+    <noscript>
     <div class="min-h-screen">
       <header class="sticky top-0 z-10 border-b border-[var(--ui-border)] bg-[var(--ui-bg-raised)]/80 backdrop-blur">
         <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
@@ -644,6 +645,7 @@ ${bodyHtml}
         </div>
       </footer>
     </div>
+    </noscript>
     ${(opts.jsTags ?? []).join("\n    ")}
   </body>
 </html>`;
