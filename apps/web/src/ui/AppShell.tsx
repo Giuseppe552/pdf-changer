@@ -17,7 +17,7 @@ const moreNavItems: Array<{ to: string; label: string }> = [
   { to: "/faq", label: "FAQ" },
   { to: "/blog", label: "Blog" },
   { to: "/guides", label: "Guides" },
-  { to: "/pricing", label: "Pricing" },
+  { to: "/pricing", label: "Support" },
   { to: "/donate", label: "Donate" },
   { to: "/account", label: "Account" },
   { to: "/privacy-policy", label: "Privacy" },

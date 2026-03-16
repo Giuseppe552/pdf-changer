@@ -34,7 +34,7 @@ export function Footer() {
             <div className="flex flex-col gap-1.5">
               <FooterLink to="/scrub">Deep scrubber</FooterLink>
               <FooterLink to="/tools">All tools</FooterLink>
-              <FooterLink to="/pricing">Pricing</FooterLink>
+              <FooterLink to="/pricing">Support</FooterLink>
               <FooterLink to="/account">Account</FooterLink>
               <FooterLink to="/donate">Donate</FooterLink>
             </div>
