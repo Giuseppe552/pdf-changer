@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0e1117">
+<meta name="color-scheme" content="dark">
+<title>Where Do Your PDFs Go? Network Traffic Comparison of PDF Tools · PDF Changer</title>
+<meta name="description" content="We tested iLovePDF, Smallpdf, and PDF Changer and recorded every network request. 91 requests to 18 domains vs 215 requests to 21 domains vs 18 requests to 1 domain. Raw data included.">
+<meta name="robots" content="index,follow">
+<meta property="og:site_name" content="PDF Changer">
+<meta property="og:title" content="Where Do Your PDFs Go? Network Traffic Comparison of PDF Tools">
+<meta property="og:description" content="We tested three popular PDF tools and recorded every network request. All data is reproducible and downloadable.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://pdfchanger.org/og.png">
+<meta property="og:url" content="https://pdfchanger.org/research/pdf-tool-privacy-comparison">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Where Do Your PDFs Go? A Privacy Comparison of Online PDF Tools">
+<meta name="twitter:description" content="91 requests to 18 domains vs 215 requests to 21 domains vs 18 requests to 1 domain. Raw network captures included.">
+<meta name="twitter:image" content="https://pdfchanger.org/og.png">
+<meta property="article:published_time" content="2026-03-16">
+<meta property="article:author" content="Giuseppe Giona">
+<meta property="article:section" content="Research">
+<meta property="article:tag" content="privacy">
+<meta property="article:tag" content="pdf">
+<meta property="article:tag" content="ilovepdf">
+<meta property="article:tag" content="smallpdf">
+<meta property="article:tag" content="network-analysis">
+<link rel="canonical" href="https://pdfchanger.org/research/pdf-tool-privacy-comparison">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Where Do Your PDFs Go? Network Traffic Comparison of PDF Tools",
+  "description": "We tested iLovePDF, Smallpdf, and PDF Changer and recorded every network request. 91 requests to 18 domains vs 215 requests to 21 domains vs 18 requests to 1 domain.",
+  "datePublished": "2026-03-16",
+  "author": {"@type": "Person", "name": "Giuseppe Giona", "url": "https://giuseppegiona.com"},
+  "publisher": {"@type": "Organization", "name": "PDF Changer", "url": "https://pdfchanger.org"},
+  "mainEntityOfPage": "https://pdfchanger.org/research/pdf-tool-privacy-comparison",
+  "articleSection": "Research",
+  "keywords": ["pdf privacy", "ilovepdf safe", "smallpdf safe", "pdf tools no upload", "pdf network traffic", "pdf tool comparison"]
+}
+</script>
+<style>
+:root{--bg:#0e1117;--bg-raised:#161b22;--border:rgba(255,255,255,0.08);--text:#e6edf3;--text-sec:#9ca3b0;--text-muted:#6b7280;--accent:#4facfe;--mono:"SF Mono","Fira Code",ui-monospace,monospace;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:740px;margin:0 auto;padding:24px 20px 80px}
+.nav{border-bottom:1px solid var(--border);padding:12px 0;margin-bottom:32px;font-family:var(--mono);font-size:12px;color:var(--text-muted)}
+.nav a{color:var(--text-sec)}
+.meta{font-family:var(--mono);font-size:11px;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:8px}
+h1{font-size:28px;line-height:1.2;font-weight:700;letter-spacing:-0.5px;margin-bottom:16px}
+h2{font-size:20px;font-weight:600;margin:40px 0 12px;letter-spacing:-0.3px}
+h3{font-size:16px;font-weight:600;margin:28px 0 8px;color:var(--text)}
+p{margin:12px 0;color:var(--text-sec);font-size:15px;line-height:1.65}
+ul,ol{margin:12px 0 12px 20px;color:var(--text-sec);font-size:15px}li{margin:6px 0}
+strong{color:var(--text);font-weight:600}
+code{font-family:var(--mono);font-size:13px;background:var(--bg-raised);border:1px solid var(--border);padding:1px 5px;border-radius:3px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+th{text-align:left;padding:8px 12px;border-bottom:2px solid var(--border);font-family:var(--mono);font-size:11px;letter-spacing:0.5px;text-transform:uppercase;color:var(--text-muted);font-weight:500}
+td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text-sec)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+td:first-child{color:var(--text);font-weight:500}
+.highlight{background:var(--bg-raised);border:1px solid var(--border);border-radius:6px;padding:16px;margin:16px 0}
+.highlight p{margin:6px 0}
+.num{font-family:var(--mono);font-weight:700;color:var(--accent)}
+.footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--text-muted)}
+.footer a{color:var(--text-sec)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="nav"><a href="/">PDF Changer</a> / <a href="/research">Research</a> / Privacy Comparison</nav>
+
+<div class="meta">Research · March 2026 · 12 min read</div>
+
+<h1>Where Do Your PDFs Go?</h1>
+
+<p>Every month, hundreds of millions of people upload PDFs to free online tools. Most don't think about where those files actually go.</p>
+
+<p>We tested three popular approaches to PDF processing — two cloud-based tools and one browser-based tool — and recorded every network request the browser made. No speculation. Just traffic logs.</p>
+
+<h2>What we tested</h2>
+
+<ul>
+<li><strong>iLovePDF</strong> — the most popular free PDF tool (217M monthly visits)</li>
+<li><strong>Smallpdf</strong> — the second most popular (60M+ monthly visits)</li>
+<li><strong>PDF Changer</strong> — a browser-only tool that processes files locally (this project)</li>
+</ul>
+
+<p>For each tool, we loaded the merge page, uploaded two small test PDFs, and captured every network request using a browser extension that intercepts traffic at the browser level. The extension runs in a privileged context that page scripts cannot interfere with.</p>
+
+<p>We're including PDF Changer in the comparison because we built it and we should hold ourselves to the same scrutiny.</p>
+
+<h2>Results</h2>
+
+<table>
+<thead><tr><th></th><th>iLovePDF</th><th>Smallpdf</th><th>PDF Changer</th></tr></thead>
+<tbody>
+<tr><td>Total requests</td><td>91</td><td>215</td><td class="num">18</td></tr>
+<tr><td>Unique domains</td><td>18</td><td>21</td><td class="num">1</td></tr>
+<tr><td>File uploads</td><td>2</td><td>2</td><td class="num">0</td></tr>
+<tr><td>Google Analytics requests</td><td>7</td><td>7</td><td class="num">0</td></tr>
+<tr><td>Ad network domains</td><td>5</td><td>1</td><td class="num">0</td></tr>
+<tr><td>POST with body data</td><td>5</td><td>68</td><td class="num">0</td></tr>
+<tr><td>Third-party domains</td><td>17</td><td>20</td><td class="num">0</td></tr>
+</tbody>
+</table>
+
+<h3>iLovePDF: 91 requests, 18 domains</h3>
+
+<p>Your files are uploaded to a dynamically assigned server (<code>api25.ilovepdf.com</code> in our test). The form data includes your original filenames in cleartext: <code>files[0][filename]</code>, <code>files[1][filename]</code>. The server assigns its own filenames, confirming server-side storage.</p>
+
+<p>Google Analytics (property <code>G-44KQ8HETWT</code>) receives 7 requests containing your screen resolution, browser version, OS, language, and the full page URL. A persistent client ID links visits across sessions.</p>
+
+<p>iLovePDF runs its own analytics beacons to <code>evt.ilovepdf.com</code> tracking which tool you used, your screen dimensions, and referrer.</p>
+
+<p>The download page loads Google Ad Manager, Google Ad Syndication, OpenX, and Criteo. Ad network scripts running on a page that just processed your documents.</p>
+
+<div class="highlight">
+<p><strong>Domains contacted by iLovePDF:</strong> www.ilovepdf.com (34), region1.google-analytics.com (7), securepubads.g.doubleclick.net (6), pagead2.googlesyndication.com (6), ep2.adtrafficquality.google (5), ep1.adtrafficquality.google (4), evt.ilovepdf.com (3), api25.ilovepdf.com (3), cm.g.doubleclick.net (2), oajs.openx.net (2), gum.criteo.com (2), and 7 others.</p>
+</div>
+
+<p>iLovePDF states files are deleted within 2 hours. They are ISO 27001 certified. These are their stated policies — we are not disputing them. We are documenting what the browser observes.</p>
+
+<h3>Smallpdf: 215 requests, 21 domains</h3>
+
+<p>More than twice the network traffic of iLovePDF for the same operation. 57 requests to <code>www.google.com</code> alone. Files uploaded to <code>files-upload.r2.smallpdf.com</code> (Cloudflare R2 storage). 68 POST requests with body data.</p>
+
+<p>Smallpdf states files are removed after one hour for free users. They use AES-256 encryption and are ISO 27001 certified. Their trust center also states data is "only accessed in limited ways, such as responding to support requests or addressing technical issues" — confirming staff access is technically possible.</p>
+
+<div class="highlight">
+<p><strong>Domains contacted by Smallpdf:</strong> www.google.com (57), pluto.smallpdf.com (52), s.smallpdf.com (46), region1.google-analytics.com (7), pagead2.googlesyndication.com (7), www.googletagmanager.com (5), and 15 others.</p>
+</div>
+
+<h3>PDF Changer: 18 requests, 1 domain</h3>
+
+<p><span class="num">18 requests. All to pdfchanger.org.</span> Zero third-party domains. Zero file uploads. Zero analytics. Zero ads.</p>
+
+<p>The 18 requests are the HTML page, CSS, JavaScript, fonts, icons, and manifest. The assets to load the tool. Nothing else.</p>
+
+<p>Processing runs inside a sandboxed iframe with <code>connect-src 'none'</code> — the browser physically prevents network requests from the processing context. PDF Changer also works offline.</p>
+
+<p>Our tool is not perfect. The audit system is self-attested. There are no E2E browser tests. Limitations are documented on the <a href="/colophon">colophon page</a>.</p>
+
+<h2>The business model question</h2>
+
+<p>This isn't just technical. It's economic.</p>
+
+<p>Cloud PDF tools process your files on their servers. Servers cost money. That cost is funded by ads and subscriptions. The ad networks on their pages aren't a bug — they're the business model. Your file processing subsidises ad impressions.</p>
+
+<p>PDF Changer processes files in your browser. No servers to maintain beyond static hosting. Infrastructure costs are near zero. No ads because there's no ad revenue to pursue. Every feature is free.</p>
+
+<p>This isn't a moral judgment. Both iLovePDF and Smallpdf are legitimate businesses with real certifications. The question is whether you're comfortable with the trade-off.</p>
+
+<h2>Verify it yourself</h2>
+
+<p>Open any PDF tool. Open Chrome DevTools (F12). Go to the Network tab. Process a file. Count the requests. Read the domains.</p>
+
+<p>If our data is wrong, anyone can check.</p>
+
+<h2>Raw data</h2>
+
+<p>Full JSON captures for all three tools:</p>
+
+<ul>
+<li><a href="/research/data/ilovepdf-capture.json">iLovePDF capture</a> (91 requests, 56KB)</li>
+<li><a href="/research/data/smallpdf-capture.json">Smallpdf capture</a> (215 requests, 134KB)</li>
+<li><a href="/research/data/pdfchanger-capture.json">PDF Changer capture</a> (18 requests, 7KB)</li>
+</ul>
+
+<div class="footer">
+<p>Published March 2026 by <a href="https://giuseppegiona.com">Giuseppe Giona</a>. <a href="/">PDF Changer</a> is free, open source, and funded by <a href="/donate">voluntary support</a>.</p>
+</div>
+
+</div>
+
+</body>
+</html>
