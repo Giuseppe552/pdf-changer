@@ -1,21 +1,20 @@
-export const homeIdentity = "Free PDF tools that run in your browser. Nothing uploaded. Nothing tracked.";
+export const homeIdentity = "Browser-only PDF tools. Nothing uploaded. Nothing tracked. Cryptographic proof.";
 
-export const homeHeroTitle =
-  "Every PDF tool you need, without the subscriptions or the sketchy uploads.";
+export const homeHeroTitle = "Your PDFs never leave your device.";
 
 export const homeHeroSummary =
-  "I got tired of paying Adobe just to merge two files. The free alternatives were worse — pop-ups, malware warnings, and your documents uploaded to servers you've never heard of. So I built PDF Changer: every operation runs locally in your browser. Your files never leave your device.";
+  "21 tools that run entirely in your browser. No uploads, no accounts required, no tracking. The Verified Processing Environment produces cryptographic proof that nothing leaked during processing.";
 
 export const homeAudience = [
-  "Anyone tired of paying for basic PDF operations.",
-  "People who don't trust uploading sensitive files to random websites.",
-  "Office workers handling HR, legal, or finance documents.",
-  "Anyone who wants to understand what's actually inside their PDFs.",
+  "Security researchers who don't trust upload-based PDF tools.",
+  "Journalists handling sensitive documents.",
+  "Lawyers and accountants with confidentiality obligations.",
+  "Anyone who's tired of paying Adobe for basic operations.",
 ];
 
 export const homeWhyUse = [
   "Everything runs in your browser — no file uploads, no server processing.",
-  "20 tools that cover what you'd normally need Adobe or a dozen browser tabs for.",
+  "19 tools that cover what you'd normally need Adobe or a dozen browser tabs for.",
   "Every operation produces a clear report showing exactly what changed.",
 ];
 
@@ -26,10 +25,10 @@ export const homeHowItWorks = [
 ];
 
 export const homeProofMetrics = [
-  { value: "20", label: "tools available", note: "merge, split, scrub, compress, redact, and more" },
-  { value: "0", label: "files uploaded", note: "everything processes locally in your browser" },
+  { value: "0", label: "bytes uploaded", note: "everything processes locally" },
   { value: "0", label: "trackers", note: "no analytics, no pixels, no third-party scripts" },
-  { value: "125", label: "tests passing", note: "verified processing with automated test suite" },
+  { value: "283", label: "tests passing", note: "automated test suite, CI on every commit" },
+  { value: "21", label: "tools", note: "merge, split, scrub, compress, redact, and more" },
 ];
 
 export const homeAccountantOutcomes = [
