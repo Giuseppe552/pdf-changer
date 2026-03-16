@@ -6,7 +6,7 @@ function FooterLink({ to, children }: { to: string; children: React.ReactNode })
   return (
     <NavLink
       to={to}
-      className="text-[15px] text-neutral-700 hover:text-neutral-900"
+      className="text-xs text-[var(--ui-text-muted)] hover:text-[var(--ui-text-secondary)] transition-colors"
     >
       {children}
     </NavLink>
@@ -15,25 +15,25 @@ function FooterLink({ to, children }: { to: string; children: React.ReactNode })
 
 export function Footer() {
   return (
-    <footer className="border-t border-neutral-300 bg-white">
+    <footer className="border-t border-[var(--ui-border)] mt-20">
       <div className="mx-auto max-w-5xl px-4 py-10">
         <div className="grid gap-8 md:grid-cols-4">
           <div className="space-y-3">
-            <div className="text-base font-semibold text-neutral-900">
+            <div className="mono text-sm font-semibold text-[var(--ui-text)]">
               PDF Changer
             </div>
-            <div className="text-[15px] text-neutral-700">
-              Free PDF tools that run entirely in your browser. No uploads, no trackers.
+            <div className="text-xs text-[var(--ui-text-muted)] leading-relaxed">
+              Browser-only PDF tools. Nothing uploaded. Nothing tracked. Open source.
             </div>
           </div>
 
           <div className="space-y-2">
-            <div className="text-sm font-semibold uppercase tracking-wide text-neutral-500">
+            <div className="mono text-[10px] font-medium uppercase tracking-widest text-[var(--ui-text-muted)]">
               Product
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1.5">
               <FooterLink to="/scrub">Deep scrubber</FooterLink>
-              <FooterLink to="/tools">Toolbox</FooterLink>
+              <FooterLink to="/tools">All tools</FooterLink>
               <FooterLink to="/pricing">Pricing</FooterLink>
               <FooterLink to="/account">Account</FooterLink>
               <FooterLink to="/donate">Donate</FooterLink>
@@ -41,10 +41,10 @@ export function Footer() {
           </div>
 
           <div className="space-y-2">
-            <div className="text-sm font-semibold uppercase tracking-wide text-neutral-500">
+            <div className="mono text-[10px] font-medium uppercase tracking-widest text-[var(--ui-text-muted)]">
               Legal
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1.5">
               <FooterLink to="/privacy-policy">Privacy policy</FooterLink>
               <FooterLink to="/terms">Terms</FooterLink>
               <FooterLink to="/refund-policy">Refund policy</FooterLink>
@@ -52,32 +52,39 @@ export function Footer() {
           </div>
 
           <div className="space-y-2">
-            <div className="text-sm font-semibold uppercase tracking-wide text-neutral-500">
+            <div className="mono text-[10px] font-medium uppercase tracking-widest text-[var(--ui-text-muted)]">
               Resources
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1.5">
               <FooterLink to="/security">Security</FooterLink>
-              <FooterLink to="/privacy">Privacy summary</FooterLink>
+              <FooterLink to="/research">Research</FooterLink>
               <FooterLink to="/faq">FAQ</FooterLink>
               <FooterLink to="/guides">Guides</FooterLink>
               <FooterLink to="/blog">Blog</FooterLink>
-              <FooterLink to="/sitemap">Sitemap</FooterLink>
               <FooterLink to="/about">About</FooterLink>
-              <FooterLink to="/colophon">How it's built</FooterLink>
+              <FooterLink to="/colophon">How it&apos;s built</FooterLink>
+              <FooterLink to="/sitemap">Sitemap</FooterLink>
               <FooterLink to="/verify">Verify</FooterLink>
-              <FooterLink to="/status">Status</FooterLink>
-              <FooterLink to="/newsletter">Newsletter</FooterLink>
-              <FooterLink to="/contact">Contact</FooterLink>
             </div>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-neutral-300 pt-8">
+        <div className="mt-10 border-t border-[var(--ui-border)] pt-8">
           <NewsletterSignup noteAlign="right" />
         </div>
 
-        <div className="mt-6 text-sm text-neutral-500">
-          © {new Date().getFullYear()} PDF Changer. Built by Giuseppe Giona.
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+          <span className="mono text-[10px] text-[var(--ui-text-muted)]">
+            &copy; {new Date().getFullYear()} Giuseppe Giona
+          </span>
+          <a
+            href="https://github.com/Giuseppe552/pdf-changer"
+            target="_blank"
+            rel="noreferrer"
+            className="mono text-[10px] text-[var(--ui-text-muted)] hover:text-[var(--ui-accent)] transition-colors"
+          >
+            source on github
+          </a>
         </div>
       </div>
     </footer>
