@@ -54,10 +54,6 @@ const DonateProofArchivePageLazy = lazyNamed(
   () => import("./ui/pages/DonateProofArchivePage"),
   "DonateProofArchivePage",
 );
-const DonateTransparencyPageLazy = lazyNamed(
-  () => import("./ui/pages/DonateTransparencyPage"),
-  "DonateTransparencyPage",
-);
 const MarkdownContentPageLazy = lazyNamed(
   () => import("./ui/pages/content/MarkdownContentPage"),
   "MarkdownContentPage",
@@ -176,6 +172,14 @@ const AnalyzeToolPageLazy = lazyNamed(
   () => import("./ui/pages/tools/AnalyzeToolPage"),
   "AnalyzeToolPage",
 );
+const ResearchHubPageLazy = lazyNamed(
+  () => import("./ui/pages/research/ResearchHubPage"),
+  "ResearchHubPage",
+);
+const ResearchArticlePageLazy = lazyNamed(
+  () => import("./ui/pages/research/ResearchArticlePage"),
+  "ResearchArticlePage",
+);
 
 export const router = createBrowserRouter([
   {
@@ -199,10 +203,6 @@ export const router = createBrowserRouter([
       {
         path: "donate/proof/archive",
         element: withSuspense(<DonateProofArchivePageLazy />),
-      },
-      {
-        path: "donate/transparency",
-        element: withSuspense(<DonateTransparencyPageLazy />),
       },
       { path: "privacy", element: withSuspense(<PrivacyPageLazy />) },
       {
@@ -236,6 +236,11 @@ export const router = createBrowserRouter([
       { path: "verify", element: withSuspense(<VerifyPageLazy />) },
       { path: "newsletter", element: withSuspense(<NewsletterPageLazy />) },
       { path: "contact", element: withSuspense(<ContactPageLazy />) },
+      { path: "research", element: withSuspense(<ResearchHubPageLazy />) },
+      {
+        path: "research/:slug",
+        element: withSuspense(<ResearchArticlePageLazy />),
+      },
       { path: "content/:section/:slug", element: withSuspense(<MarkdownRoutePageLazy />) },
       {
         path: "tools",
