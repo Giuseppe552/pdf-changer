@@ -10,6 +10,10 @@ RP_ID = "pdf-changer.pages.dev"
 RP_ORIGIN = "https://pdf-changer.pages.dev"
 RP_NAME = "PDF Changer"
 
+# D1 database UUID — this is NOT a secret. It is a public identifier
+# that requires valid Cloudflare API credentials to access. Wrangler
+# requires it in the config file; it cannot be moved to env vars.
+# See: https://developers.cloudflare.com/d1/
 [[d1_databases]]
 binding = "DB"
 database_name = "pdf-changer"

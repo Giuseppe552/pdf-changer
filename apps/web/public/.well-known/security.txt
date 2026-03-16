@@ -1,0 +1,12 @@
+# Security policy for PDF Changer
+# https://securitytxt.org/
+
+Contact: mailto:security@pdfchanger.com
+Preferred-Languages: en
+Canonical: https://pdfchanger.com/.well-known/security.txt
+Policy: https://pdfchanger.com/security/policy
+Expires: 2027-03-14T00:00:00.000Z
+
+# If you find a security issue, please report it to the email above.
+# We follow a 90-day responsible disclosure timeline.
+# We do not pursue legal action against good-faith security researchers.
