@@ -38,3 +38,45 @@ export type AuditReport = {
   monitors: string[];
   cspPolicyActive: string | null;
 };
+
+// ── Merkle Tree types ─────────────────────────────────────────────────────
+
+export type InclusionProof = {
+  leafIndex: number;
+  leafHashHex: string;
+  treeSize: number;
+  path: { hash: Uint8Array; direction: "left" | "right" }[];
+};
+
+export type SignedTreeHead = {
+  rootHex: string;
+  treeSize: number;
+  timestamp: number;
+  signatureHex: string;
+  publicKeyJwk: JsonWebKey;
+};
+
+export type MerkleAuditData = {
+  rootHex: string;
+  signedHead: SignedTreeHead;
+  leafHashes: string[];
+  inclusionProofs: InclusionProof[];
+};
+
+// ── Pedersen Commitment types ─────────────────────────────────────────────
+
+/** Commitment WITHOUT opening info — safe to include in public exports. */
+export type PedersenCommitment = {
+  commitmentHex: string;
+  leafHashHex: string;
+};
+
+/** Commitment WITH opening info — needed for selective disclosure.
+ *  The blindingHex MUST be kept private until disclosure. */
+export type PedersenCommitmentWithOpening = PedersenCommitment & {
+  blindingHex: string;
+};
+
+export type MerkleAuditDataWithCommitments = MerkleAuditData & {
+  commitments: PedersenCommitmentWithOpening[];
+};

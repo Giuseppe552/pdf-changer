@@ -19,6 +19,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@noble/curves": "^2.0.1",
+    "@noble/hashes": "^2.0.1",
     "@pdf-changer/shared": "0.1.0",
     "@simplewebauthn/browser": "^10.0.0",
     "pdf-lib": "^1.17.1",

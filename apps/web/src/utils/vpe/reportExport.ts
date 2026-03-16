@@ -1,12 +1,20 @@
 import { buildHmacChain, type AuditLogEntry } from "./hmacChain";
+import { buildMerkleTreeWithCommitments } from "./merkleTree";
 import type { AuditReport } from "./types";
 
 export async function exportReportJson(report: AuditReport): Promise<string> {
+  const merkle = await buildMerkleTreeWithCommitments(report.events);
+  // Include deprecated HMAC chain for backwards compatibility
   const { entries, keyHex } = await buildHmacChain(report.events);
-  return JSON.stringify({ report, hmacChain: { entries, keyHex } }, null, 2);
+  return JSON.stringify(
+    { report, merkleTree: merkle, hmacChain: { entries, keyHex } },
+    null,
+    2,
+  );
 }
 
 export async function exportReportHtml(report: AuditReport): Promise<Blob> {
+  const merkle = await buildMerkleTreeWithCommitments(report.events);
   const { entries, keyHex } = await buildHmacChain(report.events);
   const verdictColor =
     report.verdict === "clean"
@@ -25,6 +33,15 @@ export async function exportReportHtml(report: AuditReport): Promise<Blob> {
     report.events.length === 0
       ? "<p>0 events detected during processing.</p>"
       : `<ol>${entries.map((e: AuditLogEntry) => `<li><strong>${e.event.type}</strong>: ${escapeHtml(formatEvent(e))}<br><code>HMAC: ${e.hmac}</code></li>`).join("")}</ol>`;
+
+  const merkleSection = `
+<div class="section">
+  <h2>Merkle Tree Audit</h2>
+  <div class="kv"><span class="label">Root hash</span><span class="value">${merkle.rootHex}</span></div>
+  <div class="kv"><span class="label">Tree size</span><span class="value">${merkle.signedHead.treeSize} events</span></div>
+  <div class="kv"><span class="label">Signed tree head</span><span class="value">${merkle.signedHead.signatureHex.slice(0, 32)}…</span></div>
+  <div class="kv"><span class="label">Inclusion proofs</span><span class="value">${merkle.inclusionProofs.length} proofs</span></div>
+</div>`;
 
   const html = `<!doctype html>
 <html lang="en">
@@ -67,6 +84,8 @@ export async function exportReportHtml(report: AuditReport): Promise<Blob> {
   ${eventsHtml}
 </div>
 
+${merkleSection}
+
 ${
   report.cspPolicyActive
     ? `<div class="section"><h2>Active CSP</h2><code>${escapeHtml(report.cspPolicyActive)}</code></div>`
@@ -75,7 +94,7 @@ ${
 
 ${
   keyHex
-    ? `<div class="section"><h2>HMAC Chain Key</h2><code>${keyHex}</code></div>`
+    ? `<div class="section"><h2>HMAC Chain Key (deprecated)</h2><code>${keyHex}</code></div>`
     : ""
 }
 

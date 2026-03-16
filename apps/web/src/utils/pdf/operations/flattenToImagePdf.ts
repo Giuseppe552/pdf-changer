@@ -91,7 +91,8 @@ export const flattenToImagePdf: PdfOperation<FlattenToImageInput, FlattenToImage
 
   // Randomize internal object structure to prevent tool fingerprinting
   try {
-    outputBytes = new Uint8Array(await randomizeStructure(outputBytes));
+    const result = await randomizeStructure(outputBytes);
+    outputBytes = new Uint8Array(result.bytes);
   } catch {
     // Best-effort: if randomization fails, continue with original output
   }

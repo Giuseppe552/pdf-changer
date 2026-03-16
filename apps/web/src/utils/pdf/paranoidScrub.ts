@@ -134,7 +134,8 @@ export async function paranoidScrubPdf(inputBytes: Uint8Array): Promise<{
 
   // Randomize internal object structure to prevent tool fingerprinting
   try {
-    finalBytes = new Uint8Array(await randomizeStructure(finalBytes));
+    const result = await randomizeStructure(finalBytes);
+    finalBytes = new Uint8Array(result.bytes);
   } catch {
     // best effort
   }

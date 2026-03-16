@@ -7,9 +7,18 @@
  *
  * Prevents fingerprinting the tool by its output structure: two identical
  * inputs should produce structurally different (but visually identical) outputs.
+ *
+ * Uses CSPRNG-backed Fisher-Yates with a Schwartz-Zippel product check
+ * proving the shuffle is a valid permutation.
  */
 
 import { PDFDocument } from "pdf-lib";
+import { cryptoShuffle, type ShuffleProof } from "./shuffleProof";
+
+export type RandomizeResult = {
+  bytes: Uint8Array;
+  shuffleProof: ShuffleProof | null;
+};
 
 /**
  * Randomize object insertion order in a flattened PDF.
@@ -17,28 +26,34 @@ import { PDFDocument } from "pdf-lib";
  * Strategy: load the PDF, extract page images, create a new PDF
  * and re-insert pages in randomized internal order (but same visual order).
  * This changes the internal object numbering/ordering.
+ *
+ * Returns the randomized PDF bytes and a cryptographic shuffle proof.
  */
 export async function randomizeStructure(
   pdfBytes: Uint8Array,
-): Promise<Uint8Array> {
+): Promise<RandomizeResult> {
   const src = await PDFDocument.load(pdfBytes, { updateMetadata: false });
   const pageCount = src.getPageCount();
 
-  if (pageCount === 0) return pdfBytes;
+  if (pageCount === 0) return { bytes: pdfBytes, shuffleProof: null };
+  if (pageCount === 1) return { bytes: pdfBytes, shuffleProof: null };
+
+  // Generate a random permutation with cryptographic proof
+  const originalIndices = Array.from({ length: pageCount }, (_, i) => i);
+  const { shuffled: indices, proof } = await cryptoShuffle(originalIndices);
 
   // Create new document and copy pages in a shuffled internal order,
   // then re-arrange to correct visual order
   const out = await PDFDocument.create();
 
-  // Generate a random permutation for copy order
-  const indices = Array.from({ length: pageCount }, (_, i) => i);
-  shuffleArray(indices);
-
   // Copy pages in shuffled order (affects internal object numbering)
   const copiedPages = await out.copyPages(src, indices);
 
   // Build a mapping from shuffled position back to original index
-  const pageSlots: Array<{ originalIndex: number; page: typeof copiedPages[0] }> = [];
+  const pageSlots: Array<{
+    originalIndex: number;
+    page: (typeof copiedPages)[0];
+  }> = [];
   for (let i = 0; i < indices.length; i++) {
     pageSlots.push({ originalIndex: indices[i], page: copiedPages[i] });
   }
@@ -61,15 +76,9 @@ export async function randomizeStructure(
   out.setCreationDate(fixedDate);
   out.setModificationDate(fixedDate);
 
-  return new Uint8Array(await out.save({ useObjectStreams: true, addDefaultPage: false }));
-}
+  const bytes = new Uint8Array(
+    await out.save({ useObjectStreams: true, addDefaultPage: false }),
+  );
 
-/**
- * Fisher-Yates shuffle (in-place).
- */
-function shuffleArray<T>(arr: T[]): void {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
+  return { bytes, shuffleProof: proof };
 }
