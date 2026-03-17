@@ -1,177 +1,89 @@
 # PDF Changer
 
-**Free PDF toolkit that runs entirely in your browser. No uploads. No tracking. No subscriptions.**
+[![CI](https://github.com/Giuseppe552/pdf-changer/actions/workflows/ci.yml/badge.svg)](https://github.com/Giuseppe552/pdf-changer/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Tests: 299](https://img.shields.io/badge/tests-299_passing-brightgreen)]()
+[![Tools: 21](https://img.shields.io/badge/tools-21-blue)]()
 
-[**Try it live →**](https://pdf-changer.pages.dev) · [How it's built](https://pdf-changer.pages.dev/colophon) · [Security docs](https://pdf-changer.pages.dev/security) · [Research](https://pdf-changer.pages.dev/research) · [Self-test](https://pdf-changer.pages.dev/verify)
+Free PDF toolkit. Runs in your browser. Files never leave your device.
 
----
+[**pdfchanger.org**](https://pdfchanger.org)
 
-Every online PDF tool uploads your files to their servers. iLovePDF, Smallpdf, Adobe Acrobat Online — they all do it. Some promise to delete after an hour. Some don't say.
+## Why
 
-PDF Changer processes everything in your browser tab. Your files never leave your device. And unlike "trust us" privacy claims, this one is **provable** — every operation runs inside a sandboxed iframe with three concurrent monitors that produce a tamper-evident audit report.
+Every online PDF tool uploads your files to a server. PDF Changer doesn't. Everything runs client-side in a sandboxed iframe with `connect-src: 'none'`. Three monitors (CSP, PerformanceObserver, MutationObserver) watch for exfiltration. Every event hashes into a tamper-evident HMAC chain. Downloadable audit report with SHA-256 proof.
 
 ## Tools
 
-19 PDF tools, all running client-side (+ 1 coming soon):
+| | |
+|---|---|
+| **Privacy** | Deep scrub, Paranoid scrub, Forensic analyzer, Visual redaction, Flatten to image, Privacy pipeline |
+| **Organise** | Merge, Split, Page editor, Remove pages, Rotate |
+| **Edit** | Compress, Crop, Watermark, Page numbers, Sign, Fill forms, OCR, Image ↔ PDF |
+| **Protect** | Unlock (owner password) |
 
-| Tool | What it does |
-|------|-------------|
-| **Deep Scrub** | Strip metadata, EXIF, XMP, forms, annotations, JavaScript, embedded files |
-| **Paranoid Scrub** | Everything above + ICC profiles, document ID, structure randomization |
-| **Merge** | Combine multiple PDFs into one |
-| **Split** | Extract page ranges or split per-page |
-| **Compress** | Reduce file size by rebuilding document structure |
-| **Redact** | Properly remove content (flatten to image, not just draw a box over it) |
-| **Flatten** | Convert pages to images — destroys all hidden structure |
-| **OCR** | Extract text from scanned PDFs (Tesseract.js, runs locally) |
-| **Rotate / Crop** | Page-level transformations |
-| **Watermark** | Add text watermarks with configurable opacity and angle |
-| **Page numbers** | Add numbering to pages |
-| **Sign** | Place signature images on pages |
-| **Fill forms** | Detect and fill interactive PDF form fields |
-| **Unlock** | Strip owner-password restrictions (cannot decrypt user-password PDFs) |
-| **Image ↔ PDF** | Convert between images and PDFs |
-| **Analyze** | Forensic analysis of PDF structure and hidden data |
-| **Pipeline** | Chain operations: scrub → flatten → compress in one pass |
+21 tools. All client-side. No server uploads.
 
-## What makes this different
+<details>
+<summary><strong>Paranoid mode pipeline</strong></summary>
 
-### Verified Processing Environment (VPE)
+1. Strip all metadata, annotations, JavaScript, forms, embedded files
+2. Strip ICC colour profiles (colour-space fingerprinting)
+3. Clear document ID from trailer (unique file identifier)
+4. Normalise producer string (authoring tool signature)
+5. Fisher-Yates shuffle internal object order (structural fingerprinting)
+6. Flag font subset fingerprints (ABCDEF+ prefix patterns)
 
-Every operation is wrapped in three concurrent monitors:
+Two identical inputs → structurally different outputs.
 
-- **PerformanceObserver** — catches all network requests during processing
-- **CSP violation listener** — captures any blocked exfiltration attempts
-- **MutationObserver** — detects injected scripts, tracking pixels, iframes
+</details>
 
-WebRTC is monkey-patched to prevent IP leaks via ICE candidates. The sandbox iframe runs with `connect-src 'none'` — it physically cannot make outbound connections.
+<details>
+<summary><strong>Byte-level metadata stripping</strong></summary>
 
-After processing, you get a green shield badge with a full audit report. Export it as JSON or standalone HTML. The report includes SHA-256 hashes of input and output, an HMAC chain for tamper evidence, and the CSP policy that was active.
+pdf-lib can't reach inside embedded image streams. The scrubber scans raw bytes:
 
-Threat model covers [45+ browser exfiltration vectors](https://pdf-changer.pages.dev/security/technical/csp-exfiltration-analysis).
+- JPEG: finds SOI markers (FF D8), strips APP1/APP2/APP13/APP14 segments (EXIF, XMP, ICC, IPTC)
+- PNG: walks chunks, strips tEXt/iTXt/eXIf/iCCP
+- Overlapping regions get merge-sorted before excision
 
-### Steganography detection
+Most "metadata removal" tools don't touch embedded images. This one does.
 
-Most printers embed invisible yellow tracking dots ([Machine Identification Code](https://en.wikipedia.org/wiki/Machine_Identification_Code)) that encode the printer serial number, date, and time. If you scan a printed document back to PDF, those dots survive.
+</details>
 
-The scrubber includes a heuristic detector that renders pages at high resolution and scans margin areas for yellow pixel patterns matching known MIC grids.
+<details>
+<summary><strong>Printer tracking dot decoder</strong></summary>
 
-### Structure randomization
+Most colour printers embed invisible yellow dots encoding serial number, date, time (Machine Identification Code). The decoder renders pages at high resolution, scans margins for patterns, decodes Xerox DocuColor 15×8 grids.
 
-PDFs have internal object ordering. If every output had identical structure, that structure becomes a fingerprint — "this document was processed by PDF Changer." Paranoid mode shuffles internal object insertion order using Fisher-Yates. Two identical inputs produce visually identical but structurally different outputs.
+Based on the EFF's research and TU Dresden's DEDA project. Currently Xerox only — other manufacturers use different encodings.
 
-### Font fingerprint detection
-
-When you create a PDF with a custom font, the authoring tool embeds a font subset with a randomly generated prefix (`ABCDEF+Helvetica`). That prefix is unique to that specific export. The scrubber detects these and warns you.
+</details>
 
 ## Stack
 
-| Layer | Tech |
-|-------|------|
-| Frontend | React 18, Vite, Tailwind CSS, PWA (offline-capable) |
-| PDF processing | pdf-lib, PDF.js, Tesseract.js (WASM) |
-| Crypto | Web Crypto API (SHA-256, HMAC-SHA256, ECDSA P-256) |
-| Backend | Hono on Cloudflare Workers (auth + billing only) |
-| Database | Cloudflare D1 (SQLite at the edge) |
-| Auth | WebAuthn passkeys, recovery codes |
-| Billing | Stripe subscriptions |
-| Deploy | Cloudflare Pages + Workers |
-| Tests | Vitest — 134 tests across 32 files |
-| SSG | Custom Vite plugin — 2,900 lines, pre-renders 500+ static pages |
-
-## Architecture
-
 ```
-apps/
-  web/     — PWA. All PDF processing happens here. ~19k lines TS.
-  api/     — Auth + billing only. No file handling. ~1.2k lines TS.
-packages/
-  shared/  — TypeScript types shared between apps
+apps/web     React SPA · pdf-lib · PDF.js · Tesseract.js · Web Crypto
+             VPE sandbox (iframe + CSP + 3 monitors + HMAC chain)
+             Service worker · offline cache · PWA
+apps/api     Hono · Cloudflare Workers · D1 · WebAuthn · ECDSA tokens
 ```
 
-The web app is a PWA — once loaded, it works fully offline. Usage quotas are tracked client-side. Paid users get an ECDSA-signed entitlement token verified in the browser with no API call.
-
-### Build pipeline
-
-The build runs 5 content validation scripts before producing output:
-
-1. **Security content** — enforces required fields, blocks prohibited phrases ("how to commit fraud", "evade law enforcement")
-2. **Tool registry** — validates all 21 tool definitions (19 enabled + 1 beta + 1 coming-soon), checks route references
-3. **Copy quality** — grammar, tone, jargon detection
-4. **Tool doc quality** — documentation completeness per tool
-5. **Donation proof** — cryptographic verification of donation artifacts
-
-14 bundle size budgets are enforced. Entry JS is capped at 450KB. Individual tool pages at 10-30KB.
-
-## Interesting implementation details
-
-**Byte-level EXIF stripping** — pdf-lib doesn't expose raw embedded streams, so `exifStrip.ts` scans for JPEG SOI markers and PNG magic bytes in the raw PDF buffer, then excises APP segments and metadata chunks at the byte level.
-
-**Offline entitlements** — paid status is an ECDSA P-256 signed JWT. The browser verifies it locally against a public key — no network roundtrip after initial login.
-
-**Passkey auth** — no passwords stored. WebAuthn registration with 10 one-time recovery codes (SHA-256 hashed with pepper, consumed on use).
-
-**Content Security Policy** — `default-src 'none'` on the sandbox iframe. The main site uses strict CSP with `X-DNS-Prefetch-Control: off` to block DNS-based exfiltration (documented in [Chalmers/ACM AsiaCCS 2016](https://pdf-changer.pages.dev/security/technical/csp-exfiltration-analysis)).
-
-## Research
-
-Original security research published at [/research](https://pdf-changer.pages.dev/research):
-
-- **[Competitor data audit](https://pdf-changer.pages.dev/research/competitor-data-audit)** — canary PDFs + traffic interception to verify what iLovePDF, Smallpdf, etc. actually transmit and retain (in progress)
-- **[CSP exfiltration test suite](https://pdf-changer.pages.dev/research/csp-exfiltration-tests)** — systematic cross-browser testing of 45+ data exfiltration vectors against CSP restrictions (in progress)
-- **[Printer tracking dot decoder](https://pdf-changer.pages.dev/research/printer-tracking-decoder)** — first browser-based Machine Identification Code decoder. Identifies Xerox DocuColor serial numbers and print timestamps from invisible yellow dots (published)
-- **[Why PDF Changer](https://pdf-changer.pages.dev/research/why-pdf-changer)** — honest comparison against Dangerzone, mat2, ExifTool, and online tools
-
-## Honest limitations
-
-- **Protect (password) tool is not implemented.** It's listed as coming-soon, not functional. Use qpdf or LibreOffice for PDF password protection.
-- **Unlock is basic.** It strips owner-password restrictions (`ignoreEncryption`). It cannot decrypt user-password-protected PDFs.
-- **Browser trust model.** If your browser or OS is compromised, no website can help. Use [Dangerzone](https://dangerzone.rocks/) for container-level isolation.
-- **No Office file support.** We handle PDFs only. Dangerzone handles Word/Excel/PowerPoint.
-- **No batch CLI.** For scripted pipelines, use mat2 or ExifTool.
-- **200-page cap** on flatten/redact due to browser memory limits.
-- **Remaining npm dev-dependency vulnerabilities** are in build tools (wrangler, vite, miniflare) that never ship to users. We update as upstream patches become available.
-
-## Self-hosting
-
-The code is MIT licensed. Clone it, run it yourself:
+## Run locally
 
 ```sh
+git clone https://github.com/Giuseppe552/pdf-changer.git && cd pdf-changer
 npm install
-
-# web
-cp apps/web/.env.example apps/web/.env
-npm run dev:web
-
-# api (optional — only needed for accounts and billing)
-cp apps/api/.dev.vars.example apps/api/.dev.vars
-npx wrangler d1 create pdf-changer
-npx wrangler d1 migrations apply pdf-changer --local --cwd apps/api
-npm run dev:api
+npm run dev          # starts web + api
+npm test             # 299 tests across 42 files
 ```
 
-All PDF tools work without the API. The API is only needed for passkey accounts and Stripe billing.
+## Contributing
 
-## Tests
+See [CONTRIBUTING.md](CONTRIBUTING.md). Issues labeled [`good first issue`](https://github.com/Giuseppe552/pdf-changer/labels/good%20first%20issue) are ready to pick up.
 
-```sh
-npm test          # everything
-cd apps/web && npm test   # web (134 tests)
-cd apps/api && npm test   # api
-```
-
-## Privacy
-
-- No analytics, no trackers, no third-party scripts
-- No PDF uploads — bytes stay on-device
-- CSP blocks all external connections during processing
-- WebRTC patched to prevent IP leaks
-- Backend handles auth and billing only — never sees a PDF byte
+Core rule: **files never leave the browser.** Any PR that adds server-side file processing will be rejected.
 
 ## License
 
-[MIT](LICENSE)
-
----
-
-Built by [Giuseppe Giona](https://pdf-changer.pages.dev/about).
+MIT
