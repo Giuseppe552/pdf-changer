@@ -1,7 +1,7 @@
 # SPA fallback ONLY for routes that have no SSG index.html
 # Cloudflare Pages automatically serves /path/index.html for /path
 # So we only need the catch-all for truly dynamic routes
-/scrub /index.html 200
+/scrub /tools/scrub 301
 /account /index.html 200
 /pricing /index.html 200
 /newsletter /index.html 200

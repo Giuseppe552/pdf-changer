@@ -42,15 +42,15 @@ export function ToolsHubPage() {
   const labs = labTools();
 
   React.useEffect(() => {
-    document.title = "Tools Hub · PDF Changer";
+    document.title = "Free PDF Tools — Merge, Split, Compress, Scrub Metadata · PDF Changer";
   }, []);
 
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h1 className="ui-title">Tools Hub</h1>
+        <h1 className="ui-title">Free PDF Tools</h1>
         <p className="ui-subtitle max-w-3xl">
-          Privacy-first PDF productivity tools for everyday computer work.
+          Merge, split, compress, scrub metadata, redact, and more. Everything runs in your browser — no uploads, no tracking.
         </p>
       </div>
 

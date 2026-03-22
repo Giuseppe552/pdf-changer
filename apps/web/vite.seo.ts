@@ -700,9 +700,9 @@ function buildBlogIndexBody(posts: BlogPost[]): string {
 
   return `
         <div class="space-y-2">
-          <h1 class="text-2xl font-semibold tracking-tight">Blog Hub</h1>
+          <h1 class="text-2xl font-semibold tracking-tight">Blog</h1>
           <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">
-            Daily-read security guidance focused on anonymity, document risk, and safer submissions. Calm language, strict defaults, practical steps.
+            Guides on PDF privacy, metadata risks, document security, and safer file sharing. Practical steps, no jargon.
           </p>
         </div>
         <div class="mt-4 flex flex-wrap gap-2">
@@ -898,9 +898,9 @@ function buildFaqIndexBody(questions: FaqQuestion[]): string {
 
   return `
         <div class="space-y-2">
-          <h1 class="text-2xl font-semibold tracking-tight">FAQ Hub</h1>
+          <h1 class="text-2xl font-semibold tracking-tight">Frequently Asked Questions</h1>
           <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">
-            Practical, plain-English answers on anonymity, document safety, and secure sharing. This is general information, not legal advice.
+            Plain-English answers on PDF metadata, document privacy, anonymity, and secure file sharing.
           </p>
         </div>
         <div class="mt-4 flex flex-wrap gap-2">
@@ -945,7 +945,7 @@ function buildFaqTopicBody(topic: string, questions: FaqQuestion[]): string {
 
   return `
         <div class="space-y-2">
-          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/faq">FAQ Hub</a> / ${escapeHtml(topicTitle)}</nav>
+          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/faq">FAQ</a> / ${escapeHtml(topicTitle)}</nav>
           <h1 class="text-2xl font-semibold tracking-tight">${escapeHtml(topicTitle)}</h1>
           <p class="max-w-2xl text-sm text-[var(--ui-text-secondary)]">Frequently asked questions for ${escapeHtml(topicTitle.toLowerCase())}.</p>
         </div>
@@ -991,7 +991,7 @@ function buildFaqQuestionBody(question: FaqQuestion, related: FaqQuestion[]): st
   return `
         <article itemscope itemtype="https://schema.org/FAQPage" class="space-y-4">
           <div itemprop="mainEntity" itemscope itemtype="https://schema.org/Question" class="space-y-4">
-            <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/faq">FAQ Hub</a> / <a class="hover:text-[var(--ui-text)]" href="/faq/${escapeHtml(question.topic)}">${escapeHtml(titleCasePhrase(question.topic))}</a></nav>
+            <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/faq">FAQ</a> / <a class="hover:text-[var(--ui-text)]" href="/faq/${escapeHtml(question.topic)}">${escapeHtml(titleCasePhrase(question.topic))}</a></nav>
             <h1 itemprop="name" class="text-2xl font-semibold tracking-tight">${escapeHtml(question.question)}</h1>
             <div class="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-sm text-[var(--ui-text-secondary)] shadow-sm">
               <div class="font-semibold text-[var(--ui-text)]">Short answer</div>
@@ -1043,9 +1043,9 @@ function buildSecurityHubBody(articles: SecurityArticle[]): string {
 
   return `
         <div class="space-y-2">
-          <h1 class="text-2xl font-semibold tracking-tight">Security Hub</h1>
+          <h1 class="text-2xl font-semibold tracking-tight">Security Model & Threat Analysis</h1>
           <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">
-            Defensive security guidance for document workflows. Plain-English for non-technical readers, deep technical references for advanced users.
+            How PDF Changer protects your documents. Threat models, privacy limits, and defensive guidance for technical and non-technical readers.
           </p>
         </div>
 
@@ -1126,7 +1126,7 @@ function buildSecurityTrackBody(track: SecurityTrack, articles: SecurityArticle[
 
   return `
         <div class="space-y-2">
-          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/security">Security Hub</a> / ${escapeHtml(trackToTitle(track))}</nav>
+          <nav aria-label="Breadcrumb" class="text-xs text-[var(--ui-text-muted)]"><a class="hover:text-[var(--ui-text)]" href="/security">Security</a> / ${escapeHtml(trackToTitle(track))}</nav>
           <h1 class="text-2xl font-semibold tracking-tight">${escapeHtml(trackToTitle(track))} Security Track</h1>
           <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">
             ${track === "non-technical" ? "Practical behavior and low-friction safety defaults." : "Technical notes for deeper threat-modeling and exposure review."}
@@ -1148,8 +1148,8 @@ function buildSecurityArticleBody(
 ): string {
   const breadcrumb =
     article.section === "policy"
-      ? `<a class="hover:text-[var(--ui-text)]" href="/security">Security Hub</a> / Policy`
-      : `<a class="hover:text-[var(--ui-text)]" href="/security">Security Hub</a> / <a class="hover:text-[var(--ui-text)]" href="/security/${escapeHtml(article.section)}">${escapeHtml(trackToTitle(article.section as SecurityTrack))}</a>`;
+      ? `<a class="hover:text-[var(--ui-text)]" href="/security">Security</a> / Policy`
+      : `<a class="hover:text-[var(--ui-text)]" href="/security">Security</a> / <a class="hover:text-[var(--ui-text)]" href="/security/${escapeHtml(article.section)}">${escapeHtml(trackToTitle(article.section as SecurityTrack))}</a>`;
 
   const relatedHtml = related.length
     ? `
@@ -1187,7 +1187,7 @@ function buildSecurityArticleBody(
             <div itemprop="articleBody" class="prose prose-neutral prose-sm max-w-none">${article.bodyHtml}</div>
           </div>
           <div class="text-sm text-[var(--ui-text-muted)]">
-            Next safe step: <a class="underline" href="/scrub">scrub a PDF locally</a>, open <a class="underline" href="/faq">FAQ Hub</a>, and review <a class="underline" href="/security/policy">defensive-only policy</a>.
+            Next safe step: <a class="underline" href="/scrub">scrub a PDF locally</a>, open <a class="underline" href="/faq">FAQ</a>, and review <a class="underline" href="/security/policy">defensive-only policy</a>.
           </div>
         </article>
 ${relatedHtml}
@@ -1255,9 +1255,9 @@ function buildToolsHubBody(): string {
 
   return `
         <div class="space-y-2">
-          <h1 class="text-2xl font-semibold tracking-tight">Tools Hub</h1>
+          <h1 class="text-2xl font-semibold tracking-tight">Free PDF Tools</h1>
           <p class="max-w-3xl text-sm text-[var(--ui-text-secondary)]">
-            Privacy-first PDF productivity tools for daily work. On-device by default, no trackers.
+            Merge, split, compress, scrub metadata, redact, and more. Everything runs in your browser — no uploads, no tracking.
           </p>
         </div>
         <div class="mt-4 rounded-sm border border-blue-300 bg-blue-50 p-4 text-sm text-blue-900">
@@ -1471,7 +1471,7 @@ function buildToolDocBody(
         <a class="underline" href="/tools/${escapeHtml(toolSlug)}/privacy"> Privacy</a>
       </div>
     `
-    : `<div class="text-sm text-[var(--ui-text-secondary)]"><a class="underline" href="/tools">Back to Tools Hub</a></div>`;
+    : `<div class="text-sm text-[var(--ui-text-secondary)]"><a class="underline" href="/tools">All tools</a></div>`;
 
   return `
         <article itemscope itemtype="https://schema.org/Article" class="space-y-4">
@@ -2031,9 +2031,9 @@ export function seoStaticBlogPlugin(): Plugin {
       writeFileEnsured(
         path.join(outDir, "blog", "index.html"),
         htmlLayout({
-          title: "Blog Hub",
+          title: "PDF Privacy & Security Blog",
           description:
-            "Daily-read security guidance on anonymity, document risk, and safer submissions.",
+            "Guides on PDF metadata, document privacy, printer tracking dots, and safer file sharing. Practical security for non-technical readers.",
           canonicalHref: siteOrigin ? `${siteOrigin}${blogIndexPath}` : blogIndexPath,
           ogUrl: siteOrigin ? `${siteOrigin}${blogIndexPath}` : undefined,
           ogType: "website",
@@ -2051,8 +2051,8 @@ export function seoStaticBlogPlugin(): Plugin {
         writeFileEnsured(
           path.join(outDir, "blog", category, "index.html"),
           htmlLayout({
-            title: `Blog Hub · ${titleCaseWord(category)}`,
-            description: `Posts tagged ${titleCaseWord(category)}.`,
+            title: `${titleCaseWord(category)} — PDF Privacy & Security Blog`,
+            description: `Articles on ${category.replace(/-/g, " ")} for PDF documents and file sharing.`,
             canonicalHref: siteOrigin ? `${siteOrigin}${categoryPath}` : categoryPath,
             ogUrl: siteOrigin ? `${siteOrigin}${categoryPath}` : undefined,
             ogType: "website",
@@ -2108,9 +2108,9 @@ export function seoStaticBlogPlugin(): Plugin {
       writeFileEnsured(
         path.join(outDir, "faq", "index.html"),
         htmlLayout({
-          title: "FAQ Hub",
+          title: "PDF Privacy FAQ — Metadata, Anonymity, Secure Sharing",
           description:
-            "Practical, plain-English answers on anonymity, document safety, and secure sharing.",
+            "Answers on PDF metadata removal, document anonymity, secure sharing, and privacy risks. Plain English, no jargon.",
           canonicalHref: siteOrigin ? `${siteOrigin}${faqIndexPath}` : faqIndexPath,
           ogUrl: siteOrigin ? `${siteOrigin}${faqIndexPath}` : undefined,
           ogType: "website",
@@ -2183,9 +2183,9 @@ export function seoStaticBlogPlugin(): Plugin {
       writeFileEnsured(
         path.join(outDir, "security", "index.html"),
         htmlLayout({
-          title: "Security Hub",
+          title: "PDF Security Model — Threat Analysis & Privacy Limits",
           description:
-            "Defensive security guidance for office workers, whistleblowers, and technical teams handling documents.",
+            "How PDF Changer protects your files. CSP sandbox, audit monitors, EXIF stripping, and honest limitations. For journalists, lawyers, and security teams.",
           canonicalHref: siteOrigin ? `${siteOrigin}${securityHubPath}` : securityHubPath,
           ogUrl: siteOrigin ? `${siteOrigin}${securityHubPath}` : undefined,
           ogType: "website",
@@ -2273,9 +2273,9 @@ export function seoStaticBlogPlugin(): Plugin {
       writeFileEnsured(
         path.join(outDir, "tools", "index.html"),
         htmlLayout({
-          title: "Tools Hub",
+          title: "Free PDF Tools — Merge, Split, Compress, Scrub Metadata",
           description:
-            "Free-first privacy PDF tools for daily productivity with local processing defaults.",
+            "21 free PDF tools that run in your browser. Merge, split, compress, scrub metadata, redact, flatten, OCR, and more. No uploads, no tracking.",
           canonicalHref: siteOrigin ? `${siteOrigin}${toolsHubPath}` : toolsHubPath,
           ogUrl: siteOrigin ? `${siteOrigin}${toolsHubPath}` : undefined,
           ogType: "website",
@@ -2730,8 +2730,8 @@ export function seoStaticBlogPlugin(): Plugin {
           </div>
 
           <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[15px] text-[var(--ui-text-secondary)]">
-            <a class="underline" href="/security">Security Hub</a>
-            <a class="underline" href="/faq">FAQ Hub</a>
+            <a class="underline" href="/security">Security</a>
+            <a class="underline" href="/faq">FAQ</a>
             <a class="underline" href="/privacy-policy">Privacy Policy</a>
             <a class="underline" href="/donate">Donate</a>
             <a class="underline" href="/tools">All Tools</a>
@@ -2923,7 +2923,6 @@ export function seoStaticBlogPlugin(): Plugin {
       const urls: Array<{ loc: string; lastmod?: string }> = [];
       const corePaths = [
         "/",
-        "/scrub",
         "/tools",
         "/pricing",
         "/account",

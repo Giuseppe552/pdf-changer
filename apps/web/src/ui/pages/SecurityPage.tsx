@@ -49,7 +49,7 @@ export function SecurityPage() {
   const [difficulty, setDifficulty] = React.useState<Difficulty | "all">("all");
 
   React.useEffect(() => {
-    document.title = "Security Hub · PDF Changer";
+    document.title = "PDF Security Model · PDF Changer";
   }, []);
 
   React.useEffect(() => {
@@ -111,7 +111,7 @@ export function SecurityPage() {
   if (status === "missing") {
     return (
       <div className="space-y-4">
-        <h1 className="ui-title">Security Hub</h1>
+        <h1 className="ui-title">Security Model</h1>
         <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-[15px] text-[var(--ui-text-secondary)] shadow-sm">
           No security entries are published yet.
         </div>
@@ -122,7 +122,7 @@ export function SecurityPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h1 className="ui-title">Security Hub</h1>
+        <h1 className="ui-title">Security Model</h1>
         <p className="ui-subtitle max-w-3xl">
           Defensive security guidance for document workflows. Plain-English for
           non-technical readers, deep technical references for advanced users.

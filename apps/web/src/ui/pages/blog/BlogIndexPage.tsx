@@ -17,7 +17,7 @@ export function BlogIndexPage() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    document.title = "Blog Hub · PDF Changer";
+    document.title = "PDF Privacy & Security Blog · PDF Changer";
   }, []);
 
   const categories = React.useMemo(() => {
@@ -102,7 +102,7 @@ export function BlogIndexPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h1 className="ui-title">Blog Hub</h1>
+        <h1 className="ui-title">Blog</h1>
         <p className="ui-subtitle max-w-3xl">
           Daily-read security guidance focused on anonymity, document risk, and
           safer submissions. Calm language, strict defaults, and practical steps.

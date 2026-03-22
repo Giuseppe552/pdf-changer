@@ -26,7 +26,7 @@ export function FaqHubPage() {
   const [topic, setTopic] = React.useState("all");
 
   React.useEffect(() => {
-    document.title = "FAQ Hub · PDF Changer";
+    document.title = "PDF Privacy FAQ · PDF Changer";
   }, []);
 
   React.useEffect(() => {
@@ -74,7 +74,7 @@ export function FaqHubPage() {
   if (status === "missing") {
     return (
       <div className="space-y-4">
-        <h1 className="ui-title">FAQ Hub</h1>
+        <h1 className="ui-title">Frequently Asked Questions</h1>
         <div className="rounded-sm border border-[var(--ui-border)] bg-[var(--ui-bg-raised)] p-6 text-[15px] text-[var(--ui-text-secondary)] shadow-sm">
           No FAQ entries are published yet.
         </div>
@@ -85,7 +85,7 @@ export function FaqHubPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h1 className="ui-title">FAQ Hub</h1>
+        <h1 className="ui-title">Frequently Asked Questions</h1>
         <p className="ui-subtitle max-w-3xl">
           Practical, plain-English answers on anonymity, document safety, and secure
           sharing. This is general information, not legal advice.

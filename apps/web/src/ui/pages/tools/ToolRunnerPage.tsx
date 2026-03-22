@@ -91,7 +91,7 @@ export function ToolRunnerPage() {
         <h1 className="ui-title">Tool not found</h1>
         <Card title="Unknown tool">
           <div className="text-[15px] text-[var(--ui-text-secondary)]">
-            Open the <NavLink className="underline" to="/tools">Tools Hub</NavLink> to choose a valid route.
+            Open <NavLink className="underline" to="/tools">all tools</NavLink> to choose a valid route.
           </div>
         </Card>
       </div>

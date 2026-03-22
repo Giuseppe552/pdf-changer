@@ -8,9 +8,9 @@ export function ToolsLayout() {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-semibold tracking-tight">Tools Hub</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Free PDF Tools</h1>
         <div className="text-sm text-[var(--ui-text-secondary)]">
-          Free-first daily tools with honest availability labels
+          All tools run in your browser. No uploads, no tracking.
         </div>
       </div>
 

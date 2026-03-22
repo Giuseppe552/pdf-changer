@@ -14,7 +14,7 @@ export const homeAudience = [
 
 export const homeWhyUse = [
   "Everything runs in your browser — no file uploads, no server processing.",
-  "19 tools that cover what you'd normally need Adobe or a dozen browser tabs for.",
+  "21 tools that cover what you'd normally need Adobe or a dozen browser tabs for.",
   "Every operation produces a clear report showing exactly what changed.",
 ];
 
@@ -27,7 +27,7 @@ export const homeHowItWorks = [
 export const homeProofMetrics = [
   { value: "0", label: "bytes uploaded", note: "everything processes locally" },
   { value: "0", label: "trackers", note: "no analytics, no pixels, no third-party scripts" },
-  { value: "283", label: "tests passing", note: "automated test suite, CI on every commit" },
+  { value: "303", label: "tests passing", note: "automated test suite, CI on every commit" },
   { value: "21", label: "tools", note: "merge, split, scrub, compress, redact, and more" },
 ];
 
