@@ -12,6 +12,7 @@ import { toArrayBuffer } from "../../../utils/toArrayBuffer";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
 import { processAudited } from "../../../utils/vpe/processAudited";
 import type { AuditReport } from "../../../utils/vpe/types";
+import type { ProgressUpdate } from "../../../utils/progress";
 import { AuditBadge } from "../../components/vpe/AuditBadge";
 
 const DPI_OPTIONS = [72, 150, 200, 300] as const;
@@ -23,6 +24,7 @@ export function FlattenToolPage() {
   const [format, setFormat] = React.useState<"png" | "jpeg">("png");
   const [quality, setQuality] = React.useState(0.92);
   const [busy, setBusy] = React.useState(false);
+  const [progressInfo, setProgressInfo] = React.useState<ProgressUpdate | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [result, setResult] = React.useState<{
     url: string;
@@ -43,6 +45,7 @@ export function FlattenToolPage() {
     setBusy(true);
     setError(null);
     setResult(null);
+    setProgressInfo(null);
     try {
       if (!canUseTool(me, "flatten")) {
         throw new Error("Monthly heavy quota reached for this device.");
@@ -51,7 +54,8 @@ export function FlattenToolPage() {
       const { outputBytes, toolReport, auditReport: report } = await processAudited({
         toolName: "flatten",
         inputBytes,
-        processFn: async (bytes) => flattenToImagePdf({ pdfBytes: bytes, dpi, format, jpegQuality: quality }),
+        processFn: async (bytes) => flattenToImagePdf({ pdfBytes: bytes, dpi, format, jpegQuality: quality, onProgress: setProgressInfo }),
+        onProgress: setProgressInfo,
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tool report shape
       const output = toolReport as any;
@@ -70,6 +74,7 @@ export function FlattenToolPage() {
       setError(e instanceof Error ? e.message : "Flatten failed");
     } finally {
       setBusy(false);
+      setProgressInfo(null);
     }
   }
 
@@ -151,7 +156,12 @@ export function FlattenToolPage() {
         </div>
       </Card>
 
-      {busy && <ProcessingIndicator label="Rasterising pages — this takes a moment for large files" />}
+      {busy && (
+        <ProcessingIndicator
+          label="Rasterising pages"
+          progress={progressInfo}
+        />
+      )}
 
       {result ? (
         <Card title="Flatten report">

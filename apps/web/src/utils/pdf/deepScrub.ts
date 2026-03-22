@@ -3,10 +3,14 @@ import { sha256 } from "../sha256";
 import { detectLikelyExif } from "./exifDetect";
 import { stripExifFromPdfBytes, type ExifStripReport } from "./exifStrip";
 import { detectFontFingerprints } from "./fontDetect";
+import { type ProgressCallback, noopProgress, progress } from "../progress";
 
 const FIXED_DATE = new Date("2000-01-01T00:00:00.000Z");
 
-export async function deepScrubPdf(inputBytes: Uint8Array): Promise<{
+export async function deepScrubPdf(
+  inputBytes: Uint8Array,
+  onProgress: ProgressCallback = noopProgress,
+): Promise<{
   outputBytes: Uint8Array;
   report: {
     pageCount: number;
@@ -19,12 +23,16 @@ export async function deepScrubPdf(inputBytes: Uint8Array): Promise<{
     customFontNames: string[];
   };
 }> {
+  onProgress(progress("hashing", 0.05));
   const inputSha = await sha256(inputBytes);
+
+  onProgress(progress("loading", 0.1));
   const exifWarning = detectLikelyExif(inputBytes);
   const fontReport = await detectFontFingerprints(inputBytes);
 
   const src = await PDFDocument.load(inputBytes, { ignoreEncryption: false });
   const pageCount = src.getPageCount();
+  onProgress(progress("reading-metadata", 0.15, { pageCount }));
 
   const metadataBefore: Record<string, string | null> = {
     Title: safeString(() => src.getTitle()),
@@ -37,6 +45,7 @@ export async function deepScrubPdf(inputBytes: Uint8Array): Promise<{
     ModDate: safeDate(() => src.getModificationDate()),
   };
 
+  onProgress(progress("copying-pages", 0.2, { pageCount }));
   const out = await PDFDocument.create();
   const annotsKey = PDFName.of("Annots");
   const aaKey = PDFName.of("AA");
@@ -78,8 +87,10 @@ export async function deepScrubPdf(inputBytes: Uint8Array): Promise<{
   out.setCreationDate(FIXED_DATE);
   out.setModificationDate(FIXED_DATE);
 
+  onProgress(progress("saving", 0.6, { pageCount }));
   let finalBytes = new Uint8Array(await out.save());
 
+  onProgress(progress("stripping-exif", 0.7, { pageCount }));
   // Strip EXIF/IPTC/ICC from embedded JPEG/PNG streams
   let exifStripReport: ExifStripReport | null = null;
   try {
@@ -90,8 +101,10 @@ export async function deepScrubPdf(inputBytes: Uint8Array): Promise<{
     // Best-effort: if strip fails, continue with unstripped output
   }
 
+  onProgress(progress("hashing", 0.9, { pageCount }));
   const outputSha = await sha256(finalBytes);
 
+  onProgress(progress("verifying", 1, { pageCount }));
   return {
     outputBytes: finalBytes,
     report: {

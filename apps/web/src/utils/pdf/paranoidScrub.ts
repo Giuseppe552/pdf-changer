@@ -17,6 +17,7 @@ import { PDFDocument, PDFName } from "pdf-lib";
 import { deepScrubPdf } from "./deepScrub";
 import { stripExifFromPdfBytes, type ExifStripReport } from "./exifStrip";
 import { randomizeStructure } from "./structureRandomize";
+import { type ProgressCallback, noopProgress, progress } from "../progress";
 
 export type ParanoidScrubReport = {
   pageCount: number;
@@ -34,15 +35,22 @@ export type ParanoidScrubReport = {
   };
 };
 
-export async function paranoidScrubPdf(inputBytes: Uint8Array): Promise<{
+export async function paranoidScrubPdf(
+  inputBytes: Uint8Array,
+  onProgress: ProgressCallback = noopProgress,
+): Promise<{
   outputBytes: Uint8Array;
   report: ParanoidScrubReport;
 }> {
   // Step 1: Run base deep scrub (includes EXIF strip)
-  const { outputBytes: scrubbed, report: baseReport } =
-    await deepScrubPdf(inputBytes);
+  // Deep scrub gets 0–0.5 of the total progress
+  const { outputBytes: scrubbed, report: baseReport } = await deepScrubPdf(
+    inputBytes,
+    (u) => onProgress({ ...u, fraction: u.fraction !== null ? u.fraction * 0.5 : null }),
+  );
 
   // Step 2: Load scrubbed output for additional paranoid removals
+  onProgress(progress("paranoid-cleanup", 0.55));
   const doc = await PDFDocument.load(scrubbed, { updateMetadata: false });
 
   const paranoid = {
@@ -115,8 +123,10 @@ export async function paranoidScrubPdf(inputBytes: Uint8Array): Promise<{
   doc.setProducer("PDF");
   paranoid.producerNormalized = true;
 
+  onProgress(progress("saving", 0.7));
   let finalBytes = new Uint8Array(await doc.save());
 
+  onProgress(progress("stripping-exif", 0.75));
   // Step 3: Additional EXIF strip pass on final output
   let exifStripReport = baseReport.exifStripReport;
   try {
@@ -132,6 +142,7 @@ export async function paranoidScrubPdf(inputBytes: Uint8Array): Promise<{
     // best effort
   }
 
+  onProgress(progress("randomizing", 0.85));
   // Randomize internal object structure to prevent tool fingerprinting
   try {
     const result = await randomizeStructure(finalBytes);
@@ -140,6 +151,7 @@ export async function paranoidScrubPdf(inputBytes: Uint8Array): Promise<{
     // best effort
   }
 
+  onProgress(progress("verifying", 1));
   return {
     outputBytes: finalBytes,
     report: {

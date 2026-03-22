@@ -1,6 +1,7 @@
 import { runAudited } from "./auditRunner";
 import { createSandbox } from "./sandbox/sandboxBridge";
 import type { AuditReport } from "./types";
+import type { ProgressCallback } from "../progress";
 
 export async function processAudited(opts: {
   toolName: string;
@@ -12,6 +13,8 @@ export async function processAudited(opts: {
   processFn?: (
     input: Uint8Array,
   ) => Promise<{ outputBytes: Uint8Array; [k: string]: unknown }>;
+  /** Progress callback for UI feedback */
+  onProgress?: ProgressCallback;
 }): Promise<{
   outputBytes: Uint8Array;
   toolReport: unknown;

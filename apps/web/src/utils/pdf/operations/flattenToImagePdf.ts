@@ -1,12 +1,14 @@
 import { PDFDocument } from "pdf-lib";
 import type { PdfOperation } from "./types";
 import { randomizeStructure } from "../structureRandomize";
+import { type ProgressCallback, noopProgress, progress } from "../../progress";
 
 export type FlattenToImageInput = {
   pdfBytes: Uint8Array;
   dpi: number;
   format: "png" | "jpeg";
   jpegQuality?: number;
+  onProgress?: ProgressCallback;
 };
 
 export type FlattenToImageOutput = {
@@ -24,7 +26,9 @@ export const flattenToImagePdf: PdfOperation<FlattenToImageInput, FlattenToImage
   dpi,
   format,
   jpegQuality = 0.92,
+  onProgress = noopProgress,
 }) => {
+  onProgress(progress("loading", 0.05));
   const scale = dpi / 72;
   const pdfjsLib = await import("pdfjs-dist");
   const workerUrl = (await import("pdfjs-dist/build/pdf.worker.min.mjs?url")).default;
@@ -38,6 +42,9 @@ export const flattenToImagePdf: PdfOperation<FlattenToImageInput, FlattenToImage
   const mime = format === "jpeg" ? "image/jpeg" : "image/png";
 
   for (let i = 1; i <= pageCount; i++) {
+    // Rendering is ~80% of the work (0.1–0.9 range)
+    const pageFraction = 0.1 + (i - 1) / pageCount * 0.8;
+    onProgress(progress("rendering-page", pageFraction, { pageCount, currentPage: i }));
     const page = await srcDoc.getPage(i);
     const viewport = page.getViewport({ scale });
 
@@ -75,6 +82,7 @@ export const flattenToImagePdf: PdfOperation<FlattenToImageInput, FlattenToImage
     canvas.height = 0;
   }
 
+  onProgress(progress("saving", 0.92, { pageCount }));
   // Clear all metadata
   outDoc.setTitle("");
   outDoc.setAuthor("");
@@ -89,6 +97,7 @@ export const flattenToImagePdf: PdfOperation<FlattenToImageInput, FlattenToImage
     await outDoc.save({ useObjectStreams: true, addDefaultPage: false }),
   );
 
+  onProgress(progress("randomizing", 0.96, { pageCount }));
   // Randomize internal object structure to prevent tool fingerprinting
   try {
     const result = await randomizeStructure(outputBytes);
@@ -97,6 +106,7 @@ export const flattenToImagePdf: PdfOperation<FlattenToImageInput, FlattenToImage
     // Best-effort: if randomization fails, continue with original output
   }
 
+  onProgress(progress("verifying", 1, { pageCount }));
   return { outputBytes, pageCount, format, dpi };
 };
 

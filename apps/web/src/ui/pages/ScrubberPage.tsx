@@ -13,6 +13,7 @@ import { bytesToHex } from "../../utils/hex";
 import { toArrayBuffer } from "../../utils/toArrayBuffer";
 import { processAudited } from "../../utils/vpe/processAudited";
 import type { AuditReport } from "../../utils/vpe/types";
+import type { ProgressUpdate } from "../../utils/progress";
 import { PdfDropZone } from "../components/PdfDropZone";
 import { Surface } from "../components/Surface";
 import { AuditBadge } from "../components/vpe/AuditBadge";
@@ -22,6 +23,7 @@ export function ScrubberPage() {
   const [file, setFile] = React.useState<File | null>(null);
   const [paranoidMode, setParanoidMode] = React.useState(false);
   const [busy, setBusy] = React.useState(false);
+  const [progressInfo, setProgressInfo] = React.useState<ProgressUpdate | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [result, setResult] = React.useState<{
     url: string;
@@ -39,6 +41,7 @@ export function ScrubberPage() {
     setBusy(true);
     setError(null);
     setResult(null);
+    setProgressInfo(null);
     try {
       if (!allowed) {
         throw new Error("Usage limit reached. Create a passkey account to continue.");
@@ -48,7 +51,10 @@ export function ScrubberPage() {
         toolName: paranoidMode ? "paranoid-scrub" : "deep-scrub",
         inputBytes,
         processFn: async (bytes) =>
-          paranoidMode ? paranoidScrubPdf(bytes) : deepScrubPdf(bytes),
+          paranoidMode
+            ? paranoidScrubPdf(bytes, setProgressInfo)
+            : deepScrubPdf(bytes, setProgressInfo),
+        onProgress: setProgressInfo,
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- scrub report shape varies
       const scrubReport = (toolReport as any).report ?? toolReport;
@@ -64,6 +70,7 @@ export function ScrubberPage() {
       setError(e instanceof Error ? e.message : "Scrub failed");
     } finally {
       setBusy(false);
+      setProgressInfo(null);
     }
   }
 
@@ -133,7 +140,10 @@ export function ScrubberPage() {
       </Card>
 
       {busy && (
-        <ProcessingIndicator label={paranoidMode ? "Paranoid scrub running" : "Scrubbing metadata"} />
+        <ProcessingIndicator
+          label={paranoidMode ? "Paranoid scrub running" : "Scrubbing metadata"}
+          progress={progressInfo}
+        />
       )}
 
       {error ? (
