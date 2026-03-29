@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, ScrollRestoration } from "react-router-dom";
 import { AuthProvider } from "../ui/auth/AuthProvider";
 import { NoTraceProvider, useNoTrace } from "./contexts/NoTraceContext";
 import { Footer } from "./Footer";
@@ -120,6 +120,7 @@ export function AppShell() {
             </div>
           </header>
 
+          <ScrollRestoration />
           <main className="mx-auto max-w-5xl px-4 py-10">
             <Outlet />
           </main>
