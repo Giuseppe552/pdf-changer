@@ -17,6 +17,7 @@ import { runAudited } from "../../../utils/vpe/auditRunner";
 import type { AuditReport } from "../../../utils/vpe/types";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
 import { AuditBadge } from "../../components/vpe/AuditBadge";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 
 const AVAILABLE_STEPS: PipelineStepType[] = [
   "scrub",
@@ -238,6 +239,8 @@ export function PipelineToolPage() {
           </Button>
         </div>
       </Card>
+
+      {busy && <ProcessingIndicator label="Running pipeline" />}
 
       {result ? (
         <Card title="Pipeline report">

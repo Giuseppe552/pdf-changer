@@ -10,6 +10,7 @@ import { runAudited } from "../../../utils/vpe/auditRunner";
 import type { AuditReport } from "../../../utils/vpe/types";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
 import { AuditBadge } from "../../components/vpe/AuditBadge";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 
 type ImageItem = { id: string; file: File };
 
@@ -156,6 +157,8 @@ export function ImageToPdfToolPage() {
           </Button>
         </div>
       </Card>
+
+      {busy && <ProcessingIndicator label="Converting to PDF" />}
 
       {auditReport ? <AuditBadge report={auditReport} /> : null}
       {out ? <ResultDownloadPanel files={[out]} /> : null}

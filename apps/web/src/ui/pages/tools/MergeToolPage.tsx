@@ -9,6 +9,7 @@ import type { AuditReport } from "../../../utils/vpe/types";
 import { PdfDropZone } from "../../components/PdfDropZone";
 import { AuditBadge } from "../../components/vpe/AuditBadge";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 
 type MergeItem = {
   id: string;
@@ -169,6 +170,8 @@ export function MergeToolPage() {
           </div>
         </div>
       </Card>
+
+      {busy && <ProcessingIndicator label="Merging PDFs" />}
       {auditReport ? <AuditBadge report={auditReport} /> : null}
       {error ? (
         <Card title="Error">

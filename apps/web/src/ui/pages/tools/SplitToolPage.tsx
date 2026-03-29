@@ -11,6 +11,7 @@ import { PdfDropZone } from "../../components/PdfDropZone";
 import { AuditBadge } from "../../components/vpe/AuditBadge";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { ResultDownloadPanel, type ToolOutputFile } from "./components/ResultDownloadPanel";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 
 export function SplitToolPage() {
   const { me } = useAuth();
@@ -228,6 +229,8 @@ export function SplitToolPage() {
           </div>
         </div>
       </Card>
+
+      {busy && <ProcessingIndicator label="Splitting pages" />}
 
       {auditReport ? <AuditBadge report={auditReport} /> : null}
       <ResultDownloadPanel title="Downloads" files={outs} zipName="split-outputs.zip" />

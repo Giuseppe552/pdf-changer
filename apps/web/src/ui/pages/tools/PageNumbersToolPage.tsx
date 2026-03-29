@@ -13,6 +13,7 @@ import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
 import { processAudited } from "../../../utils/vpe/processAudited";
 import type { AuditReport } from "../../../utils/vpe/types";
 import { AuditBadge } from "../../components/vpe/AuditBadge";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 
 export function PageNumbersToolPage() {
   const { me } = useAuth();
@@ -119,6 +120,8 @@ export function PageNumbersToolPage() {
           </Button>
         </div>
       </Card>
+
+      {busy && <ProcessingIndicator label="Adding page numbers" />}
 
       {auditReport ? <AuditBadge report={auditReport} /> : null}
       {out ? <ResultDownloadPanel files={[out]} /> : null}

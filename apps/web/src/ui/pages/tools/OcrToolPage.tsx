@@ -7,6 +7,7 @@ import { Surface } from "../../components/Surface";
 import { ocrPdf, type OcrPdfOutput } from "../../../utils/pdf/operations/ocrPdf";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 
 const LANGUAGES = [
   { value: "eng", label: "English" },
@@ -129,6 +130,8 @@ export function OcrToolPage() {
           </Button>
         </div>
       </Card>
+
+      {busy && <ProcessingIndicator label="Running OCR" />}
 
       {progress ? (
         <Card title="Progress">

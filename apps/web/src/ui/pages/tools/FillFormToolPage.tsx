@@ -14,6 +14,7 @@ import { processAudited } from "../../../utils/vpe/processAudited";
 import type { AuditReport } from "../../../utils/vpe/types";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
 import { AuditBadge } from "../../components/vpe/AuditBadge";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 
 type Phase = "upload" | "fill" | "done";
 
@@ -128,6 +129,8 @@ export function FillFormToolPage() {
           </div>
         </Card>
       ) : null}
+
+      {busy && <ProcessingIndicator label="Analyzing form" />}
 
       {phase === "fill" ? (
         <>

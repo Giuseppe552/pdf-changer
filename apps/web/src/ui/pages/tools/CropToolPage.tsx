@@ -10,6 +10,7 @@ import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
 import { processAudited } from "../../../utils/vpe/processAudited";
 import type { AuditReport } from "../../../utils/vpe/types";
 import { AuditBadge } from "../../components/vpe/AuditBadge";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 
 type ApplyTo = "all" | "range";
 type MarginMode = "uniform" | "per-side";
@@ -188,6 +189,8 @@ export function CropToolPage() {
           </Button>
         </div>
       </Card>
+
+      {busy && <ProcessingIndicator label="Cropping" />}
 
       {summary ? (
         <Card title="Result summary">

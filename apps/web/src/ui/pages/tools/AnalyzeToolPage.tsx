@@ -8,6 +8,7 @@ import { InlineCode } from "../../components/InlineCode";
 import { PdfDropZone } from "../../components/PdfDropZone";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { analyzePdf, type ForensicReport, type Finding, type RiskLevel } from "../../../utils/pdf/analyzePdf";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 
 function formatBytes(n: number): string {
   if (n <= 0) return "0 B";
@@ -100,6 +101,8 @@ export function AnalyzeToolPage() {
           </Button>
         </div>
       </Card>
+
+      {busy && <ProcessingIndicator label="Analyzing PDF" />}
 
       {error ? (
         <Card title="Error" variant="danger">

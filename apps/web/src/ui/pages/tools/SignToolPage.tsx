@@ -12,6 +12,7 @@ import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
 import { processAudited } from "../../../utils/vpe/processAudited";
 import type { AuditReport } from "../../../utils/vpe/types";
 import { AuditBadge } from "../../components/vpe/AuditBadge";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 
 type WidthChoice = 0.2 | 0.25 | 0.3 | 0.4 | 0.5;
 
@@ -161,6 +162,8 @@ export function SignToolPage() {
           </Button>
         </div>
       </Card>
+
+      {busy && <ProcessingIndicator label="Applying signature" />}
 
       {auditReport ? <AuditBadge report={auditReport} /> : null}
       {out ? <ResultDownloadPanel files={[out]} /> : null}

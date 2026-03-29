@@ -10,6 +10,7 @@ import { runAudited } from "../../../utils/vpe/auditRunner";
 import type { AuditReport } from "../../../utils/vpe/types";
 import { ResultDownloadPanel, type ToolOutputFile } from "./components/ResultDownloadPanel";
 import { AuditBadge } from "../../components/vpe/AuditBadge";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 
 export function PdfToImageToolPage() {
   const { me } = useAuth();
@@ -205,6 +206,8 @@ export function PdfToImageToolPage() {
           </Button>
         </div>
       </Card>
+
+      {busy && <ProcessingIndicator label="Exporting images" />}
 
       {auditReport ? <AuditBadge report={auditReport} /> : null}
 
