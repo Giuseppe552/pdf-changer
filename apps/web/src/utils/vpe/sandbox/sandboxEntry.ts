@@ -55,6 +55,11 @@ const TOOLS: Record<string, ToolFn> = {
 };
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
+// Signal to the parent that the sandbox is loaded and ready to receive work
+if (self.parent) {
+  (self.parent as WindowProxy).postMessage({ type: "ready" }, "*");
+}
+
 self.addEventListener("message", async (e: MessageEvent) => {
   const { id, toolName, inputBytes, config } = e.data;
   try {

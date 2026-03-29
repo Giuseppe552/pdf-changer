@@ -10,6 +10,7 @@ import type { AuditReport } from "../../../utils/vpe/types";
 import { PdfDropZone } from "../../components/PdfDropZone";
 import { AuditBadge } from "../../components/vpe/AuditBadge";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
 
 type PageState = {
   idx: number; // 0-based source index
@@ -44,7 +45,7 @@ export function PageEditorToolPage() {
     setOut(null);
     try {
       const bytes = new Uint8Array(await file.arrayBuffer());
-      const thumbs = await loadPdfThumbnails(bytes, { scale: 0.18, maxPages: 60 });
+      const { thumbs } = await loadPdfThumbnails(bytes, { scale: 0.18, maxPages: 60 });
       setPages(
         thumbs.map((t) => ({
           idx: t.pageIndex,
@@ -171,7 +172,7 @@ export function PageEditorToolPage() {
               </a>
             ) : null}
           </div>
-          {busy ? <div className="text-sm text-[var(--ui-text-muted)]">Working…</div> : null}
+          {busy && <ProcessingIndicator label="Processing pages" />}
         </div>
       </Card>
 

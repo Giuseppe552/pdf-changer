@@ -1,9 +1,14 @@
 type Thumb = { pageIndex: number; dataUrl: string };
 
+export type ThumbnailResult = {
+  thumbs: Thumb[];
+  pageCount: number;
+};
+
 export async function loadPdfThumbnails(
   pdfBytes: Uint8Array,
   opts: { scale: number; maxPages: number },
-): Promise<Thumb[]> {
+): Promise<ThumbnailResult> {
   const { scale, maxPages } = opts;
 
   // Lazy-load pdf.js only when needed.
@@ -30,5 +35,5 @@ export async function loadPdfThumbnails(
     thumbs.push({ pageIndex: i - 1, dataUrl: canvas.toDataURL("image/png") });
   }
 
-  return thumbs;
+  return { thumbs, pageCount: doc.numPages };
 }

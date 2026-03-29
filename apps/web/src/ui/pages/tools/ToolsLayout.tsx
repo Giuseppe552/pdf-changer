@@ -1,9 +1,15 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { gaTools } from "../../../content/tools/toolRegistry";
+import { preloadSandbox } from "../../../utils/vpe/sandbox/sandboxBridge";
 
 export function ToolsLayout() {
   const quickTabs = gaTools().filter((tool) => tool.featured);
+
+  // Warm up the sandbox iframe so tools respond instantly when the user clicks process
+  React.useEffect(() => {
+    preloadSandbox();
+  }, []);
 
   return (
     <div className="space-y-6">

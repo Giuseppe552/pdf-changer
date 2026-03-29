@@ -10,6 +10,8 @@ import { processAudited } from "../../../utils/vpe/processAudited";
 import type { AuditReport } from "../../../utils/vpe/types";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
 import { AuditBadge } from "../../components/vpe/AuditBadge";
+import { ProcessingIndicator } from "../../components/ProcessingIndicator";
+import { PdfPreview } from "../../components/PdfPreview";
 
 function formatBytes(bytes: number): string {
   if (bytes <= 0) return "0 B";
@@ -92,11 +94,14 @@ export function CompressToolPage() {
             onFiles={(files) => setFile(files[0] ?? null)}
             disabled={busy}
           />
+          {file && !result && <PdfPreview file={file} />}
           <Button onClick={run} disabled={!file || busy}>
             {busy ? "Compressing…" : "Compress locally"}
           </Button>
         </div>
       </Card>
+
+      {busy && <ProcessingIndicator label="Compressing" />}
 
       {result ? (
         <Card title="Compression report">
