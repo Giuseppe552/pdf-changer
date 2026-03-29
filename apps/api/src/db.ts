@@ -256,6 +256,38 @@ export async function getRecoveryShareHashes(
   return result.results;
 }
 
+export async function getCredentialsByUserId(
+  db: D1Database,
+  userId: string,
+): Promise<Array<Pick<CredentialRow, "id" | "credential_id" | "transports" | "created_at" | "last_used_at">>> {
+  const result = await db
+    .prepare(
+      "SELECT id, credential_id, transports, created_at, last_used_at FROM webauthn_credentials WHERE user_id = ?1 ORDER BY created_at",
+    )
+    .bind(userId)
+    .all<Pick<CredentialRow, "id" | "credential_id" | "transports" | "created_at" | "last_used_at">>();
+  return result.results;
+}
+
+export async function deleteCredentialById(
+  db: D1Database,
+  id: string,
+  userId: string,
+): Promise<boolean> {
+  const result = await db
+    .prepare("DELETE FROM webauthn_credentials WHERE id = ?1 AND user_id = ?2")
+    .bind(id, userId)
+    .run();
+  return (result.meta?.changes ?? 0) > 0;
+}
+
+export async function deleteUserAndData(db: D1Database, userId: string): Promise<void> {
+  await db.prepare("DELETE FROM recovery_codes WHERE user_id = ?1").bind(userId).run();
+  await db.prepare("DELETE FROM recovery_schemes WHERE user_id = ?1").bind(userId).run();
+  await db.prepare("DELETE FROM webauthn_credentials WHERE user_id = ?1").bind(userId).run();
+  await db.prepare("DELETE FROM users WHERE id = ?1").bind(userId).run();
+}
+
 export async function upsertNewsletterSubscriber(
   db: D1Database,
   row: { id: string; created_at: string; email_hash: string; email_enc: string },

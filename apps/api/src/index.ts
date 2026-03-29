@@ -10,7 +10,7 @@ import {
   verifySignedCookie,
   type SessionPayload,
 } from "./session";
-import { createUser, getUserById, hasAnyRecoveryCodes, insertRecoveryCode, insertRecoveryScheme, getRecoveryScheme, getRecoveryShareHashes } from "./db";
+import { createUser, getUserById, hasAnyRecoveryCodes, insertRecoveryCode, insertRecoveryScheme, getRecoveryScheme, getRecoveryShareHashes, getCredentialsByUserId, deleteCredentialById, deleteUserAndData } from "./db";
 import { makeAuthenticationOptions, makeRegistrationOptions, verifyAndStoreRegistration, verifyAuthentication } from "./webauthn";
 import { aesGcmEncryptToBase64Url, base64DecodeAny, base64urlEncode, hmacSha256, sha256Bytes, utf8 } from "./crypto";
 import { consumeRecoveryCode, consumeRecoveryCodes, lookupRecoveryCode, upsertNewsletterSubscriber, upsertUserStripe } from "./db";
@@ -586,6 +586,75 @@ app.post("/v1/newsletter/subscribe", async (c) => {
     email_hash: emailHash,
     email_enc: emailEnc,
   });
+
+  return c.json({ ok: true });
+});
+
+// List passkeys for the authenticated user
+app.get("/v1/credentials", async (c) => {
+  requireSameOrigin(c);
+  const env = getEnv(c.env);
+  const session = await getSession(c);
+  if (!session) return c.text("Unauthorized", 401);
+  const rows = await getCredentialsByUserId(env.DB, session.userId);
+  return c.json({
+    credentials: rows.map((r) => ({
+      id: r.id,
+      createdAt: r.created_at,
+      lastUsedAt: r.last_used_at,
+      transports: r.transports ? r.transports.split(",") : [],
+    })),
+  });
+});
+
+// Remove a passkey (must keep at least one)
+app.delete("/v1/credentials/:id", async (c) => {
+  requireSameOrigin(c);
+  const env = getEnv(c.env);
+  const session = await getSession(c);
+  if (!session) return c.text("Unauthorized", 401);
+  const all = await getCredentialsByUserId(env.DB, session.userId);
+  if (all.length <= 1) return c.text("Cannot remove your only passkey", 400);
+  const deleted = await deleteCredentialById(env.DB, c.req.param("id"), session.userId);
+  if (!deleted) return c.text("Not found", 404);
+  return c.json({ ok: true });
+});
+
+// Delete account and all associated data
+app.post("/v1/account/delete", async (c) => {
+  requireSameOrigin(c);
+  const env = getEnv(c.env);
+  const rl = await enforceRateLimit(c, { name: "account-delete", limit: 3 });
+  if (rl) return rl;
+  const session = await getSession(c);
+  if (!session) return c.text("Unauthorized", 401);
+
+  // Cancel Stripe subscription if active
+  const user = await getUserById(env.DB, session.userId);
+  if (user?.stripe_subscription_id) {
+    try {
+      const stripe = stripeClient(env);
+      if (stripe) await stripe.subscriptions.cancel(user.stripe_subscription_id);
+    } catch {
+      // Subscription may already be cancelled — continue with deletion
+    }
+  }
+
+  await deleteUserAndData(env.DB, session.userId);
+
+  // Clear session cookie
+  const secure = cookieSecure(env);
+  const names = cookieNames(secure);
+  setCookie(
+    c,
+    serializeCookie(names.session, "", {
+      httpOnly: true,
+      secure,
+      sameSite: "Strict",
+      path: "/",
+      maxAgeSeconds: 0,
+    }),
+  );
 
   return c.json({ ok: true });
 });
