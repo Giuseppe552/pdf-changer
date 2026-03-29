@@ -121,5 +121,23 @@ export const api = {
       body: JSON.stringify({ email }),
     }),
 
+  listCredentials: () =>
+    fetchJson<{
+      credentials: Array<{
+        id: string;
+        createdAt: string;
+        lastUsedAt: string | null;
+        transports: string[];
+      }>;
+    }>("/v1/credentials"),
+
+  deleteCredential: (id: string) =>
+    fetchJson<{ ok: true }>(`/v1/credentials/${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    }),
+
+  deleteAccount: () =>
+    fetchJson<{ ok: true }>("/v1/account/delete", { method: "POST" }),
+
   health: () => fetchJson<{ ok: true }>("/v1/health"),
 };
