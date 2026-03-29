@@ -78,7 +78,7 @@ export function AuditReportPanel({ report }: { report: AuditReport }) {
           <div className="space-y-1 text-[15px] text-[var(--ui-text-secondary)]">
             {report.monitors.map((m) => (
               <div key={m} className="flex items-center gap-2">
-                <span className="text-green-700">&#10003;</span>
+                <span className="text-emerald-400">&#10003;</span>
                 <span className="capitalize">{m}</span>
                 <span className="text-[var(--ui-text-muted)]">— clean</span>
               </div>
