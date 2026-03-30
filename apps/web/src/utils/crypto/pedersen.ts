@@ -36,17 +36,17 @@ const H_DOMAIN = "PDFChanger_Pedersen_H_v1";
  * Derive the second generator H via hash-to-ristretto255.
  * Nobody knows k where H = kG, so binding is guaranteed.
  */
-type RistrettoPointType = InstanceType<typeof RistrettoPoint>;
+type Point = InstanceType<typeof RistrettoPoint>;
 
-function deriveH(): RistrettoPointType {
+function deriveH(): Point {
   const domainBytes = new TextEncoder().encode(H_DOMAIN);
-  return ristretto255_hasher.hashToCurve(domainBytes) as RistrettoPointType;
+  return ristretto255_hasher.hashToCurve(domainBytes);
 }
 
 /** Cached H generator (computed once). */
-let cachedH: RistrettoPointType | null = null;
+let cachedH: Point | null = null;
 
-function getH(): RistrettoPointType {
+function getH(): Point {
   if (!cachedH) {
     cachedH = deriveH();
   }
