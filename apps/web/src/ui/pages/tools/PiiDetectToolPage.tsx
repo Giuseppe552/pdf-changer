@@ -8,6 +8,7 @@ import { Surface } from "../../components/Surface";
 import { pdfToImage } from "../../../utils/pdf/operations/pdfToImage";
 import { redactPdf, type RedactionRect } from "../../../utils/pdf/operations/redactPdf";
 import { detectPii, type PiiDetection, type PiiType } from "../../../utils/pdf/piiDetect";
+import { loadNerModel, isNerModelLoaded } from "../../../utils/pdf/nerDetect";
 import { canUseTool, incrementToolUse } from "../../../utils/usageV2";
 import { toArrayBuffer } from "../../../utils/toArrayBuffer";
 import { ResultDownloadPanel } from "./components/ResultDownloadPanel";
@@ -29,6 +30,9 @@ const TYPE_LABELS: Record<PiiType, string> = {
   "date-of-birth": "Date of birth",
   "ip-address": "IP address",
   passport: "Passport number",
+  person: "Person name",
+  organization: "Organization",
+  location: "Location",
 };
 
 const TYPE_COLORS: Record<PiiType, string> = {
@@ -39,9 +43,13 @@ const TYPE_COLORS: Record<PiiType, string> = {
   "date-of-birth": "#a78bfa",
   "ip-address": "#6366f1",
   passport: "#ec4899",
+  person: "#10b981",
+  organization: "#14b8a6",
+  location: "#8b5cf6",
 };
 
 const ALL_TYPES: PiiType[] = [
+  "person", "organization", "location",
   "ssn", "phone", "email", "credit-card", "date-of-birth", "ip-address", "passport",
 ];
 
@@ -64,11 +72,34 @@ export function PiiDetectToolPage() {
     redactedPageCount: number;
   } | null>(null);
   const [auditReport, setAuditReport] = React.useState<AuditReport | null>(null);
+  const [nerEnabled, setNerEnabled] = React.useState(false);
+  const [nerLoading, setNerLoading] = React.useState(false);
+  const [nerProgress, setNerProgress] = React.useState(0);
+  const [nerReady, setNerReady] = React.useState(() => isNerModelLoaded());
 
   React.useEffect(
     () => () => { if (result?.url) URL.revokeObjectURL(result.url); },
     [result],
   );
+
+  async function toggleNer() {
+    if (nerReady) {
+      setNerEnabled((v) => !v);
+      return;
+    }
+    // First time: download and load the model
+    setNerLoading(true);
+    setNerProgress(0);
+    try {
+      await loadNerModel((p) => setNerProgress(p));
+      setNerReady(true);
+      setNerEnabled(true);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load AI model");
+    } finally {
+      setNerLoading(false);
+    }
+  }
 
   // --- actions ---
 
@@ -205,7 +236,32 @@ export function PiiDetectToolPage() {
               files={file ? [file] : []}
               onFiles={(files) => setFile(files[0] ?? null)}
             />
-            <Button onClick={scan} disabled={!file}>Scan for PII</Button>
+            {/* NER model toggle */}
+            <div className="flex items-center gap-3 rounded-md border border-[var(--ui-border)] px-4 py-3">
+              <input
+                type="checkbox"
+                checked={nerEnabled}
+                onChange={toggleNer}
+                disabled={nerLoading}
+                className="h-4 w-4 rounded accent-[var(--ui-accent)]"
+                id="ner-toggle"
+              />
+              <label htmlFor="ner-toggle" className="flex-1 cursor-pointer">
+                <div className="text-[14px] font-medium text-[var(--ui-text)]">
+                  AI name detection
+                  {nerReady && <span className="ml-2 text-[11px] text-emerald-400">ready</span>}
+                </div>
+                <div className="text-[12px] text-[var(--ui-text-muted)]">
+                  {nerLoading
+                    ? `Downloading model... ${nerProgress}%`
+                    : nerReady
+                      ? "BERT NER model loaded. Detects person names, organizations, and locations."
+                      : "Downloads a ~65 MB AI model on first use (cached after). Detects person names, organizations, and locations that regex can't catch."}
+                </div>
+              </label>
+            </div>
+
+            <Button onClick={scan} disabled={!file || nerLoading}>Scan for PII</Button>
           </div>
         </Card>
       )}

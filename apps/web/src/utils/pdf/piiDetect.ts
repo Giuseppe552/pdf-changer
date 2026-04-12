@@ -4,6 +4,7 @@
 // compatible with RedactionRect.
 
 import type { RedactionRect } from "./operations/redactPdf";
+import { isNerModelLoaded, runNer } from "./nerDetect";
 
 export type PiiType =
   | "ssn"
@@ -12,7 +13,10 @@ export type PiiType =
   | "credit-card"
   | "date-of-birth"
   | "ip-address"
-  | "passport";
+  | "passport"
+  | "person"
+  | "organization"
+  | "location";
 
 export type PiiDetection = {
   pageIndex: number;
@@ -299,17 +303,47 @@ export async function detectPii(
     if (pageText.items.length > 0) hasText = true;
     if (!pageText.fullText.trim()) continue;
 
-    const matches = runPatterns(pageText.fullText);
-
-    for (const match of matches) {
+    // Layer 1: regex patterns (SSN, phone, email, etc.)
+    const regexMatches = runPatterns(pageText.fullText);
+    for (const match of regexMatches) {
       const detection = mapSpanToRect(
         match,
         pageText.items,
         pageText.pageWidth,
         pageText.pageHeight,
-        i - 1, // 0-based
+        i - 1,
       );
       if (detection) detections.push(detection);
+    }
+
+    // Layer 2: NER model (person names, organizations, locations)
+    // Only runs if the model has been loaded via loadNerModel()
+    if (isNerModelLoaded()) {
+      const NER_TYPE_MAP: Record<string, PiiType> = {
+        PER: "person",
+        ORG: "organization",
+        LOC: "location",
+      };
+
+      const entities = await runNer(pageText.fullText);
+      for (const ent of entities) {
+        const piiType = NER_TYPE_MAP[ent.entity_group];
+        if (!piiType) continue; // skip MISC
+        const detection = mapSpanToRect(
+          {
+            type: piiType,
+            start: ent.start,
+            end: ent.end,
+            value: ent.word,
+            confidence: ent.score,
+          },
+          pageText.items,
+          pageText.pageWidth,
+          pageText.pageHeight,
+          i - 1,
+        );
+        if (detection) detections.push(detection);
+      }
     }
   }
 

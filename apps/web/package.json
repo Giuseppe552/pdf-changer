@@ -19,6 +19,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@huggingface/transformers": "^4.0.1",
     "@noble/curves": "^2.0.1",
     "@noble/hashes": "^2.0.1",
     "@pdf-changer/shared": "0.1.0",
