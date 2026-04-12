@@ -144,6 +144,10 @@ const RedactToolPageLazy = lazyNamed(
   () => import("./ui/pages/tools/RedactToolPage"),
   "RedactToolPage",
 );
+const PiiDetectToolPageLazy = lazyNamed(
+  () => import("./ui/pages/tools/PiiDetectToolPage"),
+  "PiiDetectToolPage",
+);
 const PipelineToolPageLazy = lazyNamed(
   () => import("./ui/pages/tools/PipelineToolPage"),
   "PipelineToolPage",
@@ -297,6 +301,7 @@ export const router = createBrowserRouter([
           { path: "unlock", element: withSuspense(<UnlockToolPageLazy />) },
           { path: "flatten", element: withSuspense(<FlattenToolPageLazy />) },
           { path: "redact", element: withSuspense(<RedactToolPageLazy />) },
+          { path: "pii-detect", element: withSuspense(<PiiDetectToolPageLazy />) },
           { path: "pipeline", element: withSuspense(<PipelineToolPageLazy />) },
           { path: "rotate", element: withSuspense(<RotateToolPageLazy />) },
           { path: "crop", element: withSuspense(<CropToolPageLazy />) },

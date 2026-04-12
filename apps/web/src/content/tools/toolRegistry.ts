@@ -19,7 +19,8 @@ export type ToolSlug =
   | "sign"
   | "fill-form"
   | "ocr"
-  | "analyze";
+  | "analyze"
+  | "pii-detect";
 
 export type ToolTier = "guest" | "free" | "paid";
 export type ToolBucket = "core" | "heavy";
@@ -514,6 +515,25 @@ export const toolRegistry: ToolDefinition[] = [
       keywords: ["pdf analyzer", "pdf forensic", "pdf metadata scanner", "pdf privacy check"],
     },
     related: ANALYZE_RELATED,
+  },
+  {
+    slug: "pii-detect",
+    name: "PII Detection",
+    description: "Auto-detect SSNs, phone numbers, emails, and credit cards in a PDF. Review and redact.",
+    category: "privacy",
+    minTier: "guest",
+    bucket: "core",
+    processingMode: "local",
+    status: "beta",
+    availability: "fully-functional",
+    featured: true,
+    enabled: true,
+    seo: {
+      title: "PDF PII Detection — Auto-Find Sensitive Data",
+      description: "Automatically detect Social Security numbers, phone numbers, email addresses, and credit card numbers in PDFs. Review detections and redact with one click. Everything runs in your browser.",
+      keywords: ["pdf pii detection", "pdf redact ssn", "auto redact pdf", "sensitive data scanner", "pdf privacy"],
+    },
+    related: SHARED_RELATED,
   },
 ];
 
