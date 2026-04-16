@@ -225,6 +225,12 @@ export const router = createBrowserRouter([
           <MarkdownContentPageLazy section="legal" slug="refund-policy" />,
         ),
       },
+      {
+        path: "acceptable-use",
+        element: withSuspense(
+          <MarkdownContentPageLazy section="legal" slug="acceptable-use" />,
+        ),
+      },
       { path: "faq", element: withSuspense(<FaqHubPageLazy />) },
       { path: "faq/:topic", element: withSuspense(<FaqTopicPageLazy />) },
       { path: "faq/:topic/:slug", element: withSuspense(<FaqQuestionPageLazy />) },
